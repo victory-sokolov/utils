@@ -1,0 +1,26 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "commonjs": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "prettier/@typescript-eslint",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "@typescript-eslint/consistent-type-definitions": [
+            "warn",
+            "type"
+        ],
+        "import/no-extraneous-dependencies": "warn",
+        "no-sequences": "error",
+        "no-constant-binary-expression": "error",
+        "@typescript-eslint/no-var-requires": "error"
+    }
+}
