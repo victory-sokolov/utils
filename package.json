@@ -21,8 +21,8 @@
         "typescript utils",
         "javascript utils"
     ],
-    "main": "./dist/main.js",
-    "module": "./dist/main.mjs",
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
     "typings": "./dist/index.d.ts",
     "exports": {
         ".": {
