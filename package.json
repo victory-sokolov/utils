@@ -2,6 +2,7 @@
     "name": "@victory/utils",
     "version": "0.1.0",
     "license": "MIT",
+    "private": false,
     "type": "module",
     "description": "Various TypeScript/JavaScripts utils functions for node and browser",
     "author": {
