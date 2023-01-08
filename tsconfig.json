@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "strictNullChecks": true,
+        "stripInternal": true,
+        "strictFunctionTypes": true,
+        "noUnusedLocals": false,
+        "allowUnreachableCode": false,
+        "forceConsistentCasingInFileNames": true,
+        "sourceMap": true,
+        "lib": [
+            "es2021",
+            "DOM",
+        ],
+    },
+    "include": [
+        "src/**/*",
+        "tests/**/*",
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts",
+        "**/*.test.ts"
+    ]
+}
