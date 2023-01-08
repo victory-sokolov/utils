@@ -6,7 +6,6 @@
     },
     "extends": [
         "eslint:recommended",
-        "prettier/@typescript-eslint",
         "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
@@ -18,7 +17,9 @@
             "warn",
             "type"
         ],
-        "import/no-extraneous-dependencies": "warn",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/ban-types": "off",
         "no-sequences": "error",
         "no-constant-binary-expression": "error",
         "@typescript-eslint/no-var-requires": "error"
