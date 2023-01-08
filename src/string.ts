@@ -57,8 +57,7 @@ export const escapeHtml = (unsafe: string): string => {
  * @param str string to clean up
  * @returns string with zerowidth characters removed
  */
-export const removeZeroWidthSpace = (str: string): string =>
-    str.replace(/[\u200B-\u200D\uFEFF]/g, '');
+export const removeZeroWidthSpace = (str: string): string => str.replace(/[\u200B-\u200D\uFEFF]/g, '');
 
 /**
  * Check whether string ends with any item in the array
@@ -87,8 +86,7 @@ export const startsWithAny = (data: string, items: string[]): boolean => {
  */
 export const isValidUUID = (id: string): boolean => {
     // Regular expression to check if string is a valid UUID
-    const regexExp =
-        /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+    const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
     return regexExp.test(id);
 };
 

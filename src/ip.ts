@@ -4,8 +4,7 @@
  * @returns True if IPV4 is valid
  */
 export const isValidIPV4 = (ip: string): boolean => {
-    const regex =
-        /^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$/gm;
+    const regex = /^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$/gm;
     return regex.test(ip);
 };
 

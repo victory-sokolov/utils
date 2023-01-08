@@ -1,7 +1,6 @@
 import { DeviceType } from '../types';
 
-const devices =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+const devices = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
 
 /**
  * Data type to file
@@ -9,11 +8,7 @@ const devices =
  * @param fileName Output file name
  * @param contentType Output file type
  */
-export const dataToFile = (
-    content: ArrayBuffer,
-    fileName: string,
-    contentType: string
-): void => {
+export const dataToFile = (content: ArrayBuffer, fileName: string, contentType: string): void => {
     const a = document.createElement('a');
     const file = new Blob([content], { type: contentType });
     a.href = URL.createObjectURL(file);

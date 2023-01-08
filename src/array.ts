@@ -5,9 +5,7 @@ import { Collection, IndexCallback } from './types';
  * @param listOfArrays List of arrays to flatten
  * @returns flattened array
  */
-export const flattenArray = <T>(
-    listOfArrays: ReadonlyArray<T>
-): ReadonlyArray<T> => {
+export const flattenArray = <T>(listOfArrays: ReadonlyArray<T>): ReadonlyArray<T> => {
     return listOfArrays.reduce((res, arr) => {
         return [...res, ...(Array.isArray(arr) ? flattenArray(arr) : [arr])];
     }, [] as T[]);
@@ -28,10 +26,7 @@ export const unique = <T>(array: readonly T[]): Collection<T> => {
  * @param value
  * @returns array with removed items
  */
-export const removeItem = <T>(
-    array: Collection<T>,
-    values: T[]
-): Collection<T> => {
+export const removeItem = <T>(array: Collection<T>, values: T[]): Collection<T> => {
     return array.filter((item) => !values.includes(item));
 };
 
@@ -45,10 +40,7 @@ export const randomItem = <T>(arr: T[], count: number): Array<T> => {
     if (count === 0) return arr;
     if (count > arr.length) return arr;
 
-    return Array.from(
-        { length: count },
-        () => arr[Math.round(Math.random() * (arr.length - 1))]
-    );
+    return Array.from({ length: count }, () => arr[Math.round(Math.random() * (arr.length - 1))]);
 };
 
 /**
@@ -68,9 +60,7 @@ export const shuffleArray = <T>(arr: Collection<T>): Collection<T> => {
  * @param array Array of objects to sort
  * @returns Sorted array of objects
  */
-export const sortAsc = <T extends Record<string, T>>(
-    array: ReadonlyArray<T>
-): ReadonlyArray<T> => {
+export const sortAsc = <T extends Record<string, T>>(array: ReadonlyArray<T>): ReadonlyArray<T> => {
     return [...array].sort((a, b) => {
         if (a.key < b.key) {
             return -1;
@@ -88,11 +78,7 @@ export const sortAsc = <T extends Record<string, T>>(
  * @param value the value of the item to insert
  * @param arr the array to insert into
  */
-export const insertItemAtIndex = <T>(
-    index: number | IndexCallback<T>,
-    value: T,
-    arr?: T[] | null
-) => {
+export const insertItemAtIndex = <T>(index: number | IndexCallback<T>, value: T, arr?: T[] | null) => {
     if (!arr) {
         return [];
     }
@@ -112,11 +98,7 @@ export const insertItemAtIndex = <T>(
  * @param newValue the value of the item to be replaced
  * @param arr the array to replace at
  */
-export const replaceItemAtIndex = <T>(
-    index: number | IndexCallback<T>,
-    newValue: T,
-    arr?: T[] | null
-) => {
+export const replaceItemAtIndex = <T>(index: number | IndexCallback<T>, newValue: T, arr?: T[] | null) => {
     if (!arr) {
         return [];
     }
@@ -135,10 +117,7 @@ export const replaceItemAtIndex = <T>(
  * @param index an index or a callback provided to findIndex
  * @param arr the array to remove from
  */
-export const removeItemAtIndex = <T>(
-    index: number | IndexCallback<T>,
-    arr?: T[] | null
-) => {
+export const removeItemAtIndex = <T>(index: number | IndexCallback<T>, arr?: T[] | null) => {
     if (!arr) {
         return [];
     }

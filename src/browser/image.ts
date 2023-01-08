@@ -5,9 +5,7 @@ import { ImageDimension } from '../types';
  * @param dataUrl Data url string
  * @returns image dimension (height, width)
  */
-export const getImageDimensions = async (
-    dataUrl: string
-): Promise<ImageDimension> => {
+export const getImageDimensions = async (dataUrl: string): Promise<ImageDimension> => {
     const img = new Image();
     img.src = dataUrl;
     await img.decode();

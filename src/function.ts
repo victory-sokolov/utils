@@ -11,5 +11,4 @@ export const batchInvoke = (functions: Array<() => void>): void => {
  * @param fns Array of functions
  * @returns result of last invoked function
  */
-export const pipe = (...fns: Array<Function>) =>
-    fns.reduce((prevFunc: unknown, func) => func(prevFunc), fns[0]);
+export const pipe = (...fns: Array<Function>) => fns.reduce((prevFunc: unknown, func) => func(prevFunc), fns[0]);

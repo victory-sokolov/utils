@@ -4,14 +4,11 @@ import { MonthName } from './types/';
  * Get month names as a list of strings
  * @returns Month array
  */
-export const monthList: MonthName[] = Array.from(
-    { length: 12 },
-    (_, i): MonthName => {
-        return new Date(0, i).toLocaleString('en-US', {
-            month: 'long'
-        }) as MonthName;
-    }
-);
+export const monthList: MonthName[] = Array.from({ length: 12 }, (_, i): MonthName => {
+    return new Date(0, i).toLocaleString('en-US', {
+        month: 'long',
+    }) as MonthName;
+});
 
 /**
  * Convert Date to date with timestamp separated with dashes
@@ -28,8 +25,7 @@ export const dateWithTimeStamp = (date: Date): string => {
  * @returns Last day of the week
  */
 export const getWeekLastDay = (date: Date): Date => {
-    const weekLastDayInMilliseconds =
-        date.getTime() + (6 - date.getDay()) * 86400000;
+    const weekLastDayInMilliseconds = date.getTime() + (6 - date.getDay()) * 86400000;
     const weekLastDay = new Date(weekLastDayInMilliseconds);
     return weekLastDay;
 };
@@ -40,8 +36,7 @@ export const getWeekLastDay = (date: Date): Date => {
  * @returns First day of the week
  */
 export const getWeekFirstDay = (date: Date): Date => {
-    const weekFirstDayInMilliseconds =
-        date.getTime() - (date.getDay() - 1) * 86400000;
+    const weekFirstDayInMilliseconds = date.getTime() - (date.getDay() - 1) * 86400000;
     const weekFirstDay = new Date(weekFirstDayInMilliseconds);
     return weekFirstDay;
 };

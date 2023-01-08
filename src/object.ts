@@ -6,13 +6,8 @@ import { RecordObject } from './types';
  * @param props Keys to remove from object
  * @returns Object with keys removed
  */
-export const omit = <T extends RecordObject, K extends keyof T>(
-    obj: T,
-    ...props: K[]
-): Omit<T, K> => {
-    const filteredArray = Object.entries(obj).filter(
-        ([key]) => !props.includes(key as K)
-    );
+export const omit = <T extends RecordObject, K extends keyof T>(obj: T, ...props: K[]): Omit<T, K> => {
+    const filteredArray = Object.entries(obj).filter(([key]) => !props.includes(key as K));
     return Object.fromEntries(filteredArray) as Omit<T, K>;
 };
 
@@ -22,13 +17,8 @@ export const omit = <T extends RecordObject, K extends keyof T>(
  * @param props Keys to select from object
  * @returns Object with selected keys
  */
-export const pick = <T extends RecordObject, K extends keyof T>(
-    obj: T,
-    ...props: K[]
-): Pick<T, K> => {
-    const filteredArray = Object.entries(obj).filter(([key]) =>
-        props.includes(key as K)
-    );
+export const pick = <T extends RecordObject, K extends keyof T>(obj: T, ...props: K[]): Pick<T, K> => {
+    const filteredArray = Object.entries(obj).filter(([key]) => props.includes(key as K));
     return Object.fromEntries(filteredArray) as Pick<T, K>;
 };
 
@@ -43,11 +33,7 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
     Object.keys(obj).forEach((key) => {
         const value = obj[key];
 
-        if (
-            typeof value === 'object' &&
-            value !== null &&
-            !Array.isArray(value)
-        ) {
+        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
             Object.assign(flattened, flattenObject(value as RecordObject));
         } else {
             flattened[key] = value;
@@ -62,9 +48,7 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
  * @param obj Object to filter
  * @returns Filtered object
  */
-export const filterFalsyFromObject = <T extends RecordObject>(
-    obj: T
-): RecordObject => {
+export const filterFalsyFromObject = <T extends RecordObject>(obj: T): RecordObject => {
     return Object.keys(obj).reduce((acc: RecordObject, key) => {
         if (obj[key]) {
             acc[key] = obj[key];
@@ -79,10 +63,7 @@ export const filterFalsyFromObject = <T extends RecordObject>(
  * @param right
  * @returns New combined object
  */
-export const unionWithExclusion = (
-    left: RecordObject,
-    right: RecordObject
-): RecordObject => {
+export const unionWithExclusion = (left: RecordObject, right: RecordObject): RecordObject => {
     return [left, right].reduce((prev, current) => {
         if (current) {
             Object.entries(current).map(([key, value]) => {

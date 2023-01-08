@@ -5,8 +5,7 @@ import { isMobileDevice } from './browser';
  * Detect which camera environment is used
  * @returns environment ur user camera
  */
-export const cameraEnvironment = (): CameraEnvironment =>
-    isMobileDevice() ? 'environment' : 'user';
+export const cameraEnvironment = (): CameraEnvironment => (isMobileDevice() ? 'environment' : 'user');
 
 /**
  * Get current resolution depending on device
@@ -16,7 +15,7 @@ export const getVideoConstraint = () => {
     const resolutions = {
         qqvga: { width: { exact: 160 }, height: { exact: 120 } },
         qvga: { width: { exact: 320 }, height: { exact: 240 } },
-        vga: { width: { exact: 640 }, height: { exact: 480 } }
+        vga: { width: { exact: 640 }, height: { exact: 480 } },
     } as const;
     let videoConstraint;
 
@@ -24,7 +23,7 @@ export const getVideoConstraint = () => {
         videoConstraint = {
             width: { ideal: window.screen.height },
             height: { ideal: window.screen.width },
-            facingMode: cameraEnvironment()
+            facingMode: cameraEnvironment(),
         } as const;
     } else {
         if (window.innerWidth < 960) {
@@ -42,10 +41,7 @@ export const getVideoConstraint = () => {
  * @param video HTMLVideoElement
  * @returns
  */
-export const startCamera = async (
-    isStreaming: boolean,
-    video: HTMLVideoElement
-): Promise<void> => {
+export const startCamera = async (isStreaming: boolean, video: HTMLVideoElement): Promise<void> => {
     const constraint = getVideoConstraint();
     if (isStreaming) return;
 
@@ -53,7 +49,7 @@ export const startCamera = async (
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: constraint,
-                audio: false
+                audio: false,
             });
             video.srcObject = stream;
             video.onloadedmetadata = () => {
