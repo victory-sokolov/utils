@@ -3,7 +3,6 @@ import { DeviceType } from '../types';
 const devices =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
 
-
 /**
  * Data type to file
  * @param content ArrayBuffer

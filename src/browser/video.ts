@@ -71,7 +71,7 @@ export const startCamera = async (
  * Stop current video stream
  * @param stream Current video stream
  * @param isStreaming isStreaming
- * @returns 
+ * @returns
  */
 export const stopCamera = (stream: MediaStream, isStreaming: boolean): void => {
     if (!isStreaming) return;

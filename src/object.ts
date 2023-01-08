@@ -72,7 +72,7 @@ export const filterFalsyFromObject = <T extends RecordObject>(
             acc[key] = obj[key];
         }
         return acc;
-    }, {});
+    }, {} as T);
 };
 
 /**
@@ -92,8 +92,8 @@ export const unionWithExclusion = (
                 // @ts-ignore
                 prev[key] =
                     typeof value === 'object'
-                        // @ts-ignore
-                        ? unionWithExclusion(prev[key], value)
+                        ? // @ts-ignore
+                          unionWithExclusion(prev[key], value)
                         : value;
             });
         }

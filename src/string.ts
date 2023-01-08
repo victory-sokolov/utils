@@ -31,7 +31,7 @@ export const pascalCase = (str: string, separator = ' '): string => {
  * @param str string to kebabcase
  * @returns KebabCase string
  */
-export const kebabCase = (str) => {
+export const kebabCase = (str: string): string => {
     return str
         .replace(/([a-z])([A-Z])/g, '$1-$2')
         .replace(/[\s_]/g, '-')
