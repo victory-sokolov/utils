@@ -68,8 +68,10 @@ export const shuffleArray = <T>(arr: Collection<T>): Collection<T> => {
  * @param array Array of objects to sort
  * @returns Sorted array of objects
  */
-export const sortAsc = <T extends Record<string, any>>(array: T[]): T[] => {
-    return array.sort((a, b) => {
+export const sortAsc = <T extends Record<string, T>>(
+    array: ReadonlyArray<T>
+): ReadonlyArray<T> => {
+    return [...array].sort((a, b) => {
         if (a.key < b.key) {
             return -1;
         } else if (a.key > b.key) {

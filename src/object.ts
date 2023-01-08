@@ -37,9 +37,7 @@ export const pick = <T extends RecordObject, K extends keyof T>(
  * @param obj Object to flatten
  * @returns Flatten object
  */
-export const flattenObject = <T extends Record<string, any>>(
-    obj: T
-): { [k: string]: unknown } => {
+export const flattenObject = (obj: RecordObject): RecordObject => {
     const flattened: { [k: string]: unknown } = {};
 
     Object.keys(obj).forEach((key) => {
@@ -50,7 +48,7 @@ export const flattenObject = <T extends Record<string, any>>(
             value !== null &&
             !Array.isArray(value)
         ) {
-            Object.assign(flattened, flattenObject(value));
+            Object.assign(flattened, flattenObject(value as RecordObject));
         } else {
             flattened[key] = value;
         }

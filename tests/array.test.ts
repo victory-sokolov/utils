@@ -89,8 +89,8 @@ describe('sortAsc', () => {
                 name: 'Atest',
                 age: 30
             }
-        ];
-        const sortedNumbers = sortAsc(obj);
+        ] as const;
+        const sortedNumbers = sortAsc<any>(obj);
         expect(sortedNumbers).toEqual([
             {
                 age: 20,
@@ -105,7 +105,7 @@ describe('sortAsc', () => {
 
     it('sorts an array of objects based on their "key" property in ascending order', () => {
         const objects = [{ key: 3 }, { key: 2 }, { key: 1 }];
-        const sortedObjects = sortAsc(objects);
+        const sortedObjects = sortAsc<any>(objects);
         expect(sortedObjects).toEqual([{ key: 1 }, { key: 2 }, { key: 3 }]);
     });
 });
