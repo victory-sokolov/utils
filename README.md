@@ -7,8 +7,8 @@ Utility collection for Node and Browser implemented for TypeScript/JavaScript.
 
 ## Installation
 ```bash
-npm i @victory/utils
+npm i @vsokolov/utils
 ```
 
 ## License
-[MIT](./LICENSE) License © 2023 [Viktor Sokolov](https://github.com/victory-sokolov)
+[MIT](./LICENSE) License © 2023 [Viktor Sokolov](https://github.com/victory-sokolov/utils)
