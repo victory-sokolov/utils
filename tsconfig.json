@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "es6",
-        "module": "commonjs",
+        "module": "esnext",
         "moduleResolution": "node",
         "skipLibCheck": true,
         "strictNullChecks": true,
@@ -10,19 +10,22 @@
         "noUnusedLocals": false,
         "allowUnreachableCode": false,
         "forceConsistentCasingInFileNames": true,
-        "sourceMap": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "removeComments": true,
+        "allowJs": true,
+        "outDir": "./dist",
         "lib": [
-            "es2021",
-            "DOM",
+            "esnext",
+            "dom",
         ],
     },
     "include": [
-        "src/**/*",
-        "tests/**/*",
+        "src/**/*.ts"
     ],
     "exclude": [
         "node_modules",
-        "**/*.spec.ts",
+        "dist",
         "**/*.test.ts"
     ]
 }
