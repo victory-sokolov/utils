@@ -8,7 +8,9 @@ import {
     startsWithAny,
     isValidUUID,
     randomHexColorCode,
-    slugify
+    slugify,
+    truncate,
+    capitalize,
 } from '../src/string';
 
 describe('string-utils', () => {
@@ -121,4 +123,45 @@ describe('string-utils', () => {
             expect(result).toEqual('hello-world');
         });
     });
+
+    describe('truncate string', () => {
+        it('truncates a string to the given length', () => {
+            const originalString = 'This is a long string';
+            const truncatedString = truncate(originalString, 10);
+            expect(truncatedString).toBe('This is a ...');
+        });
+
+        it('does not truncate if the string is already shorter than the given length', () => {
+            const originalString = 'Short string';
+            const truncatedString = truncate(originalString, 20);
+            expect(truncatedString).toBe(originalString);
+        });
+
+        it('returns empty string if input string is empty', () => {
+            const originalString = '';
+            const truncatedString = truncate(originalString, 20);
+            expect(truncatedString).toBe('');
+        });
+    });
+
+    describe('capitalize string', () => {
+        test('capitalizes the first letter of a string', () => {
+            const originalString = 'hello world';
+            const capitalizedString = capitalize(originalString);
+            expect(capitalizedString).toBe('Hello world');
+        });
+
+        test('does not change the case of the rest of the string', () => {
+            const originalString = 'Hello WORLD';
+            const capitalizedString = capitalize(originalString);
+            expect(capitalizedString).toBe('Hello WORLD');
+        });
+
+        test('returns empty string if input string is empty', () => {
+            const originalString = '';
+            const capitalizedString = capitalize(originalString);
+            expect(capitalizedString).toBe('');
+        });
+
+    })
 });

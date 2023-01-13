@@ -114,3 +114,24 @@ export const slugify = (text: string) => {
         .replace(/^-+/, '') // Trim - from start of text
         .replace(/-+$/, ''); // Trim - from end of text
 };
+
+/**
+ * Capitalize first letter
+ * @param str Stirng to capitalize
+ * @returns Capitalized string
+ */
+export const capitalize = (str: string): string => {
+    if (!str || typeof str !== 'string') return str;
+    return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+/**
+ * Truncate string to n characters
+ * @param str Stirng to truncate
+ * @param length Length of string to truncate
+ * @returns Truncated string
+ */
+export const truncate = (str: string, length: number) => {
+    if (!str || str.length <= length) return str;
+    return `${str.slice(0, length)}...`;
+};
