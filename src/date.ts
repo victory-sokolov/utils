@@ -69,3 +69,19 @@ export const getMonthFirstDay = (date: Date) => {
  * @returns true if date is weekday
  */
 export const isWeekday = (date: Date): boolean => date.getDay() % 6 !== 0;
+
+/**
+ * Convert date to long date format
+ * @param date Date to long date format
+ * @returns Long date format
+ */
+export const toLongDate = (date: string): string => {
+    if (!Date.parse(date)) {
+        throw new Error(`Invalid date provided`);
+    }
+    return new Date(date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+};
