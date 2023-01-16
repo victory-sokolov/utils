@@ -1,4 +1,4 @@
-# @victory/utils
+# @vsokolov/utils
 
 
 [![NPM version](https://img.shields.io/npm/v/@vsokolov/utils)](https://www.npmjs.com/package/@victory-sokolov/utils)
