@@ -4,11 +4,13 @@ import { MonthName } from './types/';
  * Get month names as a list of strings
  * @returns Month array
  */
-export const monthList: MonthName[] = Array.from({ length: 12 }, (_, i): MonthName => {
-    return new Date(0, i).toLocaleString('en-US', {
-        month: 'long',
-    }) as MonthName;
-});
+export const getMonthList = () => {
+    return Array.from({ length: 12 }, (_, i): MonthName => {
+        return new Date(0, i).toLocaleString('en-US', {
+            month: 'long',
+        }) as MonthName;
+    });
+};
 
 /**
  * Convert Date to date with timestamp separated with dashes

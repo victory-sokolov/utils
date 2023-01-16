@@ -1,5 +1,5 @@
 import {
-    monthList,
+    getMonthList,
     dateWithTimeStamp,
     getWeekLastDay,
     getWeekFirstDay,
@@ -9,9 +9,9 @@ import {
     toLongDate,
 } from '../src/date';
 
-describe('monthList', () => {
+describe('getMonthList', () => {
     test('month names', () => {
-        expect(monthList).toEqual([
+        expect(getMonthList()).toEqual([
             'January',
             'February',
             'March',
