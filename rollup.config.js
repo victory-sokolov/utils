@@ -18,6 +18,7 @@ const plugins = [
     commonjs(),
     esbuild({
         target: 'node14',
+        minify: true,
     }),
 ];
 
@@ -28,10 +29,12 @@ export default [
             {
                 file: input.replace('src/', 'dist/').replace('.ts', '.mjs'),
                 format: 'esm',
+                sourcemap: true,
             },
             {
                 file: input.replace('src/', 'dist/').replace('.ts', '.cjs'),
                 format: 'cjs',
+                sourcemap: true,
             },
         ],
         external: [],
