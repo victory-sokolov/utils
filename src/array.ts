@@ -66,9 +66,8 @@ export const sortAsc = <T extends Record<string, T>>(array: ReadonlyArray<T>): R
             return -1;
         } else if (a.key > b.key) {
             return 1;
-        } else {
-            return 0;
         }
+        return 0;
     });
 };
 
@@ -84,7 +83,6 @@ export const insertItemAtIndex = <T>(index: number | IndexCallback<T>, value: T,
     }
 
     const indexAt = typeof index === 'function' ? arr.findIndex(index) : index;
-
     if (indexAt === -1) {
         return arr;
     }
