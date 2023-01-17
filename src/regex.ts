@@ -1,4 +1,15 @@
 /**
+ * Validate email address
+ * @param email Email address to validate
+ * @returns True if email address is valid
+ */
+export const isValidEmail = (email: string): boolean => {
+    const re =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+};
+
+/**
  * Validate if IP is valid IPV4
  * @param ip IP address
  * @returns True if IPV4 is valid

@@ -128,3 +128,26 @@ export const removeItemAtIndex = <T>(index: number | IndexCallback<T>, arr?: T[]
 
     return [...arr.slice(0, indexAt), ...arr.slice(indexAt + 1)];
 };
+
+/**
+ * Find median value of an array
+ * @param arr Array to find median
+ * @returns Median value
+ */
+export const median = (arr: number[]): number => {
+    const mid = Math.floor(arr.length / 2),
+        nums = [...arr].sort((a, b) => a - b);
+    return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+};
+
+/**
+ * Intersect two arrays
+ * intersection([1, 2, 3], [2, 3, 4]) // [2, 3]
+ * @param arr1 First array
+ * @param arr2 Second array
+ * @returns Array of intersection
+ */
+export const intersection = <T>(arr1: T[], arr2: T[]): T[] => {
+    const set = new Set(arr1);
+    return arr2.filter((x) => set.has(x));
+};

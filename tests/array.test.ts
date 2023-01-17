@@ -8,6 +8,8 @@ import {
     insertItemAtIndex,
     replaceItemAtIndex,
     removeItemAtIndex,
+    intersection,
+    median,
 } from '../src/array';
 
 describe('flattenArray', () => {
@@ -191,5 +193,23 @@ describe('sortAsc', () => {
             const result = removeItemAtIndex(10, arr);
             expect(result).toEqual(arr);
         });
+    });
+});
+
+describe('intersection', () => {
+    test('intersection function returns the correct result', () => {
+        const arr1 = [1, 2, 3, 4];
+        const arr2 = [3, 4, 5, 6];
+        const expectedResult = [3, 4];
+        expect(intersection(arr1, arr2)).toEqual(expectedResult);
+    });
+});
+
+describe('median', () => {
+    test('median function returns the correct result', () => {
+        const arr1 = [1, 2, 3, 4];
+        const arr2 = [3, 4, 5, 6, 7];
+        expect(median(arr1)).toBeCloseTo(2.5);
+        expect(median(arr2)).toBe(5);
     });
 });
