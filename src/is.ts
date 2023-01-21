@@ -11,6 +11,7 @@ export const isUndefined = (val: any): val is undefined => toString(val) === '[o
 export const isNull = (val: any): val is null => toString(val) === '[object Null]';
 export const isRegExp = (val: any): val is RegExp => toString(val) === '[object RegExp]';
 export const isDate = (val: any): val is Date => toString(val) === '[object Date]';
+export const isJsObject = (val: any) => val !== null && (typeof val === 'function' || typeof val === 'object');
 
 // @ts-ignore
 export const isWindow = (val: any): boolean => typeof window !== 'undefined' && toString(val) === '[object Window]';

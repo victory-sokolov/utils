@@ -10,6 +10,7 @@ import {
     removeItemAtIndex,
     intersection,
     median,
+    countBy,
 } from '../src/array';
 
 describe('flattenArray', () => {
@@ -211,5 +212,28 @@ describe('median', () => {
         const arr2 = [3, 4, 5, 6, 7];
         expect(median(arr1)).toBeCloseTo(2.5);
         expect(median(arr2)).toBe(5);
+    });
+});
+
+describe('countBy', () => {
+    test('countBy should return an object with the count of each item in the array', () => {
+        const array = [1, 2, 3, 2, 3, 3, 4, 5];
+        const expectedResult = { 1: 1, 2: 2, 3: 3, 4: 1, 5: 1 };
+
+        expect(countBy(array)).toEqual(expectedResult);
+    });
+
+    test('countBy should return an empty object if passed an empty array', () => {
+        const array = ['hello', 'world', 'hello'];
+        const expectedResult = { hello: 2, world: 1 };
+
+        expect(countBy(array)).toEqual(expectedResult);
+    });
+
+    test('countBy should return an object with the count of each item in the array even if the array contains duplicate items', () => {
+        const array = [1, 1, 2, 3, 3, 3];
+        const expectedResult = { 1: 2, 2: 1, 3: 3 };
+
+        expect(countBy(array)).toEqual(expectedResult);
     });
 });

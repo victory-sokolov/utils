@@ -12,3 +12,13 @@ export const rangeParser = (range: string): number[] => {
     }
     return Array.from({ length: end - start + 1 }, (_, i) => i + start);
 };
+
+
+/**
+ * Prepend leading zero to number
+ * @param num Number to prepend leading zero
+ * @returns String with leading zero
+ */
+export const addZero = (num: number) => {
+  return num > 9 ? num.toString() : `0${num}`
+}
