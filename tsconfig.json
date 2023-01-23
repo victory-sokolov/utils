@@ -19,6 +19,11 @@
             "esnext",
             "dom",
         ],
+        "types": [
+            "./node_modules/user-agent-data-types",
+            "node",
+            "jest"
+        ]
     },
     "include": [
         "src/**/*.ts"
@@ -26,6 +31,7 @@
     "exclude": [
         "node_modules",
         "dist",
-        "**/*.test.ts"
+        "**/*.test.ts",
+        "**/__mocks__/*"
     ]
 }
