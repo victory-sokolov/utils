@@ -1,4 +1,4 @@
-import { isValidEmail, isValidIPV4, isValidIPV6 } from '../src/regex';
+import { isValidEmail, isValidIPV4, isValidIPV6, isValidUrl } from '../src/regex';
 
 describe('isValidIPV4', () => {
     test('valid IP', () => {
@@ -29,5 +29,18 @@ describe('isValidEmail', () => {
         expect(isValidEmail('exampleemail.com')).toBe(false);
         expect(isValidEmail('example@email.c')).toBe(false);
         expect(isValidEmail('example@email.com.')).toBe(false);
+    });
+});
+
+describe('isValidUrl', () => {
+    test.each([
+        ['https://google.com', true],
+        ['http://localhost:3000', true],
+        ['ftp://example.com', false],
+        ['https://192.168.1.1', true],
+        ['www.example.com', true],
+        ['example.com', false],
+    ])('isValidUrl(%s) should return %b', (url, expected) => {
+        expect(isValidUrl(url)).toBe(expected);
     });
 });
