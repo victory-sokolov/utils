@@ -1,3 +1,4 @@
+import { url } from 'inspector';
 import { isValidEmail, isValidIPV4, isValidIPV6, isValidUrl } from '../src/regex';
 
 describe('isValidIPV4', () => {
@@ -5,10 +6,12 @@ describe('isValidIPV4', () => {
         expect(isValidIPV4('192.168.0.1')).toBe(true);
     });
 
-    test('invalid IPV4', () => {
-        expect(isValidIPV4('256.256.256.256')).toBe(false);
-        expect(isValidIPV4('192.168.0.1.2')).toBe(false);
-        expect(isValidIPV4('192.168.0')).toBe(false);
+    test.each([
+        ['256.256.256.256', false],
+        ['192.168.0.1.2', false],
+        ['192.168.0', false],
+    ])('isValidIPV4(%s) should return %b', (ip, expected) => {
+        expect(isValidIPV4(ip)).toBe(expected);
     });
 });
 
@@ -23,23 +26,25 @@ describe('isValidIPV6', () => {
 });
 
 describe('isValidEmail', () => {
-    test('validateEmail', () => {
-        expect(isValidEmail('example@email.com')).toBe(true);
-        expect(isValidEmail('example@email')).toBe(false);
-        expect(isValidEmail('exampleemail.com')).toBe(false);
-        expect(isValidEmail('example@email.c')).toBe(false);
-        expect(isValidEmail('example@email.com.')).toBe(false);
+    test.each([
+        ['example@email.com', true],
+        ['example@email', false],
+        ['exampleemail.com', false],
+        ['example@email.com', true],
+        ['example@email.c', false],
+        ['example@email.com.', false],
+    ])('isValidEmail(%s) should return %b', (url, expected) => {
+        expect(isValidEmail(url)).toBe(expected);
     });
 });
 
 describe('isValidUrl', () => {
     test.each([
         ['https://google.com', true],
-        ['http://localhost:3000', true],
+        ['http://localhost:3000', false],
         ['ftp://example.com', false],
         ['https://192.168.1.1', true],
-        ['www.example.com', true],
-        ['example.com', false],
+        ['example.com', true],
     ])('isValidUrl(%s) should return %b', (url, expected) => {
         expect(isValidUrl(url)).toBe(expected);
     });

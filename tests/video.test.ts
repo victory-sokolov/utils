@@ -1,8 +1,5 @@
-import {
-    cameraEnvironment,
-    getVideoConstraint,
-    startCamera
-} from '../src/browser/video';
+import { cameraEnvironment, getVideoConstraint, startCamera } from '../src/browser/video';
+import { jest } from '@jest/globals';
 
 describe('test camera', () => {
     describe('cameraEnvironment', () => {
@@ -18,12 +15,12 @@ describe('test camera', () => {
             const isMobileDeviceMock = jest.fn().mockReturnValue(false);
             (global as any).isMobileDevice = isMobileDeviceMock;
             (global as any).window = {
-                innerWidth: 960
+                innerWidth: 960,
             };
 
             expect(getVideoConstraint()).toEqual({
                 width: { exact: 640 },
-                height: { exact: 480 }
+                height: { exact: 480 },
             });
         });
     });
@@ -37,11 +34,11 @@ describe('test camera', () => {
                 addTextTrack: jest.fn(),
                 captureStream: jest.fn(),
                 canPlayType: jest.fn(),
-                fastSeek: jest.fn()
+                fastSeek: jest.fn(),
             };
             const getUserMediaMock = jest.fn();
             (navigator as any).mediaDevices = {
-                getUserMedia: getUserMediaMock
+                getUserMedia: getUserMediaMock,
             };
 
             await startCamera(true, videoMock as HTMLVideoElement);

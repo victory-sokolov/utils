@@ -1,4 +1,5 @@
 import { batchInvoke, pipe } from '../src/function';
+import { jest } from '@jest/globals';
 
 describe('batchInvoke', () => {
     it('should call every function in the array', () => {
