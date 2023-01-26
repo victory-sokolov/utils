@@ -17,7 +17,7 @@ const plugins = [
     json(),
     commonjs(),
     esbuild({
-        target: 'node14',
+        target: 'node16',
         minify: true,
     }),
 ];
@@ -27,7 +27,7 @@ export default [
         input,
         output: [
             {
-                file: input.replace('src/', 'dist/').replace('.ts', '.mjs'),
+                file: input.replace('src/', 'dist/').replace('.ts', '.esm'),
                 format: 'esm',
                 sourcemap: true,
             },
