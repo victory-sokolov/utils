@@ -34,3 +34,11 @@ export const isMobileDevice = (): boolean => {
     }
     return false;
 };
+
+/**
+ * Get Operating System
+ * @returns Operating System
+ */
+export const getOs = () => {
+    return navigator?.userAgentData?.platform || navigator?.platform || 'unknown';
+};

@@ -46,5 +46,5 @@ export const isValidUrl = (url: string) => {
         'i'
     );
 
-    return !!urlPattern.test(url);
+    return urlPattern.test(url);
 };
