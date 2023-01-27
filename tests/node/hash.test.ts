@@ -27,6 +27,6 @@ describe('cryptography', () => {
             throw new Error('pbkdf2Sync error');
         });
 
-        expect(() => hashString('password')).toThrowError('pbkdf2Sync error');
+        expect(() => hashString('password')).toThrow('pbkdf2Sync error');
     });
 });

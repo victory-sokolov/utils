@@ -1,4 +1,3 @@
-import { url } from 'inspector';
 import { isValidEmail, isValidIPV4, isValidIPV6, isValidUrl } from '../src/regex';
 
 describe('isValidIPV4', () => {

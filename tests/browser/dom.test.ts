@@ -3,11 +3,10 @@ import { $, $$, style, addClass, removeClass } from '../../src/browser/dom';
 describe('DOM helpers', () => {
     let parent: HTMLElement;
     let child: HTMLElement;
-    let child2: HTMLElement;
+
     beforeEach(() => {
         parent = document.createElement('div');
         child = document.createElement('span');
-        child2 = document.createElement('span');
         parent.appendChild(child);
     });
 
@@ -18,7 +17,7 @@ describe('DOM helpers', () => {
 
     test('$$ should return all elements matching the given selector', () => {
         parent.innerHTML = '<span class="test"></span><span class="test"></span>';
-        expect($$('.test', parent).length).toEqual(2);
+        expect($$('.test', parent)).toHaveLength(2);
     });
 
     test('style should set the styles on the given element', () => {
