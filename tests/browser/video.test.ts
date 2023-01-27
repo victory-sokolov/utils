@@ -1,4 +1,4 @@
-import { cameraEnvironment, getVideoConstraint, startCamera } from '../src/browser/video';
+import { cameraEnvironment, getVideoConstraint, startCamera } from '../../src/browser/video';
 import { jest } from '@jest/globals';
 
 describe('test camera', () => {
