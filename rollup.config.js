@@ -27,7 +27,7 @@ export default [
         input,
         output: [
             {
-                file: input.replace('src/', 'dist/').replace('.ts', '.esm'),
+                file: input.replace('src/', 'dist/').replace('.ts', '.esm.js'),
                 format: 'esm',
                 sourcemap: true,
             },
