@@ -42,3 +42,29 @@ export const isMobileDevice = (): boolean => {
 export const getOs = () => {
     return navigator?.userAgentData?.platform || navigator?.platform || 'unknown';
 };
+
+/**
+ * Save object to json file and download it
+ * @param obj Object to export
+ * @param fileName output file name
+ */
+export const downloadAsJson = (obj: Record<string, unknown>, fileName: string) => {
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(obj));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute('href', dataStr);
+    downloadAnchorNode.setAttribute('download', `${fileName}.json`);
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+};
+
+/**
+ * Check if page is reloaded
+ * @returns True if page reloaded
+ */
+export const isPageReloaded = () => {
+    return window.performance
+        .getEntriesByType('navigation')
+        .map((nav) => nav.entryType)
+        .includes('reload');
+};
