@@ -1,4 +1,4 @@
-import { batchInvoke, pipe } from '../src/function';
+import { applyPipe, batchInvoke, pipe } from '../src/function';
 import { jest } from '@jest/globals';
 
 describe('batchInvoke', () => {
@@ -19,7 +19,14 @@ describe('pipe', () => {
     it('should pass the result of one function to another', () => {
         const addTwo = () => 5 + 2;
         const multiplyByThree = (num: number) => num * 3;
-
         expect(pipe(addTwo, multiplyByThree)).toBe(21);
+    });
+});
+
+describe('applyPipe', () => {
+    it('should pass the result of one function with arguments to another', () => {
+        const addTwo = (num) => num + 2;
+        const multiplyByThree = (num: number) => num * 3;
+        expect(applyPipe(2, addTwo, multiplyByThree)).toBe(12);
     });
 });
