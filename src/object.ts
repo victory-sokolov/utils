@@ -79,3 +79,11 @@ export const unionWithExclusion = (left: RecordObject, right: RecordObject): Rec
         return prev;
     }, {});
 };
+
+/**
+ * Flip objects keys with objects values
+ * @param data Input object data
+ * @returns Inverted object
+ */
+export const flip = (data: RecordObject): RecordObject =>
+    Object.fromEntries(Object.entries(data).map(([key, value]) => [value, key]));

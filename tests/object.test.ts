@@ -1,10 +1,4 @@
-import {
-    omit,
-    pick,
-    flattenObject,
-    filterFalsyFromObject,
-    unionWithExclusion
-} from '../src/object';
+import { omit, pick, flattenObject, filterFalsyFromObject, unionWithExclusion, flip } from '../src/object';
 
 describe('omit', () => {
     it('should remove the specified keys from the object', () => {
@@ -26,13 +20,13 @@ describe('flattenObject', () => {
             key: 'value',
             student: {
                 name: 'Student1',
-                age: 34
-            }
+                age: 34,
+            },
         };
         expect(flattenObject(obj)).toEqual({
             key: 'value',
             name: 'Student1',
-            age: 34
+            age: 34,
         });
     });
 });
@@ -53,7 +47,17 @@ describe('unionWithExclusion', () => {
             b: 3,
             c: 4,
             d: 5,
-            f: 6
+            f: 6,
         });
+    });
+});
+
+describe('flip', () => {
+    test('FLip object keys with its values', () => {
+        const obj = {
+            x: 1,
+            y: 2,
+        };
+        expect(flip(obj)).toEqual({ 1: 'x', 2: 'y' });
     });
 });
