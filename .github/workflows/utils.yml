@@ -1,0 +1,57 @@
+name: Utils CI
+
+on: 
+  push:
+    branches: [main]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+
+      - name: Cache Yarn
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run formatter
+        run: npm run format
+
+      - name: Run typechecker
+        run: npm run typecheck
+      
+      - name: Run tests
+        run: npm run test
+      
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm run build
+      # - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
