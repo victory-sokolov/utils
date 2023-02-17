@@ -27,6 +27,7 @@ describe('applyPipe', () => {
     it('should pass the result of one function with arguments to another', () => {
         const addTwo = (num) => num + 2;
         const multiplyByThree = (num: number) => num * 3;
-        expect(applyPipe(2, addTwo, multiplyByThree)).toBe(12);
+        const thirdFunc = (num: number) => num * 2;
+        expect(applyPipe(2, addTwo, multiplyByThree, thirdFunc)).toBe(24);
     });
 });
