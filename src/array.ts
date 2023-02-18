@@ -205,3 +205,13 @@ export const countBy = (array: Array<number | string>): Record<string, number> =
         return obj;
     }, {});
 };
+
+export const occurrenceCount = <T>(data: Array<T>) => {
+    const unique = Array.from(new Set(data));
+    return Object.fromEntries(
+        unique.map((char) => {
+            const occurrenceCount = data.filter((c) => c === char).length;
+            return [char, occurrenceCount];
+        })
+    );
+};
