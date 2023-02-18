@@ -1,4 +1,5 @@
-import { Collection, IndexCallback } from './types';
+import { hasProperty, isString } from './is';
+import { Collection, IndexCallback, RecordObject } from './types';
 
 /**
  * Flatten nested array into 1 dimensional array
@@ -68,6 +69,39 @@ export const sortAsc = <T extends Record<string, T>>(array: ReadonlyArray<T>): R
             return 1;
         }
         return 0;
+    });
+};
+
+const fSort = (a, b) => {
+    return a > b ? 1 : a < b ? -1 : 0;
+};
+
+/**
+ * Sort array by specific function
+ * @param arr Array to sort
+ * @param fSorting Function sorting algorithm
+ * @returns
+ */
+export const sort = (arr: Array<Record<string, unknown>> = [], fSorting: any = null) => {
+    const copyArray = [...arr];
+    const fn = fSorting || fSort;
+    copyArray.sort(fn);
+    return copyArray;
+};
+
+/**
+ *
+ * @param arr Array to sort
+ * @param order Order 1 - ascending -1 descending
+ * @param key Key to sort by
+ * @returns Sorted array of objects
+ */
+export const sortBy = (arr: Array<RecordObject> = [], order = 1, key = '') => {
+    if (!isString(key) || !hasProperty(arr[0], key)) {
+        return arr;
+    }
+    return sort(arr, (m, n) => {
+        return m[key] > n[key] ? order : m[key] < n[key] ? -1 * order : 0;
     });
 };
 
