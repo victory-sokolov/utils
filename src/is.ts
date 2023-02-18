@@ -13,7 +13,12 @@ export const isRegExp = (val: any): val is RegExp => toString(val) === '[object 
 export const isDate = (val: any): val is Date => toString(val) === '[object Date]';
 export const isJsObject = (val: any) => val !== null && (typeof val === 'function' || typeof val === 'object');
 export const isHtmlElement = (element: Element): boolean => element instanceof Element;
-
+export const hasProperty = (obj: any, key: string): boolean => {
+    if (!obj || !key) {
+        return false;
+    }
+    return Object.prototype.hasOwnProperty.call(obj, key);
+};
 
 // @ts-ignore
 export const isWindow = (val: any): boolean => typeof window !== 'undefined' && toString(val) === '[object Window]';
