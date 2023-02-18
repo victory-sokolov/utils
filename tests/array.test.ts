@@ -11,6 +11,7 @@ import {
     intersection,
     median,
     countBy,
+    sortBy,
 } from '../src/array';
 
 describe('flattenArray', () => {
@@ -235,5 +236,59 @@ describe('countBy', () => {
         const expectedResult = { 1: 2, 2: 1, 3: 3 };
 
         expect(countBy(array)).toEqual(expectedResult);
+    });
+});
+
+describe('sortBy', () => {
+    const users = [
+        {
+            name: 'John',
+            age: 30,
+        },
+        {
+            name: 'Nick',
+            age: 42,
+        },
+        {
+            name: 'Tom',
+            age: 20,
+        },
+    ];
+
+    test('should sort array of objects in desc order', () => {
+        const sorted = sortBy(users, 1, 'age');
+        const expected = [
+            {
+                name: 'Tom',
+                age: 20,
+            },
+            {
+                name: 'John',
+                age: 30,
+            },
+            {
+                name: 'Nick',
+                age: 42,
+            },
+        ];
+        expect(sorted).toEqual(expected);
+    });
+    test('should sort array of objects in asc order', () => {
+        const sorted = sortBy(users, -1, 'age');
+        const expected = [
+            {
+                name: 'Nick',
+                age: 42,
+            },
+            {
+                name: 'John',
+                age: 30,
+            },
+            {
+                name: 'Tom',
+                age: 20,
+            },
+        ];
+        expect(sorted).toEqual(expected);
     });
 });
