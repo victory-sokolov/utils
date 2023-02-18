@@ -100,6 +100,23 @@ export const randomHexColorCode = (): string => {
 };
 
 /**
+ * Generate random string
+ * @param len
+ * @param prefix
+ * @returns Random string
+ */
+export const randomStr = (len = 32, prefix = '') => {
+    let s = prefix;
+    for (let i = 0; i < len; i++) {
+        const rand = Math.random();
+        const floor = Math.floor(rand * 36);
+        const c = floor.toString(36);
+        s += floor > 9 && rand > 0.3 && rand < 0.7 ? c.toUpperCase() : c;
+    }
+    return s.substring(0, len);
+};
+
+/**
  * Slugify text
  * @param text text to be slugified
  * @returns slugified text
