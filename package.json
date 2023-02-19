@@ -1,6 +1,6 @@
 {
     "name": "@vsokolov/utils",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "license": "MIT",
     "private": false,
     "type": "module",
@@ -46,7 +46,8 @@
         "version": "yarn run format && git add -A src",
         "postversion": "git push && git push --tags",
         "typecheck": "tsc --noEmit",
-        "clean": "rimraf ./node_modules && rimraf dist"
+        "clean": "rimraf ./node_modules && rimraf dist",
+        "commit": "cz"
     },
     "devDependencies": {
         "@rollup/plugin-alias": "^4.0.2",
@@ -62,6 +63,7 @@
         "@types/webrtc": "^0.0.33",
         "@typescript-eslint/eslint-plugin": "^5.48.0",
         "@typescript-eslint/parser": "^5.48.0",
+        "commitizen": "^4.3.0",
         "eslint": "^8.32.0",
         "eslint-plugin-jest": "^27.2.1",
         "esno": "^0.16.3",
