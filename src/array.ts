@@ -206,6 +206,11 @@ export const countBy = (array: Array<number | string>): Record<string, number> =
     }, {});
 };
 
+/**
+ * Count occurrences of specific key in the object
+ * @param data Array data
+ * @returns Object of passed in elements and how many times it occurs in the array
+ */
 export const occurrenceCount = <T>(data: Array<T>) => {
     const unique = Array.from(new Set(data));
     return Object.fromEntries(
@@ -215,3 +220,4 @@ export const occurrenceCount = <T>(data: Array<T>) => {
         })
     );
 };
+
