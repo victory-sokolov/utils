@@ -14,9 +14,6 @@ describe('test camera', () => {
         it('should return correct resolution if not on mobile device and window width is greater than or equal to 960', () => {
             const isMobileDeviceMock = jest.fn().mockReturnValue(false);
             (global as any).isMobileDevice = isMobileDeviceMock;
-            (global as any).window = {
-                innerWidth: 960,
-            };
 
             expect(getVideoConstraint()).toEqual({
                 width: { exact: 640 },
