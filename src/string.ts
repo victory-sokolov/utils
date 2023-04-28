@@ -152,3 +152,14 @@ export const truncate = (str: string, length: number) => {
     if (!str || str.length <= length) return str;
     return `${str.slice(0, length)}...`;
 };
+
+/**
+ * Mask sensitive string
+ * @param str
+ * @returns Masked string
+*/
+export const maskString = (str: string) => {
+    const firstChars = str.slice(0, 4);
+    const lastChars = str.slice(str.length - 4);
+    return `${firstChars} **** ${lastChars}`;
+};

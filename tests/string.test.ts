@@ -11,6 +11,7 @@ import {
     slugify,
     truncate,
     capitalize,
+    maskString,
 } from '../src/string';
 
 describe('string-utils', () => {
@@ -162,6 +163,13 @@ describe('string-utils', () => {
             const capitalizedString = capitalize(originalString);
             expect(capitalizedString).toBe('');
         });
+    });
 
-    })
+    describe('test masked string', () => {
+        it('should return a masked string', () => {
+            const originalString = '1234567890';
+            const maskedString = maskString(originalString);
+            expect(maskedString).toBe('1234 **** 7890');
+        });
+    });
 });
