@@ -8,6 +8,22 @@ const SIZE_UNITS = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 export const wait = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
+ * Start time
+ * @returns {number} time in seconds
+ */
+export const perfStart = () => performance.now();
+
+/**
+ * End time of function
+ * @param startTime 
+ */
+export const perfStop = (startTime: number) => {
+    const endTime = performance.now();
+    const seconds = (endTime - startTime) / 1000;
+    console.info(`Function took ${seconds.toFixed(2)} seconds`);
+};
+
+/**
  * Convert bytes to size in Human readable format
  * @param bytes Bytes
  * @returns Human readable size from bytes
