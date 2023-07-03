@@ -47,7 +47,8 @@
         "postversion": "git push && git push --tags",
         "typecheck": "tsc --noEmit",
         "clean": "rimraf ./node_modules && rimraf dist",
-        "commit": "cz"
+        "commit": "git-cz",
+        "semantic-release": "semantic-release"
     },
     "devDependencies": {
         "@rollup/plugin-alias": "^4.0.2",
