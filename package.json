@@ -48,7 +48,9 @@
         "typecheck": "tsc --noEmit",
         "clean": "rimraf ./node_modules && rimraf dist",
         "commit": "cz",
-        "semantic-release": "semantic-release"
+        "semantic-release": "semantic-release",
+        "prepare": "husky install",
+        "prepush": "git pull --rebase"
     },
     "devDependencies": {
         "@rollup/plugin-alias": "^4.0.2",
@@ -70,6 +72,7 @@
         "eslint": "^8.32.0",
         "eslint-plugin-jest": "^27.2.1",
         "esno": "^0.16.3",
+        "husky": "^8.0.3",
         "jest": "^29.3.1",
         "jest-environment-jsdom": "^29.3.1",
         "prettier": "^2.8.2",
@@ -94,6 +97,11 @@
         "testPathIgnorePatterns": [
             "tests/node/*"
         ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-push": "npm run prepush"
+        }
     },
     "config": {
         "commitizen": {
