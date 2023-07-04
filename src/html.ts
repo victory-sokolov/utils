@@ -24,6 +24,13 @@ const reHasEscapedHtml = RegExp(reEscapedHtml.source);
 export const removeHtmlTags = (text: string): string => text.replace(/<(?:.|\\n)*?>/gm, '');
 
 /**
+ * Remove inline css styles
+ * @param text HTML with inline styles
+ * @returns cleaned HTML with inline styles removed
+ */
+export const removeInlineStyles = (text: string): string => text.replace(/style\s*=\s*"(.*?)"/gm, '');
+
+/**
  * Escape HTML tags to entities
  * @param str HTML string
  * @returns Escaped HTML tags
