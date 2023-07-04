@@ -42,6 +42,9 @@ declare const countBy: (array: Array<number | string>) => Record<string, number>
 declare const occurrenceCount: <T>(data: T[]) => any;
 
 declare const wait: (ms: number) => Promise<void>;
+declare const perfStart: () => number;
+declare const perfStop: (startTime: number) => void;
+declare const bytesToSize: (bytes: number) => string;
 
 declare const dataToFile: (content: ArrayBuffer, fileName: string, contentType: string) => void;
 declare const detectDeviceType: () => DeviceType;
@@ -91,6 +94,7 @@ declare const applyPipe: <FirstFn extends AnyFunc, F extends AnyFunc[]>(arg: Par
 declare const isAsync: (fn: Function) => boolean;
 
 declare const removeHtmlTags: (text: string) => string;
+declare const removeInlineStyles: (text: string) => string;
 declare const escape: (str: string) => string;
 declare const unescape: (str: string) => string;
 
@@ -135,6 +139,7 @@ declare const randomStr: (len?: number, prefix?: string) => string;
 declare const slugify: (text: string) => string;
 declare const capitalize: (str: string) => string;
 declare const truncate: (str: string, length: number) => string;
+declare const maskString: (str: string) => string;
 
 declare const addTrailingSlash: (url: string) => string;
 
@@ -142,6 +147,7 @@ declare const isValidEmail: (email: string) => boolean;
 declare const isValidIPV4: (ip: string) => boolean;
 declare const isValidIPV6: (ip: string) => boolean;
 declare const isValidUrl: (url: string) => boolean;
+declare const trimNewLines: (s: string) => string;
 
 declare const hashString: (str: string, iterations?: number, keyLen?: number, digest?: string) => {
     salt: string;
@@ -151,7 +157,8 @@ declare const hashString: (str: string, iterations?: number, keyLen?: number, di
 };
 declare const validateHash: (password: string, savedHash: string, savedSalt: string, iterations: number, keyLen: number, digest: string) => boolean;
 
-declare const readdirRecursive: (dir: any, fileList?: string[]) => Promise<string[]>;
+declare const readdirRecursive: (dir: string, fileList?: string[]) => Promise<string[]>;
+declare const isFileExists: (path: string) => Promise<boolean>;
 
 declare const cache: {
     set(key: any, value: any): void;
@@ -160,4 +167,4 @@ declare const cache: {
     remove(key: any): void;
 };
 
-export { $, $$, addClass, addTrailingSlash, addZero, applyPipe, batchInvoke, cache, camelCase, cameraEnvironment, capitalize, countBy, dataToFile, dateWithTimeStamp, detectDeviceType, downloadAsJson, endsWithAny, escape, escapeHtml, fileToBase64, filterFalsyFromObject, flattenArray, flattenObject, flip, getCountryFromISO, getFlagEmoji, getImageDimensions, getMonthFirstDay, getMonthLastDay, getMonthList, getOs, getRandomNumber, getVideoConstraint, getWeekFirstDay, getWeekLastDay, hasProperty, hashString, insertAfter, insertBefore, insertItemAtIndex, intersection, isAsync, isBoolean, isBrowser, isDate, isDef, isFunction, isHtmlElement, isJsObject, isMobileDevice, isNull, isNumber, isObject, isPageReloaded, isRegExp, isString, isUndefined, isValidEmail, isValidIPV4, isValidIPV6, isValidUUID, isValidUrl, isWeekday, isWindow, kebabCase, median, occurrenceCount, omit, pascalCase, pick, pipe, prepend, randomHexColorCode, randomItem, randomStr, rangeParser, readdirRecursive, removeClass, removeHtmlTags, removeItem, removeItemAtIndex, removeZeroWidthSpace, replaceItemAtIndex, setBase64Img, shuffleArray, slugify, sort, sortAsc, sortBy, startCamera, startsWithAny, stopCamera, style, toLongDate, toString, truncate, unescape, unionWithExclusion, unique, validateHash, wait };
+export { $, $$, addClass, addTrailingSlash, addZero, applyPipe, batchInvoke, bytesToSize, cache, camelCase, cameraEnvironment, capitalize, countBy, dataToFile, dateWithTimeStamp, detectDeviceType, downloadAsJson, endsWithAny, escape, escapeHtml, fileToBase64, filterFalsyFromObject, flattenArray, flattenObject, flip, getCountryFromISO, getFlagEmoji, getImageDimensions, getMonthFirstDay, getMonthLastDay, getMonthList, getOs, getRandomNumber, getVideoConstraint, getWeekFirstDay, getWeekLastDay, hasProperty, hashString, insertAfter, insertBefore, insertItemAtIndex, intersection, isAsync, isBoolean, isBrowser, isDate, isDef, isFileExists, isFunction, isHtmlElement, isJsObject, isMobileDevice, isNull, isNumber, isObject, isPageReloaded, isRegExp, isString, isUndefined, isValidEmail, isValidIPV4, isValidIPV6, isValidUUID, isValidUrl, isWeekday, isWindow, kebabCase, maskString, median, occurrenceCount, omit, pascalCase, perfStart, perfStop, pick, pipe, prepend, randomHexColorCode, randomItem, randomStr, rangeParser, readdirRecursive, removeClass, removeHtmlTags, removeInlineStyles, removeItem, removeItemAtIndex, removeZeroWidthSpace, replaceItemAtIndex, setBase64Img, shuffleArray, slugify, sort, sortAsc, sortBy, startCamera, startsWithAny, stopCamera, style, toLongDate, toString, trimNewLines, truncate, unescape, unionWithExclusion, unique, validateHash, wait };
