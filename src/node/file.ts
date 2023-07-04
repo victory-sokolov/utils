@@ -1,7 +1,13 @@
 import path from 'path';
 import { stat, readdir } from 'node:fs/promises';
 
-export const readdirRecursive = async (dir, fileList: string[] = []) => {
+/**
+ * Read directory recursively to get all files in the directory
+ * @param dir Directory to files
+ * @param fileList List of files
+ * @returns List of the files from directory
+ */
+export const readdirRecursive = async (dir: string, fileList: string[] = []) => {
     const exclude = ['node_modules', '.venv', '.env'];
     const files = await readdir(dir);
     for (const file of files) {
@@ -14,4 +20,22 @@ export const readdirRecursive = async (dir, fileList: string[] = []) => {
         }
     }
     return fileList;
+};
+
+/**
+ * Check if specified file exists
+ * @param path File path
+ * @returns True if file exists otherwise false
+ */
+export const isFileExists = async (path: string) => {
+    try {
+        await stat(path);
+        return true;
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            return false;
+        } else {
+            throw error;
+        }
+    }
 };
