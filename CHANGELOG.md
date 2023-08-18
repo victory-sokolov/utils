@@ -1,3 +1,10 @@
+# [0.12.0](https://github.com/victory-sokolov/utils/compare/v0.11.0...v0.12.0) (2023-08-18)
+
+
+### Features
+
+* Add dateTimeToCron and cronToDateTime ([0bf50e4](https://github.com/victory-sokolov/utils/commit/0bf50e4e792eb4cb4fe9715d1ed5a7a64752d549))
+
 # [0.11.0](https://github.com/victory-sokolov/utils/compare/v0.10.0...v0.11.0) (2023-07-04)
 
 
