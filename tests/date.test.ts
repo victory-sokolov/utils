@@ -7,6 +7,8 @@ import {
     getMonthFirstDay,
     isWeekday,
     toLongDate,
+    cronToDateTime,
+    dateTimeToCron,
 } from '../src/date';
 
 describe('getMonthList', () => {
@@ -79,5 +81,25 @@ describe('toLongDate', () => {
         expect(() => {
             toLongDate('invalid date');
         }).toThrow('Invalid date provided');
+    });
+});
+
+describe('dateTimeToCron', () => {
+    it('returns the correct cron format', () => {
+        const testDate = new Date('2023-08-18T12:34:00Z');
+        const expectedCronFormat = '34 12 18 8 5';
+        const result = dateTimeToCron(testDate);
+
+        expect(result).toBe(expectedCronFormat);
+    });
+});
+
+describe('cronToDateTime', () => {
+    it('returns the correct next date', () => {
+        const cronExpression = '34 12 18 8 3'; // Wednesday at 12:34 PM
+        const expectedNextDate = new Date('2023-08-23T12:34:00Z'); // Assuming current date is 2023-08-18
+        const result = cronToDateTime(cronExpression);
+
+        expect(result.toISOString()).toBe(expectedNextDate.toISOString());
     });
 });

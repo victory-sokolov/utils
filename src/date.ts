@@ -87,3 +87,45 @@ export const toLongDate = (date: string): string => {
         day: 'numeric',
     });
 };
+
+/**
+ * Converts datetime to cron like syntax
+ * @param date
+ * @returns Cron style date time
+ */
+export const dateTimeToCron = (date: Date): string => {
+    const minutes = date.getUTCMinutes();
+    const hours = date.getUTCHours();
+    const days = date.getUTCDate();
+    const months = date.getUTCMonth() + 1;
+    const dayOfWeek = date.getUTCDay();
+
+    return `${minutes} ${hours} ${days} ${months} ${dayOfWeek}`;
+};
+
+/**
+ * Convert cront like syntax "34 12 18 8 5" to Date object
+ * @param cronSyntax
+ * @returns Date object
+ */
+export const cronToDateTime = (cronSyntax: string): Date => {
+    const [minutes, hours, days, months, dayOfWeek] = cronSyntax.split(' ');
+
+    const now = new Date();
+    const currentYear = now.getUTCFullYear();
+
+    const nextDate = new Date(
+        Date.UTC(currentYear, Number(months) - 1, Number(days), Number(hours), Number(minutes), 0)
+    );
+
+    // Calculate day of the week adjustment
+    const dayDiff = (Number(dayOfWeek) - nextDate.getUTCDay() + 7) % 7;
+    nextDate.setUTCDate(nextDate.getUTCDate() + dayDiff);
+
+    // Ensure the next date is in the future
+    if (nextDate <= now) {
+        nextDate.setUTCFullYear(currentYear + 1);
+    }
+
+    return nextDate;
+};
