@@ -4,9 +4,11 @@ const config = {
         '@semantic-release/commit-analyzer',
         {
             releaseRules: [
-                { type: 'docs', scope: 'README', release: 'patch' },
-                { type: 'refactor', release: 'patch' },
-                { type: 'style', release: 'patch' },
+                { type: 'docs', scope: 'README', release: 'patch', emoji: '📝' },
+                { type: 'refactor', release: 'patch', emoji: '♻️' },
+                { type: 'style', release: 'patch', emoji: '💄' },
+                { type: 'feat', release: 'minor', emoji: '✨' },
+                { type: 'fix', release: 'patch', emoji: '🐛' },
             ],
         },
         '@semantic-release/release-notes-generator',
