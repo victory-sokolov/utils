@@ -35,7 +35,7 @@
         "dist/*"
     ],
     "scripts": {
-        "build": "rimraf dist && rollup -c",
+        "build": "rollup -c",
         "test": "node --no-warnings --experimental-vm-modules node_modules/jest/bin/jest.js tests/ --runInBand",
         "coverage": "jest --coverage",
         "lint": "eslint .",
