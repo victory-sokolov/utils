@@ -1,10 +1,10 @@
-name: Test and Lint
+name: CI
 
 on: 
   push:
     branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -33,4 +33,6 @@ jobs:
       
       - name: Run tests
         run: npm run test
-    
+
+      - name: Build
+        run: npm run build
