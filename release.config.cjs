@@ -18,14 +18,8 @@ const config = {
                 changelogFile: 'CHANGELOG.md',
             },
         ],
-        '@semantic-release/git',
-        [
-            {
-                assets: ['dist/*.js', 'dist/*.ts', 'dist/*.map', 'package.json'],
-                message: 'chore(release): ${nextRelease.version} [skip-ci]\n\n${nextRelease.notes}',
-            },
-        ],
         '@semantic-release/github',
+        '@semantic-release/npm',
     ],
 };
 
