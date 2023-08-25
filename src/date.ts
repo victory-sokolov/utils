@@ -115,7 +115,7 @@ export const cronToDateTime = (cronSyntax: string): Date => {
     const currentYear = now.getUTCFullYear();
 
     const nextDate = new Date(
-        Date.UTC(currentYear, Number(months) - 1, Number(days), Number(hours), Number(minutes), 0)
+        Date.UTC(currentYear, Number(months) - 1, Number(days), Number(hours), Number(minutes), 0),
     );
 
     // Calculate day of the week adjustment
@@ -124,8 +124,24 @@ export const cronToDateTime = (cronSyntax: string): Date => {
 
     // Ensure the next date is in the future
     if (nextDate <= now) {
-        nextDate.setUTCFullYear(currentYear + 1);
+        nextDate.setUTCFullYear(currentYear);
     }
 
     return nextDate;
+};
+
+/**
+ * Source: https://www.30secondsofcode.org/js/s/date-range-generator/
+ * Usage: [...dateRangeGenerator(new Date('2021-06-01'), new Date('2021-06-04'))];
+ * Generates dates in the given range
+ * @param start
+ * @param end
+ * @param step
+ */
+export const dateRangeGenerator = function* (start: Date, end: Date, step: number = 1) {
+    const d = start;
+    while (d < end) {
+        yield new Date(d);
+        d.setDate(d.getDate() + step);
+    }
 };

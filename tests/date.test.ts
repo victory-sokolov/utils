@@ -9,6 +9,7 @@ import {
     toLongDate,
     cronToDateTime,
     dateTimeToCron,
+    dateRangeGenerator,
 } from '../src/date';
 
 describe('getMonthList', () => {
@@ -101,5 +102,30 @@ describe('cronToDateTime', () => {
         const result = cronToDateTime(cronExpression);
 
         expect(result.toISOString()).toBe(expectedNextDate.toISOString());
+    });
+});
+
+describe('dateRangeGenerator', () => {
+    it('should generate a range of dates', () => {
+        const startDate = new Date('2023-08-01');
+        const endDate = new Date('2023-08-05');
+        const step = 1;
+        const dateGenerator = dateRangeGenerator(startDate, endDate, step);
+
+        const expectedDates = [
+            new Date('2023-08-01'),
+            new Date('2023-08-02'),
+            new Date('2023-08-03'),
+            new Date('2023-08-04'),
+        ];
+
+        for (const expectedDate of expectedDates) {
+            const generatedDate = dateGenerator.next().value;
+            expect(generatedDate).toEqual(expectedDate);
+        }
+
+        // Ensure that the generator stops after generating all dates
+        const lastGeneratedDate = dateGenerator.next().value;
+        expect(lastGeneratedDate).toBeUndefined();
     });
 });
