@@ -22,7 +22,7 @@ jobs:
           node-version: '18.x'
       
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install
 
       - name: Run linter
         run: yarn lint
