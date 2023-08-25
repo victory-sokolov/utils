@@ -19,8 +19,10 @@
     "keywords": [
         "utils",
         "typescript utils",
-        "javascript utils"
+        "javascript utils",
+        "nodejs utils"
     ],
+    "sideEffects": false,
     "main": "dist/index.cjs",
     "module": "dist/index.esm.js",
     "typings": "dist/index.d.ts",
