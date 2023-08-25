@@ -1,32 +1,68 @@
-import { hashString } from '../../src';
-import { randomBytes } from 'node:crypto';
+import { randomBytes, pbkdf2Sync } from 'crypto';
+import { hashString, validateHash } from '../../src';
 
 describe('cryptography', () => {
-    let randomBytes: jest.MockedFunction<typeof import('node:crypto').randomBytes>;
-    let pbkdf2Sync: jest.MockedFunction<typeof import('node:crypto').pbkdf2Sync>;
 
-    beforeEach(async () => {
-        const crypto = await import('node:crypto');
-        randomBytes = jest.spyOn(crypto, 'randomBytes') as jest.MockedFunction<typeof crypto.randomBytes>;
-        pbkdf2Sync = jest.spyOn(crypto, 'pbkdf2Sync') as jest.MockedFunction<typeof crypto.pbkdf2Sync>;
-    });
+    describe('hashString', () => {
+    it('should generate a hash with the expected properties', () => {
+        // Mock randomBytes and pbkdf2Sync functions
+        const mockRandomBytes = jest.spyOn(randomBytes, 'toString').mockReturnValue('mocked-salt');
+        const mockPbkdf2Sync = jest.spyOn(pbkdf2Sync, 'toString').mockReturnValue('mocked-hash');
+        const result = hashString('password', 1000, 32, 'sha256');
 
-    test.skip('hashString should return an object with the salt and hashed password', () => {
-        randomBytes.mockReturnValueOnce(Buffer.from('salt'));
-        pbkdf2Sync.mockImplementation((password, salt, iterations, keyLen, digest) => {
-            return Buffer.from('hashed-password');
+        expect(result).toEqual({
+            salt: 'mocked-salt',
+            hash: 'mocked-hash',
+            iterations: 1000,
+            keyLen: 32,
         });
 
-        const result = hashString('password');
-        expect(result).toEqual({ salt: 'salt', hash: 'hashed-password' });
-    });
+        expect(mockRandomBytes).toHaveBeenCalledWith(128, 'base64');
+        expect(mockPbkdf2Sync).toHaveBeenCalledWith(
+            'password',
+            'mocked-salt',
+            1000,
+            32,
+            'sha256'
+        );
 
-    test.skip('hashString should throw an error if the pbkdf2Sync function returns an error', () => {
-        randomBytes.mockReturnValue(Buffer.from('salt'));
-        pbkdf2Sync.mockImplementation((password, salt, iterations, keyLen, digest) => {
-            throw new Error('pbkdf2Sync error');
+        mockRandomBytes.mockRestore();
+        mockPbkdf2Sync.mockRestore();
+    });
+});
+
+    describe('validateHash', () => {
+        it('should return true for a valid hash', () => {
+            const mockPbkdf2Sync = jest.spyOn(pbkdf2Sync, 'toString').mockReturnValue('mocked-hash');
+            const result = validateHash('password', 'mocked-hash', 'salt', 1000, 32, 'sha256');
+
+            expect(result).toBe(true);
+            expect(mockPbkdf2Sync).toHaveBeenCalledWith(
+                'password',
+                'salt',
+                1000,
+                32,
+                'sha256'
+            );
+
+            mockPbkdf2Sync.mockRestore();
         });
 
-        expect(() => hashString('password')).toThrow('pbkdf2Sync error');
+        it('should return false for an invalid hash', () => {
+            const mockPbkdf2Sync = jest.spyOn(pbkdf2Sync, 'toString').mockReturnValue('different-hash');
+
+            const result = validateHash('password', 'mocked-hash', 'salt', 1000, 32, 'sha256');
+            expect(result).toBe(false);
+            expect(mockPbkdf2Sync).toHaveBeenCalledWith(
+                'password',
+                'salt',
+                1000,
+                32,
+                'sha256'
+            );
+
+            mockPbkdf2Sync.mockRestore();
+        });
     });
+
 });

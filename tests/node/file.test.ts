@@ -1,5 +1,5 @@
 import path from 'path';
-import { readdir, stat } from 'fs/promises';
+import { stat } from 'fs/promises';
 import { readdirRecursive } from '../../src/node';
 import { jest } from '@jest/globals';
 
