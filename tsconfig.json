@@ -14,6 +14,7 @@
         "resolveJsonModule": true,
         "removeComments": true,
         "allowJs": true,
+        "importHelpers": true,
         "outDir": "./dist",
         "lib": [
             "esnext",
