@@ -6,12 +6,16 @@ on:
       - 'v*'
   workflow_dispatch:  
 
+permissions:
+  contents: read # for checkout
+
 jobs:
   release:
     permissions:
-      contents: write
+      contents: write 
       issues: write
       pull-requests: write
+      id-token: write
 
     runs-on: ubuntu-latest
     steps:
@@ -20,9 +24,12 @@ jobs:
         with:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
+        
+      - name: Install dependencies
+        run: yarn install
 
       - name: Release new version to NPM
-        run: npx conventional-github-releaser
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
