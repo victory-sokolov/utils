@@ -38,7 +38,7 @@ jobs:
         run: yarn typecheck
       
       - name: Run tests
-        run: yarn test
+        run: yarn test:no-watch
 
       - name: Build
         run: yarn build
