@@ -1,11 +1,12 @@
+import { expect } from 'vitest';
 import { applyPipe, batchInvoke, pipe } from '../src/function';
-import { jest } from '@jest/globals';
+import { vi, it, describe } from 'vitest';
 
 describe('batchInvoke', () => {
     it('should call every function in the array', () => {
-        const mockFn1 = jest.fn();
-        const mockFn2 = jest.fn();
-        const mockFn3 = jest.fn();
+        const mockFn1 = vi.fn();
+        const mockFn2 = vi.fn();
+        const mockFn3 = vi.fn();
 
         batchInvoke([mockFn1, mockFn2, mockFn3]);
 

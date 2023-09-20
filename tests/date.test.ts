@@ -11,6 +11,7 @@ import {
     dateTimeToCron,
     dateRangeGenerator,
 } from '../src/date';
+import { describe, test, expect } from 'vitest';
 
 describe('getMonthList', () => {
     test('month names', () => {
@@ -75,7 +76,7 @@ describe('isWeekday', () => {
 
 describe('toLongDate', () => {
     it('should return a long date string in the format of Month Day, Year', () => {
-        expect(toLongDate('2022-01-01')).toEqual('January 1, 2022');
+        expect(toLongDate('2022-01-01')).toBe('January 1, 2022');
     });
 
     it('toLongDate throws an error for an invalid date', () => {

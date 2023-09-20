@@ -23,7 +23,7 @@
         "types": [
             "./node_modules/user-agent-data-types",
             "node",
-            "jest"
+            "vitest/globals"
         ]
     },
     "include": [

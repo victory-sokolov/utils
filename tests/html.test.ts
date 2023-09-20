@@ -1,4 +1,5 @@
 import { escape, unescape, removeHtmlTags } from '../src/html';
+import { describe, test, expect } from 'vitest';
 
 describe('removeHtmlTags', () => {
     test('remove tags', () => {

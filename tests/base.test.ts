@@ -1,32 +1,33 @@
 import { bytesToSize } from '../src/base';
+import { describe, it, expect } from 'vitest';
 
 describe('bytesToSize', () => {
-    test('it should return "0" when given 0 bytes', () => {
+    it('should return "0" when given 0 bytes', () => {
         expect(bytesToSize(0)).toBe('0');
     });
 
-    test('it should correctly convert bytes to kilobytes', () => {
+    it('should correctly convert bytes to kilobytes', () => {
         expect(bytesToSize(1024)).toBe('1 KB');
         expect(bytesToSize(2048)).toBe('2 KB');
         expect(bytesToSize(3072)).toBe('3 KB');
         expect(bytesToSize(1536)).toBe('2 KB');
     });
 
-    test('it should correctly convert bytes to megabytes', () => {
+    it('should correctly convert bytes to megabytes', () => {
         expect(bytesToSize(1048576)).toBe('1 MB');
         expect(bytesToSize(2097152)).toBe('2 MB');
         expect(bytesToSize(3145728)).toBe('3 MB');
         expect(bytesToSize(1572864)).toBe('2 MB');
     });
 
-    test('it should correctly convert bytes to gigabytes', () => {
+    it('should correctly convert bytes to gigabytes', () => {
         expect(bytesToSize(1073741824)).toBe('1 GB');
         expect(bytesToSize(2147483648)).toBe('2 GB');
         expect(bytesToSize(3221225472)).toBe('3 GB');
         expect(bytesToSize(1610612736)).toBe('2 GB');
     });
 
-    test('it should correctly convert bytes to terabytes', () => {
+    it('should correctly convert bytes to terabytes', () => {
         expect(bytesToSize(1099511627776)).toBe('1 TB');
         expect(bytesToSize(2199023255552)).toBe('2 TB');
         expect(bytesToSize(3298534883328)).toBe('3 TB');

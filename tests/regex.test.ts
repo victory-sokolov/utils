@@ -1,4 +1,5 @@
 import { isValidEmail, isValidIPV4, isValidIPV6, isValidUrl } from '../src/regex';
+import { describe, test, expect } from 'vitest';
 
 describe('isValidIPV4', () => {
     test('valid IP', () => {

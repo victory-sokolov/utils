@@ -1,10 +1,10 @@
 import { cameraEnvironment, getVideoConstraint, startCamera } from '../../src/browser/video';
-import { jest } from '@jest/globals';
+import { expect, vi } from 'vitest';
 
 describe('test camera', () => {
     describe('cameraEnvironment', () => {
         it('should return "user" if not on a mobile device', () => {
-            const isMobileDeviceMock = jest.fn().mockReturnValue(false);
+            const isMobileDeviceMock = vi.fn().mockReturnValue(false);
             (global as any).isMobileDevice = isMobileDeviceMock;
             expect(cameraEnvironment()).toBe('user');
         });
@@ -12,7 +12,7 @@ describe('test camera', () => {
 
     describe('getVideoConstraint', () => {
         it('should return correct resolution if not on mobile device and window width is greater than or equal to 960', () => {
-            const isMobileDeviceMock = jest.fn().mockReturnValue(false);
+            const isMobileDeviceMock = vi.fn().mockReturnValue(false);
             (global as any).isMobileDevice = isMobileDeviceMock;
 
             expect(getVideoConstraint()).toEqual({
@@ -25,15 +25,15 @@ describe('test camera', () => {
     describe('startCamera', () => {
         it('should not start camera if already streaming', async () => {
             const videoMock: any = {
-                onloadedmetadata: jest.fn(),
-                play: jest.fn(),
-                srcObject: jest.fn(),
-                addTextTrack: jest.fn(),
-                captureStream: jest.fn(),
-                canPlayType: jest.fn(),
-                fastSeek: jest.fn(),
+                onloadedmetadata: vi.fn(),
+                play: vi.fn(),
+                srcObject: vi.fn(),
+                addTextTrack: vi.fn(),
+                captureStream: vi.fn(),
+                canPlayType: vi.fn(),
+                fastSeek: vi.fn(),
             };
-            const getUserMediaMock = jest.fn();
+            const getUserMediaMock = vi.fn();
             (navigator as any).mediaDevices = {
                 getUserMedia: getUserMediaMock,
             };

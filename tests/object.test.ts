@@ -1,4 +1,5 @@
 import { omit, pick, flattenObject, filterFalsyFromObject, unionWithExclusion, flip } from '../src/object';
+import { describe, it, expect } from 'vitest';
 
 describe('omit', () => {
     it('should remove the specified keys from the object', () => {

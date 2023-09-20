@@ -1,4 +1,5 @@
 import { getCountryFromISO, getFlagEmoji } from '../src/country';
+import { describe, it, expect } from 'vitest';
 
 describe('getCountryFromISO', () => {
     it('should return the country name for a valid ISO code', () => {

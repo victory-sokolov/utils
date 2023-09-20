@@ -13,60 +13,61 @@ import {
     capitalize,
     maskString,
 } from '../src/string';
+import { describe, test, it, expect } from 'vitest';
 
 describe('string-utils', () => {
     describe('camelCase', () => {
         it('should convert a lowercase string to camelCase', () => {
             const result = camelCase('hello world');
-            expect(result).toEqual('helloWorld');
+            expect(result).toBe('helloWorld');
         });
 
         it('should convert a mixed-case string to camelCase', () => {
             const result = camelCase('hello World');
-            expect(result).toEqual('helloWorld');
+            expect(result).toBe('helloWorld');
         });
 
         it('should convert a string with non-alpha numeric characters to camelCase', () => {
             const result = camelCase('hello-world');
-            expect(result).toEqual('helloWorld');
+            expect(result).toBe('helloWorld');
         });
     });
 
     describe('pascalCase', () => {
         it('should convert a lowercase string to pascalCase', () => {
             const result = pascalCase('hello world');
-            expect(result).toEqual('HelloWorld');
+            expect(result).toBe('HelloWorld');
         });
 
         it('should convert a mixed-case string to pascalCase', () => {
             const result = pascalCase('hello World');
-            expect(result).toEqual('HelloWorld');
+            expect(result).toBe('HelloWorld');
         });
 
         it('should convert a string with a custom separator to pascalCase', () => {
             const result = pascalCase('hello-world', '-');
-            expect(result).toEqual('HelloWorld');
+            expect(result).toBe('HelloWorld');
         });
     });
 
     describe('kebabCase', () => {
         it('should convert a lowercase string to kebabCase', () => {
             const result = kebabCase('hello world');
-            expect(result).toEqual('hello-world');
+            expect(result).toBe('hello-world');
         });
     });
 
     describe('escapeHtml', () => {
         it('should escape HTML characters in a string', () => {
             const result = escapeHtml('<div>Hello World</div>');
-            expect(result).toEqual('&lt;div&gt;Hello World&lt;/div&gt;');
+            expect(result).toBe('&lt;div&gt;Hello World&lt;/div&gt;');
         });
     });
 
     describe('removeZeroWidthSpace', () => {
         it('should remove zero-width spaces from a string', () => {
             const result = removeZeroWidthSpace('Hello World\u200B');
-            expect(result).toEqual('Hello World');
+            expect(result).toBe('Hello World');
         });
     });
 
@@ -116,12 +117,12 @@ describe('string-utils', () => {
     describe('slugify', () => {
         it('should convert a string to a slug', () => {
             const result = slugify('Hello World');
-            expect(result).toEqual('hello-world');
+            expect(result).toBe('hello-world');
         });
 
         it('should convert a string with special characters to a slug', () => {
             const result = slugify('Hello, World!');
-            expect(result).toEqual('hello-world');
+            expect(result).toBe('hello-world');
         });
     });
 

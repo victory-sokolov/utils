@@ -1,4 +1,6 @@
 import { rangeParser } from '../src/number';
+import { describe, test, expect } from 'vitest';
+
 
 describe('test rangeParser', () => {
     test('single number', () => {

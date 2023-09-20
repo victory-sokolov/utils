@@ -87,3 +87,13 @@ export const unionWithExclusion = (left: RecordObject, right: RecordObject): Rec
  */
 export const flip = (data: RecordObject): RecordObject =>
     Object.fromEntries(Object.entries(data).map(([key, value]) => [value, key]));
+
+/**
+ * Filter array of objects and remove dublicates by provided key
+ * @param data Array of objects
+ * @param key Key lookup
+ * @returns Filtered object
+ */
+export const uniqueObject = (data: RecordObject[], key: string): RecordObject[] => {
+    return [...new Map(data.map((item) => [item[key], item])).values()];
+};
