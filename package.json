@@ -65,7 +65,7 @@
         "@rollup/plugin-node-resolve": "^15.2.1",
         "@semantic-release/changelog": "^6.0.3",
         "@semantic-release/commit-analyzer": "^11.0.0",
-        "@semantic-release/github": "^9.0.6",
+        "@semantic-release/github": "^9.0.7",
         "@semantic-release/npm": "^11.0.0",
         "@semantic-release/release-notes-generator": "^12.0.0",
         "@types/node": "^20.6.3",
@@ -75,7 +75,7 @@
         "c8": "8.0.1",
         "commitizen": "^4.3.0",
         "cz-conventional-changelog": "^3.3.0",
-        "eslint": "^8.49.0",
+        "eslint": "^8.50.0",
         "eslint-plugin-vitest": "0.3.1",
         "esno": "0.17.0",
         "husky": "^8.0.3",
@@ -83,15 +83,15 @@
         "prettier": "^3.0.3",
         "rollup": "^3.29.2",
         "rollup-plugin-dts": "^6.0.2",
-        "rollup-plugin-esbuild": "^5.0.0",
-        "semantic-release": "^22.0.0",
+        "rollup-plugin-esbuild": "^6.0.1",
+        "semantic-release": "^22.0.4",
         "source-map": "^0.7.4",
         "tslib": "^2.6.2",
         "typedoc": "^0.25.1",
         "typedoc-plugin-missing-exports": "^2.1.0",
         "typescript": "^5.2.2",
         "user-agent-data-types": "^0.4.2",
-        "vitest": "0.34.4"
+        "vitest": "^0.34.5"
     },
     "babel": {
         "presets": [
