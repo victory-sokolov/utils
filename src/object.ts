@@ -6,9 +6,9 @@ import { RecordObject } from './types';
  * @param props Keys to remove from object
  * @returns Object with keys removed
  */
-export const omit = <T extends RecordObject, K extends keyof T>(obj: T, ...props: K[]): Omit<T, K> => {
-    const filteredArray = Object.entries(obj).filter(([key]) => !props.includes(key as K));
-    return Object.fromEntries(filteredArray) as Omit<T, K>;
+export const omit = <T extends object, K extends keyof T>(obj: T, ...keys: K[]): Omit<T, K> => {
+    keys.forEach((key) => delete obj[key]);
+    return obj;
 };
 
 /**
