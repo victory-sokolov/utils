@@ -1,11 +1,12 @@
 import { omit, pick, flattenObject, filterFalsyFromObject, unionWithExclusion, flip } from '../src/object';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, expectTypeOf } from 'vitest';
 
 describe('omit', () => {
     it('should remove the specified keys from the object', () => {
         const obj = { a: 1, b: 2, c: 3 };
         expect(omit(obj, 'a', 'c')).toEqual({ b: 2 });
     });
+
 });
 
 describe('pick', () => {
