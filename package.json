@@ -108,7 +108,9 @@
     },
     "husky": {
         "hooks": {
-            "pre-push": "npm run prepush"
+            "pre-push": "npm run prepush",
+            "pre-commit": "yarn lint",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
         }
     },
     "config": {
