@@ -20,8 +20,8 @@ const config = {
                 changelogFile: 'CHANGELOG.md',
             },
         ],
-        '@semantic-release/github',
         '@semantic-release/npm',
+        '@semantic-release/github',
     ],
 };
 
