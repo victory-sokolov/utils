@@ -3,6 +3,7 @@ const config = {
     plugins: [
         '@semantic-release/commit-analyzer',
         {
+            preset: 'angular',
             releaseRules: [
                 { type: 'docs', scope: 'README', release: 'patch', emoji: '📝' },
                 { type: 'refactor', release: 'patch', emoji: '♻️' },
