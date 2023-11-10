@@ -4,6 +4,7 @@
     "license": "MIT",
     "private": false,
     "type": "module",
+    "homepage": "https://github.com/victory-sokolov/utils#readme",
     "description": "Various TypeScript/JavaScripts utils functions for node and browser",
     "author": {
         "email": "viktorsokolov.and@gmail.com",
@@ -120,9 +121,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "engines": {
-        "npm": "please-use-yarn",
-        "yarn": ">= 1.22.19"
     }
 }

@@ -9,6 +9,7 @@ const config = {
                 { type: 'style', release: 'patch', emoji: '💄' },
                 { type: 'feat', release: 'minor', emoji: '✨' },
                 { type: 'fix', release: 'patch', emoji: '🐛' },
+                { type: 'ci', release: 'patch', emoji: '👷' },
             ],
         },
         '@semantic-release/release-notes-generator',
