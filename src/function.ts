@@ -29,7 +29,7 @@ export const pipe = (...fns: Array<Function>) => fns.reduce((prevFunc: unknown, 
 
 /**
  * Passing result of one function to another with arguments
- * @param arg Argument for the first functiion
+ * @param arg Argument for the first function
  * @param firstFn First function to execute
  * @param fns Array of functions
  * @returns Result of last invoked function
