@@ -22,10 +22,14 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      - name: Read .nvmrc
+        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
+        id: nvm
+
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
         
       - name: Install dependencies
         run: npm install
