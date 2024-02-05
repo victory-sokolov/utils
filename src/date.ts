@@ -145,3 +145,17 @@ export const dateRangeGenerator = function* (start: Date, end: Date, step: numbe
         d.setDate(d.getDate() + step);
     }
 };
+
+/**
+ * Convery days to seconds
+ * @param days Days to convert to seconds
+ * @returns Seconds in provided number of months
+ */
+export const secondsInDays = (days: number): number => {
+    const secondsInMinute = 60;
+    const secondsInHour = 60 * secondsInMinute;
+    const secondsInDay = 24 * secondsInHour;
+
+    const secondsInMonth = days * secondsInDay;
+    return secondsInMonth;
+};
