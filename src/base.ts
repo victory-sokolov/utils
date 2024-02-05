@@ -5,7 +5,8 @@ const SIZE_UNITS = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
  * @param ms Pause in milliseconds
  * @returns
  */
-export const wait = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
+export const wait = (ms: number): Promise<void> =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Start time

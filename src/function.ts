@@ -1,14 +1,19 @@
 type AnyFunc = (...arg: any) => any;
 
-type PipeArgs<F extends AnyFunc[], Acc extends AnyFunc[] = []> = F extends [(...args: infer A) => infer B]
+type PipeArgs<F extends AnyFunc[], Acc extends AnyFunc[] = []> = F extends [
+    (...args: infer A) => infer B,
+]
     ? [...Acc, (...args: A) => B]
     : F extends [(...args: infer A) => any, ...infer Tail]
-    ? Tail extends [(arg: infer B) => any, ...any[]]
-        ? PipeArgs<Tail, [...Acc, (...args: A) => B]>
-        : Acc
-    : Acc;
+      ? Tail extends [(arg: infer B) => any, ...any[]]
+          ? PipeArgs<Tail, [...Acc, (...args: A) => B]>
+          : Acc
+      : Acc;
 
-type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [...any[], (...arg: any) => infer R]
+type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [
+    ...any[],
+    (...arg: any) => infer R,
+]
     ? R
     : Else;
 
@@ -25,7 +30,8 @@ export const batchInvoke = (functions: Array<() => void>): void => {
  * @param fns Array of functions
  * @returns result of last invoked function
  */
-export const pipe = (...fns: Array<Function>) => fns.reduce((prevFunc: unknown, func) => func(prevFunc), fns[0]);
+export const pipe = (...fns: Array<Function>) =>
+    fns.reduce((prevFunc: unknown, func) => func(prevFunc), fns[0]);
 
 /**
  * Passing result of one function to another with arguments

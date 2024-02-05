@@ -17,7 +17,10 @@ export const omit = <T extends object, K extends keyof T>(obj: T, ...keys: K[]):
  * @param props Keys to select from object
  * @returns Object with selected keys
  */
-export const pick = <T extends RecordObject, K extends keyof T>(obj: T, ...props: K[]): Pick<T, K> => {
+export const pick = <T extends RecordObject, K extends keyof T>(
+    obj: T,
+    ...props: K[]
+): Pick<T, K> => {
     const filteredArray = Object.entries(obj).filter(([key]) => props.includes(key as K));
     return Object.fromEntries(filteredArray) as Pick<T, K>;
 };

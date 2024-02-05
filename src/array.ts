@@ -111,7 +111,11 @@ export const sortBy = (arr: Array<RecordObject> = [], order = 1, key = '') => {
  * @param value the value of the item to insert
  * @param arr the array to insert into
  */
-export const insertItemAtIndex = <T>(index: number | IndexCallback<T>, value: T, arr?: T[] | null) => {
+export const insertItemAtIndex = <T>(
+    index: number | IndexCallback<T>,
+    value: T,
+    arr?: T[] | null,
+) => {
     if (!arr) {
         return [];
     }
@@ -130,7 +134,11 @@ export const insertItemAtIndex = <T>(index: number | IndexCallback<T>, value: T,
  * @param newValue the value of the item to be replaced
  * @param arr the array to replace at
  */
-export const replaceItemAtIndex = <T>(index: number | IndexCallback<T>, newValue: T, arr?: T[] | null) => {
+export const replaceItemAtIndex = <T>(
+    index: number | IndexCallback<T>,
+    newValue: T,
+    arr?: T[] | null,
+) => {
     if (!arr) {
         return [];
     }
@@ -217,7 +225,6 @@ export const occurrenceCount = <T>(data: Array<T>) => {
         unique.map((char) => {
             const occurrenceCount = data.filter((c) => c === char).length;
             return [char, occurrenceCount];
-        })
+        }),
     );
 };
-

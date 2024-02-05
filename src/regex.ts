@@ -15,7 +15,8 @@ export const isValidEmail = (email: string) => {
  * @returns True if IPV4 is valid
  */
 export const isValidIPV4 = (ip: string) => {
-    const regex = /^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$/gm;
+    const regex =
+        /^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$/gm;
     return regex.test(ip);
 };
 
@@ -43,11 +44,10 @@ export const isValidUrl = (url: string) => {
             '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // validate port and path
             '(\\?[;&a-z\\d%_.~+=-]*)?' + // validate query string
             '(\\#[-a-z\\d_]*)?$',
-        'i'
+        'i',
     );
 
     return urlPattern.test(url);
 };
 
-
-export const trimNewLines = (s: string) => s.replace(/^\n+|\n+$/g, '')
+export const trimNewLines = (s: string) => s.replace(/^\n+|\n+$/g, '');

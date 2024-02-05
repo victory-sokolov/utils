@@ -34,7 +34,7 @@ export const validateHash = (
     savedSalt: string,
     iterations: number,
     keyLen: number,
-    digest: string
+    digest: string,
 ) => {
     return savedHash == pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString('hex');
 };

@@ -28,7 +28,8 @@ export const removeHtmlTags = (text: string): string => text.replace(/<(?:.|\\n)
  * @param text HTML with inline styles
  * @returns cleaned HTML with inline styles removed
  */
-export const removeInlineStyles = (text: string): string => text.replace(/style\s*=\s*"(.*?)"/gm, '');
+export const removeInlineStyles = (text: string): string =>
+    text.replace(/style\s*=\s*"(.*?)"/gm, '');
 
 /**
  * Escape HTML tags to entities
@@ -36,7 +37,9 @@ export const removeInlineStyles = (text: string): string => text.replace(/style\
  * @returns Escaped HTML tags
  */
 export const escape = (str: string) => {
-    return str && reHasUnescapedHtml.test(str) ? str.replace(reUnescapedHtml, (chr) => htmlEscapes[chr]) : str || '';
+    return str && reHasUnescapedHtml.test(str)
+        ? str.replace(reUnescapedHtml, (chr) => htmlEscapes[chr])
+        : str || '';
 };
 
 /**
