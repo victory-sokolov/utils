@@ -17,7 +17,7 @@ const plugins = [
     json(),
     commonjs(),
     esbuild({
-        target: 'node16',
+        target: 'node20',
         minify: true,
     }),
 ];
@@ -55,7 +55,7 @@ export default [
                 file: input.replace('src/', 'dist/').replace('.ts', '.d.cts'),
                 format: 'cjs',
             },
-        ], 
+        ],
         external: [],
         plugins: [dts({ respectExternal: true })],
     })),
