@@ -166,7 +166,7 @@ export const secondsInDays = (days: number): number => {
  * @returns
  */
 export const timeAgo = (date: Date): string => {
-    const seconds = Math.floor((new Date() - date) / 1000);
+    const seconds = Math.floor((new Date().valueOf() - date.valueOf()) / 1000);
 
     let interval = Math.floor(seconds / 31536000);
     if (interval > 1) {
