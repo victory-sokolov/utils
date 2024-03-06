@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Read .nvmrc
         run: |
@@ -31,8 +31,8 @@ jobs:
           echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_OUTPUT
         id: nvm
 
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
         
