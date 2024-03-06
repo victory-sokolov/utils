@@ -31,3 +31,13 @@ export const addZero = (num: number) => {
 export const getRandomNumber = (min: number, max: number) => {
     return Math.random() * (max - min) + min;
 };
+
+/**
+ * Format string like 20k, 1m to number
+ * @param amount amount as string
+ * @returns Formatted number
+ */
+export const nFormatter = (amount: string): number => {
+    const multipliers = { k: 1000, m: 1000000 };
+    return parseFloat(amount) * multipliers[amount.charAt(amount.length - 1).toLowerCase()];
+};
