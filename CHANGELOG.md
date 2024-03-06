@@ -1,3 +1,12 @@
+# [0.15.0](https://github.com/victory-sokolov/utils/compare/v0.14.0...v0.15.0) (2024-03-06)
+
+
+### Features
+
+* nFormatter - format 20k, 1m to number ([e89a496](https://github.com/victory-sokolov/utils/commit/e89a4961074ddf2d3adb00d0e858c633b5d7aa5f))
+* timeAgo - get string time ago seconds/minutes/hours/days from date object ([1504075](https://github.com/victory-sokolov/utils/commit/1504075da1faa0983d3a80d68c7ef76c600f3114))
+* toDollars - convert cents to dollars ([dc632fe](https://github.com/victory-sokolov/utils/commit/dc632fee99a26abcc0883fb0cfa112188feb8610))
+
 # [0.14.0](https://github.com/victory-sokolov/utils/compare/v0.13.2...v0.14.0) (2024-02-05)
 
 
