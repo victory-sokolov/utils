@@ -1,3 +1,10 @@
+# [0.16.0](https://github.com/victory-sokolov/utils/compare/v0.15.0...v0.16.0) (2024-03-07)
+
+
+### Features
+
+* tap - Pass the value through the callback, and return the value ([0338904](https://github.com/victory-sokolov/utils/commit/0338904fda361e45aa5e455d14155d0a7573dab6))
+
 # [0.15.0](https://github.com/victory-sokolov/utils/compare/v0.14.0...v0.15.0) (2024-03-06)
 
 
