@@ -100,3 +100,21 @@ export const flip = (data: RecordObject): RecordObject =>
 export const uniqueObject = (data: RecordObject[], key: string): RecordObject[] => {
     return [...new Map(data.map((item) => [item[key], item])).values()];
 };
+
+/**
+ * Strict typed `Object.keys`
+ *
+ * @category Object
+ */
+export function objectKeys<T extends object>(obj: T) {
+    return Object.keys(obj) as Array<`${keyof T & (string | number | boolean | null | undefined)}`>;
+}
+
+/**
+ * Strict typed `Object.entries`
+ *
+ * @category Object
+ */
+export function objectEntries<T extends object>(obj: T) {
+    return Object.entries(obj) as Array<[keyof T, T[keyof T]]>;
+}
