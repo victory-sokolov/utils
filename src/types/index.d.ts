@@ -31,3 +31,12 @@ export type NonNegativeInteger<T extends number> = number extends T
     : `${T}` extends `-${string}` | `${string}.${string}`
       ? never
       : T;
+
+export type Maybe<T> = T | null;
+
+/**
+ * Prettify nested objects
+ */
+export type Prettify<T> = {
+    [K in keyof T]: T[K];
+} & object;
