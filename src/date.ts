@@ -197,3 +197,13 @@ export const timeAgo = (date: Date): string => {
 
     return `${Math.floor(seconds)} seconds ago`;
 };
+
+/**
+ * Get timezone from language string
+ * @param lang
+ * @returns Timezone
+ */
+export const getTimeZone = (lang: string): string => {
+    const options = Intl.DateTimeFormat(lang).resolvedOptions();
+    return options.timeZone;
+};
