@@ -1,3 +1,10 @@
+# [0.18.0](https://github.com/victory-sokolov/utils/compare/v0.17.0...v0.18.0) (2024-03-08)
+
+
+### Features
+
+* getTimeZone from passed language ([1c4a82b](https://github.com/victory-sokolov/utils/commit/1c4a82b0e4f1a36470b9ca6ce277ac7a6b298308))
+
 # [0.17.0](https://github.com/victory-sokolov/utils/compare/v0.16.0...v0.17.0) (2024-03-07)
 
 
