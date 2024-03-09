@@ -1,3 +1,10 @@
+# [0.20.0](https://github.com/victory-sokolov/utils/compare/v0.19.0...v0.20.0) (2024-03-09)
+
+
+### Features
+
+* add Fn and ElementOf ([c15468f](https://github.com/victory-sokolov/utils/commit/c15468ffcc604f28be77891e54a5b0d3c057e36d))
+
 # [0.19.0](https://github.com/victory-sokolov/utils/compare/v0.18.0...v0.19.0) (2024-03-09)
 
 
