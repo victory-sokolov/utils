@@ -59,4 +59,21 @@ export default [
         external: [],
         plugins: [dts({ respectExternal: true })],
     })),
+    {
+        input: 'src/node/index.ts',
+        output: [
+            {
+                file: 'dist/node/index.cjs',
+                format: 'cjs',
+                sourcemap: true,
+            },
+            {
+                file: 'dist/node/index.mjs',
+                format: 'mjs',
+                sourcemap: true,
+            },
+        ],
+        external: ['fs', 'path'],
+        plugins,
+    },
 ];
