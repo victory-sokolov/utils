@@ -68,8 +68,8 @@ export default [
                 sourcemap: true,
             },
             {
-                file: 'dist/node/index.mjs',
-                format: 'mjs',
+                file: 'dist/node/index.esm',
+                format: 'esm',
                 sourcemap: true,
             },
         ],
