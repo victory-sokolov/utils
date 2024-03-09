@@ -106,15 +106,28 @@ export const uniqueObject = (data: RecordObject[], key: string): RecordObject[] 
  *
  * @category Object
  */
-export function objectKeys<T extends object>(obj: T) {
+export const objectKeys = <T extends object>(obj: T) => {
     return Object.keys(obj) as Array<`${keyof T & (string | number | boolean | null | undefined)}`>;
-}
+};
 
 /**
  * Strict typed `Object.entries`
  *
  * @category Object
  */
-export function objectEntries<T extends object>(obj: T) {
+export const objectEntries = <T extends object>(obj: T) => {
     return Object.entries(obj) as Array<[keyof T, T[keyof T]]>;
-}
+};
+
+/**
+ * Get unique keys, values by provided key
+ * const objArry = [{ id: 1 }, { id: 1 }, { id: 2 }, { id: 3 }];
+    getUniqueByKey(objArry, 'id'); // [ { id: 1 }, { id: 2 }, { id: 3 } ]
+ * @param arr 
+ * @param key 
+ * @returns Unique array of objects
+ */
+export const getUniqueByKey = <T>(arr: T[], key: keyof T): T[] => {
+    return [...new Map(arr.map((item) => [item[key], item])).values()];
+};
+
