@@ -14,6 +14,16 @@ export type MonthName =
 export type DeviceType = 'Mobile' | 'Desktop';
 export type CameraEnvironment = 'environment' | 'user';
 
+/**
+ * Function type
+ */
+export type Fn<T = void> = () => T;
+
+/**
+ * Infers the element type of an array
+ */
+export type ElementOf<T> = T extends (infer E)[] ? E : never;
+
 export type RecordObject<Keys extends string | number | symbol = string, Value = unknown> = {
     [Prop in Keys]: Value;
 };
