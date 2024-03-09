@@ -1,3 +1,10 @@
+# [0.19.0](https://github.com/victory-sokolov/utils/compare/v0.18.0...v0.19.0) (2024-03-09)
+
+
+### Features
+
+* add getUniqueByKey ([60316be](https://github.com/victory-sokolov/utils/commit/60316be47668760baa65629ddbb097ad095d3e5a))
+
 # [0.18.0](https://github.com/victory-sokolov/utils/compare/v0.17.0...v0.18.0) (2024-03-08)
 
 
