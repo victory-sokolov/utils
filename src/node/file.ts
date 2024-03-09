@@ -1,5 +1,6 @@
 import path from 'path';
 import { stat, readdir } from 'node:fs/promises';
+import { existsSync, mkdirSync } from 'node:fs';
 
 /**
  * Read directory recursively to get all files in the directory
@@ -7,14 +8,14 @@ import { stat, readdir } from 'node:fs/promises';
  * @param fileList List of files
  * @returns List of the files from directory
  */
-export const readdirRecursive = async (dir: string, fileList: string[] = []) => {
+export const readDirRecursive = async (dir: string, fileList: string[] = []) => {
     const exclude = ['node_modules', '.venv', '.env'];
     const files = await readdir(dir);
     for (const file of files) {
         const filePath = path.join(dir, file);
         const fileStat = await stat(filePath);
         if (fileStat.isDirectory() && !exclude.includes(file)) {
-            fileList = await readdirRecursive(filePath, fileList);
+            fileList = await readDirRecursive(filePath, fileList);
         } else {
             fileList.push(filePath);
         }
@@ -38,4 +39,12 @@ export const isFileExists = async (path: string) => {
             throw error;
         }
     }
+};
+
+/**
+ * Create directory if not exists
+ * @param dir
+ */
+export const createDirIfNotExists = (dir: string) => {
+    return !existsSync(dir) ? mkdirSync(dir) : undefined;
 };
