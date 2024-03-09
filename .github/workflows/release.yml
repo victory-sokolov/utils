@@ -38,9 +38,6 @@ jobs:
         with:
           node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
         
-      - name: Install dependencies
-        run: npm install
-
       - name: Release new version to NPM
         run: npm run build && npm run semantic-release
         env:
