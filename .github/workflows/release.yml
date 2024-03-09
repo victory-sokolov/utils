@@ -37,9 +37,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
-        
+
+      - name: Install Dependencies
+        run: yarn install
+
       - name: Release new version to NPM
-        run: npm run build && npm run semantic-release
+        run: yarn build && yarn semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
