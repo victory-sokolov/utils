@@ -41,7 +41,10 @@ export const randomItem = <T>(arr: T[], count: number): Array<T> => {
     if (count === 0) return arr;
     if (count > arr.length) return arr;
 
-    return Array.from({ length: count }, () => arr[Math.round(Math.random() * (arr.length - 1))]);
+    return Array.from(
+        { length: count },
+        () => arr[Math.round(Math.random() * (arr.length - 1))] as T,
+    );
 };
 
 /**
@@ -61,7 +64,9 @@ export const shuffleArray = <T>(arr: Collection<T>): Collection<T> => {
  * @param array Array of objects to sort
  * @returns Sorted array of objects
  */
-export const sortAsc = <T extends Record<string, T>>(array: ReadonlyArray<T>): ReadonlyArray<T> => {
+export const sortAsc = <T extends Record<string, any>>(
+    array: ReadonlyArray<T>,
+): ReadonlyArray<T> => {
     return [...array].sort((a, b) => {
         if (a.key < b.key) {
             return -1;
@@ -177,9 +182,11 @@ export const removeItemAtIndex = <T>(index: number | IndexCallback<T>, arr?: T[]
  * @returns Median value
  */
 export const median = (arr: number[]): number => {
-    const mid = Math.floor(arr.length / 2),
-        nums = [...arr].sort((a, b) => a - b);
-    return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+    if (arr.length === 0) return 0;
+
+    const mid = Math.floor(arr.length / 2);
+    const nums = [...arr].sort((a, b) => a - b);
+    return (arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1]! + nums[mid]!) / 2) as number;
 };
 
 /**
