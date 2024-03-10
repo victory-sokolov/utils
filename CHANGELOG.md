@@ -1,3 +1,11 @@
+# [0.21.0](https://github.com/victory-sokolov/utils/compare/v0.20.0...v0.21.0) (2024-03-10)
+
+
+### Features
+
+* createDirIfNotExists ([aa015b9](https://github.com/victory-sokolov/utils/commit/aa015b9bb0e6e8c3d2b1c9876461332fe543ac0f))
+* getCMDArgs ([74136fc](https://github.com/victory-sokolov/utils/commit/74136fc60553aa8f7f24aba17faff467eaffc7bc))
+
 # [0.20.0](https://github.com/victory-sokolov/utils/compare/v0.19.0...v0.20.0) (2024-03-09)
 
 

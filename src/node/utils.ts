@@ -1,8 +1,6 @@
-
-
 /**
  * Get CMD arguments
- * Example: 
+ * Example:
  * node my-script.js --name=John --age=30
  * getCmdArgs(); // ['--name=John', '--age=30']
  * @returns CMD args
