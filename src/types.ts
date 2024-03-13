@@ -42,7 +42,7 @@ export type NonNegativeInteger<T extends number> = number extends T
       ? never
       : T;
 
-export type Maybe<T> = T | null;
+export type Maybe<T> = T | null | undefined;
 
 /**
  * Prettify nested objects

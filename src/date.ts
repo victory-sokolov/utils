@@ -1,4 +1,4 @@
-import { MonthName } from './types/';
+import { MonthName } from './types';
 
 /**
  * Get month names as a list of strings

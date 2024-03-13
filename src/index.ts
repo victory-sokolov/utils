@@ -13,3 +13,4 @@ export * from './url';
 export * from './regex';
 export * from './cache';
 export * from './currency';
+export * from './types';
