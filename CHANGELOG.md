@@ -1,3 +1,10 @@
+## [0.21.1](https://github.com/victory-sokolov/utils/compare/v0.21.0...v0.21.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* export reusable types and fix Maybe type ([2d97ae6](https://github.com/victory-sokolov/utils/commit/2d97ae6908985b1f08840cc345cf786155e02894))
+
 # [0.21.0](https://github.com/victory-sokolov/utils/compare/v0.20.0...v0.21.0) (2024-03-10)
 
 
