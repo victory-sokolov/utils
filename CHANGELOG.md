@@ -1,3 +1,10 @@
+## [0.21.2](https://github.com/victory-sokolov/utils/compare/v0.21.1...v0.21.2) (2024-03-16)
+
+
+### Bug Fixes
+
+* Fix omit and pick types ([c5c1e8c](https://github.com/victory-sokolov/utils/commit/c5c1e8cfffd37ca37da3a534e4c11bb073fb2f30))
+
 ## [0.21.1](https://github.com/victory-sokolov/utils/compare/v0.21.0...v0.21.1) (2024-03-13)
 
 
