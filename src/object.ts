@@ -6,7 +6,10 @@ import { RecordObject } from './types';
  * @param props Keys to remove from object
  * @returns Object with keys removed
  */
-export const omit = <T extends object, K extends keyof T>(obj: T, ...keys: K[]): Omit<T, K> => {
+export const omit = <T extends Record<string, any>, K extends keyof T>(
+    obj: T,
+    ...keys: K[]
+): { [P in K]: T[P] } => {
     keys.forEach((key) => delete obj[key]);
     return obj;
 };
@@ -17,10 +20,10 @@ export const omit = <T extends object, K extends keyof T>(obj: T, ...keys: K[]):
  * @param props Keys to select from object
  * @returns Object with selected keys
  */
-export const pick = <T extends RecordObject, K extends keyof T>(
+export const pick = <T extends Record<string, any>, K extends keyof T>(
     obj: T,
     ...props: K[]
-): Pick<T, K> => {
+): { [P in K]: T[P] } => {
     const filteredArray = Object.entries(obj).filter(([key]) => props.includes(key as K));
     return Object.fromEntries(filteredArray) as Pick<T, K>;
 };
