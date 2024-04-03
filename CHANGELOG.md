@@ -1,3 +1,11 @@
+# [0.22.0](https://github.com/victory-sokolov/utils/compare/v0.21.2...v0.22.0) (2024-04-03)
+
+
+### Features
+
+* add formatDate ([46077d3](https://github.com/victory-sokolov/utils/commit/46077d3951cec27416677ec6362ce0befa87c1c4))
+* add formatPrice ([6f171d2](https://github.com/victory-sokolov/utils/commit/6f171d26e90d53500732a6202cfbc237703b5e75))
+
 ## [0.21.2](https://github.com/victory-sokolov/utils/compare/v0.21.1...v0.21.2) (2024-03-16)
 
 
