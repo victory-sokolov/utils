@@ -13,6 +13,19 @@ export const getMonthList = () => {
 };
 
 /**
+ * Convert timestamp to date format
+ * @param timestamp Timestamp in string or number type
+ * @returns Formatted date from timestamp
+ */
+export const timeStamptToDate = (timestamp: string | number) => {
+    const date = new Date(Number(timestamp));
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
+/**
  * Format date to YY-MM-DD format
  * @param date
  * @returns YY-MM-DD string
