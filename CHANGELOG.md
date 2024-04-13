@@ -1,3 +1,10 @@
+## [0.22.1](https://github.com/victory-sokolov/utils/compare/v0.22.0...v0.22.1) (2024-04-13)
+
+
+### Bug Fixes
+
+* formatDate accept and handle undefined value ([3b4e23d](https://github.com/victory-sokolov/utils/commit/3b4e23d6062fa91b0821209a1805963f454d4503))
+
 # [0.22.0](https://github.com/victory-sokolov/utils/compare/v0.21.2...v0.22.0) (2024-04-03)
 
 

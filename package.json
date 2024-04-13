@@ -1,6 +1,6 @@
 {
     "name": "@vsokolov/utils",
-    "version": "0.22.0",
+    "version": "0.22.1",
     "license": "MIT",
     "private": false,
     "type": "module",
