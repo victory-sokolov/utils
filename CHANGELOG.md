@@ -1,3 +1,10 @@
+# [0.23.0](https://github.com/victory-sokolov/utils/compare/v0.22.1...v0.23.0) (2024-04-13)
+
+
+### Features
+
+* timeStamptToDate - convert timestamp to date string ([f382ef3](https://github.com/victory-sokolov/utils/commit/f382ef3d879d8a5a9c0c274b0d60bf2a01b01423))
+
 ## [0.22.1](https://github.com/victory-sokolov/utils/compare/v0.22.0...v0.22.1) (2024-04-13)
 
 
