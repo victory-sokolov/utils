@@ -17,7 +17,8 @@ export const getMonthList = () => {
  * @param date
  * @returns YY-MM-DD string
  */
-export const formatDate = (date: Date) => {
+export const formatDate = (date?: Date): string | undefined => {
+    if (!date) return;
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
