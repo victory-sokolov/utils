@@ -11,6 +11,12 @@ export default antfu({
             'curly': 'off',
             'style/brace-style': 'off',
             'antfu/if-newline': 'off',
+            'yaml/indent': 'off',
+        },
+    },
+    yaml: {
+        overrides: {
+            'yaml/indent': 'off',
         },
     },
     typescript: {
