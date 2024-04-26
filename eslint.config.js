@@ -7,6 +7,9 @@ export default antfu({
         semi: true,
         overrides: {
             'antfu/top-level-function': 'off',
+            'style/arrow-parens': 'off',
+            'curly': 'off',
+            'style/brace-style': 'off',
         },
     },
     typescript: {
