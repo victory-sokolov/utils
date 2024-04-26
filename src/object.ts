@@ -75,6 +75,7 @@ export const unionWithExclusion = (left: RecordObject, right: RecordObject): Rec
             Object.entries(current).forEach(([key, value]) => {
                 if (!value) return;
                 prev[key] = typeof value === 'object'
+                    // @ts-ignore
                     ? unionWithExclusion(prev[key], value)
                     : value;
             });
