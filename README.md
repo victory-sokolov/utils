@@ -11,4 +11,4 @@ npm i @vsokolov/utils
 ```
 
 ## License
-[MIT](./LICENSE) License © 2023 [Viktor Sokolov](https://github.com/victory-sokolov/utils)
+[MIT](./LICENSE) License © 2023-PRESENT [Viktor Sokolov](https://github.com/victory-sokolov/utils)
