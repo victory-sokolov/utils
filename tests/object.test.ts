@@ -1,12 +1,12 @@
+import { describe, expect, it } from 'vitest';
 import {
+    filterFalsyFromObject,
+    flattenObject,
+    flip,
     omit,
     pick,
-    flattenObject,
-    filterFalsyFromObject,
     unionWithExclusion,
-    flip,
 } from '../src/object';
-import { describe, it, expect } from 'vitest';
 
 describe('omit', () => {
     it('should remove the specified keys from the object', () => {
@@ -61,7 +61,7 @@ describe('unionWithExclusion', () => {
 });
 
 describe('flip', () => {
-    test('FLip object keys with its values', () => {
+    it('fLip object keys with its values', () => {
         const obj = {
             x: 1,
             y: 2,

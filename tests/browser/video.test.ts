@@ -1,11 +1,15 @@
-import { cameraEnvironment, getVideoConstraint, startCamera } from '../../src/browser/video';
 import { expect, vi } from 'vitest';
+import {
+    cameraEnvironment,
+    getVideoConstraint,
+    startCamera,
+} from '../../src/browser/video';
 
 describe('test camera', () => {
     describe('cameraEnvironment', () => {
         it('should return "user" if not on a mobile device', () => {
             const isMobileDeviceMock = vi.fn().mockReturnValue(false);
-            (global as any).isMobileDevice = isMobileDeviceMock;
+            (globalThis as any).isMobileDevice = isMobileDeviceMock;
             expect(cameraEnvironment()).toBe('user');
         });
     });
@@ -13,7 +17,7 @@ describe('test camera', () => {
     describe('getVideoConstraint', () => {
         it('should return correct resolution if not on mobile device and window width is greater than or equal to 960', () => {
             const isMobileDeviceMock = vi.fn().mockReturnValue(false);
-            (global as any).isMobileDevice = isMobileDeviceMock;
+            (globalThis as any).isMobileDevice = isMobileDeviceMock;
 
             expect(getVideoConstraint()).toEqual({
                 width: { exact: 640 },

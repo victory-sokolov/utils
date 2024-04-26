@@ -1,5 +1,5 @@
 import { hasProperty, isString } from './is';
-import { Collection, IndexCallback, RecordObject } from './types';
+import type { Collection, IndexCallback, RecordObject } from './types';
 
 /**
  * Flatten nested array into 1 dimensional array
@@ -24,7 +24,7 @@ export const unique = <T>(array: readonly T[]): Collection<T> => {
 /**
  * Remove item from array by value
  * @param array
- * @param value
+ * @param values
  * @returns array with removed items
  */
 export const removeItem = <T>(array: Collection<T>, values: T[]): Collection<T> => {
@@ -85,7 +85,7 @@ const fSort = (a, b) => {
  * Sort array by specific function
  * @param arr Array to sort
  * @param fSorting Function sorting algorithm
- * @returns
+ * @returns Sorted array
  */
 export const sort = (arr: Array<Record<string, unknown>> = [], fSorting: any = null) => {
     const copyArray = [...arr];

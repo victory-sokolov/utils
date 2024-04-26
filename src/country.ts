@@ -1,9 +1,9 @@
-type Position = {
+interface Position {
     coords: {
         latitude: number;
         longitude: number;
     };
-};
+}
 
 /**
  * Get country name from ISO code

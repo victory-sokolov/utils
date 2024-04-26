@@ -1,5 +1,5 @@
+import { describe, expect, it } from 'vitest';
 import { bytesToSize } from '../src/base';
-import { describe, it, expect } from 'vitest';
 
 describe('bytesToSize', () => {
     it('should return "0" when given 0 bytes', () => {

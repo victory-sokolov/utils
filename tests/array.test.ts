@@ -1,17 +1,17 @@
 import {
-    unique,
+    countBy,
     flattenArray,
-    randomItem,
-    removeItem,
-    shuffleArray,
-    sortAsc,
     insertItemAtIndex,
-    replaceItemAtIndex,
-    removeItemAtIndex,
     intersection,
     median,
-    countBy,
+    randomItem,
+    removeItem,
+    removeItemAtIndex,
+    replaceItemAtIndex,
+    shuffleArray,
+    sortAsc,
     sortBy,
+    unique,
 } from '../src/array';
 
 describe('flattenArray', () => {
@@ -20,7 +20,7 @@ describe('flattenArray', () => {
             flattenArray([
                 [1, 2],
                 [3, 4],
-            ])
+            ]),
         ).toEqual([1, 2, 3, 4]);
     });
 
@@ -171,26 +171,26 @@ describe('sortAsc', () => {
     });
 
     describe('removeItemAtIndex', () => {
-        test('removes item at specified index', () => {
+        it('removes item at specified index', () => {
             const arr = [1, 2, 3, 4, 5];
             const expected = [1, 2, 4, 5];
             const result = removeItemAtIndex(2, arr);
             expect(result).toEqual(expected);
         });
 
-        test('removes item based on callback function', () => {
+        it('removes item based on callback function', () => {
             const arr = [{ id: 1 }, { id: 2 }, { id: 3 }];
             const expected = [{ id: 1 }, { id: 3 }];
             const result = removeItemAtIndex((item) => item.id === 2, arr);
             expect(result).toEqual(expected);
         });
 
-        test('returns empty array if input array is null', () => {
+        it('returns empty array if input array is null', () => {
             const result = removeItemAtIndex(2, null);
             expect(result).toEqual([]);
         });
 
-        test('returns original array if index is not found', () => {
+        it('returns original array if index is not found', () => {
             const arr = [1, 2, 3, 4, 5];
             const result = removeItemAtIndex(10, arr);
             expect(result).toEqual(arr);
@@ -199,7 +199,7 @@ describe('sortAsc', () => {
 });
 
 describe('intersection', () => {
-    test('intersection function returns the correct result', () => {
+    it('intersection function returns the correct result', () => {
         const arr1 = [1, 2, 3, 4];
         const arr2 = [3, 4, 5, 6];
         const expectedResult = [3, 4];
@@ -208,7 +208,7 @@ describe('intersection', () => {
 });
 
 describe('median', () => {
-    test('median function returns the correct result', () => {
+    it('median function returns the correct result', () => {
         const arr1 = [1, 2, 3, 4];
         const arr2 = [3, 4, 5, 6, 7];
         expect(median(arr1)).toBeCloseTo(2.5);
@@ -217,21 +217,21 @@ describe('median', () => {
 });
 
 describe('countBy', () => {
-    test('countBy should return an object with the count of each item in the array', () => {
+    it('countBy should return an object with the count of each item in the array', () => {
         const array = [1, 2, 3, 2, 3, 3, 4, 5];
         const expectedResult = { 1: 1, 2: 2, 3: 3, 4: 1, 5: 1 };
 
         expect(countBy(array)).toEqual(expectedResult);
     });
 
-    test('countBy should return an empty object if passed an empty array', () => {
+    it('countBy should return an empty object if passed an empty array', () => {
         const array = ['hello', 'world', 'hello'];
         const expectedResult = { hello: 2, world: 1 };
 
         expect(countBy(array)).toEqual(expectedResult);
     });
 
-    test('countBy should return an object with the count of each item in the array even if the array contains duplicate items', () => {
+    it('countBy should return an object with the count of each item in the array even if the array contains duplicate items', () => {
         const array = [1, 1, 2, 3, 3, 3];
         const expectedResult = { 1: 2, 2: 1, 3: 3 };
 
@@ -255,7 +255,7 @@ describe('sortBy', () => {
         },
     ];
 
-    test('should sort array of objects in desc order', () => {
+    it('should sort array of objects in desc order', () => {
         const sorted = sortBy(users, 1, 'age');
         const expected = [
             {
@@ -273,7 +273,7 @@ describe('sortBy', () => {
         ];
         expect(sorted).toEqual(expected);
     });
-    test('should sort array of objects in asc order', () => {
+    it('should sort array of objects in asc order', () => {
         const sorted = sortBy(users, -1, 'age');
         const expected = [
             {

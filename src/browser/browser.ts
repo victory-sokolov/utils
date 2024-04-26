@@ -1,4 +1,4 @@
-import { DeviceType } from '../types';
+import type { DeviceType } from '../types';
 
 const devices = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
 
@@ -49,7 +49,7 @@ export const getOs = () => {
  * @param fileName output file name
  */
 export const downloadAsJson = (obj: Record<string, unknown>, fileName: string) => {
-    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(obj));
+    const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(obj))}`;
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);
     downloadAnchorNode.setAttribute('download', `${fileName}.json`);

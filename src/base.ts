@@ -3,7 +3,7 @@ const SIZE_UNITS = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 /**
  * Pause execution
  * @param ms Pause in milliseconds
- * @returns
+ * @returns Promise
  */
 export const wait = (ms: number): Promise<void> =>
     new Promise((resolve) => setTimeout(resolve, ms));
@@ -17,11 +17,12 @@ export const perfStart = () => performance.now();
 /**
  * End time of function
  * @param startTime
+ * @returns string identfies how long execution took
  */
-export const perfStop = (startTime: number) => {
+export const perfStop = (startTime: number): string => {
     const endTime = performance.now();
     const seconds = (endTime - startTime) / 1000;
-    console.info(`Function took ${seconds.toFixed(2)} seconds`);
+    return `Function took ${seconds.toFixed(2)} seconds`;
 };
 
 /**
@@ -34,7 +35,7 @@ export const bytesToSize = (bytes: number): string => {
     const exp = Math.floor(Math.log(bytes) / Math.log(1000));
     const size = bytes / 1000 ** exp;
     const short = Math.round(size);
-    const unit = exp === 0 ? '' : ' ' + SIZE_UNITS[exp - 1];
+    const unit = exp === 0 ? '' : ` ${SIZE_UNITS[exp - 1]}`;
     return short.toString() + unit;
 };
 
@@ -45,7 +46,10 @@ export const bytesToSize = (bytes: number): string => {
  * @param delay Function delay
  * @returns new function
  */
-export const debounce = <T extends unknown[]>(fn: (...args: T) => void, delay: number) => {
+export const debounce = <T extends unknown[]>(
+    fn: (...args: T) => void,
+    delay: number,
+) => {
     let timeoutID: number | undefined;
     let lastArgs: T | undefined;
 
@@ -76,7 +80,10 @@ export const debounce = <T extends unknown[]>(fn: (...args: T) => void, delay: n
  * @param cooldown Timer arg
  * @returns a new function, which when executed, stores the call arguments and starts the cooldown timer
  */
-export const throttle = <Args extends unknown[]>(fn: (...args: Args) => void, cooldown: number) => {
+export const throttle = <Args extends unknown[]>(
+    fn: (...args: Args) => void,
+    cooldown: number,
+) => {
     let lastArgs: Args | undefined;
 
     const run = () => {

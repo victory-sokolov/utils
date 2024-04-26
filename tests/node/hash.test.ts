@@ -1,6 +1,6 @@
-import { randomBytes, pbkdf2Sync } from 'crypto';
+import { pbkdf2Sync, randomBytes } from 'node:crypto';
+import { describe, expect, it, vi } from 'vitest';
 import { hashString, validateHash } from '../../src';
-import { expect, vi, it, describe } from 'vitest';
 
 describe('validate hashString', () => {
     it('should generate a hash with the expected properties', ({ skip }) => {

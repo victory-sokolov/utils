@@ -5,7 +5,7 @@ const htmlEscapes = {
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
-    "'": '&#39;',
+    '\'': '&#39;',
 };
 const htmlUnescapes = flip(htmlEscapes) as Record<string, string>;
 
@@ -49,6 +49,6 @@ export const escape = (str: string) => {
  */
 export const unescape = (str: string) => {
     return str && reHasEscapedHtml.test(str)
-        ? str.replace(reEscapedHtml, (entity) => htmlUnescapes[entity] || "'")
+        ? str.replace(reEscapedHtml, (entity) => htmlUnescapes[entity] || '\'')
         : str || '';
 };

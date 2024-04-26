@@ -49,7 +49,7 @@ export const escapeHtml = (unsafe: string): string => {
         .replaceAll('<', '&lt;')
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
+        .replaceAll('\'', '&#039;');
 };
 
 /**
@@ -87,8 +87,8 @@ export const startsWithAny = (data: string, items: string[]): boolean => {
  */
 export const isValidUUID = (id: string): boolean => {
     // Regular expression to check if string is a valid UUID
-    const regexExp =
-        /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+    const regexExp
+        = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
     return regexExp.test(id);
 };
 
@@ -97,8 +97,8 @@ export const isValidUUID = (id: string): boolean => {
  * @returns HEX code
  */
 export const randomHexColorCode = (): string => {
-    const n = (Math.random() * 0xfffff * 1000000).toString(16);
-    return '#' + n.slice(0, 6);
+    const n = (Math.random() * 0xFFFFF * 1000000).toString(16);
+    return `#${n.slice(0, 6)}`;
 };
 
 /**

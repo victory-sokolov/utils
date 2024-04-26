@@ -1,4 +1,4 @@
-import { MonthName } from './types';
+import type { MonthName } from './types';
 
 /**
  * Get month names as a list of strings
@@ -53,7 +53,8 @@ export const dateWithTimeStamp = (date: Date): string => {
  * @returns Last day of the week
  */
 export const getWeekLastDay = (date: Date): Date => {
-    const weekLastDayInMilliseconds = date.getTime() + (6 - date.getDay()) * 86400000;
+    const weekLastDayInMilliseconds
+    = date.getTime() + (6 - date.getDay()) * 86400000;
     const weekLastDay = new Date(weekLastDayInMilliseconds);
     return weekLastDay;
 };
@@ -64,7 +65,8 @@ export const getWeekLastDay = (date: Date): Date => {
  * @returns First day of the week
  */
 export const getWeekFirstDay = (date: Date): Date => {
-    const weekFirstDayInMilliseconds = date.getTime() - (date.getDay() - 1) * 86400000;
+    const weekFirstDayInMilliseconds
+    = date.getTime() - (date.getDay() - 1) * 86400000;
     const weekFirstDay = new Date(weekFirstDayInMilliseconds);
     return weekFirstDay;
 };
@@ -141,7 +143,14 @@ export const cronToDateTime = (cronSyntax: string): Date => {
     const currentYear = now.getUTCFullYear();
 
     const nextDate = new Date(
-        Date.UTC(currentYear, Number(months) - 1, Number(days), Number(hours), Number(minutes), 0),
+        Date.UTC(
+            currentYear,
+            Number(months) - 1,
+            Number(days),
+            Number(hours),
+            Number(minutes),
+            0,
+        ),
     );
 
     // Calculate day of the week adjustment
@@ -163,8 +172,13 @@ export const cronToDateTime = (cronSyntax: string): Date => {
  * @param start
  * @param end
  * @param step
+ * @returns Date range
  */
-export const dateRangeGenerator = function* (start: Date, end: Date, step: number = 1) {
+export const dateRangeGenerator = function* (
+    start: Date,
+    end: Date,
+    step: number = 1,
+) {
     const d = start;
     while (d < end) {
         yield new Date(d);
@@ -189,7 +203,7 @@ export const secondsInDays = (days: number): number => {
 /**
  * Convert DateTime object to time ago string
  * @param date
- * @returns
+ * @return Time ago string from Date object
  */
 export const timeAgo = (date: Date): string => {
     const seconds = Math.floor((new Date().valueOf() - date.valueOf()) / 1000);

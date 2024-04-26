@@ -11,7 +11,6 @@ export default antfu({
             'curly': 'off',
             'style/brace-style': 'off',
             'antfu/if-newline': 'off',
-            'yaml/indent': 'off',
         },
     },
     yaml: {
@@ -24,6 +23,7 @@ export default antfu({
             'ts/ban-ts-comment': 'off',
             'ts/prefer-ts-expect-error': 'off',
             'antfu/top-level-function': 'off',
+            'no-unmodified-loop-condition': 'off',
         },
     },
 });

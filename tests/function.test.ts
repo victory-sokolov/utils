@@ -1,6 +1,5 @@
-import { expect } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { applyPipe, batchInvoke, pipe } from '../src/function';
-import { vi, it, describe } from 'vitest';
 
 describe('batchInvoke', () => {
     it('should call every function in the array', () => {

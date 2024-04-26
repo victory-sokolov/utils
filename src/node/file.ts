@@ -1,5 +1,5 @@
-import path from 'path';
-import { stat, readdir } from 'node:fs/promises';
+import path from 'node:path';
+import { readdir, stat } from 'node:fs/promises';
 import { existsSync, mkdirSync } from 'node:fs';
 
 /**

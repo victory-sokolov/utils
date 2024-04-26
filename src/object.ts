@@ -1,9 +1,9 @@
-import { RecordObject } from './types';
+import type { RecordObject } from './types';
 
 /**
  * Remove specific keys from object
  * @param obj Object from which to remove keys
- * @param props Keys to remove from object
+ * @param keys to remove from object
  * @returns Object with keys removed
  */
 export const omit = <T extends Record<string, any>, K extends keyof T>(
@@ -72,14 +72,11 @@ export const filterFalsyFromObject = <T extends RecordObject>(obj: T): RecordObj
 export const unionWithExclusion = (left: RecordObject, right: RecordObject): RecordObject => {
     return [left, right].reduce((prev, current) => {
         if (current) {
-            Object.entries(current).map(([key, value]) => {
+            Object.entries(current).forEach(([key, value]) => {
                 if (!value) return;
-                // @ts-ignore
-                prev[key] =
-                    typeof value === 'object'
-                        ? // @ts-ignore
-                          unionWithExclusion(prev[key], value)
-                        : value;
+                prev[key] = typeof value === 'object'
+                    ? unionWithExclusion(prev[key], value)
+                    : value;
             });
         }
         return prev;
@@ -126,8 +123,8 @@ export const objectEntries = <T extends object>(obj: T) => {
  * Get unique keys, values by provided key
  * const objArry = [{ id: 1 }, { id: 1 }, { id: 2 }, { id: 3 }];
     getUniqueByKey(objArry, 'id'); // [ { id: 1 }, { id: 2 }, { id: 3 } ]
- * @param arr 
- * @param key 
+ * @param arr
+ * @param key
  * @returns Unique array of objects
  */
 export const getUniqueByKey = <T>(arr: T[], key: keyof T): T[] => {

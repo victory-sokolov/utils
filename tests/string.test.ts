@@ -1,19 +1,19 @@
+import { describe, expect, it } from 'vitest';
 import {
     camelCase,
-    pascalCase,
-    kebabCase,
-    escapeHtml,
-    removeZeroWidthSpace,
-    endsWithAny,
-    startsWithAny,
-    isValidUUID,
-    randomHexColorCode,
-    slugify,
-    truncate,
     capitalize,
+    endsWithAny,
+    escapeHtml,
+    isValidUUID,
+    kebabCase,
     maskString,
+    pascalCase,
+    randomHexColorCode,
+    removeZeroWidthSpace,
+    slugify,
+    startsWithAny,
+    truncate,
 } from '../src/string';
-import { describe, test, it, expect } from 'vitest';
 
 describe('string-utils', () => {
     describe('camelCase', () => {
@@ -147,19 +147,19 @@ describe('string-utils', () => {
     });
 
     describe('capitalize string', () => {
-        test('capitalizes the first letter of a string', () => {
+        it('capitalizes the first letter of a string', () => {
             const originalString = 'hello world';
             const capitalizedString = capitalize(originalString);
             expect(capitalizedString).toBe('Hello world');
         });
 
-        test('does not change the case of the rest of the string', () => {
+        it('does not change the case of the rest of the string', () => {
             const originalString = 'Hello WORLD';
             const capitalizedString = capitalize(originalString);
             expect(capitalizedString).toBe('Hello WORLD');
         });
 
-        test('returns empty string if input string is empty', () => {
+        it('returns empty string if input string is empty', () => {
             const originalString = '';
             const capitalizedString = capitalize(originalString);
             expect(capitalizedString).toBe('');

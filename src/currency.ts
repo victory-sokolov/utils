@@ -16,25 +16,25 @@ type Currency =
  * @returns Currency formatted to dollars
  */
 export const toDollars = (cents: number, currency: Currency = 'USD', locale: string = 'en-US') =>
-    (cents / 100).toLocaleString(locale, { style: 'currency', currency: currency });
+    (cents / 100).toLocaleString(locale, { style: 'currency', currency });
 
 /**
  * Format price in cents
  * @param priceInCents
  * @param currency
- * @returns
+ * @returns Formated price
  */
 export const formatPrice = (
     priceInCents: string,
     currency: Currency = 'USD',
     locale: string = 'en-US',
 ) => {
-    const price = parseFloat(priceInCents);
+    const price = Number.parseFloat(priceInCents);
     const dollars = price / 100;
 
     return new Intl.NumberFormat(locale, {
         style: 'currency',
-        currency: currency,
+        currency,
         // Use minimumFractionDigits to handle cases like $59.00 -> $59
         minimumFractionDigits: dollars % 1 !== 0 ? 2 : 0,
     }).format(dollars);

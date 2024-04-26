@@ -1,20 +1,20 @@
+import { describe, expect } from 'vitest';
 import {
-    getMonthList,
+    cronToDateTime,
+    dateRangeGenerator,
+    dateTimeToCron,
     dateWithTimeStamp,
-    getWeekLastDay,
-    getWeekFirstDay,
-    getMonthLastDay,
     getMonthFirstDay,
+    getMonthLastDay,
+    getMonthList,
+    getWeekFirstDay,
+    getWeekLastDay,
     isWeekday,
     toLongDate,
-    cronToDateTime,
-    dateTimeToCron,
-    dateRangeGenerator,
 } from '../src/date';
-import { describe, test, expect } from 'vitest';
 
 describe('getMonthList', () => {
-    test('month names', () => {
+    it('month names', () => {
         expect(getMonthList()).toEqual([
             'January',
             'February',
@@ -33,14 +33,14 @@ describe('getMonthList', () => {
 });
 
 describe('dateWithTimeStamp', () => {
-    test('date with timestamp', () => {
+    it('date with timestamp', () => {
         const date = new Date(Date.UTC(2022, 11, 30, 13, 30, 30));
         expect(dateWithTimeStamp(date)).toBe('2022-12-30-13-30-30');
     });
 });
 
 describe('getWeekLastDay', () => {
-    test('last day of week', () => {
+    it('last day of week', () => {
         expect(getWeekLastDay(new Date(2022, 11, 30)).getTime()).toBe(
             new Date(2022, 11, 31).getTime(),
         );
@@ -48,7 +48,7 @@ describe('getWeekLastDay', () => {
 });
 
 describe('getWeekFirstDay', () => {
-    test('first day of week', () => {
+    it('first day of week', () => {
         expect(getWeekFirstDay(new Date(2022, 11, 30)).getTime()).toBe(
             new Date(2022, 11, 26).getTime(),
         );
@@ -56,7 +56,7 @@ describe('getWeekFirstDay', () => {
 });
 
 describe('getMonthLastDay', () => {
-    test('last day of month', () => {
+    it('last day of month', () => {
         expect(getMonthLastDay(new Date(2022, 11, 30)).getTime()).toBe(
             new Date(2022, 11, 31).getTime(),
         );
@@ -64,7 +64,7 @@ describe('getMonthLastDay', () => {
 });
 
 describe('getMonthFirstDay', () => {
-    test('first day of month', () => {
+    it('first day of month', () => {
         expect(getMonthFirstDay(new Date(2022, 11, 30)).getTime()).toBe(
             new Date(2022, 11, 1).getTime(),
         );
@@ -72,11 +72,11 @@ describe('getMonthFirstDay', () => {
 });
 
 describe('isWeekday', () => {
-    test('weekday', () => {
+    it('weekday', () => {
         expect(isWeekday(new Date(2022, 11, 28))).toBe(true);
     });
 
-    test('weekend', () => {
+    it('weekend', () => {
         expect(isWeekday(new Date(2022, 11, 5))).toBe(true);
         expect(isWeekday(new Date(2022, 11, 10))).toBe(false);
     });

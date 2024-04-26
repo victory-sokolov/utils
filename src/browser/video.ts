@@ -1,4 +1,4 @@
-import { CameraEnvironment } from '../types';
+import type { CameraEnvironment } from '../types';
 import { isMobileDevice } from './browser';
 
 /**
@@ -28,9 +28,9 @@ export const getVideoConstraint = () => {
         } as const;
     } else {
         if (window.innerWidth < 960) {
-            videoConstraint = resolutions['qvga'];
+            videoConstraint = resolutions.qvga;
         } else {
-            videoConstraint = resolutions['vga'];
+            videoConstraint = resolutions.vga;
         }
     }
     return videoConstraint;
@@ -40,9 +40,11 @@ export const getVideoConstraint = () => {
  * Start Video stream
  * @param isStreaming Is camera streaming
  * @param video HTMLVideoElement
- * @returns
  */
-export const startCamera = async (isStreaming: boolean, video: HTMLVideoElement): Promise<void> => {
+export const startCamera = async (
+    isStreaming: boolean,
+    video: HTMLVideoElement,
+): Promise<void> => {
     const constraint = getVideoConstraint();
     if (isStreaming) return;
 
@@ -57,7 +59,7 @@ export const startCamera = async (isStreaming: boolean, video: HTMLVideoElement)
                 video.play();
             };
         } catch (err) {
-            console.log(`An error occured! ${err}`);
+            console.error(`An error occured! ${err}`);
         }
     } else {
         console.error('getUserMedia not supported');
@@ -68,7 +70,6 @@ export const startCamera = async (isStreaming: boolean, video: HTMLVideoElement)
  * Stop current video stream
  * @param stream Current video stream
  * @param isStreaming isStreaming
- * @returns
  */
 export const stopCamera = (stream: MediaStream, isStreaming: boolean): void => {
     if (!isStreaming) return;

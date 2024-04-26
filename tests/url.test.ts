@@ -1,6 +1,5 @@
-import { expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { addTrailingSlash } from '../src/url';
-import { describe, it } from 'vitest';
 
 describe('addTrailingSlash', () => {
     it('should add a trailing slash to the url if it does not have one', () => {

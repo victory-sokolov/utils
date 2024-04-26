@@ -41,5 +41,5 @@ export const getRandomNumber = (min: number, max: number) => {
  */
 export const nFormatter = (amount: string): number => {
     const multipliers = { k: 1000, m: 1000000 };
-    return parseFloat(amount) * multipliers[amount.charAt(amount.length - 1).toLowerCase()];
+    return Number.parseFloat(amount) * multipliers[amount.charAt(amount.length - 1).toLowerCase()];
 };

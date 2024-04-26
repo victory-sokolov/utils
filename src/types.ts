@@ -31,16 +31,16 @@ export type Collection<T> = Array<T>;
 export type Callable = <T>(...params: Collection<T>) => T;
 export type IndexCallback<T = unknown> = (value: T, index: number, obj: T[]) => unknown;
 
-export type ImageDimension = {
+export interface ImageDimension {
     width: number;
     height: number;
-};
+}
 
 export type NonNegativeInteger<T extends number> = number extends T
     ? never
     : `${T}` extends `-${string}` | `${string}.${string}`
-      ? never
-      : T;
+        ? never
+        : T;
 
 export type Maybe<T> = T | null | undefined;
 

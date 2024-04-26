@@ -1,4 +1,4 @@
-import { ImageDimension } from '../types';
+import type { ImageDimension } from '../types';
 
 /**
  * Get image dimension from dataUrl string

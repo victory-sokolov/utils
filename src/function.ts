@@ -5,10 +5,10 @@ type PipeArgs<F extends AnyFunc[], Acc extends AnyFunc[] = []> = F extends [
 ]
     ? [...Acc, (...args: A) => B]
     : F extends [(...args: infer A) => any, ...infer Tail]
-      ? Tail extends [(arg: infer B) => any, ...any[]]
-          ? PipeArgs<Tail, [...Acc, (...args: A) => B]>
-          : Acc
-      : Acc;
+        ? Tail extends [(arg: infer B) => any, ...any[]]
+            ? PipeArgs<Tail, [...Acc, (...args: A) => B]>
+            : Acc
+        : Acc;
 
 type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [
     ...any[],
@@ -50,7 +50,7 @@ export const applyPipe = <FirstFn extends AnyFunc, F extends AnyFunc[]>(
 
 /**
  * Check if function is asynchronous
- * @param fn: Function to check
+ * @param fn Function to check
  * @returns True if function is asynchronous
  */
 export const isAsync = (fn: Function) => fn.constructor.name === 'AsyncFunction';
