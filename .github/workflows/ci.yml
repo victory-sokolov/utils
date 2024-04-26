@@ -42,9 +42,6 @@ jobs:
       - name: Run linter
         run: yarn lint
 
-      - name: Run formatter
-        run: yarn format
-
       - name: Run typechecker
         run: yarn typecheck
 
