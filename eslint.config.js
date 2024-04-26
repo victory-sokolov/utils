@@ -10,6 +10,7 @@ export default antfu({
             'style/arrow-parens': 'off',
             'curly': 'off',
             'style/brace-style': 'off',
+            'antfu/if-newline': 'off'
         },
     },
     typescript: {
