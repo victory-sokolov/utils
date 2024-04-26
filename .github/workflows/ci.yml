@@ -1,8 +1,12 @@
 name: CI
 
-on: 
+on:
   push:
     branches: [main]
+    paths-ignore:
+      - "*.md"
+      - "docs/**"
+      - ".*"
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -19,14 +23,14 @@ jobs:
       - name: Read .nvmrc
         run: |
           NODE_VERSION=$(cat .nvmrc)
-          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_OUTPUT 
+          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_OUTPUT
         id: nvm
 
       - name: Use Node.js ${{ steps.nvm.outputs.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
-      
+
       - name: Install Dependencies
         run: yarn install
 
@@ -38,7 +42,7 @@ jobs:
 
       - name: Run typechecker
         run: yarn typecheck
-      
+
       - name: Run tests
         run: yarn test:no-watch
 
