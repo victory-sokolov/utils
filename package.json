@@ -1,15 +1,16 @@
 {
     "name": "@vsokolov/utils",
-    "version": "0.23.0",
-    "license": "MIT",
-    "private": false,
     "type": "module",
-    "homepage": "https://github.com/victory-sokolov/utils#readme",
+    "version": "0.23.0",
+    "private": false,
+    "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72",
     "description": "Various TypeScript/JavaScripts utils functions for node and browser",
     "author": {
         "email": "viktorsokolov.and@gmail.com",
         "name": "Viktor Sokolov"
     },
+    "license": "MIT",
+    "homepage": "https://github.com/victory-sokolov/utils#readme",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/victory-sokolov/utils.git"
@@ -24,15 +25,15 @@
         "nodejs utils"
     ],
     "sideEffects": false,
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs"
+        }
+    },
     "main": "dist/index.cjs",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
-    "exports": {
-        ".": {
-            "require": "./dist/index.cjs",
-            "import": "./dist/index.mjs"
-        }
-    },
     "files": [
         "dist/*"
     ],
@@ -85,6 +86,7 @@
         "typescript": "^5.4.5",
         "typescript-eslint": "7.7.1",
         "user-agent-data-types": "^0.4.2",
+        "vite": "5.2.10",
         "vitest": "^1.5.2"
     },
     "husky": {
@@ -101,6 +103,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
+    }
 }
