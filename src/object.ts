@@ -2,7 +2,7 @@ import type { RecordObject } from './types';
 
 /**
  * Remove specific keys from object
- * @param obj Object from which to remove keys
+ * @param objOrArray Object from which to remove keys
  * @param keys to remove from object
  * @returns Object with keys removed
  */

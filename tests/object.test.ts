@@ -13,7 +13,7 @@ describe('omit', () => {
         const obj = { a: 1, b: 2, c: 3 };
         expect(omit(obj, 'a', 'c')).toEqual({ b: 2 });
     });
-    it("should remove keys from array of objects", () => {
+    it('should remove keys from array of objects', () => {
         const obj = [
             { a: 1, b: 2, c: 3 },
             { a: 4, b: 5, c: 6 },
