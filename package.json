@@ -3,7 +3,6 @@
     "type": "module",
     "version": "0.23.0",
     "private": false,
-    "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72",
     "description": "Various TypeScript/JavaScripts utils functions for node and browser",
     "author": {
         "email": "viktorsokolov.and@gmail.com",
