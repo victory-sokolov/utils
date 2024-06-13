@@ -7,25 +7,25 @@ import type { RecordObject } from './types';
  * @returns Object with keys removed
  */
 export const omit = <T extends Record<string, any>, K extends keyof T>(
-  objOrArray: T | T[],
-  ...keys: K[]
+    objOrArray: T | T[],
+    ...keys: K[]
 ): T | T[] => {
-  // Function to remove keys from a single object
-  const omitKeysFromObject = (obj: T): T => {
-    const newObj = { ...obj };
-    keys.forEach((key) => {
-      delete newObj[key];
-    });
-    return newObj;
-  };
+    // Function to remove keys from a single object
+    const omitKeysFromObject = (obj: T): T => {
+        const newObj = { ...obj };
+        keys.forEach((key) => {
+            delete newObj[key];
+        });
+        return newObj;
+    };
 
-  // Check if input is an array of objects
-  if (Array.isArray(objOrArray)) {
-    return objOrArray.map(omitKeysFromObject);
-  } else {
-    // Input is a single object
-    return omitKeysFromObject(objOrArray);
-  }
+    // Check if input is an array of objects
+    if (Array.isArray(objOrArray)) {
+        return objOrArray.map(omitKeysFromObject);
+    } else {
+        // Input is a single object
+        return omitKeysFromObject(objOrArray);
+    }
 };
 
 /**
