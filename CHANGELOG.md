@@ -1,3 +1,10 @@
+# [0.24.0](https://github.com/victory-sokolov/utils/compare/v0.23.0...v0.24.0) (2024-06-13)
+
+
+### Features
+
+* **pencil:** uppdate omit function to accept array of objects ([2fc7a19](https://github.com/victory-sokolov/utils/commit/2fc7a19c3490d3e06f32bbebef6f0d2c4577fc5c))
+
 # [0.23.0](https://github.com/victory-sokolov/utils/compare/v0.22.1...v0.23.0) (2024-04-13)
 
 
