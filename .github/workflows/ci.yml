@@ -7,8 +7,8 @@ on:
       - '*.md'
       - 'docs/**'
       - '.*'
-      - 'package.json'
-      - 'yarn.lock'
+      - package.json
+      - yarn.lock
 
   pull_request:
     branches: [main]
@@ -16,8 +16,8 @@ on:
       - '*.md'
       - 'docs/**'
       - '.*'
-      - 'package.json'
-      - 'yarn.lock'
+      - package.json
+      - yarn.lock
 
   workflow_dispatch:
 
