@@ -4,20 +4,20 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - "*.md"
-      - "docs/**"
-      - ".*"
-      - "package.json"
-      - "yarn.lock"
+      - '*.md'
+      - 'docs/**'
+      - '.*'
+      - 'package.json'
+      - 'yarn.lock'
 
   pull_request:
     branches: [main]
     paths-ignore:
-      - "*.md"
-      - "docs/**"
-      - ".*"
-      - "package.json"
-      - "yarn.lock"
+      - '*.md'
+      - 'docs/**'
+      - '.*'
+      - 'package.json'
+      - 'yarn.lock'
 
   workflow_dispatch:
 
