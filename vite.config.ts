@@ -9,5 +9,8 @@ export default defineConfig({
             reporter: ['text', 'html'],
             exclude: ['node_modules/'],
         },
+        resolve: {
+            conditions: ['source']
+        }
     },
 });

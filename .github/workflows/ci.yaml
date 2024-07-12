@@ -4,18 +4,18 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - '*.md'
-      - 'docs/**'
-      - '.*'
+      - "*.md"
+      - "docs/**"
+      - ".*"
       - package.json
       - yarn.lock
 
   pull_request:
     branches: [main]
     paths-ignore:
-      - '*.md'
-      - 'docs/**'
-      - '.*'
+      - "*.md"
+      - "docs/**"
+      - ".*"
       - package.json
       - yarn.lock
 
@@ -24,11 +24,20 @@ on:
 jobs:
   lint-test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.7
         with:
           fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.5
+          run_install: false
 
       - name: Read .nvmrc
         run: |
@@ -40,18 +49,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
+          cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml"
 
       - name: Install Dependencies
-        run: yarn install
+        run: pnpm install
 
       - name: Run linter
-        run: yarn lint
+        run: pnpm lint
 
       - name: Run typechecker
-        run: yarn typecheck
+        run: pnpm typecheck
 
       - name: Run tests
-        run: yarn test:no-watch
+        run: pnpm test:no-watch
 
       - name: Build
-        run: yarn build
+        run: pnpm build

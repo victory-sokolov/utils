@@ -5,8 +5,8 @@
             "esnext",
             "dom"
         ],
-        "module": "esnext",
-        "moduleResolution": "node",
+        "module": "node16",
+        "moduleResolution": "node16",
         "resolveJsonModule": true,
         "types": [
             "./node_modules/user-agent-data-types",
@@ -26,7 +26,10 @@
         "stripInternal": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "customConditions": [
+            "source"
+        ]
     },
     "include": [
         "src/**/*.ts"

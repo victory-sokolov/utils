@@ -26,6 +26,7 @@
     "sideEffects": false,
     "exports": {
         ".": {
+            "source": "./src/index.ts",
             "import": "./dist/index.mjs",
             "require": "./dist/index.cjs"
         }
@@ -43,10 +44,10 @@
         "test:coverage": "vitest run --coverage",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
-        "docs": "yarn run typedoc ./src --out docs",
-        "prepublishOnly": "yarn run lint && yarn test:no-watch",
-        "preversion": "yarn run lint && yarn test:no-watch",
-        "version": "yarn run lint && git add -A src",
+        "docs": "pnpm run typedoc ./src --out docs",
+        "prepublishOnly": "pnpm run lint && pnpm test:no-watch",
+        "preversion": "pnpm run lint && pnpm test:no-watch",
+        "version": "pnpm run lint && git add -A src",
         "postversion": "git push && git push --tags",
         "typecheck": "tsc --noEmit",
         "clean": "rimraf ./node_modules && rimraf dist",
@@ -89,8 +90,8 @@
     },
     "husky": {
         "hooks": {
-            "pre-push": "yarn run prepush",
-            "pre-commit": "yarn lint",
+            "pre-push": "pnpm run prepush",
+            "pre-commit": "pnpm lint",
             "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
         }
     },
