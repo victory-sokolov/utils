@@ -209,10 +209,10 @@ export const intersection = <T>(arr1: T[], arr2: T[]): T[] => {
 export const countBy = (array: Array<number | string>): Record<string, number> => {
     return array.reduce((obj: { [key: string]: number }, item) => {
         if (item in obj) {
-            // `item` is already a key so increment
-            obj[item] += 1;
+            // item is already a key so increment
+            obj[item]! += 1;
         } else {
-            // first time seeing `item` so initialize it
+            // first time seeing item so initialize it
             // with count of 1
             obj[item] = 1;
         }
