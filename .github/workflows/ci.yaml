@@ -21,6 +21,11 @@ on:
 
   workflow_dispatch:
 
+# Add cancel in-progress for a concurrency group
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint-test:
     runs-on: ubuntu-latest
