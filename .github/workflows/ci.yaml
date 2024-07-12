@@ -54,8 +54,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
-          cache: 'pnpm'
-          cache-dependency-path: 'pnpm-lock.yaml'
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install Dependencies
         run: pnpm install

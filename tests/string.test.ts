@@ -110,7 +110,7 @@ describe('string-utils', () => {
     describe('randomHexColorCode', () => {
         it('should return a random hex color code', () => {
             const result = randomHexColorCode();
-            expect(result).toMatch(/^#[0-9A-Fa-f]{6}$/);
+            expect(result).toMatch(/^#[0-9A-F]{6}$/i);
         });
     });
 

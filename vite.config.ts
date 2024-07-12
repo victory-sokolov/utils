@@ -10,7 +10,7 @@ export default defineConfig({
             exclude: ['node_modules/'],
         },
         resolve: {
-            conditions: ['source']
-        }
+            conditions: ['source'],
+        },
     },
 });

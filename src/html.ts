@@ -22,7 +22,7 @@ const reHasEscapedHtml = RegExp(reEscapedHtml.source);
  * @returns Text with HTML tags removed
  */
 export const removeHtmlTags = (text: string): string =>
-  text.replace(/<(?:.|\\n)*?>/g, '');
+    text.replace(/<(?:.|\\n)*?>/g, '');
 
 /**
  * Remove inline css styles
@@ -30,7 +30,7 @@ export const removeHtmlTags = (text: string): string =>
  * @returns cleaned HTML with inline styles removed
  */
 export const removeInlineStyles = (text: string): string =>
-    text.replace(/style\s*=\s*"(.*?)"/gm, '');
+    text.replace(/style\s*=\s*"(.*?)"/g, '');
 
 /**
  * Escape HTML tags to entities
@@ -50,6 +50,6 @@ export const escape = (str: string) => {
  */
 export const unescape = (str: string) => {
     return str && reHasEscapedHtml.test(str)
-        ? str.replace(reEscapedHtml, (entity) => htmlUnescapes[entity] || "'")
+        ? str.replace(reEscapedHtml, (entity) => htmlUnescapes[entity] || '\'')
         : str || '';
 };

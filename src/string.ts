@@ -8,9 +8,9 @@ export const camelCase = (str: string): string => {
         str
             .toLocaleLowerCase()
             // remove any non alpha-numeric chars (but leave spaces)
-            .replace(/[^a-zA-Z0-9 ]/g, ' ')
+            .replace(/[^0-9 ]/g, ' ')
             // capitalize any words with a leading space (and remove the space)
-            .replace(/\s+(\w)?/gi, (m, l) => l.toUpperCase())
+            .replace(/\s+(\w)?/g, (m, l) => l.toUpperCase())
     );
 };
 
@@ -88,7 +88,7 @@ export const startsWithAny = (data: string, items: string[]): boolean => {
 export const isValidUUID = (id: string): boolean => {
     // Regular expression to check if string is a valid UUID
     const regexExp
-        = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+        = /^[0-9a-f]{8}\b-[0-9a-f]{4}\b-[0-9a-f]{4}\b-[0-9a-f]{4}\b-[0-9a-f]{12}$/gi;
     return regexExp.test(id);
 };
 
@@ -129,7 +129,7 @@ export const slugify = (text: string) => {
         .toLowerCase()
         .replace(/\s+/g, '-') // Replace spaces with -
         .replace(/[^\w-]+/g, '') // Remove all non-word chars
-        .replace(/--+/g, '-') // Replace multiple - with single -
+        .replace(/-{2,}/g, '-') // Replace multiple - with single -
         .replace(/^-+/, '') // Trim - from start of text
         .replace(/-+$/, ''); // Trim - from end of text
 };
