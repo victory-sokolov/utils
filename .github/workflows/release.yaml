@@ -37,12 +37,12 @@ jobs:
       - uses: actions/setup-node@v4.1.0
         with:
           node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
-
-      - name: Install Dependencies
-        run: yarn install
+        
+      - name: Setup pnpm
+        uses: ./.github/workflows/setup-pnpm.yml
 
       - name: Release new version to NPM
-        run: yarn build && yarn semantic-release
+        run: pnpm build && pnpm semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
