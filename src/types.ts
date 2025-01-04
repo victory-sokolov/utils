@@ -53,15 +53,15 @@ export type Prettify<T> = {
 
 /**
  * Fetch response type
-*/
+ */
 export type FetchResponse<T> =
-  | {
-      statusCode: number;
-      data: T;
-      error: null;
+    | {
+        statusCode: number;
+        data: T;
+        error: null;
     }
-  | {
-      statusCode: number | null;
-      data: T | null;
-      error: Error;
+    | {
+        statusCode: number | null;
+        data: T | null;
+        error: Error;
     };

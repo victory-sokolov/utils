@@ -1,6 +1,6 @@
-import path from 'node:path';
-import { readdir, stat } from 'node:fs/promises';
 import { existsSync, mkdirSync } from 'node:fs';
+import { readdir, stat } from 'node:fs/promises';
+import path from 'node:path';
 
 /**
  * Read directory recursively to get all files in the directory

@@ -11,10 +11,10 @@ const htmlUnescapes = flip(htmlEscapes) as Record<string, string>;
 
 /** Used to match HTML entities and HTML characters. */
 const reUnescapedHtml = /[&<>"']/g;
-const reHasUnescapedHtml = RegExp(reUnescapedHtml.source);
+const reHasUnescapedHtml = new RegExp(reUnescapedHtml.source);
 
 const reEscapedHtml = /&(?:amp|lt|gt|quot|#(0+)?39);/g;
-const reHasEscapedHtml = RegExp(reEscapedHtml.source);
+const reHasEscapedHtml = new RegExp(reEscapedHtml.source);
 
 /**
  * Remove HTML tags from the text

@@ -1,5 +1,5 @@
-import { hasProperty, isString } from './is';
 import type { Collection, IndexCallback, RecordObject } from './types';
+import { hasProperty, isString } from './is';
 
 /**
  * Flatten nested array into 1 dimensional array
