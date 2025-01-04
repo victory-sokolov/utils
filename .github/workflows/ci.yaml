@@ -47,7 +47,7 @@ jobs:
         id: nvm
 
       - name: Setup pnpm
-        uses: ./.github/workflows/setup-pnpm.yml
+        uses: ./.github/actions/install-deps
 
       - name: Use Node.js ${{ steps.nvm.outputs.NODE_VERSION }}
         uses: actions/setup-node@v4.1.0
