@@ -1,3 +1,17 @@
+# [0.25.0](https://github.com/victory-sokolov/utils/compare/v0.24.0...v0.25.0) (2025-01-04)
+
+
+### Bug Fixes
+
+* camelCase function ([b0081de](https://github.com/victory-sokolov/utils/commit/b0081dedc9b95386ab1253783e19b411431ae4e0))
+* update regexes ([6607423](https://github.com/victory-sokolov/utils/commit/66074232f027cce41fa0f355da508dbcebabd97e))
+* update types ([9c7c6af](https://github.com/victory-sokolov/utils/commit/9c7c6afd91fdf02bb412ed664fa096caaaceeac4))
+
+
+### Features
+
+* add FetchResponse response type ([3a2582b](https://github.com/victory-sokolov/utils/commit/3a2582b2770d98ea248e079e04a1dddf977fb341))
+
 # [0.24.0](https://github.com/victory-sokolov/utils/compare/v0.23.0...v0.24.0) (2024-06-13)
 
 
