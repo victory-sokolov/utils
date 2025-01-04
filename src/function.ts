@@ -53,8 +53,8 @@ export const applyPipe = <FirstFn extends AnyFunc, F extends AnyFunc[]>(
  * @param fn Function to check
  * @returns True if function is asynchronous
  */
-export const isAsync = (fn: Function) => fn.constructor.name === 'AsyncFunction';
-
+export const isAsync = <T extends (...args: any[]) => any>(fn: T): boolean =>
+    fn.constructor.name === 'AsyncFunction';
 /**
  * Pass the value through the callback, and return the value
  *

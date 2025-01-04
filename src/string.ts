@@ -4,19 +4,19 @@
  * @returns Camelcased string
  */
 export const camelCase = (str: string): string => {
-  return (
-    str
-      // Convert the string to lowercase
-      .toLowerCase()
-      // Remove all non-alphanumeric characters and spaces
-      .replace(/[^a-z0-9]/g, ' ')
-      // Capitalize the first letter of each word (after spaces)
-      .replace(/\s(\w)/g, (match, letter) => letter.toUpperCase())
-      // Remove leading spaces
-      .replace(/\s+/g, '')
-      // Return the first letter in lowercase and the rest as-is
-      .replace(/^(\w)/, (match, letter) => letter.toLowerCase())
-  );
+    return (
+        str
+        // Convert the string to lowercase
+            .toLowerCase()
+        // Remove all non-alphanumeric characters and spaces
+            .replace(/[^a-z0-9]/g, ' ')
+        // Capitalize the first letter of each word (after spaces)
+            .replace(/\s(\w)/g, (match, letter) => letter.toUpperCase())
+        // Remove leading spaces
+            .replace(/\s+/g, '')
+        // Return the first letter in lowercase and the rest as-is
+            .replace(/^(\w)/, (match, letter) => letter.toLowerCase())
+    );
 };
 
 /**
