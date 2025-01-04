@@ -50,3 +50,18 @@ export type Maybe<T> = T | null | undefined;
 export type Prettify<T> = {
     [K in keyof T]: T[K];
 } & object;
+
+/**
+ * Fetch response type
+*/
+export type FetchResponse<T> =
+  | {
+      statusCode: number;
+      data: T;
+      error: null;
+    }
+  | {
+      statusCode: number | null;
+      data: T | null;
+      error: Error;
+    };
