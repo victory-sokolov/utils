@@ -2,6 +2,10 @@ import antfu from '@antfu/eslint-config';
 
 export default antfu({
     ignores: ['docs'],
+    rules: {
+        'regexp/no-unused-capturing-group': 'off',
+        'regexp/no-dupe-disjunctions': 'off',
+    },
     stylistic: {
         indent: 4,
         semi: true,
