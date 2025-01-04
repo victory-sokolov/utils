@@ -4,14 +4,19 @@
  * @returns Camelcased string
  */
 export const camelCase = (str: string): string => {
-    return (
-        str
-            .toLocaleLowerCase()
-            // remove any non alpha-numeric chars (but leave spaces)
-            .replace(/[^0-9 ]/g, ' ')
-            // capitalize any words with a leading space (and remove the space)
-            .replace(/\s+(\w)?/g, (m, l) => l.toUpperCase())
-    );
+  return (
+    str
+      // Convert the string to lowercase
+      .toLowerCase()
+      // Remove all non-alphanumeric characters and spaces
+      .replace(/[^a-z0-9]/g, ' ')
+      // Capitalize the first letter of each word (after spaces)
+      .replace(/\s(\w)/g, (match, letter) => letter.toUpperCase())
+      // Remove leading spaces
+      .replace(/\s+/g, '')
+      // Return the first letter in lowercase and the rest as-is
+      .replace(/^(\w)/, (match, letter) => letter.toLowerCase())
+  );
 };
 
 /**
@@ -86,9 +91,8 @@ export const startsWithAny = (data: string, items: string[]): boolean => {
  * @returns True if UUID is valid
  */
 export const isValidUUID = (id: string): boolean => {
-    // Regular expression to check if string is a valid UUID
     const regexExp
-        = /^[0-9a-f]{8}\b-[0-9a-f]{4}\b-[0-9a-f]{4}\b-[0-9a-f]{4}\b-[0-9a-f]{12}$/gi;
+    = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     return regexExp.test(id);
 };
 
