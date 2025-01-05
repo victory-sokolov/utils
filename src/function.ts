@@ -1,14 +1,21 @@
-type AnyFunc = (...arg: any) => any;
+export type AnyFunc = <Input, Output>(...args: Input[]) => Output;
+
+// Helper type to get the return type of a function
+type ReturnTypeOf<F extends AnyFunc> = F extends (...args: any[]) => infer R ? R : never;
+
+// Helper type to get the parameter types of a function
+type ParametersOf<F extends AnyFunc> = F extends (...args: infer P) => any ? P : never;
 
 type PipeArgs<F extends AnyFunc[], Acc extends AnyFunc[] = []> = F extends [
-    (...args: infer A) => infer B,
+    infer First extends AnyFunc,
+    ...infer Rest extends AnyFunc[],
 ]
-    ? [...Acc, (...args: A) => B]
-    : F extends [(...args: infer A) => any, ...infer Tail]
-        ? Tail extends [(arg: infer B) => any, ...any[]]
-            ? PipeArgs<Tail, [...Acc, (...args: A) => B]>
+    ? Rest extends [infer Second extends AnyFunc, ...any[]]
+        ? ReturnTypeOf<First> extends ParametersOf<Second>[number]
+            ? PipeArgs<Rest, [...Acc, First]>
             : Acc
-        : Acc;
+        : [...Acc, First]
+    : Acc;
 
 type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [
     ...any[],
@@ -45,7 +52,10 @@ export const applyPipe = <FirstFn extends AnyFunc, F extends AnyFunc[]>(
     firstFn: FirstFn,
     ...fns: PipeArgs<F> extends F ? F : PipeArgs<F>
 ): LastFnReturnType<F, ReturnType<FirstFn>> => {
-    return (fns as AnyFunc[]).reduce((acc, fn) => fn(acc), firstFn(arg));
+    return fns.reduce(
+        (acc: any, fn: AnyFunc) => fn(...[acc]),
+        firstFn(...[arg]),
+    ) as LastFnReturnType<F, ReturnType<FirstFn>>;
 };
 
 /**
