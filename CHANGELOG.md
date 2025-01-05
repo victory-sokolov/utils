@@ -1,3 +1,10 @@
+# [0.26.0](https://github.com/victory-sokolov/utils/compare/v0.25.0...v0.26.0) (2025-01-05)
+
+
+### Features
+
+* get current timestamp ([1c02c43](https://github.com/victory-sokolov/utils/commit/1c02c432b9f9316a36479905f26d6cde3993c0f8))
+
 # [0.25.0](https://github.com/victory-sokolov/utils/compare/v0.24.0...v0.25.0) (2025-01-04)
 
 
