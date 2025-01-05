@@ -247,3 +247,9 @@ export const getTimeZone = (lang: string): string => {
     const options = Intl.DateTimeFormat(lang).resolvedOptions();
     return options.timeZone;
 };
+
+/**
+ * Get current timestamp
+ * @returns timestamp
+ */
+export const timestamp = () => +Date.now();
