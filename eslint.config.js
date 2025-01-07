@@ -14,6 +14,7 @@ export default antfu({
             'style/arrow-parens': 'off',
             'curly': 'off',
             'style/brace-style': 'off',
+            'style/semi': 'off',
             'antfu/if-newline': 'off',
         },
     },

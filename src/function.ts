@@ -1,7 +1,7 @@
 export type AnyFunc = <Input, Output>(...args: Input[]) => Output;
 
 export type AnyAsyncFunc<Input extends any[] = any[], Output = any> = (
-  ...args: Input
+    ...args: Input
 ) => Promise<Output>;
 
 // Helper type to get the return type of a function

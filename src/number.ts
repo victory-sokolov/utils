@@ -46,16 +46,16 @@ export const nFormatter = (amount: string): number => {
 
 /**
  * Generate number seequence with specific length
- * @param length 
+ * @param length
  * @returns Generate number with provided length
  */
 export const generateNumberWithLength = (length: number): number => {
     if (length <= 0) {
-        throw new Error("Length must be greater than zero");
+        throw new Error('Length must be greater than zero');
     }
 
-    const min = Math.pow(10, length - 1);
-    const max = Math.pow(10, length) - 1;
+    const min = 10 ** (length - 1);
+    const max = 10 ** length - 1;
 
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
