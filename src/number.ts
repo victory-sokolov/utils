@@ -43,3 +43,19 @@ export const nFormatter = (amount: string): number => {
     const multipliers = { k: 1000, m: 1000000 };
     return Number.parseFloat(amount) * multipliers[amount.charAt(amount.length - 1).toLowerCase()];
 };
+
+/**
+ * Generate number seequence with specific length
+ * @param length 
+ * @returns Generate number with provided length
+ */
+export const generateNumberWithLength = (length: number): number => {
+    if (length <= 0) {
+        throw new Error("Length must be greater than zero");
+    }
+
+    const min = Math.pow(10, length - 1);
+    const max = Math.pow(10, length) - 1;
+
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
