@@ -1,5 +1,9 @@
 export type AnyFunc = <Input, Output>(...args: Input[]) => Output;
 
+export type AnyAsyncFunc<Input extends any[] = any[], Output = any> = (
+  ...args: Input
+) => Promise<Output>;
+
 // Helper type to get the return type of a function
 type ReturnTypeOf<F extends AnyFunc> = F extends (...args: any[]) => infer R ? R : never;
 
