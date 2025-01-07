@@ -1,3 +1,11 @@
+# [0.27.0](https://github.com/victory-sokolov/utils/compare/v0.26.0...v0.27.0) (2025-01-07)
+
+
+### Features
+
+* add AnyAsyncFunc type ([160e943](https://github.com/victory-sokolov/utils/commit/160e943eaf039e281349832975e47c11b4322cde))
+* add generateNumberWithLength to generate number seequence ([5ea6378](https://github.com/victory-sokolov/utils/commit/5ea6378154c05dcac5bd0aef67167ad8999976b4))
+
 # [0.26.0](https://github.com/victory-sokolov/utils/compare/v0.25.0...v0.26.0) (2025-01-05)
 
 
