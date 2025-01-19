@@ -63,6 +63,8 @@ jobs:
         run: pnpm typecheck
 
       - name: Run tests
+        env:
+          TZ: Europe/London
         run: pnpm test:no-watch
 
       - name: Build
