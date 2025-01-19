@@ -169,3 +169,10 @@ export const maskString = (str: string) => {
     const lastChars = str.slice(str.length - 4);
     return `${firstChars} **** ${lastChars}`;
 };
+
+/**
+ * Checks if a string contains any non-alphanumeric characters.
+ * @param str - The input string to validate.
+ * @returns `true` if the string contains non-alphanumeric characters, otherwise `false`.
+ */
+export const isAlphaNumeric = (str: string): boolean => /[a-z0-9]/i.test(str);

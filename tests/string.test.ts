@@ -4,6 +4,7 @@ import {
     capitalize,
     endsWithAny,
     escapeHtml,
+    isAlphaNumeric,
     isValidUUID,
     kebabCase,
     maskString,
@@ -171,6 +172,16 @@ describe('string-utils', () => {
             const originalString = '1234567890';
             const maskedString = maskString(originalString);
             expect(maskedString).toBe('1234 **** 7890');
+        });
+    });
+
+    describe('test string for alpha numeric', () => {
+        it('test hasNonAlphanumeric', () => {
+            expect(isAlphaNumeric('tag1')).toBe(true);
+            expect(isAlphaNumeric('HelloWorld')).toBe(true);
+            // Falsy test
+            expect(isAlphaNumeric('github-actions')).toBe(true);
+            expect(isAlphaNumeric('Hello-World')).toBe(true);
         });
     });
 });
