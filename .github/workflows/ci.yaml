@@ -32,7 +32,7 @@ jobs:
   lint-test:
     runs-on: ubuntu-latest
     env:
-      TZ: Europe/London
+      TZ: Europe/Latvian
     strategy:
       fail-fast: true
 
