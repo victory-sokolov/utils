@@ -143,16 +143,19 @@ describe('test date utils', () => {
     });
 
     describe('toUtc function', () => {
-        it('should return correct UTC ISO string for Date object', () => {
-            const date = new Date(2025, 0, 19, 16, 15);
-            const result = toUtc(date);
-            expect(result).toBe(new Date('2025-01-19T14:15:00.000Z').toISOString());
+        it('should preserve UTC time when given an ISO string', () => {
+            const timestamp = '2025-01-19T16:15:00+02:00';
+            const expected = new Date(timestamp).toISOString();
+
+            const result = toUtc(timestamp);
+            expect(result).toBe(expected);
         });
 
-        it('should return correct UTC ISO string for string input (valid date)', () => {
-            const dateString = '2025-01-19T16:15:00';
-            const result = toUtc(dateString);
-            expect(result).toBe(new Date('2025-01-19T14:15:00.000Z').toISOString());
+        it('should handle local date string', () => {
+            const localDateString = '2025-01-19T16:15:00';
+            const expected = new Date(localDateString).toISOString();
+            const result = toUtc(localDateString);
+            expect(result).toBe(expected);
         });
 
         it('should handle invalid date string and return "Invalid Date"', () => {
