@@ -1,3 +1,11 @@
+# [0.28.0](https://github.com/victory-sokolov/utils/compare/v0.27.0...v0.28.0) (2025-01-19)
+
+
+### Features
+
+* convert date string or date object ot UTC format ([46e2f28](https://github.com/victory-sokolov/utils/commit/46e2f28331ae69b03f4d50334acc88b91e471f6e))
+* isAlphaNumeric - check if provided string is alphanum string ([6e0051e](https://github.com/victory-sokolov/utils/commit/6e0051e5d9951a090162ed273bca3eff4a754f8c))
+
 # [0.27.0](https://github.com/victory-sokolov/utils/compare/v0.26.0...v0.27.0) (2025-01-07)
 
 
