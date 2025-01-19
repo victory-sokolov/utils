@@ -264,7 +264,7 @@ export const toUtc = (date: string | Date): string => {
     if (typeof date === 'string') {
         utcDate = new Date(date);
     } else {
-        utcDate = date;
+        utcDate = new Date(date.getTime());
     }
 
     // Check if the date is valid
