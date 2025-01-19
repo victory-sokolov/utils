@@ -253,3 +253,24 @@ export const getTimeZone = (lang: string): string => {
  * @returns timestamp
  */
 export const timestamp = () => +Date.now();
+
+/**
+ * Convert date to utc format
+ * @param date Date as string or Date object
+ * @returns UTC formatted date string
+ */
+export const toUtc = (date: string | Date): string => {
+    let utcDate = new Date();
+    if (typeof date === 'string') {
+        utcDate = new Date(date);
+    } else {
+        utcDate = date;
+    }
+
+    // Check if the date is valid
+    if (Number.isNaN(utcDate.getTime())) {
+        throw new TypeError('Invalid date string provided');
+    }
+
+    return utcDate.toISOString();
+};
