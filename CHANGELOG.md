@@ -1,3 +1,10 @@
+## [0.28.1](https://github.com/victory-sokolov/utils/compare/v0.28.0...v0.28.1) (2025-01-22)
+
+
+### Bug Fixes
+
+* fix isAlphaNumeric and update testcase ([ed3da74](https://github.com/victory-sokolov/utils/commit/ed3da74ca7b182f9a4e549bf98a7e02278aa4f46))
+
 # [0.28.0](https://github.com/victory-sokolov/utils/compare/v0.27.0...v0.28.0) (2025-01-19)
 
 

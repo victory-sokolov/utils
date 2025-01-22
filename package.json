@@ -1,7 +1,7 @@
 {
     "name": "@vsokolov/utils",
     "type": "module",
-    "version": "0.28.0",
+    "version": "0.28.1",
     "private": false,
     "description": "Various TypeScript/JavaScripts utils functions for node and browser",
     "author": {
