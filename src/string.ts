@@ -20,7 +20,7 @@ export const camelCase = (str: string): string => {
 };
 
 /**
- * String to pascalcase
+ * String to pascalcase (example: iterationCount)
  * @param str string to pascalcase
  * @returns Pascal case string
  */
