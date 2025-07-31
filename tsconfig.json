@@ -1,11 +1,13 @@
 {
     "compilerOptions": {
+        "strict": true,
         "target": "es2017",
         "lib": [
             "esnext",
             "dom"
         ],
         "module": "esnext",
+        "noEmit": true,
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "types": [
@@ -27,9 +29,6 @@
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "skipLibCheck": true
-        // "customConditions": [
-        //     "source"
-        // ]
     },
     "include": [
         "src/**/*.ts"

@@ -12,7 +12,8 @@ export default antfu({
         overrides: {
             'antfu/top-level-function': 'off',
             'style/arrow-parens': 'off',
-            'curly': 'off',
+            'style/comma-dangle': 'off',
+            curly: 'off',
             'style/brace-style': 'off',
             'style/semi': 'off',
             'antfu/if-newline': 'off',
