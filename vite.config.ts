@@ -4,7 +4,9 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     test: {
         globals: true,
+        isolate: false,
         environment: 'jsdom',
+        threads: 4,
         coverage: {
             reporter: ['text', 'html'],
             exclude: [
@@ -14,7 +16,7 @@ export default defineConfig({
                 'rollup.config.js',
                 'release.config.cjs',
                 './dist',
-                './docs'
+                './docs',
             ],
         },
         resolve: {
