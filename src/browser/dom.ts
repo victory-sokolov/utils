@@ -22,7 +22,9 @@ export const $$ = (
 
 // styles
 export const style = (el: HTMLElement, styles: { [key: string]: string }) => {
-    Object.keys(styles).forEach((name: string) => (el.style[name] = styles[name]));
+    Object.keys(styles).forEach((name) => {
+        (el.style as any)[name as keyof CSSStyleDeclaration] = styles[name];
+    });
 };
 
 // class

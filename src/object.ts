@@ -38,7 +38,9 @@ export const pick = <T extends Record<string, any>, K extends keyof T>(
     obj: T,
     ...props: K[]
 ): { [P in K]: T[P] } => {
-    const filteredArray = Object.entries(obj).filter(([key]) => props.includes(key as K));
+    const filteredArray = Object.entries(obj).filter(([key]) =>
+        props.includes(key as K)
+    );
     return Object.fromEntries(filteredArray) as Pick<T, K>;
 };
 
@@ -53,7 +55,11 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
     Object.keys(obj).forEach((key) => {
         const value = obj[key];
 
-        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        if (
+            typeof value === 'object' &&
+            value !== null &&
+            !Array.isArray(value)
+        ) {
             Object.assign(flattened, flattenObject(value as RecordObject));
         } else {
             flattened[key] = value;
@@ -68,7 +74,9 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
  * @param obj Object to filter
  * @returns Filtered object
  */
-export const filterFalsyFromObject = <T extends RecordObject>(obj: T): RecordObject => {
+export const filterFalsyFromObject = <T extends RecordObject>(
+    obj: T
+): RecordObject => {
     return Object.keys(obj).reduce((acc: RecordObject, key) => {
         if (obj[key]) {
             acc[key] = obj[key];
@@ -83,15 +91,19 @@ export const filterFalsyFromObject = <T extends RecordObject>(obj: T): RecordObj
  * @param right
  * @returns New combined object
  */
-export const unionWithExclusion = (left: RecordObject, right: RecordObject): RecordObject => {
+export const unionWithExclusion = (
+    left: RecordObject,
+    right: RecordObject
+): RecordObject => {
     return [left, right].reduce((prev, current) => {
         if (current) {
             Object.entries(current).forEach(([key, value]) => {
                 if (!value) return;
-                prev[key] = typeof value === 'object'
-                    // @ts-ignore
-                    ? unionWithExclusion(prev[key], value)
-                    : value;
+                prev[key] =
+                    typeof value === 'object'
+                        ? // @ts-ignore
+                          unionWithExclusion(prev[key], value)
+                        : value;
             });
         }
         return prev;
@@ -104,7 +116,9 @@ export const unionWithExclusion = (left: RecordObject, right: RecordObject): Rec
  * @returns Inverted object
  */
 export const flip = (data: RecordObject): RecordObject =>
-    Object.fromEntries(Object.entries(data).map(([key, value]) => [value, key]));
+    Object.fromEntries(
+        Object.entries(data).map(([key, value]) => [value, key])
+    );
 
 /**
  * Filter array of objects and remove dublicates by provided key
@@ -112,7 +126,10 @@ export const flip = (data: RecordObject): RecordObject =>
  * @param key Key lookup
  * @returns Filtered object
  */
-export const uniqueObject = (data: RecordObject[], key: string): RecordObject[] => {
+export const uniqueObject = (
+    data: RecordObject[],
+    key: string
+): RecordObject[] => {
     return [...new Map(data.map((item) => [item[key], item])).values()];
 };
 
@@ -122,7 +139,8 @@ export const uniqueObject = (data: RecordObject[], key: string): RecordObject[] 
  * @category Object
  */
 export const objectKeys = <T extends object>(obj: T) => {
-    return Object.keys(obj) as Array<`${keyof T & (string | number | boolean | null | undefined)}`>;
+    return Object.keys(obj) as Array<`${keyof T &
+        (string | number | boolean | null | undefined)}`>;
 };
 
 /**

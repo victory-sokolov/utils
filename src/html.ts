@@ -39,7 +39,7 @@ export const removeInlineStyles = (text: string): string =>
  */
 export const escape = (str: string) => {
     return str && reHasUnescapedHtml.test(str)
-        ? str.replace(reUnescapedHtml, (chr) => htmlEscapes[chr])
+        ? str.replace(reUnescapedHtml, (chr) => htmlEscapes[chr as keyof typeof htmlEscapes])
         : str || '';
 };
 

@@ -39,9 +39,14 @@ export const getRandomNumber = (min: number, max: number) => {
  * @param amount amount as string
  * @returns Formatted number
  */
-export const nFormatter = (amount: string): number => {
-    const multipliers = { k: 1000, m: 1000000 };
-    return Number.parseFloat(amount) * multipliers[amount.charAt(amount.length - 1).toLowerCase()];
+export const nFormatter = (amount: string | undefined): number => {
+    if (!amount) return 0;
+    const multipliers: Record<string, number> = { k: 1000, m: 1000000 };
+    const lastChar = amount.charAt(amount.length - 1).toLowerCase();
+    if (lastChar in multipliers && multipliers[lastChar] !== undefined) {
+        return Number.parseFloat(amount.slice(0, -1)) * multipliers[lastChar]!;
+    }
+    return Number.parseFloat(amount);
 };
 
 /**

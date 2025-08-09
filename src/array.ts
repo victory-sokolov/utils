@@ -6,7 +6,9 @@ import { hasProperty, isString } from './is';
  * @param listOfArrays List of arrays to flatten
  * @returns flattened array
  */
-export const flattenArray = <T>(listOfArrays: ReadonlyArray<T>): ReadonlyArray<T> => {
+export const flattenArray = <T>(
+    listOfArrays: ReadonlyArray<T>
+): ReadonlyArray<T> => {
     return listOfArrays.reduce((res, arr) => {
         return [...res, ...(Array.isArray(arr) ? flattenArray(arr) : [arr])];
     }, [] as T[]);
@@ -27,7 +29,10 @@ export const unique = <T>(array: readonly T[]): Collection<T> => {
  * @param values
  * @returns array with removed items
  */
-export const removeItem = <T>(array: Collection<T>, values: T[]): Collection<T> => {
+export const removeItem = <T>(
+    array: Collection<T>,
+    values: T[]
+): Collection<T> => {
     return array.filter((item) => !values.includes(item));
 };
 
@@ -43,7 +48,7 @@ export const randomItem = <T>(arr: T[], count: number): Array<T> => {
 
     return Array.from(
         { length: count },
-        () => arr[Math.round(Math.random() * (arr.length - 1))] as T,
+        () => arr[Math.round(Math.random() * (arr.length - 1))] as T
     );
 };
 
@@ -65,7 +70,7 @@ export const shuffleArray = <T>(arr: Collection<T>): Collection<T> => {
  * @returns Sorted array of objects
  */
 export const sortAsc = <T extends Record<string, any>>(
-    array: ReadonlyArray<T>,
+    array: ReadonlyArray<T>
 ): ReadonlyArray<T> => {
     return [...array].sort((a, b) => {
         if (a.key < b.key) {
@@ -77,8 +82,8 @@ export const sortAsc = <T extends Record<string, any>>(
     });
 };
 
-const fSort = (a, b) => {
-    return a > b ? 1 : a < b ? -1 : 0;
+const fSort = (firstValue: number, secondValue: number): number => {
+    return firstValue > secondValue ? 1 : firstValue < secondValue ? -1 : 0;
 };
 
 /**
@@ -87,13 +92,21 @@ const fSort = (a, b) => {
  * @param fSorting Function sorting algorithm
  * @returns Sorted array
  */
-export const sort = (arr: Array<Record<string, unknown>> = [], fSorting: any = null) => {
+export const sort = <T extends Record<string, unknown>>(
+    arr: T[] = [],
+    fSorting: ((a: T, b: T) => number) | null = null
+): T[] => {
     const copyArray = [...arr];
-    const fn = fSorting || fSort;
+    const fn =
+        fSorting ||
+        ((a: T, b: T) => {
+            const valA = Number(Object.values(a)[0]);
+            const valB = Number(Object.values(b)[0]);
+            return fSort(valA, valB);
+        });
     copyArray.sort(fn);
     return copyArray;
 };
-
 /**
  *
  * @param arr Array to sort
@@ -101,11 +114,15 @@ export const sort = (arr: Array<Record<string, unknown>> = [], fSorting: any = n
  * @param key Key to sort by
  * @returns Sorted array of objects
  */
-export const sortBy = (arr: Array<RecordObject> = [], order = 1, key = '') => {
+export const sortBy = (
+    arr: Array<RecordObject> = [],
+    order: number = 1,
+    key: string = ''
+): Array<RecordObject> => {
     if (!isString(key) || !hasProperty(arr[0], key)) {
         return arr;
     }
-    return sort(arr, (m, n) => {
+    return sort(arr, (m: RecordObject, n: RecordObject) => {
         return m[key] > n[key] ? order : m[key] < n[key] ? -1 * order : 0;
     });
 };
@@ -119,7 +136,7 @@ export const sortBy = (arr: Array<RecordObject> = [], order = 1, key = '') => {
 export const insertItemAtIndex = <T>(
     index: number | IndexCallback<T>,
     value: T,
-    arr?: T[] | null,
+    arr?: T[] | null
 ) => {
     if (!arr) {
         return [];
@@ -142,7 +159,7 @@ export const insertItemAtIndex = <T>(
 export const replaceItemAtIndex = <T>(
     index: number | IndexCallback<T>,
     newValue: T,
-    arr?: T[] | null,
+    arr?: T[] | null
 ) => {
     if (!arr) {
         return [];
@@ -162,7 +179,10 @@ export const replaceItemAtIndex = <T>(
  * @param index an index or a callback provided to findIndex
  * @param arr the array to remove from
  */
-export const removeItemAtIndex = <T>(index: number | IndexCallback<T>, arr?: T[] | null) => {
+export const removeItemAtIndex = <T>(
+    index: number | IndexCallback<T>,
+    arr?: T[] | null
+) => {
     if (!arr) {
         return [];
     }
@@ -186,7 +206,9 @@ export const median = (arr: number[]): number => {
 
     const mid = Math.floor(arr.length / 2);
     const nums = [...arr].sort((a, b) => a - b);
-    return (arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1]! + nums[mid]!) / 2) as number;
+    return (
+        arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1]! + nums[mid]!) / 2
+    ) as number;
 };
 
 /**
@@ -206,7 +228,9 @@ export const intersection = <T>(arr1: T[], arr2: T[]): T[] => {
  * @param array Array of elements to
  * @returns Object where keys are array values and value is time el occurs in the array
  */
-export const countBy = (array: Array<number | string>): Record<string, number> => {
+export const countBy = (
+    array: Array<number | string>
+): Record<string, number> => {
     return array.reduce((obj: { [key: string]: number }, item) => {
         if (item in obj) {
             // item is already a key so increment
@@ -232,6 +256,6 @@ export const occurrenceCount = <T>(data: Array<T>) => {
         unique.map((char) => {
             const occurrenceCount = data.filter((c) => c === char).length;
             return [char, occurrenceCount];
-        }),
+        })
     );
 };
