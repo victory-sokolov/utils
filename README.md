@@ -51,7 +51,7 @@ import * as utils from '@vsokolov/utils';
 Or import individual functions for better tree-shaking:
 
 ```typescript
-import { formatDate, flattenArray, isString } from '@vsokolov/utils';
+import { flattenArray, formatDate, isString } from '@vsokolov/utils';
 ```
 
 ### Examples
@@ -59,7 +59,7 @@ import { formatDate, flattenArray, isString } from '@vsokolov/utils';
 #### Array Utilities
 
 ```typescript
-import { flattenArray, unique, sortBy } from '@vsokolov/utils';
+import { flattenArray, sortBy, unique } from '@vsokolov/utils';
 
 // Flatten nested arrays
 const nested = [1, [2, [3, [4]], 5]];
@@ -71,9 +71,9 @@ const uniqueValues = unique(duplicates); // [1, 2, 3]
 
 // Sort array of objects
 const users = [
-  { name: 'John', age: 30 },
-  { name: 'Jane', age: 25 },
-  { name: 'Doe', age: 35 }
+    { name: 'John', age: 30 },
+    { name: 'Jane', age: 25 },
+    { name: 'Doe', age: 35 }
 ];
 const sortedUsers = sortBy(users, 1, 'age'); // Sort by age in ascending order
 ```
@@ -81,7 +81,7 @@ const sortedUsers = sortBy(users, 1, 'age'); // Sort by age in ascending order
 #### Date Utilities
 
 ```typescript
-import { formatDate, timeAgo, getMonthList } from '@vsokolov/utils';
+import { formatDate, getMonthList, timeAgo } from '@vsokolov/utils';
 
 // Format date
 const today = new Date();
@@ -99,7 +99,7 @@ const months = getMonthList(); // ['January', 'February', ...]
 #### String Utilities
 
 ```typescript
-import { truncate, slugify, isEmail } from '@vsokolov/utils';
+import { isEmail, slugify, truncate } from '@vsokolov/utils';
 
 // Truncate string
 truncate('This is a long string', 10); // 'This is a...'

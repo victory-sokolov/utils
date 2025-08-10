@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "strict": true,
         "target": "es2017",
         "lib": [
             "esnext",
@@ -8,13 +7,13 @@
         ],
         "module": "esnext",
         "moduleResolution": "node",
-        "noEmit": true,
         "types": [
             "./node_modules/user-agent-data-types",
             "node",
             "vitest/globals"
         ],
         "allowJs": true,
+        "strict": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "allowUnreachableCode": false,
@@ -22,6 +21,7 @@
         "noUnusedLocals": false,
         "declaration": true,
         "importHelpers": true,
+        "noEmit": true,
         "outDir": "./dist",
         "removeComments": true,
         "stripInternal": true,

@@ -3,10 +3,10 @@ interface CacheStore<T = any> {
 }
 
 interface CacheAPI<T = any> {
-    set(key: string, value: T): void;
-    has(key: string): boolean;
-    get(key: string): T | undefined;
-    remove(key: string): void;
+    set: (key: string, value: T) => void;
+    has: (key: string) => boolean;
+    get: (key: string) => T | undefined;
+    remove: (key: string) => void;
 }
 
 export const cache = <T = any>(): CacheAPI<T> => {

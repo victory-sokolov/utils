@@ -1,16 +1,16 @@
-export type MonthName =
-    | 'January'
-    | 'February'
-    | 'March'
-    | 'April'
-    | 'May'
-    | 'June'
-    | 'July'
-    | 'August'
-    | 'September'
-    | 'October'
-    | 'November'
-    | 'December';
+export type MonthName
+    = | 'January'
+        | 'February'
+        | 'March'
+        | 'April'
+        | 'May'
+        | 'June'
+        | 'July'
+        | 'August'
+        | 'September'
+        | 'October'
+        | 'November'
+        | 'December';
 export type DeviceType = 'Mobile' | 'Desktop';
 export type CameraEnvironment = 'environment' | 'user';
 
@@ -54,8 +54,8 @@ export type Prettify<T> = {
 /**
  * Fetch response type
  */
-export type FetchResponse<T> =
-    | {
+export type FetchResponse<T>
+    = | {
         statusCode: number;
         data: T;
         error: null;

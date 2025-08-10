@@ -97,13 +97,13 @@ export const sort = <T extends Record<string, unknown>>(
     fSorting: ((a: T, b: T) => number) | null = null
 ): T[] => {
     const copyArray = [...arr];
-    const fn =
-        fSorting ||
-        ((a: T, b: T) => {
-            const valA = Number(Object.values(a)[0]);
-            const valB = Number(Object.values(b)[0]);
-            return fSort(valA, valB);
-        });
+    const fn
+        = fSorting
+            || ((a: T, b: T) => {
+                const valA = Number(Object.values(a)[0]);
+                const valB = Number(Object.values(b)[0]);
+                return fSort(valA, valB);
+            });
     copyArray.sort(fn);
     return copyArray;
 };

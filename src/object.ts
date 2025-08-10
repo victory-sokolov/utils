@@ -23,7 +23,7 @@ export const omit = <T extends Record<string, any>, K extends keyof T>(
     if (Array.isArray(objOrArray)) {
         return objOrArray.map(omitKeysFromObject);
     } else {
-        // Input is a single object
+    // Input is a single object
         return omitKeysFromObject(objOrArray);
     }
 };
@@ -55,11 +55,7 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
     Object.keys(obj).forEach((key) => {
         const value = obj[key];
 
-        if (
-            typeof value === 'object' &&
-            value !== null &&
-            !Array.isArray(value)
-        ) {
+        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
             Object.assign(flattened, flattenObject(value as RecordObject));
         } else {
             flattened[key] = value;
@@ -95,19 +91,29 @@ export const unionWithExclusion = (
     left: RecordObject,
     right: RecordObject
 ): RecordObject => {
-    return [left, right].reduce((prev, current) => {
+    const isPlainObject = (v: unknown): v is Record<string, unknown> =>
+        typeof v === 'object' && v !== null && !Array.isArray(v);
+
+    return [left, right].reduce<RecordObject>((prev, current) => {
         if (current) {
             Object.entries(current).forEach(([key, value]) => {
                 if (!value) return;
-                prev[key] =
-                    typeof value === 'object'
-                        ? // @ts-ignore
-                          unionWithExclusion(prev[key], value)
+
+                if (isPlainObject(value)) {
+                    const existing = prev[key];
+                    prev[key] = isPlainObject(existing)
+                        ? unionWithExclusion(
+                                existing as RecordObject,
+                                value as RecordObject
+                            )
                         : value;
+                } else {
+                    prev[key] = value;
+                }
             });
         }
         return prev;
-    }, {});
+    }, {} as RecordObject);
 };
 
 /**
@@ -116,9 +122,7 @@ export const unionWithExclusion = (
  * @returns Inverted object
  */
 export const flip = (data: RecordObject): RecordObject =>
-    Object.fromEntries(
-        Object.entries(data).map(([key, value]) => [value, key])
-    );
+    Object.fromEntries(Object.entries(data).map(([key, value]) => [value, key]));
 
 /**
  * Filter array of objects and remove dublicates by provided key
@@ -139,8 +143,8 @@ export const uniqueObject = (
  * @category Object
  */
 export const objectKeys = <T extends object>(obj: T) => {
-    return Object.keys(obj) as Array<`${keyof T &
-        (string | number | boolean | null | undefined)}`>;
+    return Object.keys(obj) as Array<`${keyof T
+        & (string | number | boolean | null | undefined)}`>;
 };
 
 /**

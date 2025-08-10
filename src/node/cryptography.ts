@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer';
 import { pbkdf2Sync, randomBytes } from 'node:crypto';
 
 /**
@@ -44,8 +45,8 @@ export const validateHash = (
     digest: string
 ) => {
     return (
-        savedHash ===
-        pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString(
+        savedHash
+        === pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString(
             'hex'
         )
     );
@@ -125,7 +126,7 @@ export async function decryptData(
     const key = await deriveKey(secretKey);
 
     const decrypted = await crypto.subtle.decrypt(
-        { name: 'AES-GCM', iv: iv },
+        { name: 'AES-GCM', iv },
         key,
         encrypted
     );
