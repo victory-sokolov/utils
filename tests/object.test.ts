@@ -51,6 +51,16 @@ describe('filterFalsyFromObject', () => {
         const obj = { a: 1, b: 0, c: false, d: null, e: undefined };
         expect(filterFalsyFromObject(obj)).toEqual({ a: 1 });
     });
+    it('should remove falsy values from the array of object', () => {
+        const obj = [
+            { a: 1, b: 0, c: false, d: null, e: undefined },
+            { a: null, b: 12, c: 'hello', d: { a: 1 }, e: [], f: {} },
+        ];
+        expect(filterFalsyFromObject(obj)).toEqual([
+            { a: 1 },
+            { b: 12, c: 'hello', d: { a: 1 } },
+        ]);
+    });
 });
 
 describe('unionWithExclusion', () => {

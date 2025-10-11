@@ -1,4 +1,5 @@
 import type { RecordObject } from './types';
+import { isTruthyAndNotEmpty } from './is';
 
 /**
  * Remove specific keys from object
@@ -23,7 +24,7 @@ export const omit = <T extends Record<string, any>, K extends keyof T>(
     if (Array.isArray(objOrArray)) {
         return objOrArray.map(omitKeysFromObject);
     } else {
-    // Input is a single object
+        // Input is a single object
         return omitKeysFromObject(objOrArray);
     }
 };
@@ -55,7 +56,11 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
     Object.keys(obj).forEach((key) => {
         const value = obj[key];
 
-        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        if (
+            typeof value === 'object' &&
+            value !== null &&
+            !Array.isArray(value)
+        ) {
             Object.assign(flattened, flattenObject(value as RecordObject));
         } else {
             flattened[key] = value;
@@ -66,19 +71,22 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
 };
 
 /**
- * Filter falsy values from object
- * @param obj Object to filter
+ * Filter falsy values from object or array of objects
+ * @param objOrArray Object or array of objects to filter
  * @returns Filtered object
  */
-export const filterFalsyFromObject = <T extends RecordObject>(
-    obj: T
-): RecordObject => {
-    return Object.keys(obj).reduce((acc: RecordObject, key) => {
-        if (obj[key]) {
-            acc[key] = obj[key];
-        }
-        return acc;
-    }, {} as T);
+export const filterFalsyFromObject = <T extends RecordObject | RecordObject[]>(
+    objOrArray: T
+): T extends RecordObject[] ? RecordObject[] : RecordObject => {
+    const filterObject = (obj: RecordObject): RecordObject =>
+        Object.keys(obj).reduce<RecordObject>((acc, key) => {
+            if (isTruthyAndNotEmpty(obj[key])) acc[key] = obj[key];
+            return acc;
+        }, {});
+
+    return Array.isArray(objOrArray)
+        ? (objOrArray.map(filterObject) as any)
+        : (filterObject(objOrArray as RecordObject) as any);
 };
 
 /**
@@ -103,9 +111,9 @@ export const unionWithExclusion = (
                     const existing = prev[key];
                     prev[key] = isPlainObject(existing)
                         ? unionWithExclusion(
-                                existing as RecordObject,
-                                value as RecordObject
-                            )
+                              existing as RecordObject,
+                              value as RecordObject
+                          )
                         : value;
                 } else {
                     prev[key] = value;
@@ -122,7 +130,9 @@ export const unionWithExclusion = (
  * @returns Inverted object
  */
 export const flip = (data: RecordObject): RecordObject =>
-    Object.fromEntries(Object.entries(data).map(([key, value]) => [value, key]));
+    Object.fromEntries(
+        Object.entries(data).map(([key, value]) => [value, key])
+    );
 
 /**
  * Filter array of objects and remove dublicates by provided key
@@ -143,8 +153,8 @@ export const uniqueObject = (
  * @category Object
  */
 export const objectKeys = <T extends object>(obj: T) => {
-    return Object.keys(obj) as Array<`${keyof T
-        & (string | number | boolean | null | undefined)}`>;
+    return Object.keys(obj) as Array<`${keyof T &
+        (string | number | boolean | null | undefined)}`>;
 };
 
 /**
