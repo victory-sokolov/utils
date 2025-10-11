@@ -54,7 +54,7 @@ export const dateWithTimeStamp = (date: Date): string => {
  */
 export const getWeekLastDay = (date: Date): Date => {
     const weekLastDayInMilliseconds
-    = date.getTime() + (6 - date.getDay()) * 86400000;
+        = date.getTime() + (6 - date.getDay()) * 86400000;
     const weekLastDay = new Date(weekLastDayInMilliseconds);
     return weekLastDay;
 };
@@ -66,7 +66,7 @@ export const getWeekLastDay = (date: Date): Date => {
  */
 export const getWeekFirstDay = (date: Date): Date => {
     const weekFirstDayInMilliseconds
-    = date.getTime() - (date.getDay() - 1) * 86400000;
+        = date.getTime() - (date.getDay() - 1) * 86400000;
     const weekFirstDay = new Date(weekFirstDayInMilliseconds);
     return weekFirstDay;
 };

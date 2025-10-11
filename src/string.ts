@@ -92,7 +92,7 @@ export const startsWithAny = (data: string, items: string[]): boolean => {
  */
 export const isValidUUID = (id: string): boolean => {
     const regexExp
-    = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     return regexExp.test(id);
 };
 
