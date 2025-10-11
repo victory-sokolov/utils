@@ -57,9 +57,9 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
         const value = obj[key];
 
         if (
-            typeof value === 'object' &&
-            value !== null &&
-            !Array.isArray(value)
+            typeof value === 'object'
+            && value !== null
+            && !Array.isArray(value)
         ) {
             Object.assign(flattened, flattenObject(value as RecordObject));
         } else {
@@ -111,9 +111,9 @@ export const unionWithExclusion = (
                     const existing = prev[key];
                     prev[key] = isPlainObject(existing)
                         ? unionWithExclusion(
-                              existing as RecordObject,
-                              value as RecordObject
-                          )
+                                existing as RecordObject,
+                                value as RecordObject
+                            )
                         : value;
                 } else {
                     prev[key] = value;
@@ -153,8 +153,8 @@ export const uniqueObject = (
  * @category Object
  */
 export const objectKeys = <T extends object>(obj: T) => {
-    return Object.keys(obj) as Array<`${keyof T &
-        (string | number | boolean | null | undefined)}`>;
+    return Object.keys(obj) as Array<`${keyof T
+        & (string | number | boolean | null | undefined)}`>;
 };
 
 /**
