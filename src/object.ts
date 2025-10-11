@@ -9,7 +9,7 @@ import type { RecordObject } from './types';
 export const omit = <T extends Record<string, any>, K extends keyof T>(
     objOrArray: T | T[],
     ...keys: K[]
-): T | T[] => {
+): Omit<T, K> | Omit<T, K>[] => {
     // Function to remove keys from a single object
     const omitKeysFromObject = (obj: T): T => {
         const newObj = { ...obj };
