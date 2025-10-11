@@ -1,3 +1,17 @@
+# [0.29.0](https://github.com/victory-sokolov/utils/compare/v0.28.1...v0.29.0) (2025-10-11)
+
+
+### Bug Fixes
+
+* fix types and improve pipe function ([6097276](https://github.com/victory-sokolov/utils/commit/6097276c29df74b7bbbccdfa4c0ea40aa79bc501))
+* omit return type ([6279c23](https://github.com/victory-sokolov/utils/commit/6279c2384a8eab7fbc30af87539eee3651298ba5))
+
+
+### Features
+
+* add types for cache.ts ([e282d1d](https://github.com/victory-sokolov/utils/commit/e282d1d93e267c81909b3639e9aff35e92c807f2))
+* **pencil:** add encryptData and decryptData ([4818e56](https://github.com/victory-sokolov/utils/commit/4818e564bcc6fffec8bfcc9767f53dbdc4051e35))
+
 ## [0.28.1](https://github.com/victory-sokolov/utils/compare/v0.28.0...v0.28.1) (2025-01-22)
 
 
