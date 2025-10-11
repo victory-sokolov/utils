@@ -1,3 +1,11 @@
+# [0.30.0](https://github.com/victory-sokolov/utils/compare/v0.29.0...v0.30.0) (2025-10-11)
+
+
+### Features
+
+* add isTruthyAndNotEmpty - check if value is truthy and is not empty ([620ea33](https://github.com/victory-sokolov/utils/commit/620ea33cb905c107c15645355948e02587caf283))
+* filterFalsyFromObject - add ability to filter falsy values form array of objects ([6ffb219](https://github.com/victory-sokolov/utils/commit/6ffb2199d83b330c49a81c944985a251648e8717))
+
 # [0.29.0](https://github.com/victory-sokolov/utils/compare/v0.28.1...v0.29.0) (2025-10-11)
 
 
