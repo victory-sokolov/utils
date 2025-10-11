@@ -149,7 +149,7 @@ describe('sortAsc', () => {
         it('should return an empty array if no array is passed', () => {
             const newValue = 100;
             const index = 2;
-            const expected = [];
+            const expected: number[] = [];
             expect(replaceItemAtIndex(index, newValue)).toEqual(expected);
         });
 
@@ -160,7 +160,7 @@ describe('sortAsc', () => {
                 { id: 3, value: 'c' },
             ];
             const newValue = { id: 100, value: 'x' };
-            const index = (item) => item.id === 2;
+            const index = (item: (typeof arr)[number]) => item.id === 2;
             const expected = [
                 { id: 1, value: 'a' },
                 { id: 100, value: 'x' },

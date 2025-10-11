@@ -115,15 +115,27 @@ export const sort = <T extends Record<string, unknown>>(
  * @returns Sorted array of objects
  */
 export const sortBy = (
-    arr: Array<RecordObject> = [],
+    arr: RecordObject[] = [],
     order: number = 1,
     key: string = ''
-): Array<RecordObject> => {
-    if (!isString(key) || !hasProperty(arr[0], key)) {
+): RecordObject[] => {
+    if (!isString(key) || !arr.length || !hasProperty(arr[0], key)) {
         return arr;
     }
-    return sort(arr, (m: RecordObject, n: RecordObject) => {
-        return m[key] > n[key] ? order : m[key] < n[key] ? -1 * order : 0;
+
+    return sort(arr, (m, n) => {
+        const a = m[key];
+        const b = n[key];
+
+        if (typeof a === 'number' && typeof b === 'number') {
+            return (a - b) * order;
+        }
+
+        if (typeof a === 'string' && typeof b === 'string') {
+            return a.localeCompare(b) * order;
+        }
+
+        return 0;
     });
 };
 

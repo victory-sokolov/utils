@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { applyPipe, batchInvoke, pipe } from '../src/function';
+import { batchInvoke, pipe } from '../src/function';
 
 describe('batchInvoke', () => {
     it('should call every function in the array', () => {
@@ -21,13 +21,15 @@ describe('pipe', () => {
         const multiplyByThree = (num: number) => num * 3;
         expect(pipe(addTwo, multiplyByThree)).toBe(21);
     });
-});
-
-describe('applyPipe', () => {
-    it('should pass the result of one function with arguments to another', () => {
-        const addTwo = (num) => num + 2;
+    it('first function should accept a parameter and pass the result of one function to another', () => {
+        const addTwo = (x: number) => x + 2;
+        const multiplyByThree = (num: number) => num * 3;
+        expect(pipe(2, addTwo, multiplyByThree)).toBe(12);
+    });
+    it('should pass the result of one function with arguments to another using several functions', () => {
+        const addTwo = (num: number) => num + 2;
         const multiplyByThree = (num: number) => num * 3;
         const thirdFunc = (num: number) => num * 2;
-        expect(applyPipe(2, addTwo, multiplyByThree, thirdFunc)).toBe(24);
+        expect(pipe(2, addTwo, multiplyByThree, thirdFunc)).toBe(24);
     });
 });
