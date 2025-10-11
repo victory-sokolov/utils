@@ -38,7 +38,7 @@ jobs:
 
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
