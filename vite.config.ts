@@ -17,6 +17,7 @@ export default defineConfig({
                 'release.config.cjs',
                 './dist',
                 './docs',
+                './src/index.ts',
             ],
         },
         resolve: {
