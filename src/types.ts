@@ -66,12 +66,11 @@ export type FetchResponse<T>
         error: Error;
     };
 
-
 /**
  * Constructs a type by excluding `null` and `undefined` from a given type `T`.
- * 
+ *
  * @template T - The source type which may include `null` and/or `undefined`
- * 
+ *
  * @example
  * // With optional properties
  * interface User {
