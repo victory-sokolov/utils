@@ -65,3 +65,19 @@ export type FetchResponse<T>
         data: T | null;
         error: Error;
     };
+
+
+/**
+ * Constructs a type by excluding `null` and `undefined` from a given type `T`.
+ * 
+ * @template T - The source type which may include `null` and/or `undefined`
+ * 
+ * @example
+ * // With optional properties
+ * interface User {
+ *   name: string;
+ *   email?: string | null;
+ * }
+ * type RequiredEmail = NonNullable<User['email']>; // string
+ */
+export type NonNullable<T> = T extends null | undefined ? never : T;
