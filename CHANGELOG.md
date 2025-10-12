@@ -1,3 +1,10 @@
+## [0.31.1](https://github.com/victory-sokolov/utils/compare/v0.31.0...v0.31.1) (2025-10-12)
+
+
+### Bug Fixes
+
+* improve formatPrice ([815c90e](https://github.com/victory-sokolov/utils/commit/815c90e7ee4c8510b876dc30be116746a1fe416d))
+
 # [0.31.0](https://github.com/victory-sokolov/utils/compare/v0.30.0...v0.31.0) (2025-10-12)
 
 
