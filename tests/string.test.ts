@@ -10,6 +10,7 @@ import {
     maskString,
     pascalCase,
     randomHexColorCode,
+    randomStr,
     removeZeroWidthSpace,
     slugify,
     startsWithAny,
@@ -183,6 +184,60 @@ describe('string-utils', () => {
             expect(isAlphaNumeric('github-actions')).toBe(false);
             expect(isAlphaNumeric('Hello-World')).toBe(false);
             expect(isAlphaNumeric('!!')).toBe(false);
+        });
+    });
+
+    describe('randomStr', () => {
+        // Save original Math methods
+        const originalRandom = Math.random;
+        const originalFloor = Math.floor;
+
+        beforeEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        afterEach(() => {
+            Math.random = originalRandom;
+            Math.floor = originalFloor;
+        });
+
+        describe('default behavior', () => {
+            it('should generate a string of default length (32)', () => {
+                const result = randomStr();
+                expect(result).toHaveLength(32);
+            });
+
+            it('should generate a string of specified length', () => {
+                const lengths = [1, 10, 50, 100];
+
+                lengths.forEach((len) => {
+                    const result = randomStr(len);
+                    expect(result).toHaveLength(len);
+                });
+            });
+
+            it('should only contain alphanumeric characters', () => {
+                const result = randomStr(100);
+                expect(result).toMatch(/^[a-z0-9]+$/i);
+            });
+        });
+
+        describe('with prefix', () => {
+            it('should include prefix at the beginning', () => {
+                const prefix = 'test_';
+                const result = randomStr(10, prefix);
+
+                expect(result.startsWith(prefix)).toBe(true);
+                expect(result).toHaveLength(10);
+            });
+
+            it('should truncate result to exact length when prefix is longer than length', () => {
+                const prefix = 'very_long_prefix_';
+                const result = randomStr(5, prefix);
+
+                expect(result).toHaveLength(5);
+                expect(result).toBe(prefix.substring(0, 5));
+            });
         });
     });
 });
