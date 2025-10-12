@@ -20,6 +20,12 @@ describe('omit', () => {
         ];
         expect(omit(obj, 'a', 'c')).toEqual([{ b: 2 }, { b: 5 }]);
     });
+    it('should return original object if firsst parameter was undefined, null, empty object', () => {
+        // @ts-ignore
+        expect(omit({}, 'a')).toEqual({});
+        // @ts-ignore
+        expect(omit([{}], 'a')).toEqual([{}]);
+    });
 });
 
 describe('pick', () => {
