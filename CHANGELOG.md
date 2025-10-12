@@ -1,3 +1,11 @@
+# [0.31.0](https://github.com/victory-sokolov/utils/compare/v0.30.0...v0.31.0) (2025-10-12)
+
+
+### Features
+
+* add NonNullable type ([7e0f5fa](https://github.com/victory-sokolov/utils/commit/7e0f5fa911e8466c7f7bb98efa4b8512e046f2eb))
+* add tryCatch wrapper that returns Result object ([486252a](https://github.com/victory-sokolov/utils/commit/486252aa0af979b839bc01a3b1f7b984bf8a8ba4))
+
 # [0.30.0](https://github.com/victory-sokolov/utils/compare/v0.29.0...v0.30.0) (2025-10-11)
 
 
