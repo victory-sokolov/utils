@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { bytesToSize, perfStop, wait } from '../src/base';
+import { bytesToSize, wait } from '../src/base';
 
 describe('bytesToSize', () => {
     it('should return "0" when given 0 bytes', () => {
@@ -61,5 +61,3 @@ describe('wait', () => {
         await expect(promise).resolves.toBeUndefined();
     });
 });
-
-
