@@ -15,8 +15,11 @@ type Currency
  * @param cents Number of cents
  * @returns Currency formatted to dollars
  */
-export const toDollars = (cents: number, currency: Currency = 'USD', locale: string = 'en-US') =>
-    (cents / 100).toLocaleString(locale, { style: 'currency', currency });
+export const toDollars = (
+    cents: number,
+    currency: Currency = 'USD',
+    locale: string = 'en-US'
+) => (cents / 100).toLocaleString(locale, { style: 'currency', currency });
 
 /**
  * Format price in cents
@@ -27,15 +30,20 @@ export const toDollars = (cents: number, currency: Currency = 'USD', locale: str
 export const formatPrice = (
     priceInCents: string,
     currency: Currency = 'USD',
-    locale: string = 'en-US',
+    locale: string = 'en-US'
 ) => {
     const price = Number.parseFloat(priceInCents);
+
+    // Handle invalid numbers
+    if (Number.isNaN(price)) {
+        return 'Invalid price';
+    }
+
     const dollars = price / 100;
 
     return new Intl.NumberFormat(locale, {
         style: 'currency',
         currency,
-        // Use minimumFractionDigits to handle cases like $59.00 -> $59
         minimumFractionDigits: dollars % 1 !== 0 ? 2 : 0,
     }).format(dollars);
 };
