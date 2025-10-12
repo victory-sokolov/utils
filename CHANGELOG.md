@@ -1,3 +1,10 @@
+## [0.31.2](https://github.com/victory-sokolov/utils/compare/v0.31.1...v0.31.2) (2025-10-12)
+
+
+### Bug Fixes
+
+* tryCatch types ([93b7aa9](https://github.com/victory-sokolov/utils/commit/93b7aa99e615f984de809a8eda96ca084e589f7e))
+
 ## [0.31.1](https://github.com/victory-sokolov/utils/compare/v0.31.0...v0.31.1) (2025-10-12)
 
 
