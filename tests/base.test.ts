@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { bytesToSize } from '../src/base';
+import { bytesToSize, perfStop, wait } from '../src/base';
 
 describe('bytesToSize', () => {
     it('should return "0" when given 0 bytes', () => {
@@ -34,3 +34,32 @@ describe('bytesToSize', () => {
         expect(bytesToSize(1649267441664)).toBe('2 TB');
     });
 });
+
+describe('wait', () => {
+    beforeEach(() => {
+        vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
+
+    it('should resolve after the specified time', async () => {
+        const ms = 1000;
+        const promise = wait(ms);
+
+        vi.advanceTimersByTime(ms);
+
+        await expect(promise).resolves.toBeUndefined();
+    });
+
+    it('should resolve immediately for 0ms', async () => {
+        const promise = wait(0);
+
+        vi.advanceTimersByTime(0);
+
+        await expect(promise).resolves.toBeUndefined();
+    });
+});
+
+

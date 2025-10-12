@@ -3,6 +3,7 @@ import {
     addZero,
     generateNumberWithLength,
     getRandomNumber,
+    nFormatter,
     rangeParser,
 } from '../src/number';
 
@@ -180,5 +181,37 @@ describe('generateNumberWithLength', () => {
                 });
             });
         });
+    });
+});
+
+describe('nFormatter', () => {
+    it('should return 0 for undefined input', () => {
+        expect(nFormatter(undefined)).toBe(0);
+    });
+
+    it('should return 0 for empty string', () => {
+        expect(nFormatter('')).toBe(0);
+    });
+
+    it('should parse regular numbers', () => {
+        expect(nFormatter('123')).toBe(123);
+        expect(nFormatter('45.67')).toBe(45.67);
+    });
+
+    it('should handle k suffix (thousands)', () => {
+        expect(nFormatter('1k')).toBe(1000);
+        expect(nFormatter('2.5k')).toBe(2500);
+        expect(nFormatter('1K')).toBe(1000);
+    });
+
+    it('should handle m suffix (millions)', () => {
+        expect(nFormatter('1m')).toBe(1000000);
+        expect(nFormatter('3.2m')).toBe(3200000);
+        expect(nFormatter('1M')).toBe(1000000);
+    });
+
+    it('should ignore unknown suffixes', () => {
+        expect(nFormatter('1x')).toBe(1);
+        expect(nFormatter('1b')).toBe(1);
     });
 });

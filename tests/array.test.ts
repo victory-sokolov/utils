@@ -4,6 +4,7 @@ import {
     insertItemAtIndex,
     intersection,
     median,
+    occurrenceCount,
     randomItem,
     removeItem,
     removeItemAtIndex,
@@ -20,7 +21,7 @@ describe('flattenArray', () => {
             flattenArray([
                 [1, 2],
                 [3, 4],
-            ]),
+            ])
         ).toEqual([1, 2, 3, 4]);
     });
 
@@ -290,5 +291,42 @@ describe('sortBy', () => {
             },
         ];
         expect(sorted).toEqual(expected);
+    });
+});
+
+describe('occurrenceCount', () => {
+    it('should count occurrences of numbers', () => {
+        const numbers = [1, 2, 3, 2, 1, 1, 4];
+        const result = occurrenceCount(numbers);
+
+        expect(result).toEqual({
+            1: 3,
+            2: 2,
+            3: 1,
+            4: 1,
+        });
+    });
+
+    it('should count occurrences of strings', () => {
+        const strings = ['a', 'b', 'a', 'c', 'b', 'a'];
+        const result = occurrenceCount(strings);
+
+        expect(result).toEqual({
+            a: 3,
+            b: 2,
+            c: 1,
+        });
+    });
+
+    it('should count occurrences of mixed primitive types', () => {
+        const mixed = [1, '2', true, '2', 1, false, true];
+        const result = occurrenceCount(mixed);
+
+        expect(result).toEqual({
+            1: 2,
+            2: 2,
+            true: 2,
+            false: 1,
+        });
     });
 });
