@@ -18,6 +18,7 @@ export default defineConfig({
                 './dist',
                 './docs',
                 './src/index.ts',
+                './src/node/index.ts',
             ],
         },
         resolve: {
