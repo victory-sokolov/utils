@@ -24,14 +24,20 @@ type Result<T, E = ErrorWithStatus> = Success<T> | Failure<E>;
  *
  * @template T - The type of the successful data
  */
-interface Success<T> { data: T; error: null }
+interface Success<T> {
+    data: T;
+    error: null;
+}
 
 /**
  * Failure variant of Result containing error and no data.
  *
  * @template E - The type of the error
  */
-interface Failure<E> { data: null; error: E }
+interface Failure<E> {
+    data: null;
+    error: E;
+}
 
 /**
  * Extended Error interface with optional HTTP status code support.
@@ -75,7 +81,7 @@ interface TryCatchOptions<E extends Error = Error> {
      *
      * @default Error
      */
-    ErrorClass?: new (message: string, cause?: string, status?: number) => E;
+    ErrorClass?: new (message: string, status?: number, cause?: string) => E;
 
     /**
      * Default HTTP status code to use when caught error has no status property.
@@ -179,8 +185,8 @@ export async function tryCatch<T, E extends Error = Error>(
     const { ErrorClass = Error as any, defaultStatus = 500 } = options;
 
     try {
-        const data
-            = typeof fnOrPromise === 'function'
+        const data =
+            typeof fnOrPromise === 'function'
                 ? await fnOrPromise()
                 : await fnOrPromise;
         return { data, error: null };
@@ -190,11 +196,11 @@ export async function tryCatch<T, E extends Error = Error>(
         }
 
         const message = error instanceof Error ? error.message : String(error);
-        const cause
-            = error instanceof Error ? (error.cause as string) : undefined;
+        const cause =
+            error instanceof Error ? (error.cause as Error) : undefined;
         const status = (error as any)?.status || defaultStatus;
 
-        const customError = new ErrorClass(message, cause, status);
+        const customError = new ErrorClass(message, status, cause);
         return { data: null, error: customError as E };
     }
 }
