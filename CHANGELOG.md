@@ -1,3 +1,11 @@
+## [0.31.3](https://github.com/victory-sokolov/utils/compare/v0.31.2...v0.31.3) (2025-10-21)
+
+
+### Bug Fixes
+
+* fix tryCatch to handle non-async functions ([35f6d9a](https://github.com/victory-sokolov/utils/commit/35f6d9aff80fbd312bc62b5ac62eae6a0eac721c))
+* fix tryCatch to handle non-async functions ([ef9a3b5](https://github.com/victory-sokolov/utils/commit/ef9a3b5467f5d18c2572dbdd2f3471e7b8ff7b63))
+
 ## [0.31.2](https://github.com/victory-sokolov/utils/compare/v0.31.1...v0.31.2) (2025-10-12)
 
 
