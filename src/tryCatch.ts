@@ -179,16 +179,14 @@ interface TryCatchOptions<E extends Error = Error> {
  *
  */
 export async function tryCatch<T, E extends Error = Error>(
-    fnOrPromise: Promise<T> | (() => Promise<T>),
+    fn: () => T | Promise<T>,
     options: TryCatchOptions<E> = {}
 ): Promise<Result<T, E>> {
     const { ErrorClass = Error as any, defaultStatus = 500 } = options;
 
     try {
-        const data
-            = typeof fnOrPromise === 'function'
-                ? await fnOrPromise()
-                : await fnOrPromise;
+        const result = fn();
+        const data = result instanceof Promise ? await result : result;
         return { data, error: null };
     } catch (error) {
         if (error instanceof ErrorClass) {
@@ -196,8 +194,8 @@ export async function tryCatch<T, E extends Error = Error>(
         }
 
         const message = error instanceof Error ? error.message : String(error);
-        const cause
-            = error instanceof Error ? (error.cause as Error) : undefined;
+        const cause =
+            error instanceof Error ? (error.cause as Error) : undefined;
         const status = (error as any)?.status || defaultStatus;
 
         const customError = new ErrorClass(message, status, cause);
