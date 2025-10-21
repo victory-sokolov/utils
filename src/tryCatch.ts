@@ -101,7 +101,7 @@ interface TryCatchOptions<E extends Error = Error> {
  * @template T - The type of data returned by the successful operation
  * @template E - The type of error returned, defaults to Error
  *
- * @param fnOrPromise - An async function or Promise to execute safely
+ * @param fn - An function or async function or Promise to execute safely
  * @param options - Configuration options for error handling behavior
  *
  * @returns A Promise that resolves to a Result object containing either data or error
@@ -194,8 +194,8 @@ export async function tryCatch<T, E extends Error = Error>(
         }
 
         const message = error instanceof Error ? error.message : String(error);
-        const cause =
-            error instanceof Error ? (error.cause as Error) : undefined;
+        const cause
+            = error instanceof Error ? (error.cause as Error) : undefined;
         const status = (error as any)?.status || defaultStatus;
 
         const customError = new ErrorClass(message, status, cause);
