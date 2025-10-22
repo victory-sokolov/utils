@@ -71,23 +71,46 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
 };
 
 /**
- * Filter falsy values from object or array of objects
- * @param objOrArray Object or array of objects to filter
- * @returns Filtered object
+ * Removes falsy or empty values (`null`, `undefined`, `''`, `0`, `false`, etc.)
+ * from a plain object or an array of objects.
+ *
+ * - If you pass an object, returns a new object with falsy values removed.
+ * - If you pass an array, returns a new array of objects with each item filtered.
+ *
+ * @template T - The object type to filter.
+ * @param {T | T[]} obj - An object or array of objects to filter.
+ * @returns {T | T[]} A filtered object (or array of filtered objects) of the same shape.
+ *
+ * @example
+ * ```ts
+ * filterFalsyFromObject({ a: 1, b: '', c: null });
+ * // => { a: 1 }
+ *
+ * filterFalsyFromObject([{ a: 1, b: '' }, { a: 0, b: 'ok' }]);
+ * // => [{ a: 1 }, { b: 'ok' }]
+ * ```
  */
-export const filterFalsyFromObject = <T extends RecordObject | RecordObject[]>(
+export function filterFalsyFromObject<T extends RecordObject>(obj: T): T;
+export function filterFalsyFromObject<T extends RecordObject>(arr: T[]): T[];
+export function filterFalsyFromObject<T extends RecordObject | RecordObject[]>(
     objOrArray: T
-): T extends RecordObject[] ? RecordObject[] : RecordObject => {
-    const filterObject = (obj: RecordObject): RecordObject =>
-        Object.keys(obj).reduce<RecordObject>((acc, key) => {
-            if (isTruthyAndNotEmpty(obj[key])) acc[key] = obj[key];
-            return acc;
-        }, {});
+): T {
+    const filterObject = <U extends RecordObject>(obj: U): U => {
+        const result = {} as U;
+        for (const key in obj) {
+            if (Object.hasOwn(obj, key) && isTruthyAndNotEmpty(obj[key])) {
+                result[key] = obj[key];
+            }
+        }
+        return result;
+    };
 
-    return Array.isArray(objOrArray)
-        ? (objOrArray.map(filterObject) as any)
-        : (filterObject(objOrArray as RecordObject) as any);
-};
+    return (
+        Array.isArray(objOrArray)
+            ? objOrArray.map((o) => filterObject(o))
+            : filterObject(objOrArray)
+    ) as T;
+}
 
 /**
  * Union two objects and exclude false values when merging same keys
