@@ -1,3 +1,10 @@
+## [0.31.4](https://github.com/victory-sokolov/utils/compare/v0.31.3...v0.31.4) (2025-10-22)
+
+
+### Bug Fixes
+
+* overload filterFalsyFromObject to return proper type ([b8d3cc0](https://github.com/victory-sokolov/utils/commit/b8d3cc0b47073da7ea88392d37e8713bb643c8ad))
+
 ## [0.31.3](https://github.com/victory-sokolov/utils/compare/v0.31.2...v0.31.3) (2025-10-21)
 
 
