@@ -4,6 +4,7 @@ import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
+import filesize from 'rollup-plugin-filesize';
 
 const entries = ['src/index.ts'];
 
@@ -15,6 +16,7 @@ const plugins = [
         preferBuiltins: true,
     }),
     json(),
+    filesize(),
     commonjs(),
     esbuild({
         target: 'node16',
