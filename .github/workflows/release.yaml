@@ -33,9 +33,14 @@ jobs:
           echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_OUTPUT
         id: nvm
 
+      - name: Setup pnpm
+        uses: ./.github/actions/install-deps
+
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Setup pnpm
         uses: ./.github/actions/install-deps
