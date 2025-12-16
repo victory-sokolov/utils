@@ -39,7 +39,10 @@ export const removeInlineStyles = (text: string): string =>
  */
 export const escape = (str: string) => {
     return str && reHasUnescapedHtml.test(str)
-        ? str.replace(reUnescapedHtml, (chr) => htmlEscapes[chr as keyof typeof htmlEscapes])
+        ? str.replace(
+              reUnescapedHtml,
+              (chr) => htmlEscapes[chr as keyof typeof htmlEscapes]
+          )
         : str || '';
 };
 
@@ -51,12 +54,16 @@ export const escape = (str: string) => {
 export const unescape = (str: string) => {
     return str && reHasEscapedHtml.test(str)
         ? str.replace(reEscapedHtml, (entity) => {
-            if (entity.startsWith('&#x')) {
-                return String.fromCodePoint(parseInt(entity.slice(3, -1), 16));
-            } else if (entity.startsWith('&#')) {
-                return String.fromCodePoint(parseInt(entity.slice(2, -1), 10));
-            }
-            return htmlUnescapes[entity] || entity;
-        })
+              if (entity.startsWith('&#x')) {
+                  return String.fromCodePoint(
+                      parseInt(entity.slice(3, -1), 16)
+                  );
+              } else if (entity.startsWith('&#')) {
+                  return String.fromCodePoint(
+                      parseInt(entity.slice(2, -1), 10)
+                  );
+              }
+              return htmlUnescapes[entity] || entity;
+          })
         : str || '';
 };

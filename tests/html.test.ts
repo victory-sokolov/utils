@@ -94,31 +94,17 @@ describe('unescape HTML entities', () => {
         expect(unescape('&#39;')).toBe("'"); // Numeric for '
         expect(unescape('&#0039;')).toBe("'"); // Padded numeric for '
     });
-
-        it('should handle unknown or malformed entities by returning the original entity or default', () => {
-
-            // The current implementation defaults to '\'' for unknown entities,
-
-            // which might be an intended behavior or a side-effect.
-
-            // It's defined in htmlUnescapes, where undefined entity returns '
-
-            expect(unescape('&unknown;')).toBe('&unknown;'); // Should remain as is
-
-            expect(unescape('&ampersand;')).toBe('&ampersand;'); // This is not recognized by the map
-
-            expect(unescape('&#xyz;')).toBe('&#xyz;'); // Malformed numeric/hex
-
-        });
-
-    
-
-        it('should return &apos; for &apos; as it is not in the unescapes map', () => {
-
-            expect(unescape('&apos;')).toBe('&apos;');
-
-        });
-
+    it('should handle unknown or malformed entities by returning the original entity or default', () => {
+        // The current implementation defaults to '\'' for unknown entities,
+        // which might be an intended behavior or a side-effect.
+        // It's defined in htmlUnescapes, where undefined entity returns '\''
+        expect(unescape('&unknown;')).toBe('&unknown;'); // Should remain as is
+        expect(unescape('&ampersand;')).toBe('&ampersand;'); // Not recognized by the map
+        expect(unescape('&#xyz;')).toBe('&#xyz;'); // Malformed numeric/hex
     });
 
-    
+    it('should return &apos; for &apos; as it is not in the unescapes map', () => {
+        expect(unescape('&apos;')).toBe('&apos;');
+    });
+
+});

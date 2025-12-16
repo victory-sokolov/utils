@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { getCountryFromISO, getFlagEmoji, showPosition, getLocation } from '../src/country';
+import {
+    getCountryFromISO,
+    getFlagEmoji,
+    showPosition,
+    getLocation,
+} from '../src/country';
 
 describe('getCountryFromISO', () => {
     it('should return the country name for a valid ISO code', () => {
@@ -7,20 +12,12 @@ describe('getCountryFromISO', () => {
         expect(getCountryFromISO('GB')).toBe('United Kingdom');
     });
 
-    it('should handle invalid ISO codes gracefully (either return code or throw RangeError)', () => {
-        try {
-            const resultXX = getCountryFromISO('XX');
-            expect(resultXX).toBe('XX'); // Expect this if no error is thrown
-        } catch (e) {
-            expect(e).toBeInstanceOf(RangeError); // Expect this if RangeError is thrown
-        }
+    it('should return valid code for reserved codes like XX', () => {
+        expect(getCountryFromISO('XX')).toBe('XX');
+    });
 
-        try {
-            const resultINVALID = getCountryFromISO('INVALID');
-            expect(resultINVALID).toBe('INVALID'); // Expect this if no error is thrown
-        } catch (e) {
-            expect(e).toBeInstanceOf(RangeError); // Expect this if RangeError is thrown
-        }
+    it('should throw RangeError for structurally invalid codes', () => {
+        expect(() => getCountryFromISO('INVALID')).toThrow(RangeError);
     });
 });
 
@@ -86,18 +83,24 @@ describe('getLocation', () => {
         };
 
         // Mock getCurrentPosition to call the success callback
-        (navigator.geolocation.getCurrentPosition as ReturnType<typeof vi.fn>).mockImplementationOnce((successCallback) => {
+        (
+            navigator.geolocation.getCurrentPosition as ReturnType<typeof vi.fn>
+        ).mockImplementationOnce((successCallback) => {
             successCallback(mockPosition);
         });
 
         // Since getLocation returns void and calls showPosition internally,
         // we need to spy on showPosition to verify the coordinates
-        const showPositionSpy = vi.spyOn(console, 'log').mockImplementation(() => {}); // Dummy spy for now
+        const showPositionSpy = vi
+            .spyOn(console, 'log')
+            .mockImplementation(() => {}); // Dummy spy for now
 
         getLocation();
 
         // Expect getCurrentPosition to have been called
-        expect(navigator.geolocation.getCurrentPosition).toHaveBeenCalledTimes(1);
+        expect(navigator.geolocation.getCurrentPosition).toHaveBeenCalledTimes(
+            1
+        );
 
         // Expect showPosition to have been called with the correct position
         // This is tricky because getLocation returns void.
@@ -113,7 +116,9 @@ describe('getLocation', () => {
             value: undefined,
         });
 
-        expect(() => getLocation()).toThrow('Geolocation is not supported by this browser.');
+        expect(() => getLocation()).toThrow(
+            'Geolocation is not supported by this browser.'
+        );
     });
 });
 

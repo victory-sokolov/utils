@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { hashString, validateHash, encryptData, decryptData } from '../../src/node/cryptography';
+import {
+    hashString,
+    validateHash,
+    encryptData,
+    decryptData,
+} from '../../src/node/cryptography';
 
 describe('cryptography', () => {
     describe('hashString', () => {
@@ -23,7 +28,7 @@ describe('cryptography', () => {
             expect(hash1).not.toEqual(hash2);
         });
 
-        it('should produce different hashes for different passwords with the same salt (implicitly by random salt)', () => {
+        it('should produce different hashes for different passwords (each with random salt)', () => {
             const testString1 = 'myPassword123';
             const testString2 = 'myOtherPassword';
             const { hash: hash1 } = hashString(testString1);
@@ -36,7 +41,11 @@ describe('cryptography', () => {
             const testString = 'myPassword123';
             const customIterations = 50000;
             const customKeyLen = 32;
-            const { iterations, keyLen } = hashString(testString, customIterations, customKeyLen);
+            const { iterations, keyLen } = hashString(
+                testString,
+                customIterations,
+                customKeyLen
+            );
 
             expect(iterations).toBe(customIterations);
             expect(keyLen).toBe(customKeyLen);
@@ -48,7 +57,14 @@ describe('cryptography', () => {
             const testString = 'myPassword123';
             const { salt, hash, iterations, keyLen } = hashString(testString);
 
-            const isValid = validateHash(testString, hash, salt, iterations, keyLen, 'sha512');
+            const isValid = validateHash(
+                testString,
+                hash,
+                salt,
+                iterations,
+                keyLen,
+                'sha512'
+            );
             expect(isValid).toBe(true);
         });
 
@@ -57,7 +73,14 @@ describe('cryptography', () => {
             const wrongString = 'wrongPassword';
             const { salt, hash, iterations, keyLen } = hashString(testString);
 
-            const isValid = validateHash(wrongString, hash, salt, iterations, keyLen, 'sha512');
+            const isValid = validateHash(
+                wrongString,
+                hash,
+                salt,
+                iterations,
+                keyLen,
+                'sha512'
+            );
             expect(isValid).toBe(false);
         });
 
@@ -66,7 +89,14 @@ describe('cryptography', () => {
             const { salt, iterations, keyLen } = hashString(testString);
             const tamperedHash = 'a' + hashString(testString).hash.slice(1); // Tamper with the hash
 
-            const isValid = validateHash(testString, tamperedHash, salt, iterations, keyLen, 'sha512');
+            const isValid = validateHash(
+                testString,
+                tamperedHash,
+                salt,
+                iterations,
+                keyLen,
+                'sha512'
+            );
             expect(isValid).toBe(false);
         });
 
@@ -75,7 +105,14 @@ describe('cryptography', () => {
             const { hash, iterations, keyLen } = hashString(testString);
             const tamperedSalt = 'a' + hashString(testString).salt.slice(1); // Tamper with the salt
 
-            const isValid = validateHash(testString, hash, tamperedSalt, iterations, keyLen, 'sha512');
+            const isValid = validateHash(
+                testString,
+                hash,
+                tamperedSalt,
+                iterations,
+                keyLen,
+                'sha512'
+            );
             expect(isValid).toBe(false);
         });
     });
@@ -93,7 +130,8 @@ describe('cryptography', () => {
         });
 
         it('should encrypt and decrypt a longer string successfully', async () => {
-            const originalText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+            const originalText =
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
             const encrypted = await encryptData(originalText, secretKey);
             const decrypted = await decryptData(encrypted, secretKey);
 
@@ -106,7 +144,9 @@ describe('cryptography', () => {
             const encrypted = await encryptData(originalText, secretKey);
             const wrongSecretKey = 'this-is-an-incorrect-secret-key';
 
-            await expect(decryptData(encrypted, wrongSecretKey)).rejects.toThrow();
+            await expect(
+                decryptData(encrypted, wrongSecretKey)
+            ).rejects.toThrow();
         });
 
         it('should fail to decrypt tampered encrypted data', async () => {
@@ -116,7 +156,9 @@ describe('cryptography', () => {
             // Tamper with the encrypted data by changing one character
             const tamperedEncrypted = encrypted.slice(0, -5) + 'AAAAA';
 
-            await expect(decryptData(tamperedEncrypted, secretKey)).rejects.toThrow();
+            await expect(
+                decryptData(tamperedEncrypted, secretKey)
+            ).rejects.toThrow();
         });
     });
 });
