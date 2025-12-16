@@ -19,7 +19,7 @@ export const isDate = (val: any): val is Date =>
     toString(val) === '[object Date]';
 export const isJsObject = (val: any) =>
     val !== null && (typeof val === 'function' || typeof val === 'object');
-export const isHtmlElement = (element: Element): boolean =>
+export const isHtmlElement = (element: unknown): element is Element =>
     element instanceof Element;
 export const hasProperty = (obj: any, key: string): boolean => {
     if (!obj || !key) {
@@ -61,6 +61,8 @@ export const isTruthyAndNotEmpty = (value: unknown): boolean => {
         value
         && typeof value === 'object'
         && !Array.isArray(value)
+        && !(value instanceof Date)
+        && !(value instanceof RegExp)
         && Object.keys(value).length === 0
     ) {
         return false;

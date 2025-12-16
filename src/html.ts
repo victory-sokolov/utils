@@ -13,7 +13,7 @@ const htmlUnescapes = flip(htmlEscapes) as Record<string, string>;
 const reUnescapedHtml = /[&<>"']/g;
 const reHasUnescapedHtml = new RegExp(reUnescapedHtml.source);
 
-const reEscapedHtml = /&(?:amp|lt|gt|quot|#(0+)?39);/g;
+const reEscapedHtml = /&(?:amp|lt|gt|quot|apos|#x[\da-fA-F]+|#\d+);/g;
 const reHasEscapedHtml = new RegExp(reEscapedHtml.source);
 
 /**
@@ -30,7 +30,7 @@ export const removeHtmlTags = (text: string): string =>
  * @returns cleaned HTML with inline styles removed
  */
 export const removeInlineStyles = (text: string): string =>
-    text.replace(/style\s*=\s*"(.*?)"/g, '');
+    text.replace(/\s*style\s*=\s*"(.*?)"/g, '');
 
 /**
  * Escape HTML tags to entities
@@ -50,6 +50,13 @@ export const escape = (str: string) => {
  */
 export const unescape = (str: string) => {
     return str && reHasEscapedHtml.test(str)
-        ? str.replace(reEscapedHtml, (entity) => htmlUnescapes[entity] || '\'')
+        ? str.replace(reEscapedHtml, (entity) => {
+            if (entity.startsWith('&#x')) {
+                return String.fromCodePoint(parseInt(entity.slice(3, -1), 16));
+            } else if (entity.startsWith('&#')) {
+                return String.fromCodePoint(parseInt(entity.slice(2, -1), 10));
+            }
+            return htmlUnescapes[entity] || entity;
+        })
         : str || '';
 };

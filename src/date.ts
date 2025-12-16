@@ -146,7 +146,7 @@ export const cronToDateTime = (cronSyntax: string): Date => {
         Date.UTC(
             currentYear,
             Number(months) - 1,
-            Number(days),
+            Number(days === '*' ? '1' : days),
             Number(hours),
             Number(minutes),
             0
@@ -158,8 +158,8 @@ export const cronToDateTime = (cronSyntax: string): Date => {
     nextDate.setUTCDate(nextDate.getUTCDate() + dayDiff);
 
     // Ensure the next date is in the future
-    if (nextDate <= now) {
-        nextDate.setUTCFullYear(currentYear);
+    if (nextDate.getTime() <= now.getTime()) {
+        nextDate.setUTCFullYear(currentYear + 1);
     }
 
     return nextDate;

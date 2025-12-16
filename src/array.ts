@@ -155,7 +155,8 @@ export const insertItemAtIndex = <T>(
     }
 
     const indexAt = typeof index === 'function' ? arr.findIndex(index) : index;
-    if (indexAt === -1) {
+
+    if (indexAt < 0 || indexAt > arr.length) {
         return arr;
     }
 
@@ -179,7 +180,7 @@ export const replaceItemAtIndex = <T>(
 
     const indexAt = typeof index === 'function' ? arr.findIndex(index) : index;
 
-    if (indexAt === -1) {
+    if (indexAt < 0 || indexAt >= arr.length) {
         return arr;
     }
 
@@ -201,7 +202,7 @@ export const removeItemAtIndex = <T>(
 
     const indexAt = typeof index === 'function' ? arr.findIndex(index) : index;
 
-    if (indexAt === -1) {
+    if (indexAt < 0 || indexAt >= arr.length) {
         return arr;
     }
 
