@@ -124,6 +124,12 @@ describe('sortAsc', () => {
         // Using toStrictEqual to ensure array and object equality including value
         expect(sortedObjects).toEqual([{ key: 1, value: 'b' }, { key: 1, value: 'a' }]);
     });
+
+    it('should sort array in descending order correctly', () => {
+        const objects = [{ key: 1 }, { key: 3 }, { key: 2 }];
+        const sortedObjects = sortAsc<any>(objects);
+        expect(sortedObjects).toEqual([{ key: 1 }, { key: 2 }, { key: 3 }]);
+    });
 });
 
 describe('insertItemAtIndex', () => {

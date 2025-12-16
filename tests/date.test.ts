@@ -382,5 +382,11 @@ describe('test date utils', () => {
             expect(() => toUtc('invalid-date')).toThrow(exc);
             expect(() => toUtc('')).toThrow(exc);
         });
+
+        it('should handle Date object input', () => {
+            const dateObj = new Date('2025-01-19T16:15:00');
+            const result = toUtc(dateObj);
+            expect(result).toBe(dateObj.toISOString());
+        });
     });
 });

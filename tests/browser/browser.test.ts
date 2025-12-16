@@ -188,5 +188,24 @@ describe('browser utilities', () => {
             (window.performance.getEntriesByType as ReturnType<typeof vi.fn>).mockReturnValue([]);
             expect(isPageReloaded()).toBe(false);
         });
+
+        it('should return false if performance is not available', () => {
+            Object.defineProperty(window, 'performance', {
+                configurable: true,
+                value: undefined
+            });
+            expect(isPageReloaded()).toBe(false);
+        });
+
+        it('should return false if getEntriesByType is not a function', () => {
+            const mockPerformance = {
+                getEntriesByType: null,
+            };
+            Object.defineProperty(window, 'performance', {
+                configurable: true,
+                value: mockPerformance
+            });
+            expect(isPageReloaded()).toBe(false);
+        });
     });
 });

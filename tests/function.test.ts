@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { batchInvoke, pipe } from '../src/function';
+import { batchInvoke, pipe, isAsync, tap } from '../src/function';
 
 describe('batchInvoke', () => {
     it('should call every function in the array', () => {
@@ -29,7 +29,29 @@ describe('pipe', () => {
     it('should pass the result of one function with arguments to another using several functions', () => {
         const addTwo = (num: number) => num + 2;
         const multiplyByThree = (num: number) => num * 3;
-        const thirdFunc = (num: number) => num * 2;
-        expect(pipe(2, addTwo, multiplyByThree, thirdFunc)).toBe(24);
+        const subtractFive = (num: number) => num - 5;
+        expect(pipe(10, addTwo, multiplyByThree, subtractFive)).toBe(31);
+    });
+});
+
+describe('isAsync', () => {
+    it('should return true for async functions', () => {
+        const asyncFn = async () => {};
+        expect(isAsync(asyncFn)).toBe(true);
+    });
+
+    it('should return false for regular functions', () => {
+        const regularFn = () => {};
+        expect(isAsync(regularFn)).toBe(false);
+    });
+});
+
+describe('tap', () => {
+    it('should call the callback with the value and return the value', () => {
+        const value = { a: 1 };
+        const callback = vi.fn();
+        const result = tap(value, callback);
+        expect(callback).toHaveBeenCalledWith(value);
+        expect(result).toBe(value);
     });
 });

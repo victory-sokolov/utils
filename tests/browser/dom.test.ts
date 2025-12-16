@@ -1,6 +1,8 @@
 import { $, $$, addClass, removeClass, style } from '../../src/browser/dom';
 
-describe('dOM helpers', () => {
+import { insertBefore, insertAfter, prepend } from '../../src/browser/dom';
+
+describe('DOM helpers', () => {
     let parent: HTMLElement;
     let child: HTMLElement;
 
@@ -37,5 +39,24 @@ describe('dOM helpers', () => {
         removeClass(child, 'test', 'test2');
         expect(child.classList.contains('test')).toBe(false);
         expect(child.classList.contains('test2')).toBe(false);
+    });
+
+    it('insertBefore should insert node before the given node', () => {
+        const newNode = document.createElement('span');
+        insertBefore(child, newNode);
+        expect(parent.firstChild).toBe(newNode);
+        expect(newNode.nextSibling).toBe(child);
+    });
+
+    it('insertAfter should insert node after the given node', () => {
+        const newNode = document.createElement('span');
+        insertAfter(child, newNode);
+        expect(child.nextSibling).toBe(newNode);
+    });
+
+    it('prepend should insert node at the beginning of the given node', () => {
+        const newNode = document.createElement('span');
+        prepend(child, newNode);
+        expect(child.firstChild).toBe(newNode);
     });
 });

@@ -78,6 +78,11 @@ describe('formatPrice', () => {
             expect(formatPrice('-1000')).toBe('-$10');
             expect(formatPrice('-1234')).toBe('-$12.34');
         });
+
+        it('should return "Invalid price" for invalid number strings', () => {
+            expect(formatPrice('notanumber')).toBe('Invalid price');
+            expect(formatPrice('abc')).toBe('Invalid price');
+        });
     });
 
     describe('fractional dollars logic', () => {
