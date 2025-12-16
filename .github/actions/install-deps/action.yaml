@@ -4,9 +4,6 @@ description: Install pnpm and dependencies
 runs:
   using: composite
   steps:
-    - name: Checkout code
-      uses: actions/checkout@v6
-
     - name: Install pnpm
       uses: pnpm/action-setup@v4
       with:
