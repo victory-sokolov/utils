@@ -1,5 +1,5 @@
 import { Buffer } from 'node:buffer';
-import { pbkdf2Sync, randomBytes } from 'node:crypto';
+import nodeCrypto from 'node:crypto';
 
 /**
  * Hash string
@@ -14,8 +14,8 @@ export const hashString = (
     keyLen = 64,
     digest = 'sha512'
 ) => {
-    const salt = randomBytes(128).toString('base64');
-    const hash = pbkdf2Sync(str, salt, iterations, keyLen, digest).toString(
+    const salt = nodeCrypto.randomBytes(128).toString('base64');
+    const hash = nodeCrypto.pbkdf2Sync(str, salt, iterations, keyLen, digest).toString(
         'hex'
     );
     return {
@@ -46,7 +46,7 @@ export const validateHash = (
 ) => {
     return (
         savedHash
-        === pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString(
+        === nodeCrypto.pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString(
             'hex'
         )
     );
