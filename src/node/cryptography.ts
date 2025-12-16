@@ -15,9 +15,9 @@ export const hashString = (
     digest = 'sha512'
 ) => {
     const salt = nodeCrypto.randomBytes(128).toString('base64');
-    const hash = nodeCrypto.pbkdf2Sync(str, salt, iterations, keyLen, digest).toString(
-        'hex'
-    );
+    const hash = nodeCrypto
+        .pbkdf2Sync(str, salt, iterations, keyLen, digest)
+        .toString('hex');
     return {
         salt,
         hash,
@@ -45,10 +45,10 @@ export const validateHash = (
     digest: string
 ) => {
     return (
-        savedHash
-        === nodeCrypto.pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString(
-            'hex'
-        )
+        savedHash ===
+        nodeCrypto
+            .pbkdf2Sync(password, savedSalt, iterations, keyLen, digest)
+            .toString('hex')
     );
 };
 
