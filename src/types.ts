@@ -80,3 +80,8 @@ export type FetchResponse<T>
  * type RequiredEmail = NonNullable<User['email']>; // string
  */
 export type NonNullable<T> = T extends null | undefined ? never : T;
+
+/**
+ * HTTP/HTTPS URL type
+ */
+type URL = `${'http' | 'https'}://${string}`;

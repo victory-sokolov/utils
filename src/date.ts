@@ -53,8 +53,8 @@ export const dateWithTimeStamp = (date: Date): string => {
  * @returns Last day of the week
  */
 export const getWeekLastDay = (date: Date): Date => {
-    const weekLastDayInMilliseconds
-        = date.getTime() + (6 - date.getDay()) * 86400000;
+    const weekLastDayInMilliseconds =
+        date.getTime() + (6 - date.getDay()) * 86400000;
     const weekLastDay = new Date(weekLastDayInMilliseconds);
     return weekLastDay;
 };
@@ -65,8 +65,8 @@ export const getWeekLastDay = (date: Date): Date => {
  * @returns First day of the week
  */
 export const getWeekFirstDay = (date: Date): Date => {
-    const weekFirstDayInMilliseconds
-        = date.getTime() - (date.getDay() - 1) * 86400000;
+    const weekFirstDayInMilliseconds =
+        date.getTime() - (date.getDay() - 1) * 86400000;
     const weekFirstDay = new Date(weekFirstDayInMilliseconds);
     return weekFirstDay;
 };
@@ -149,8 +149,8 @@ export const cronToDateTime = (cronSyntax: string): Date => {
             Number(days),
             Number(hours),
             Number(minutes),
-            0,
-        ),
+            0
+        )
     );
 
     // Calculate day of the week adjustment
@@ -177,7 +177,7 @@ export const cronToDateTime = (cronSyntax: string): Date => {
 export const dateRangeGenerator = function* (
     start: Date,
     end: Date,
-    step: number = 1,
+    step: number = 1
 ) {
     const d = start;
     while (d < end) {
@@ -253,6 +253,12 @@ export const getTimeZone = (lang: string): string => {
  * @returns timestamp
  */
 export const timestamp = () => +Date.now();
+
+/**
+ * Get current ISO timestamp (2025-01-26T12:42:00.123Z")
+ * @returns ISO timestamp string
+ */
+export const timestampIso = new Date().toISOString();
 
 /**
  * Convert date to utc format
