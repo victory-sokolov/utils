@@ -30,6 +30,7 @@ jobs:
       - name: Read .nvmrc
         run: |
           NODE_VERSION=$(cat .nvmrc)
+          echo "Using Node version: $NODE_VERSION"
           echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_OUTPUT
         id: nvm
 
