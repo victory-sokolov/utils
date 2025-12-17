@@ -26,14 +26,6 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-
-      - name: Read .nvmrc
-        run: |
-          NODE_VERSION=$(cat .nvmrc)
-          echo "Using Node version: $NODE_VERSION"
-          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_OUTPUT
-        id: nvm
-
       - name: Setup pnpm
         uses: ./.github/actions/install-deps
 
