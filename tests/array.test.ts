@@ -10,10 +10,10 @@ import {
     removeItemAtIndex,
     replaceItemAtIndex,
     shuffleArray,
+    sort,
     sortAsc,
     sortBy,
     unique,
-    sort,
 } from '../src/array';
 
 describe('flattenArray', () => {
@@ -416,7 +416,6 @@ describe('sortBy', () => {
         expect(sorted).toEqual(mixedUsers);
     });
 });
-
 
 describe('occurrenceCount', () => {
     it('should count occurrences of numbers', () => {

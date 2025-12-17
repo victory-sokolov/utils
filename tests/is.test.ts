@@ -3,28 +3,26 @@
 import {
     describe,
     expect,
-    it,
-    beforeEach,
-    afterEach
+    it
 } from 'vitest';
 import {
+    hasProperty,
+    isBoolean,
+    isBrowser,
     isDate,
     isDef,
-    isBoolean,
     isFunction,
-    isNumber,
-    isString,
-    isObject,
-    isUndefined,
-    isNull,
-    isRegExp,
-    isJsObject,
     isHtmlElement,
-    hasProperty,
-    isWindow,
-    isBrowser,
-    toRawType,
+    isJsObject,
+    isNull,
+    isNumber,
+    isObject,
+    isRegExp,
+    isString,
     isTruthyAndNotEmpty,
+    isUndefined,
+    isWindow,
+    toRawType,
 } from '../src/is';
 
 describe('test is utils', () => {
@@ -55,7 +53,7 @@ describe('test is utils', () => {
 
     it('is function', () => {
         expect(isFunction(() => {})).toBe(true);
-        expect(isFunction(function () {})).toBe(true);
+        expect(isFunction(() => {})).toBe(true);
         expect(isFunction(async () => {})).toBe(true);
         expect(isFunction(0)).toBe(false);
         expect(isFunction(null)).toBe(false);
@@ -66,7 +64,7 @@ describe('test is utils', () => {
         expect(isNumber(0)).toBe(true);
         expect(isNumber(-1)).toBe(true);
         expect(isNumber(0.5)).toBe(true);
-        expect(isNumber(NaN)).toBe(true);
+        expect(isNumber(Number.NaN)).toBe(true);
         expect(isNumber(Infinity)).toBe(true);
         expect(isNumber('1')).toBe(false);
         expect(isNumber(null)).toBe(false);
@@ -164,7 +162,6 @@ describe('test is utils', () => {
     });
 
     describe('isWindow and isBrowser', () => {
-
         it('isWindow should return false for non-window objects', () => {
             expect(isWindow({})).toBe(false);
             expect(isWindow(null)).toBe(false);
@@ -198,7 +195,7 @@ describe('test is utils', () => {
             expect(isTruthyAndNotEmpty('')).toBe(false);
             expect(isTruthyAndNotEmpty(null)).toBe(false);
             expect(isTruthyAndNotEmpty(undefined)).toBe(false);
-            expect(isTruthyAndNotEmpty(NaN)).toBe(false);
+            expect(isTruthyAndNotEmpty(Number.NaN)).toBe(false);
         });
 
         it('should return false for empty arrays', () => {
@@ -229,4 +226,3 @@ describe('test is utils', () => {
         });
     });
 });
-

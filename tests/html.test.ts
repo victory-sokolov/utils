@@ -1,5 +1,5 @@
 import { describe, expect } from 'vitest';
-import { escape, removeHtmlTags, unescape, removeInlineStyles } from '../src/html'; // Added removeInlineStyles
+import { escape, removeHtmlTags, removeInlineStyles, unescape } from '../src/html'; // Added removeInlineStyles
 
 describe('removeHtmlTags', () => {
     it('remove tags', () => {
@@ -90,9 +90,9 @@ describe('unescape HTML entities', () => {
     });
 
     it('should handle numeric and hex character references', () => {
-        expect(unescape('&#x27;')).toBe("'"); // Hex for '
-        expect(unescape('&#39;')).toBe("'"); // Numeric for '
-        expect(unescape('&#0039;')).toBe("'"); // Padded numeric for '
+        expect(unescape('&#x27;')).toBe('\''); // Hex for '
+        expect(unescape('&#39;')).toBe('\''); // Numeric for '
+        expect(unescape('&#0039;')).toBe('\''); // Padded numeric for '
     });
     it('should handle unknown or malformed entities by returning the original entity or default', () => {
         // The current implementation defaults to '\'' for unknown entities,
@@ -106,5 +106,4 @@ describe('unescape HTML entities', () => {
     it('should return &apos; for &apos; as it is not in the unescapes map', () => {
         expect(unescape('&apos;')).toBe('&apos;');
     });
-
 });

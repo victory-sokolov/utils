@@ -4,21 +4,21 @@ import {
     dateRangeGenerator,
     dateTimeToCron,
     dateWithTimeStamp,
+    formatDate,
     getMonthFirstDay,
     getMonthLastDay,
     getMonthList,
+    getTimeZone,
     getWeekFirstDay,
     getWeekLastDay,
     isWeekday,
-    toLongDate,
-    toUtc,
-    timeStamptToDate,
-    formatDate,
     secondsInDays,
     timeAgo,
-    getTimeZone,
     timestamp,
     timestampIso,
+    timeStamptToDate,
+    toLongDate,
+    toUtc,
 } from '../src/date';
 
 describe('test date utils', () => {
@@ -125,11 +125,11 @@ describe('test date utils', () => {
         it('should return the correct next date for a future cron expression', () => {
             // Set current time to August 1, 2023, 10:00:00 UTC
             vi.setSystemTime(new Date('2023-08-01T10:00:00Z'));
-            
+
             // Cron for August 18, 2023, 12:34:00 UTC (Friday, dayOfWeek 5)
-            const cronExpression = '34 12 18 8 5'; 
+            const cronExpression = '34 12 18 8 5';
             const expectedNextDate = new Date('2023-08-18T12:34:00Z');
-            
+
             const result = cronToDateTime(cronExpression);
             expect(result.toISOString()).toBe(expectedNextDate.toISOString());
         });
@@ -140,7 +140,7 @@ describe('test date utils', () => {
 
             // Cron for August 18, 2023, 12:34:00 UTC (Friday, dayOfWeek 5)
             // This date is in the past relative to system time, so it should be adjusted to next year.
-            const cronExpression = '34 12 18 8 5'; 
+            const cronExpression = '34 12 18 8 5';
             const expectedNextDate = new Date('2024-08-18T12:34:00Z'); // Adjusted to next year
 
             const result = cronToDateTime(cronExpression);
@@ -152,11 +152,11 @@ describe('test date utils', () => {
             vi.setSystemTime(new Date('2023-08-01T10:00:00Z'));
 
             // Cron for any day in August, 12:00:00 UTC, specifically Monday (dayOfWeek 1)
-            const cronExpression = '0 12 * 8 1'; 
+            const cronExpression = '0 12 * 8 1';
             // The first Monday in August 2023 is August 7.
             // cronToDateTime calculates 1st August, day 2. Needs to adjust to day 1.
             // 7 - 1 = 6. 1st + 6 = 7th.
-            const expectedNextDate = new Date('2023-08-07T12:00:00Z'); 
+            const expectedNextDate = new Date('2023-08-07T12:00:00Z');
 
             const result = cronToDateTime(cronExpression);
             expect(result.toISOString()).toBe(expectedNextDate.toISOString());
@@ -167,7 +167,7 @@ describe('test date utils', () => {
             vi.setSystemTime(new Date('2023-01-01T00:00:00Z')); // Jan 1, 2023 is a Sunday (dayOfWeek 0)
 
             // Cron for 15:30 on the 10th day of the 3rd month (March), on a Tuesday (dayOfWeek 2)
-            const cronExpression = '30 15 10 3 2'; 
+            const cronExpression = '30 15 10 3 2';
             const expectedNextDate = new Date('2023-03-14T15:30:00Z'); // March 14, 2023 is a Tuesday
 
             const result = cronToDateTime(cronExpression);

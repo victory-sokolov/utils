@@ -3,13 +3,13 @@ import {
     filterFalsyFromObject,
     flattenObject,
     flip,
+    getUniqueByKey,
+    objectEntries,
+    objectKeys,
     omit,
     pick,
     unionWithExclusion,
     uniqueObject,
-    objectKeys,
-    objectEntries,
-    getUniqueByKey,
 } from '../src/object';
 
 describe('omit', () => {

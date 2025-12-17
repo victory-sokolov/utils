@@ -45,8 +45,8 @@ export const validateHash = (
     digest: string
 ) => {
     return (
-        savedHash ===
-        nodeCrypto
+        savedHash
+        === nodeCrypto
             .pbkdf2Sync(password, savedSalt, iterations, keyLen, digest)
             .toString('hex')
     );

@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { tryCatch } from '../src/tryCatch';
 
 // Define a custom error class for testing purposes

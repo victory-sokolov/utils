@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { bytesToSize, wait, perfStart, perfStop, debounce, throttle } from '../src/base';
+import { bytesToSize, debounce, perfStart, perfStop, throttle, wait } from '../src/base';
 
 describe('bytesToSize', () => {
     it('should return "0" when given 0 bytes', () => {

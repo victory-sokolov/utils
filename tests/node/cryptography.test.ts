@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
+    decryptData,
+    encryptData,
     hashString,
     validateHash,
-    encryptData,
-    decryptData,
 } from '../../src/node/cryptography';
 
 describe('cryptography', () => {
@@ -87,7 +87,7 @@ describe('cryptography', () => {
         it('should invalidate a tampered hash', () => {
             const testString = 'myPassword123';
             const { salt, iterations, keyLen } = hashString(testString);
-            const tamperedHash = 'a' + hashString(testString).hash.slice(1); // Tamper with the hash
+            const tamperedHash = `a${hashString(testString).hash.slice(1)}`; // Tamper with the hash
 
             const isValid = validateHash(
                 testString,
@@ -103,7 +103,7 @@ describe('cryptography', () => {
         it('should invalidate a tampered salt', () => {
             const testString = 'myPassword123';
             const { hash, iterations, keyLen } = hashString(testString);
-            const tamperedSalt = 'a' + hashString(testString).salt.slice(1); // Tamper with the salt
+            const tamperedSalt = `a${hashString(testString).salt.slice(1)}`; // Tamper with the salt
 
             const isValid = validateHash(
                 testString,
@@ -130,8 +130,8 @@ describe('cryptography', () => {
         });
 
         it('should encrypt and decrypt a longer string successfully', async () => {
-            const originalText =
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+            const originalText
+                = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
             const encrypted = await encryptData(originalText, secretKey);
             const decrypted = await decryptData(encrypted, secretKey);
 
@@ -154,7 +154,7 @@ describe('cryptography', () => {
             const encrypted = await encryptData(originalText, secretKey);
 
             // Tamper with the encrypted data by changing one character
-            const tamperedEncrypted = encrypted.slice(0, -5) + 'AAAAA';
+            const tamperedEncrypted = `${encrypted.slice(0, -5)}AAAAA`;
 
             await expect(
                 decryptData(tamperedEncrypted, secretKey)

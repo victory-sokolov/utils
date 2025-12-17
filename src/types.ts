@@ -84,4 +84,4 @@ export type NonNullable<T> = T extends null | undefined ? never : T;
 /**
  * HTTP/HTTPS URL type
  */
-type URL = `${'http' | 'https'}://${string}`;
+export type URL = `${'http' | 'https'}://${string}`;

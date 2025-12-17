@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import {
     getCountryFromISO,
     getFlagEmoji,
-    showPosition,
     getLocation,
+    showPosition,
 } from '../src/country';
 
 describe('getCountryFromISO', () => {
@@ -88,13 +88,6 @@ describe('getLocation', () => {
         ).mockImplementationOnce((successCallback) => {
             successCallback(mockPosition);
         });
-
-        // Since getLocation returns void and calls showPosition internally,
-        // we need to spy on showPosition to verify the coordinates
-        const showPositionSpy = vi
-            .spyOn(console, 'log')
-            .mockImplementation(() => {}); // Dummy spy for now
-
         getLocation();
 
         // Expect getCurrentPosition to have been called

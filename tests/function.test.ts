@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { batchInvoke, pipe, isAsync, tap } from '../src/function';
+import { batchInvoke, isAsync, pipe, tap } from '../src/function';
 
 describe('batchInvoke', () => {
     it('should call every function in the array', () => {
