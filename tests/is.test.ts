@@ -53,7 +53,6 @@ describe('test is utils', () => {
 
     it('is function', () => {
         expect(isFunction(() => {})).toBe(true);
-        expect(isFunction(() => {})).toBe(true);
         expect(isFunction(async () => {})).toBe(true);
         expect(isFunction(0)).toBe(false);
         expect(isFunction(null)).toBe(false);
