@@ -108,7 +108,7 @@ describe('getLocation', () => {
         // For getLocation, we confirm it *tries* to get position.
     });
 
-    it('should throw an error when geolocation is not supported', () => {
+    it('should reject when geolocation is not supported', async () => {
         // Set navigator.geolocation to undefined to simulate no support
         Object.defineProperty(navigator, 'geolocation', {
             configurable: true,
@@ -116,7 +116,7 @@ describe('getLocation', () => {
             value: undefined,
         });
 
-        expect(() => getLocation()).toThrow(
+        await expect(() => getLocation()).toThrow(
             'Geolocation is not supported by this browser.'
         );
     });
