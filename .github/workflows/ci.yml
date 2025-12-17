@@ -42,22 +42,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Read .nvmrc
-        run: |
-          NODE_VERSION=$(cat .nvmrc)
-          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_OUTPUT
-        id: nvm
-
-      - name: Setup pnpm
+      - name: Setup Node & PNPM
         uses: ./.github/actions/install-deps
 
-      - name: Use Node.js ${{ steps.nvm.outputs.NODE_VERSION }}
-        uses: actions/setup-node@v6
-        with:
-          node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
-          
       - name: Run linter
         run: pnpm lint
 

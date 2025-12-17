@@ -1,0 +1,29 @@
+name: Setup pnpm Reusable Workflow
+description: Install pnpm and dependencies
+
+runs:
+  using: composite
+  steps:
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4.2.0
+      with:
+        version: '10.26'
+        run_install: false
+
+    - name: Read .nvmrc
+      shell: sh
+      run: |
+        NODE_VERSION=$(cat .nvmrc)
+        echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_OUTPUT
+      id: nvm
+
+    - name: Use Node.js ${{ steps.nvm.outputs.NODE_VERSION }}
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
+        cache: pnpm
+        cache-dependency-path: pnpm-lock.yaml
+
+    - name: Install Dependencies
+      shell: sh
+      run: pnpm install
