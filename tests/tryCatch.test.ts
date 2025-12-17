@@ -58,7 +58,7 @@ describe('tryCatch', () => {
 
     it('should convert actual non-Error thrown values (strings) to Error instances', async () => {
         const result = await tryCatch(() => {
-            throw 'Plain string error';
+            throw new Error('Plain string error');
         });
         expect(result.data).toBeNull();
         expect(result.error).toBeInstanceOf(Error);
