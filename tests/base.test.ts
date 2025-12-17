@@ -47,6 +47,7 @@ describe('wait', () => {
 
     afterEach(() => {
         vi.restoreAllMocks();
+        vi.useRealTimers();
     });
 
     it('should resolve after the specified time', async () => {
@@ -74,6 +75,7 @@ describe('perfStart and perfStop', () => {
 
     afterEach(() => {
         vi.restoreAllMocks();
+        vi.useRealTimers();
     });
 
     it('perfStart should return a number representing the current time', () => {
@@ -122,6 +124,7 @@ describe('debounce', () => {
 
     afterEach(() => {
         vi.restoreAllMocks();
+        vi.useRealTimers();
     });
 
     it('should call the function only once after the delay', () => {
@@ -218,6 +221,7 @@ describe('throttle', () => {
 
     afterEach(() => {
         vi.restoreAllMocks();
+        vi.useRealTimers();
     });
 
     it('should call the function after the cooldown on the first invocation', () => {
