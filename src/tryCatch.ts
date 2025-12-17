@@ -74,14 +74,16 @@ interface ErrorWithStatus extends Error {
  * { ErrorClass: ApiError, defaultStatus: 500 }
  * ```
  */
-interface TryCatchOptions<E extends Error = Error> {
+type ErrorConstructor<E extends Error> = new (message: string, status?: number, cause?: any) => E;
+
+interface TryCatchOptions<E extends Error = ErrorWithStatus> {
     /**
      * Custom error class constructor for transforming caught errors.
      * If provided, all caught errors will be converted to instances of this class.
      *
      * @default Error
      */
-    ErrorClass?: new (message: string, status?: number, cause?: string) => E;
+    ErrorClass?: ErrorConstructor<E>;
 
     /**
      * Default HTTP status code to use when caught error has no status property.
@@ -178,27 +180,35 @@ interface TryCatchOptions<E extends Error = Error> {
  * @see {@link ErrorWithStatus} for the default error type
  *
  */
-export async function tryCatch<T, E extends Error = Error>(
+export async function tryCatch<T, E extends Error = ErrorWithStatus>(
     fn: () => T | Promise<T>,
     options: TryCatchOptions<E> = {}
 ): Promise<Result<T, E>> {
-    const { ErrorClass = Error as any, defaultStatus = 500 } = options;
+    const ErrorClass = (options.ErrorClass ?? (Error as unknown)) as ErrorConstructor<E>;
+    const { defaultStatus = 500 } = options;
 
     try {
         const result = fn();
         const data = result instanceof Promise ? await result : result;
         return { data, error: null };
     } catch (error) {
-        if (error instanceof ErrorClass) {
+        const message = error instanceof Error ? error.message : String(error);
+        const cause = (error instanceof Error && error.cause) ? error.cause as Error : undefined;
+        const status = (typeof (error as any)?.status === 'number') ? (error as any).status : defaultStatus;
+
+        // If a custom ErrorClass is provided AND the thrown error is already an instance of it,
+        // we return the original error instance, but ensure it has status and cause.
+        // We do NOT do this if ErrorClass is the native Error, because we want to ensure
+        // native Errors always get a status property applied through Object.assign on a new instance.
+        if (options.ErrorClass && error instanceof options.ErrorClass) {
+            Object.assign(error, { status, cause }); // Ensure status and cause are on original error
             return { data: null, error: error as E };
         }
 
-        const message = error instanceof Error ? error.message : String(error);
-        const cause
-            = error instanceof Error ? (error.cause as Error) : undefined;
-        const status = (error as any)?.status || defaultStatus;
+        // Otherwise, always create a new error instance.
+        const newError = new ErrorClass(message);
+        Object.assign(newError, { status, cause });
 
-        const customError = new ErrorClass(message, status, cause);
-        return { data: null, error: customError as E };
+        return { data: null, error: newError as E };
     }
 }

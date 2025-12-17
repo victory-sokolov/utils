@@ -14,6 +14,7 @@ export const dataToFile = (content: ArrayBuffer, fileName: string, contentType: 
     a.href = URL.createObjectURL(file);
     a.download = fileName;
     a.click();
+    URL.revokeObjectURL(a.href);
 };
 
 /**
@@ -63,8 +64,13 @@ export const downloadAsJson = (obj: Record<string, unknown>, fileName: string) =
  * @returns True if page reloaded
  */
 export const isPageReloaded = () => {
-    return window.performance
-        .getEntriesByType('navigation')
-        .map((nav) => nav.entryType)
-        .includes('reload');
+    const perf = window.performance;
+    if (!perf) return false;
+
+    if (typeof perf.getEntriesByType === 'function') {
+        const entries = perf.getEntriesByType('navigation') as PerformanceNavigationTiming[];
+        return entries.some((e) => e.type === 'reload');
+    }
+
+    return false;
 };

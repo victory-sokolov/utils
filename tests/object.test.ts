@@ -3,9 +3,13 @@ import {
     filterFalsyFromObject,
     flattenObject,
     flip,
+    getUniqueByKey,
+    objectEntries,
+    objectKeys,
     omit,
     pick,
     unionWithExclusion,
+    uniqueObject,
 } from '../src/object';
 
 describe('omit', () => {
@@ -25,6 +29,54 @@ describe('omit', () => {
         expect(omit({}, 'a')).toEqual({});
         // @ts-ignore
         expect(omit([{}], 'a')).toEqual([{}]);
+    });
+});
+
+describe('uniqueObject', () => {
+    it('should return unique objects based on key', () => {
+        const data = [
+            { id: 1, name: 'a' },
+            { id: 1, name: 'b' },
+            { id: 2, name: 'c' },
+        ];
+        const result = uniqueObject(data, 'id');
+        expect(result).toEqual([
+            { id: 1, name: 'b' },
+            { id: 2, name: 'c' },
+        ]);
+    });
+});
+
+describe('objectKeys', () => {
+    it('should return strict typed keys', () => {
+        const obj = { a: 1, b: 2 };
+        const keys = objectKeys(obj);
+        expect(keys).toEqual(['a', 'b']);
+        // Type check: keys should be ('a' | 'b')[]
+    });
+});
+
+describe('objectEntries', () => {
+    it('should return strict typed entries', () => {
+        const obj = { a: 1, b: 2 };
+        const entries = objectEntries(obj);
+        expect(entries).toEqual([['a', 1], ['b', 2]]);
+        // Type check: entries should be [keyof T, T[keyof T]][]
+    });
+});
+
+describe('getUniqueByKey', () => {
+    it('should return unique objects based on key', () => {
+        const arr = [
+            { id: 1, name: 'a' },
+            { id: 1, name: 'b' },
+            { id: 2, name: 'c' },
+        ];
+        const result = getUniqueByKey(arr, 'id');
+        expect(result).toEqual([
+            { id: 1, name: 'b' },
+            { id: 2, name: 'c' },
+        ]);
     });
 });
 
@@ -79,6 +131,16 @@ describe('unionWithExclusion', () => {
             c: 4,
             d: 5,
             f: 6,
+        });
+    });
+
+    it('should merge nested objects', () => {
+        const left = { a: { x: 1 }, b: 2 };
+        const right = { a: { y: 3 }, c: 4 };
+        expect(unionWithExclusion(left, right)).toEqual({
+            a: { x: 1, y: 3 },
+            b: 2,
+            c: 4,
         });
     });
 });

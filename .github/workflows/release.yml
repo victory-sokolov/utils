@@ -23,19 +23,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
-
-      - name: Read .nvmrc
-        run: |
-          NODE_VERSION=$(cat .nvmrc)
-          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_OUTPUT
-        id: nvm
-
-      - uses: actions/setup-node@v5
-        with:
-          node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
+      - name: Setup pnpm
+        uses: ./.github/actions/install-deps
 
       - name: Setup pnpm
         uses: ./.github/actions/install-deps

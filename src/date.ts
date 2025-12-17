@@ -53,8 +53,8 @@ export const dateWithTimeStamp = (date: Date): string => {
  * @returns Last day of the week
  */
 export const getWeekLastDay = (date: Date): Date => {
-    const weekLastDayInMilliseconds =
-        date.getTime() + (6 - date.getDay()) * 86400000;
+    const weekLastDayInMilliseconds
+        = date.getTime() + (6 - date.getDay()) * 86400000;
     const weekLastDay = new Date(weekLastDayInMilliseconds);
     return weekLastDay;
 };
@@ -65,8 +65,8 @@ export const getWeekLastDay = (date: Date): Date => {
  * @returns First day of the week
  */
 export const getWeekFirstDay = (date: Date): Date => {
-    const weekFirstDayInMilliseconds =
-        date.getTime() - (date.getDay() - 1) * 86400000;
+    const weekFirstDayInMilliseconds
+        = date.getTime() - (date.getDay() - 1) * 86400000;
     const weekFirstDay = new Date(weekFirstDayInMilliseconds);
     return weekFirstDay;
 };
@@ -146,7 +146,7 @@ export const cronToDateTime = (cronSyntax: string): Date => {
         Date.UTC(
             currentYear,
             Number(months) - 1,
-            Number(days),
+            Number(days === '*' ? '1' : days),
             Number(hours),
             Number(minutes),
             0
@@ -158,8 +158,8 @@ export const cronToDateTime = (cronSyntax: string): Date => {
     nextDate.setUTCDate(nextDate.getUTCDate() + dayDiff);
 
     // Ensure the next date is in the future
-    if (nextDate <= now) {
-        nextDate.setUTCFullYear(currentYear);
+    if (nextDate.getTime() <= now.getTime()) {
+        nextDate.setUTCFullYear(currentYear + 1);
     }
 
     return nextDate;
