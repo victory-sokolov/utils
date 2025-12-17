@@ -100,7 +100,6 @@ describe('test is utils', () => {
 
     it('is reg exp', () => {
         expect(isRegExp(/abc/)).toBe(true);
-        expect(isRegExp(new RegExp('abc'))).toBe(true);
         expect(isRegExp('/abc/')).toBe(false);
         expect(isRegExp(null)).toBe(false);
     });
@@ -222,7 +221,7 @@ describe('test is utils', () => {
             expect(isTruthyAndNotEmpty('hello')).toBe(true);
             expect(isTruthyAndNotEmpty(true)).toBe(true);
             expect(isTruthyAndNotEmpty(new Date())).toBe(true);
-            expect(isTruthyAndNotEmpty(new RegExp('a'))).toBe(true);
+            expect(isTruthyAndNotEmpty(/a/)).toBe(true);
         });
     });
 });

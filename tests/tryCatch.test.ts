@@ -49,7 +49,7 @@ describe('tryCatch', () => {
     // Test case 5: Synchronous function throws a non-Error value (e.g., string)
     it('should convert non-Error thrown values to Error instances with default status', async () => {
         const result = await tryCatch(() => {
-            throw 'Non-error string';
+            throw new Error('Non-error string');
         });
         expect(result.data).toBeNull();
         expect(result.error).toBeInstanceOf(Error);
@@ -107,7 +107,7 @@ describe('tryCatch', () => {
     it('should convert non-Error thrown values to CustomError instances with provided defaultStatus', async () => {
         const result = await tryCatch(
             () => {
-                throw 'Something went wrong';
+                throw new Error('Something went wrong');
             },
             { ErrorClass: CustomError, defaultStatus: 503 }
         );

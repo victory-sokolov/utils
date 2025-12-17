@@ -10,8 +10,8 @@ import {
 
 describe('browser utilities', () => {
     // Mock browser environment for dataToFile and downloadAsJson
-    let appendChildSpy: ReturnType<typeof vi.spyOn>;
-    let removeChildSpy: ReturnType<typeof vi.spyOn>;
+    let _appendChildSpy: ReturnType<typeof vi.spyOn>;
+    let _removeChildSpy: ReturnType<typeof vi.spyOn>;
     let clickSpy: ReturnType<typeof vi.spyOn>;
     let createObjectURLSpy: ReturnType<typeof vi.spyOn>;
     let revokeObjectURLSpy: ReturnType<typeof vi.spyOn>;
@@ -39,10 +39,10 @@ describe('browser utilities', () => {
             return originalCreateElement(tagName); // Call original for other elements
         });
 
-        appendChildSpy = vi
+        _appendChildSpy = vi
             .spyOn(document.body, 'appendChild')
             .mockImplementation((node: Node) => node);
-        removeChildSpy = vi
+        _removeChildSpy = vi
             .spyOn(document.body, 'removeChild')
             .mockImplementation((child: Node) => child);
         clickSpy = vi.spyOn(mockAnchor, 'click');
