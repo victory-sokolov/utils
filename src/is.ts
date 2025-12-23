@@ -58,12 +58,12 @@ export const isTruthyAndNotEmpty = (value: unknown): boolean => {
     if (!value) return false; // falsy
     if (Array.isArray(value) && value.length === 0) return false; // empty array
     if (
-        value &&
-        typeof value === 'object' &&
-        !Array.isArray(value) &&
-        !isDate(value) &&
-        !isRegExp(value) &&
-        Object.keys(value).length === 0
+        value
+        && typeof value === 'object'
+        && !Array.isArray(value)
+        && !isDate(value)
+        && !isRegExp(value)
+        && Object.keys(value).length === 0
     ) {
         return false;
     }
