@@ -107,7 +107,7 @@ export const isWeekday = (date: Date): boolean => date.getDay() % 6 !== 0;
  */
 export const toLongDate = (date: string): string => {
     if (!Date.parse(date)) {
-        throw new Error(`Invalid date provided`);
+        throw new Error(`Invalid date provided: ${date}`);
     }
     return new Date(date).toLocaleDateString('en-US', {
         year: 'numeric',

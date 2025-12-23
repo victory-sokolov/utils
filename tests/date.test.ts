@@ -97,9 +97,10 @@ describe('test date utils', () => {
         });
 
         it('toLongDate throws an error for an invalid date', () => {
+            const date = "invalid date";
             expect(() => {
-                toLongDate('invalid date');
-            }).toThrow('Invalid date provided');
+                toLongDate(date);
+            }).toThrow(`Invalid date provided: ${date}`);
         });
     });
 
