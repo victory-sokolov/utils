@@ -119,6 +119,20 @@ describe('filterFalsyFromObject', () => {
             { b: 12, c: 'hello', d: { a: 1 } },
         ]);
     });
+    it('should accept ISO date strings', () => {
+        const obj = { a: 1, timestamp: '2025-02-15T00:00:00.000Z' };
+        expect(filterFalsyFromObject(obj)).toEqual({
+            a: 1,
+            timestamp: '2025-02-15T00:00:00.000Z',
+        });
+    });
+    it('should accept Date objects', () => {
+        const obj = { a: 1, date: new Date('2025-02-15T00:00:00.000Z') };
+        expect(filterFalsyFromObject(obj)).toEqual({
+            a: 1,
+            date: new Date('2025-02-15T00:00:00.000Z'),
+        });
+    });
 });
 
 describe('unionWithExclusion', () => {
