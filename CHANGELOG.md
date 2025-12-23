@@ -1,3 +1,11 @@
+## [0.31.5](https://github.com/victory-sokolov/utils/compare/v0.31.4...v0.31.5) (2025-12-23)
+
+
+### Bug Fixes
+
+* toLongDate display value of passed parameter ([4808638](https://github.com/victory-sokolov/utils/commit/4808638ca382e11e00b44ccc5d3a3e326e973d07))
+* use nodeCrypto import ([b8cb9bc](https://github.com/victory-sokolov/utils/commit/b8cb9bcc8ddaecfb72b85cfc71a477a09102b1eb))
+
 ## [0.31.4](https://github.com/victory-sokolov/utils/compare/v0.31.3...v0.31.4) (2025-10-22)
 
 
