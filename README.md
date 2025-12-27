@@ -4,6 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![npm downloads](https://img.shields.io/npm/dm/@vsokolov/utils)](https://www.npmjs.com/package/@vsokolov/utils)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/victory-sokolov/utils)
 
 A comprehensive collection of TypeScript/JavaScript utility functions for both Node.js and browser environments. This library provides a wide range of helper functions for common programming tasks, including array manipulation, date handling, string operations, and more.
 
