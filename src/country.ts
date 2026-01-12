@@ -9,6 +9,8 @@ interface Position {
  * Get country name from ISO code
  * @param iso ISO code
  * @returns Country name from ISO code
+ * @example
+ * getCountryFromISO('US'); // 'United States'
  */
 export const getCountryFromISO = (iso: string): string | undefined => {
     const languageNames = new Intl.DisplayNames(['en'], { type: 'region' });

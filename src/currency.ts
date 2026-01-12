@@ -14,6 +14,8 @@ type Currency
  * Convert cents to dollars
  * @param cents Number of cents
  * @returns Currency formatted to dollars
+ * @example
+ * toDollars(1000); // '$10.00'
  */
 export const toDollars = (
     cents: number,

@@ -38,6 +38,8 @@ export const isNumber = (val: any): val is number => typeof val === 'number';
  * Check if a value is a string
  * @param val - The value to check
  * @returns True if the value is a string
+ * @example
+ * isString('hello'); // true
  */
 export const isString = (val: unknown): val is string =>
     typeof val === 'string';

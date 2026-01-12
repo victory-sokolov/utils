@@ -2,6 +2,8 @@
  * Validate email address
  * @param email Email address to validate
  * @returns True if email address is valid
+ * @example
+ * isValidEmail('test@example.com'); // true
  */
 export const isValidEmail = (email: string) => {
     const re
