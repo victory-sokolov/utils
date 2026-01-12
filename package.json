@@ -44,7 +44,7 @@
         "test:coverage": "vitest run --coverage",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
-        "docs": "pnpm run typedoc ./src --out docs",
+        "docs": "typedoc ./src --out docs",
         "prepublishOnly": "pnpm run lint && pnpm test:no-watch",
         "preversion": "pnpm run lint && pnpm test:no-watch",
         "version": "pnpm run lint && git add -A src",
