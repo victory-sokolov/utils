@@ -1,0 +1,26 @@
+{
+  "name": "@vsokolov/utils",
+  "entryPoints": ["src/index.ts"],
+  "out": "docs",
+  "includeVersion": true,
+  "exclude": ["**/node_modules/**", "**/*.test.ts", "**/node/**"],
+  "plugin": ["typedoc-plugin-missing-exports", "typedoc-theme-hierarchy"],
+  "theme": "hierarchy",
+  "readme": "README.md",
+  "githubPages": true,
+  "hideGenerator": true,
+  "sort": ["source-order", "required-first", "kind"],
+  "searchInComments": true,
+  "cleanOutputDir": true,
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  },
+  "visibilityFilters": {
+    "protected": true,
+    "private": false,
+    "inherited": true,
+    "external": true
+  },
+  "cname": "victory-sokolov.github.io"
+}
