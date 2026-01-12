@@ -27,8 +27,8 @@ export const timeStamptToDate = (timestamp: string | number) => {
 
 /**
  * Format date to YY-MM-DD format
- * @param date
- * @returns YY-MM-DD string
+ * @param date - The date to format
+ * @returns YY-MM-DD string or undefined if date is not provided
  */
 export const formatDate = (date?: Date): string | undefined => {
     if (!date) return;

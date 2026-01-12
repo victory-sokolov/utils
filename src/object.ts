@@ -3,9 +3,9 @@ import { isTruthyAndNotEmpty } from './is';
 
 /**
  * Remove specific keys from object
- * @param objOrArray Object from which to remove keys
- * @param keys to remove from object
- * @returns Object with keys removed
+ * @param objOrArray - Object or array of objects from which to remove keys
+ * @param keys - Keys to remove from object
+ * @returns Object or array of objects with keys removed
  */
 export const omit = <T extends Record<string, any>, K extends keyof T>(
     objOrArray: T | T[],
@@ -31,8 +31,8 @@ export const omit = <T extends Record<string, any>, K extends keyof T>(
 
 /**
  * Pick specific keys from object
- * @param obj Object from which to pick keys
- * @param props Keys to select from object
+ * @param obj - Object from which to pick keys
+ * @param props - Keys to select from object
  * @returns Object with selected keys
  */
 export const pick = <T extends Record<string, any>, K extends keyof T>(

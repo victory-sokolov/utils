@@ -16,8 +16,8 @@ export const flattenArray = <T>(
 
 /**
  * Get unique values from array
- * @param array
- * @returns array of unique values
+ * @param array - The array to get unique values from
+ * @returns Array of unique values
  */
 export const unique = <T>(array: readonly T[]): Collection<T> => {
     return Array.from(new Set(array));
@@ -25,9 +25,9 @@ export const unique = <T>(array: readonly T[]): Collection<T> => {
 
 /**
  * Remove item from array by value
- * @param array
- * @param values
- * @returns array with removed items
+ * @param array - The array to remove items from
+ * @param values - The values to remove from the array
+ * @returns Array with removed items
  */
 export const removeItem = <T>(
     array: Collection<T>,
@@ -37,10 +37,10 @@ export const removeItem = <T>(
 };
 
 /**
- *
- * @param arr Array of date
- * @param count Amount of items to select from array
- * @returns Array with all randomly selected items
+ * Get random items from array
+ * @param arr - Array of items
+ * @param count - Amount of items to select from array
+ * @returns Array with randomly selected items
  */
 export const randomItem = <T>(arr: T[], count: number): Array<T> => {
     if (count === 0) return arr;
@@ -65,8 +65,8 @@ export const shuffleArray = <T>(arr: Collection<T>): Collection<T> => {
 };
 
 /**
- * Sort array of objects in Ascending order
- * @param array Array of objects to sort
+ * Sort array of objects in ascending order by 'key' property
+ * @param array - Array of objects to sort
  * @returns Sorted array of objects
  */
 export const sortAsc = <T extends Record<string, any>>(
@@ -87,9 +87,9 @@ const fSort = (firstValue: number, secondValue: number): number => {
 };
 
 /**
- * Sort array by specific function
- * @param arr Array to sort
- * @param fSorting Function sorting algorithm
+ * Sort array by specific function or by the first numeric value in objects
+ * @param arr - Array to sort
+ * @param fSorting - Function sorting algorithm, defaults to sorting by first numeric value
  * @returns Sorted array
  */
 export const sort = <T extends Record<string, unknown>>(
@@ -108,10 +108,10 @@ export const sort = <T extends Record<string, unknown>>(
     return copyArray;
 };
 /**
- *
- * @param arr Array to sort
- * @param order Order 1 - ascending -1 descending
- * @param key Key to sort by
+ * Sort array of objects by a specific key
+ * @param arr - Array to sort
+ * @param order - Order: 1 for ascending, -1 for descending
+ * @param key - Key to sort by
  * @returns Sorted array of objects
  */
 export const sortBy = (
@@ -141,9 +141,10 @@ export const sortBy = (
 
 /**
  * Insert an item at a given index
- * @param index an index or a callback provided to findIndex
- * @param value the value of the item to insert
- * @param arr the array to insert into
+ * @param index - An index or a callback provided to findIndex
+ * @param value - The value of the item to insert
+ * @param arr - The array to insert into
+ * @returns New array with the item inserted
  */
 export const insertItemAtIndex = <T>(
     index: number | IndexCallback<T>,
@@ -165,9 +166,10 @@ export const insertItemAtIndex = <T>(
 
 /**
  * Replace an item at a given index
- * @param index an index or a callback provided to findIndex
- * @param newValue the value of the item to be replaced
- * @param arr the array to replace at
+ * @param index - An index or a callback provided to findIndex
+ * @param newValue - The value of the item to be replaced
+ * @param arr - The array to replace in
+ * @returns New array with the item replaced
  */
 export const replaceItemAtIndex = <T>(
     index: number | IndexCallback<T>,
@@ -189,8 +191,9 @@ export const replaceItemAtIndex = <T>(
 
 /**
  * Remove an item at an index
- * @param index an index or a callback provided to findIndex
- * @param arr the array to remove from
+ * @param index - An index or a callback provided to findIndex
+ * @param arr - The array to remove from
+ * @returns New array with the item removed
  */
 export const removeItemAtIndex = <T>(
     index: number | IndexCallback<T>,
@@ -237,9 +240,9 @@ export const intersection = <T>(arr1: T[], arr2: T[]): T[] => {
 };
 
 /**
- * Count the number of element occurs in the array
- * @param array Array of elements to
- * @returns Object where keys are array values and value is time el occurs in the array
+ * Count the number of times each element occurs in the array
+ * @param array - Array of elements to count
+ * @returns Object where keys are array values and values are the count of occurrences
  */
 export const countBy = (
     array: Array<number | string>
@@ -259,9 +262,9 @@ export const countBy = (
 };
 
 /**
- * Count occurrences of specific key in the object
- * @param data Array data
- * @returns Object of passed in elements and how many times it occurs in the array
+ * Count occurrences of each unique element in the array
+ * @param data - Array of data to count occurrences
+ * @returns Object with unique elements as keys and their occurrence counts as values
  */
 export const occurrenceCount = <T>(data: Array<T>) => {
     const unique = Array.from(new Set(data));
