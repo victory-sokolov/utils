@@ -42,7 +42,7 @@ describe('bytesToSize', () => {
 
 describe('wait', () => {
     beforeEach(() => {
-        vi.useFakeTimers();
+        vi.useFakeTimers({ toFake: ['setTimeout', 'setInterval', 'clearTimeout', 'clearInterval'] });
     });
 
     afterEach(() => {
@@ -70,7 +70,7 @@ describe('wait', () => {
 
 describe('perfStart and perfStop', () => {
     beforeEach(() => {
-        vi.useFakeTimers();
+        vi.useFakeTimers({ toFake: ['setTimeout', 'setInterval', 'clearTimeout', 'clearInterval'] });
     });
 
     afterEach(() => {
@@ -119,7 +119,7 @@ describe('perfStart and perfStop', () => {
 
 describe('debounce', () => {
     beforeEach(() => {
-        vi.useFakeTimers();
+        vi.useFakeTimers({ toFake: ['setTimeout', 'setInterval', 'clearTimeout', 'clearInterval'] });
     });
 
     afterEach(() => {
@@ -216,7 +216,7 @@ describe('debounce', () => {
 
 describe('throttle', () => {
     beforeEach(() => {
-        vi.useFakeTimers();
+        vi.useFakeTimers({ toFake: ['setTimeout', 'setInterval', 'clearTimeout', 'clearInterval'] });
     });
 
     afterEach(() => {
