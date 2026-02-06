@@ -22,4 +22,4 @@ runs:
 
     - name: Install Dependencies
       shell: sh
-      run: bun run install
+      run: bun install

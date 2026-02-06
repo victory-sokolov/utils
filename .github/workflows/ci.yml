@@ -7,8 +7,6 @@ on:
       - '*.md'
       - 'docs/**'
       - '.*'
-      - package.json
-      - bun.lock
 
   pull_request:
     branches: [main]
@@ -16,8 +14,6 @@ on:
       - '*.md'
       - 'docs/**'
       - '.*'
-      - package.json
-      - bun.lock
 
   workflow_dispatch:
 
