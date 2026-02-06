@@ -19,7 +19,6 @@ runs:
       uses: actions/setup-node@v6
       with:
         node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
-        cache: 'bun'
 
     - name: Install Dependencies
       shell: sh
