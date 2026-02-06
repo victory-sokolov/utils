@@ -7,9 +7,6 @@ on:
       - '*.md'
       - 'docs/**'
       - '.*'
-      - package.json
-      - yarn.lock
-      - pnpm-lock.yaml
 
   pull_request:
     branches: [main]
@@ -17,9 +14,6 @@ on:
       - '*.md'
       - 'docs/**'
       - '.*'
-      - package.json
-      - yarn.lock
-      - pnpm-lock.yaml
 
   workflow_dispatch:
 
@@ -42,17 +36,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node & PNPM
+      - name: Setup Node & Bun
         uses: ./.github/actions/install-deps
 
       - name: Run linter
-        run: pnpm lint
+        run: bun lint
 
       - name: Run typechecker
-        run: pnpm typecheck
+        run: bun run typecheck
 
       - name: Run tests
-        run: pnpm test:no-watch
+        run: bun run test:no-watch
 
       - name: Build
-        run: pnpm build
+        run: bun run build
