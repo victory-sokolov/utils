@@ -50,7 +50,7 @@ jobs:
         run: bun run typecheck
 
       - name: Run tests
-        run: bun test:no-watch
+        run: bun run test:no-watch
 
       - name: Build
-        run: bun build
+        run: bun run build

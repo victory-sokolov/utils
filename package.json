@@ -94,13 +94,6 @@
         "vite": "^7.3.1",
         "vitest": "^4.0.18"
     },
-    "husky": {
-        "hooks": {
-            "pre-push": "bun run prepush",
-            "pre-commit": "bun run lint",
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-        }
-    },
     "config": {
         "commitizen": {
             "path": "./node_modules/cz-conventional-changelog"
