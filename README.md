@@ -28,10 +28,10 @@ Using npm:
 npm install @vsokolov/utils
 ```
 
-Using yarn:
+Using bun:
 
 ```bash
-yarn add @vsokolov/utils
+bun add @vsokolov/utils
 ```
 
 Using pnpm:

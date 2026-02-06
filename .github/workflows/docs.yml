@@ -21,11 +21,11 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node & PNPM
+      - name: Setup Node & Bun
         uses: ./.github/actions/install-deps
 
       - name: Generate docs
-        run: pnpm run docs
+        run: bun docs
 
       - name: Commit and push docs
         run: |

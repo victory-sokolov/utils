@@ -26,14 +26,11 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - name: Setup pnpm
-        uses: ./.github/actions/install-deps
-
-      - name: Setup pnpm
+      - name: Setup bun
         uses: ./.github/actions/install-deps
 
       - name: Release new version to NPM
-        run: pnpm build && pnpm semantic-release
+        run: bun build && bun semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
