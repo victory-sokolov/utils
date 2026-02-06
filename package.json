@@ -97,7 +97,7 @@
     "husky": {
         "hooks": {
             "pre-push": "bun run prepush",
-            "pre-commit": "bun lint",
+            "pre-commit": "bun run lint",
             "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
         }
     },
@@ -108,8 +108,8 @@
     },
     "lint-staged": {
         "src/**/*.{ts,tsx}": [
-            "bun typecheck",
-            "bun lint"
+            "bun run typecheck",
+            "bun run lint"
         ]
     },
     "publishConfig": {

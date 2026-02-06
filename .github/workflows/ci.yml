@@ -47,7 +47,7 @@ jobs:
         run: bun lint
 
       - name: Run typechecker
-        run: bun typecheck
+        run: bun run typecheck
 
       - name: Run tests
         run: bun test:no-watch

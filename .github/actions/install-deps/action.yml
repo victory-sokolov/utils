@@ -5,9 +5,7 @@ runs:
   using: composite
   steps:
     - name: Install bun
-      uses: oven-sh/setup-bun@v1
-      with:
-        bun-version: latest
+      uses: oven-sh/setup-bun@v2
 
     - name: Read .nvmrc
       shell: sh
@@ -21,6 +19,7 @@ runs:
       uses: actions/setup-node@v6
       with:
         node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
+        cache: 'bun'
 
     - name: Install Dependencies
       shell: sh
