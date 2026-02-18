@@ -17,6 +17,7 @@ import {
     isNull,
     isNumber,
     isObject,
+    isPlainObject,
     isRegExp,
     isString,
     isTruthyAndNotEmpty,
@@ -83,6 +84,26 @@ describe('test is utils', () => {
         expect(isObject(null)).toBe(false); // null is not an object
         expect(isObject(1)).toBe(false);
         expect(isObject('string')).toBe(false);
+    });
+
+    it.each([
+        // Plain objects - true
+        [{}, true, 'empty object'],
+        [{ a: 1 }, true, 'object with properties'],
+        [{ nested: { inner: 2 } }, true, 'nested object'],
+        [Object.create(null), true, 'Object.create(null)'],
+        // NOT plain objects - false
+        [[], false, 'array'],
+        [new Date(), false, 'Date'],
+        [/regex/, false, 'RegExp'],
+        [null, false, 'null'],
+        [undefined, false, 'undefined'],
+        [1, false, 'number'],
+        ['string', false, 'string'],
+        [() => {}, false, 'function'],
+        [new (class CustomClass {})(), false, 'class instance'],
+    ])('should return $1 for $2', (value, expected) => {
+        expect(isPlainObject(value)).toBe(expected);
     });
 
     it('is undefined', () => {

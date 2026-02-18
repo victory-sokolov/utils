@@ -163,3 +163,27 @@ export const isTruthyAndNotEmpty = (value: unknown): boolean => {
     }
     return true;
 };
+
+/**
+ * Check if a value is a plain object (created by {} or new Object())
+ * Returns false for arrays, Date, RegExp, Map, Set, class instances, etc.
+ *
+ * @param val - The value to check
+ * @returns True if the value is a plain object
+ *
+ * @example
+ * isPlainObject({}) // true
+ * isPlainObject({ a: 1 }) // true
+ * isPlainObject([]) // false
+ * isPlainObject(new Date()) // false
+ * isPlainObject(null) // false
+ * isPlainObject(class Foo {}) // false
+ */
+export const isPlainObject = (val: unknown): val is Record<string, unknown> => {
+    if (typeof val !== 'object' || val === null || Array.isArray(val)) {
+        return false;
+    }
+    // Object.create(null) has no prototype
+    const proto = Object.getPrototypeOf(val);
+    return proto === null || proto === Object.prototype;
+};
