@@ -1,5 +1,5 @@
 import type { RecordObject } from './types';
-import { isTruthyAndNotEmpty } from './is';
+import { isPlainObject, isTruthyAndNotEmpty } from './is';
 
 /**
  * Remove specific keys from object
@@ -56,11 +56,7 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
     Object.keys(obj).forEach((key) => {
         const value = obj[key];
 
-        if (
-            typeof value === 'object'
-            && value !== null
-            && !Array.isArray(value)
-        ) {
+        if (isPlainObject(value)) {
             Object.assign(flattened, flattenObject(value as RecordObject));
         } else {
             flattened[key] = value;
@@ -122,9 +118,6 @@ export const unionWithExclusion = (
     left: RecordObject,
     right: RecordObject
 ): RecordObject => {
-    const isPlainObject = (v: unknown): v is Record<string, unknown> =>
-        typeof v === 'object' && v !== null && !Array.isArray(v);
-
     return [left, right].reduce<RecordObject>((prev, current) => {
         if (current) {
             Object.entries(current).forEach(([key, value]) => {
