@@ -16,7 +16,7 @@ import {
     timeAgo,
     timestamp,
     timestampIso,
-    timeStamptToDate,
+    timestampToDate,
     toLongDate,
     toUtc,
 } from '../src/date';
@@ -176,7 +176,7 @@ describe('test date utils', () => {
         });
     });
 
-    describe('timeStamptToDate', () => {
+    describe('timestampToDate', () => {
         beforeEach(() => {
             vi.useFakeTimers();
         });
@@ -187,17 +187,17 @@ describe('test date utils', () => {
 
         it('should convert a numeric timestamp to YYYY-MM-DD format', () => {
             const timestamp = 1672531200000; // January 1, 2023 00:00:00 UTC
-            expect(timeStamptToDate(timestamp)).toBe('2023-01-01');
+            expect(timestampToDate(timestamp)).toBe('2023-01-01');
         });
 
         it('should convert a string timestamp to YYYY-MM-DD format', () => {
             const timestamp = '1672531200000'; // January 1, 2023 00:00:00 UTC
-            expect(timeStamptToDate(timestamp)).toBe('2023-01-01');
+            expect(timestampToDate(timestamp)).toBe('2023-01-01');
         });
 
         it('should pad month and day with leading zeros', () => {
             const timestamp = 1672531200000; // Jan 1, 2023
-            expect(timeStamptToDate(timestamp)).toBe('2023-01-01');
+            expect(timestampToDate(timestamp)).toBe('2023-01-01');
         });
     });
 
