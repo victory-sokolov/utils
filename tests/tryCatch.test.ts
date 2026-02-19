@@ -62,6 +62,7 @@ describe('tryCatch', () => {
 
     it('should convert non-Error thrown values (strings) to Error instances with default status', async () => {
         const result = await tryCatch(() => {
+            // eslint-disable-next-line no-throw-literal
             throw 'Non-error string';
         });
         expectErrorResult(result, Error, 'Non-error string', 500);
@@ -69,6 +70,7 @@ describe('tryCatch', () => {
 
     it('should convert actual non-Error thrown values (strings) to Error instances', async () => {
         const result = await tryCatch(() => {
+            // eslint-disable-next-line no-throw-literal
             throw 'Plain string error';
         });
         expectErrorResult(result, Error, 'Plain string error', 500);
