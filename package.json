@@ -52,7 +52,6 @@
         "clean": "rimraf ./node_modules && rimraf dist",
         "commit": "cz",
         "semantic-release": "semantic-release",
-        "prepare": "husky || true",
         "prepush": "git pull --rebase",
         "update": "bun update -i",
         "jscpd": "jscpd src/ tests"
@@ -75,7 +74,6 @@
         "eslint": "^9.39.2",
         "eslint-plugin-vitest": "^0.5.4",
         "esno": "4.8.0",
-        "husky": "9.1.7",
         "jscpd": "^4.0.8",
         "jsdom": "^27.4.0",
         "lint-staged": "16.2.7",
