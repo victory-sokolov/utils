@@ -107,7 +107,6 @@ export const hasProperty = (obj: any, key: string): boolean => {
     return Object.hasOwn(obj, key);
 };
 
-// @ts-expect-error
 /**
  * Check if a value is the window object
  * @param val - The value to check
@@ -115,7 +114,7 @@ export const hasProperty = (obj: any, key: string): boolean => {
  */
 export const isWindow = (val: any): boolean =>
     typeof window !== 'undefined' && toString(val) === '[object Window]';
-// @ts-expect-error
+
 /**
  * Check if the code is running in a browser
  * @returns True if running in browser
@@ -145,10 +144,10 @@ export const toRawType = (value: unknown): string => {
 export const isTruthyAndNotEmpty = (value: unknown): boolean => {
     if (!value) {
         return false;
-    } // Falsy
+    }
     if (Array.isArray(value) && value.length === 0) {
         return false;
-    } // Empty array
+    }
     if (
         value &&
         typeof value === 'object' &&

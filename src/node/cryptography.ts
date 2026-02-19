@@ -1,19 +1,37 @@
+/* eslint-disable import/no-nodejs-modules */
 import { Buffer } from 'node:buffer';
 import nodeCrypto from 'node:crypto';
 
+interface HashResult {
+    hash: string;
+    iterations: number;
+    keyLen: number;
+    salt: string;
+}
+
+interface HashOptions {
+    digest?: string;
+    iterations?: number;
+    keyLen?: number;
+    str: string;
+}
+
+interface ValidateHashOptions {
+    digest: string;
+    iterations: number;
+    keyLen: number;
+    password: string;
+    savedHash: string;
+    savedSalt: string;
+}
+
 /**
  * Hash string
- * @param str Plain text
- * @param iterations Amount of iterations. Default to 10000
- * @param keyLen Key length. Default to 64
+ * @param options Hash options
  * @returns Hashed object with meta information
  */
-export const hashString = (
-    str: string,
-    iterations = 10_000,
-    keyLen = 64,
-    digest = 'sha512',
-): { hash: string; iterations: number; keyLen: number; salt: string } => {
+export const hashString = (options: HashOptions): HashResult => {
+    const { digest = 'sha512', iterations = 10_000, keyLen = 64, str } = options;
     const salt = nodeCrypto.randomBytes(128).toString('base64');
     const hash = nodeCrypto.pbkdf2Sync(str, salt, iterations, keyLen, digest).toString('hex');
     return {
@@ -26,53 +44,41 @@ export const hashString = (
 
 /**
  * Validated Hash string
- * @param password password
- * @param savedHash Generated hash
- * @param savedSalt Generated salt
- * @param iterations Amount of iterations. Default to 10000
- * @param keyLen  Key length. Default to 64
- * @param digest Hash algorithm, Default to sha512
+ * @param options Validation options
  * @returns True if hash is valid
  */
-export const validateHash = (
-    password: string,
-    savedHash: string,
-    savedSalt: string,
-    iterations: number,
-    keyLen: number,
-    digest: string,
-): boolean =>
-    savedHash ===
-    nodeCrypto.pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString('hex');
+export const validateHash = (options: ValidateHashOptions): boolean => {
+    const { digest, iterations, keyLen, password, savedHash, savedSalt } = options;
+    return (
+        savedHash ===
+        nodeCrypto.pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString('hex')
+    );
+};
 
 /**
  * Derives a cryptographic key from a password using PBKDF2
  * @param secret Secret key
  * @returns Short hash
  */
-async function deriveKey(secret: string): Promise<CryptoKey> {
+const deriveKey = (secret: string): Promise<CryptoKey> => {
     const encoder = new TextEncoder();
-    const keyMaterial = await crypto.subtle.importKey(
-        'raw',
-        encoder.encode(secret),
-        'PBKDF2',
-        false,
-        ['deriveBits', 'deriveKey'],
-    );
-
-    return crypto.subtle.deriveKey(
-        {
-            name: 'PBKDF2',
-            salt: encoder.encode('reposter-salt'), // You can make this configurable via env if needed
-            iterations: 100_000,
-            hash: 'SHA-256',
-        },
-        keyMaterial,
-        { length: 256, name: 'AES-GCM' },
-        false,
-        ['encrypt', 'decrypt'],
-    );
-}
+    return crypto.subtle
+        .importKey('raw', encoder.encode(secret), 'PBKDF2', false, ['deriveBits', 'deriveKey'])
+        .then(keyMaterial =>
+            crypto.subtle.deriveKey(
+                {
+                    hash: 'SHA-256',
+                    iterations: 100_000,
+                    name: 'PBKDF2',
+                    salt: encoder.encode('reposter-salt'),
+                },
+                keyMaterial,
+                { length: 256, name: 'AES-GCM' },
+                false,
+                ['encrypt', 'decrypt'],
+            ),
+        );
+};
 
 /**
  * Encrypts a string using AES-GCM with a given secret key.
@@ -80,23 +86,21 @@ async function deriveKey(secret: string): Promise<CryptoKey> {
  * @param secretKey The secret key (must be at least 32 characters long).
  * @returns Encrypted text.
  */
-export async function encryptData(plainText: string, secretKey: string): Promise<string> {
+export const encryptData = (plainText: string, secretKey: string): Promise<string> => {
     const encoder = new TextEncoder();
-    const key = await deriveKey(secretKey);
 
-    const iv = crypto.getRandomValues(new Uint8Array(12)); // 12-byte IV for AES-GCM
-    const encrypted = await crypto.subtle.encrypt(
-        { iv, name: 'AES-GCM' },
-        key,
-        encoder.encode(plainText),
-    );
-
-    // Combine IV + encrypted data
-    const combined = new Uint8Array(iv.length + encrypted.byteLength);
-    combined.set(iv);
-    combined.set(new Uint8Array(encrypted), iv.length);
-    return Buffer.from(combined).toString('base64'); // Store as Base64 string
-}
+    return deriveKey(secretKey).then(key => {
+        const iv = crypto.getRandomValues(new Uint8Array(12));
+        return crypto.subtle.encrypt({ iv, name: 'AES-GCM' }, key, encoder.encode(plainText)).then(
+            encrypted => {
+                const combined = new Uint8Array(iv.length + encrypted.byteLength);
+                combined.set(iv);
+                combined.set(new Uint8Array(encrypted), iv.length);
+                return Buffer.from(combined).toString('base64');
+            },
+        );
+    });
+};
 
 /**
  * Decrypts encrypted data using AES-GCM.
@@ -104,14 +108,14 @@ export async function encryptData(plainText: string, secretKey: string): Promise
  * @param secretKey The secret key (must be the same as used during encryption).
  * @returns The decrypted plain text string.
  */
-export async function decryptData(encryptedData: string, secretKey: string): Promise<string> {
-    const encoded = Buffer.from(encryptedData, 'base64'); // Convert from Base64
-    // Extract IV (first 12 bytes) using subarray
-    const iv = encoded.subarray(0, 12);
-    // Extract encrypted data (rest of the bytes) using subarray
-    const encrypted = encoded.subarray(12);
-    const key = await deriveKey(secretKey);
+export const decryptData = (encryptedData: string, secretKey: string): Promise<string> => {
+    const encoded = Buffer.from(encryptedData, 'base64');
+    const encrypted = new Uint8Array(encoded.subarray(12));
+    const iv = new Uint8Array(encoded.subarray(0, 12));
 
-    const decrypted = await crypto.subtle.decrypt({ iv, name: 'AES-GCM' }, key, encrypted);
-    return new TextDecoder().decode(decrypted);
-}
+    return deriveKey(secretKey).then(key =>
+        crypto.subtle.decrypt({ iv, name: 'AES-GCM' }, key, encrypted).then(decrypted =>
+            new TextDecoder().decode(decrypted),
+        ),
+    );
+};

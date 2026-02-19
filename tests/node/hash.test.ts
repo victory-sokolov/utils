@@ -1,52 +1,39 @@
-// @ts-nocheck
-
-import { pbkdf2Sync } from 'node:crypto';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { hashString, validateHash } from '../../src/node/cryptography';
 
-vi.mock<typeof import('node:crypto')>('node:crypto', async importOriginal => {
-    const actual = await importOriginal<typeof import('node:crypto')>();
-    return {
-        ...actual,
-        pbkdf2Sync: vi.fn(() => 'mocked-hash'),
-        randomBytes: vi.fn(() => 'mocked-salt'),
-    };
-});
+describe('hashString and validateHash', () => {
+    it('should hash a string and validate it', () => {
+        const password = 'testPassword123';
+        const { hash, salt, iterations, keyLen } = hashString({ str: password });
 
-describe('validate hashString', () => {
-    it('should generate a hash with the expected properties', ({ skip }) => {
-        skip();
-        const result = hashString('password', 1000, 32, 'sha256');
+        expect(hash).toBeTypeOf('string');
+        expect(salt).toBeTypeOf('string');
+        expect(iterations).toBe(10_000);
+        expect(keyLen).toBe(64);
 
-        expect(result).toStrictEqual({
-            hash: 'mocked-hash',
-            iterations: 1000,
-            keyLen: 32,
-            salt: 'mocked-salt',
+        const isValid = validateHash({
+            digest: 'sha512',
+            iterations,
+            keyLen,
+            password,
+            savedHash: hash,
+            savedSalt: salt,
         });
-    });
-});
-
-describe('validateHash', () => {
-    it('should return true for a valid hash', ({ skip }) => {
-        skip();
-        const mockPbkdf2Sync = vi.spyOn(pbkdf2Sync, 'toString').mockReturnValue('mocked-hash');
-        const result = validateHash('password', 'mocked-hash', 'salt', 1000, 32, 'sha256');
-
-        expect(result).toBe(true);
-        expect(mockPbkdf2Sync).toHaveBeenCalledWith('password', 'salt', 1000, 32, 'sha256');
-
-        mockPbkdf2Sync.mockRestore();
+        expect(isValid).toBe(true);
     });
 
-    it('should return false for an invalid hash', ({ skip }) => {
-        skip();
-        const mockPbkdf2Sync = vi.spyOn(pbkdf2Sync, 'toString').mockReturnValue('different-hash');
+    it('should reject wrong password', () => {
+        const password = 'testPassword123';
+        const { hash, salt, iterations, keyLen } = hashString({ str: password });
 
-        const result = validateHash('password', 'mocked-hash', 'salt', 1000, 32, 'sha256');
-        expect(result).toBe(false);
-        expect(mockPbkdf2Sync).toHaveBeenCalledWith('password', 'salt', 1000, 32, 'sha256');
-
-        mockPbkdf2Sync.mockRestore();
+        const isValid = validateHash({
+            digest: 'sha512',
+            iterations,
+            keyLen,
+            password: 'wrongPassword',
+            savedHash: hash,
+            savedSalt: salt,
+        });
+        expect(isValid).toBe(false);
     });
 });

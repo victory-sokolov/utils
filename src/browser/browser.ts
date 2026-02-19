@@ -56,7 +56,8 @@ export const downloadAsJson = (obj: Record<string, unknown>, fileName: string): 
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);
     downloadAnchorNode.setAttribute('download', `${fileName}.json`);
-    document.body.append(downloadAnchorNode); // Required for firefox
+    // Required for firefox
+    document.body.append(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
 };
