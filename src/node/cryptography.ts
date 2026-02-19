@@ -91,14 +91,14 @@ export const encryptData = (plainText: string, secretKey: string): Promise<strin
 
     return deriveKey(secretKey).then(key => {
         const iv = crypto.getRandomValues(new Uint8Array(12));
-        return crypto.subtle.encrypt({ iv, name: 'AES-GCM' }, key, encoder.encode(plainText)).then(
-            encrypted => {
+        return crypto.subtle
+            .encrypt({ iv, name: 'AES-GCM' }, key, encoder.encode(plainText))
+            .then(encrypted => {
                 const combined = new Uint8Array(iv.length + encrypted.byteLength);
                 combined.set(iv);
                 combined.set(new Uint8Array(encrypted), iv.length);
                 return Buffer.from(combined).toString('base64');
-            },
-        );
+            });
     });
 };
 
@@ -114,8 +114,8 @@ export const decryptData = (encryptedData: string, secretKey: string): Promise<s
     const iv = new Uint8Array(encoded.subarray(0, 12));
 
     return deriveKey(secretKey).then(key =>
-        crypto.subtle.decrypt({ iv, name: 'AES-GCM' }, key, encrypted).then(decrypted =>
-            new TextDecoder().decode(decrypted),
-        ),
+        crypto.subtle
+            .decrypt({ iv, name: 'AES-GCM' }, key, encrypted)
+            .then(decrypted => new TextDecoder().decode(decrypted)),
     );
 };

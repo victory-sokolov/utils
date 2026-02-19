@@ -117,7 +117,10 @@ export const unionWithExclusion = (left: RecordObject, right: RecordObject): Rec
                 if (isPlainObject(value)) {
                     const existing = prev[key];
                     if (isPlainObject(existing)) {
-                        prev[key] = unionWithExclusion(existing as RecordObject, value as RecordObject);
+                        prev[key] = unionWithExclusion(
+                            existing as RecordObject,
+                            value as RecordObject,
+                        );
                     } else {
                         prev[key] = value;
                     }
