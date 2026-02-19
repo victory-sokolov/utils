@@ -140,6 +140,76 @@ export const sortBy = (
 };
 
 /**
+ * Resolve index from a number or callback function.
+ * Converts either a numeric index or a finder callback into a numeric index.
+ *
+ * @param index - A numeric index or a callback function to find the index
+ * @param arr - The array to search in (used when index is a callback)
+ * @returns The resolved numeric index
+ *
+ * @example
+ * // Using a number directly
+ * resolveIndex(2, ['a', 'b', 'c']) // returns 2
+ *
+ * @example
+ * // Using a callback to find by condition
+ * resolveIndex(item => item.id === 'foo', [{id: 'bar'}, {id: 'foo'}]) // returns 1
+ */
+const resolveIndex = <T>(
+    index: number | IndexCallback<T>,
+    arr: T[]
+): number => {
+    return typeof index === 'function' ? arr.findIndex(index) : index;
+};
+
+/**
+ * Get a validated index or return -1 if invalid.
+ * Handles null/empty arrays and out-of-bounds indices.
+ *
+ * @param index - A numeric index or a callback function to find the index
+ * @param arr - The array to validate against
+ * @param allowEnd - If true, allows index equal to array length (for insertions)
+ * @returns Validated index or -1 if invalid
+ *
+ * @example
+ * // Valid index within bounds
+ * getValidIndex(1, ['a', 'b', 'c']) // returns 1
+ *
+ * @example
+ * // Out of bounds returns -1
+ * getValidIndex(5, ['a', 'b', 'c']) // returns -1
+ *
+ * @example
+ * // With allowEnd for insertion
+ * getValidIndex(3, ['a', 'b', 'c'], true) // returns 3
+ */
+const getValidIndex = <T>(
+    index: number | IndexCallback<T>,
+    arr: T[] | null | undefined,
+    allowEnd: boolean = false
+): number => {
+    if (!arr) return -1;
+    const indexAt = resolveIndex(index, arr);
+    const maxIndex = allowEnd ? arr.length : arr.length - 1;
+    return indexAt >= 0 && indexAt <= maxIndex ? indexAt : -1;
+};
+
+/**
+ * Helper to modify array at an index by replacing or removing.
+ * @returns Modified array or original if invalid
+ */
+const modifyAtIndex = <T>(
+    index: number | IndexCallback<T>,
+    arr: T[] | null | undefined,
+    modifier: (arr: T[], indexAt: number) => T[]
+): T[] => {
+    if (!arr) return [];
+    const indexAt = getValidIndex(index, arr);
+    if (indexAt < 0) return arr;
+    return modifier(arr, indexAt);
+};
+
+/**
  * Insert an item at a given index
  * @param index - An index or a callback provided to findIndex
  * @param value - The value of the item to insert
@@ -151,16 +221,9 @@ export const insertItemAtIndex = <T>(
     value: T,
     arr?: T[] | null
 ) => {
-    if (!arr) {
-        return [];
-    }
-
-    const indexAt = typeof index === 'function' ? arr.findIndex(index) : index;
-
-    if (indexAt < 0 || indexAt > arr.length) {
-        return arr;
-    }
-
+    if (!arr) return [];
+    const indexAt = getValidIndex(index, arr, true);
+    if (indexAt < 0) return arr;
     return [...arr.slice(0, indexAt), value, ...arr.slice(indexAt)];
 };
 
@@ -176,17 +239,7 @@ export const replaceItemAtIndex = <T>(
     newValue: T,
     arr?: T[] | null
 ) => {
-    if (!arr) {
-        return [];
-    }
-
-    const indexAt = typeof index === 'function' ? arr.findIndex(index) : index;
-
-    if (indexAt < 0 || indexAt >= arr.length) {
-        return arr;
-    }
-
-    return [...arr.slice(0, indexAt), newValue, ...arr.slice(indexAt + 1)];
+    return modifyAtIndex(index, arr, (a, i) => [...a.slice(0, i), newValue, ...a.slice(i + 1)]);
 };
 
 /**
@@ -199,17 +252,7 @@ export const removeItemAtIndex = <T>(
     index: number | IndexCallback<T>,
     arr?: T[] | null
 ) => {
-    if (!arr) {
-        return [];
-    }
-
-    const indexAt = typeof index === 'function' ? arr.findIndex(index) : index;
-
-    if (indexAt < 0 || indexAt >= arr.length) {
-        return arr;
-    }
-
-    return [...arr.slice(0, indexAt), ...arr.slice(indexAt + 1)];
+    return modifyAtIndex(index, arr, (a, i) => [...a.slice(0, i), ...a.slice(i + 1)]);
 };
 
 /**

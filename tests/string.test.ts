@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
     camelCase,
     capitalize,
@@ -188,17 +188,16 @@ describe('string-utils', () => {
     });
 
     describe('randomStr', () => {
-        // Save original Math methods
-        const originalRandom = Math.random;
-        const originalFloor = Math.floor;
+        const savedRandom = Math.random;
+        const savedFloor = Math.floor;
 
         beforeEach(() => {
             vi.restoreAllMocks();
         });
 
         afterEach(() => {
-            Math.random = originalRandom;
-            Math.floor = originalFloor;
+            Math.random = savedRandom;
+            Math.floor = savedFloor;
         });
 
         describe('default behavior', () => {

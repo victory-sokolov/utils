@@ -50,7 +50,7 @@ export const debounce = <T extends unknown[]>(
     fn: (...args: T) => void,
     delay: number,
 ) => {
-    let timeoutID: number | undefined;
+    let timeoutID: ReturnType<typeof setTimeout> | undefined;
     let lastArgs: T | undefined;
 
     const run = () => {
@@ -63,7 +63,7 @@ export const debounce = <T extends unknown[]>(
     const debounced = (...args: T) => {
         clearTimeout(timeoutID);
         lastArgs = args;
-        timeoutID = window.setTimeout(run, delay);
+        timeoutID = setTimeout(run, delay);
     };
 
     debounced.flush = () => {
@@ -102,7 +102,7 @@ export const throttle = <Args extends unknown[]>(
             return;
         }
 
-        window.setTimeout(run, cooldown);
+        setTimeout(run, cooldown);
     };
 
     return throttled;

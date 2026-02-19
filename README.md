@@ -130,7 +130,7 @@ const isValid = isEmail('test@example.com'); // true
 - `formatDate(date?: Date): string` - Format date as YYYY-MM-DD
 - `timeAgo(date: Date): string` - Get time ago string (e.g., "2 hours ago")
 - `getMonthList(): string[]` - Get list of month names
-- `timeStamptToDate(timestamp: string | number): string` - Convert timestamp to date string
+- `timestampToDate(timestamp: string | number): string` - Convert timestamp to date string
 - `dateTimeToCron(date: Date): string` - Convert Date to cron syntax
 - `cronToDateTime(cronSyntax: string): Date` - Convert cron syntax to Date
 

@@ -120,23 +120,21 @@ describe('cryptography', () => {
     describe('encryptData and decryptData', () => {
         const secretKey = 'this-is-a-very-secret-key-that-is-long-enough'; // Must be long enough for deriveKey
 
-        it('should encrypt and decrypt a simple string successfully', async () => {
-            const originalText = 'Hello, World!';
+        const testRoundTrip = async (originalText: string) => {
             const encrypted = await encryptData(originalText, secretKey);
             const decrypted = await decryptData(encrypted, secretKey);
-
             expect(encrypted).not.toEqual(originalText);
             expect(decrypted).toBe(originalText);
+        };
+
+        it('should encrypt and decrypt a simple string successfully', async () => {
+            await testRoundTrip('Hello, World!');
         });
 
         it('should encrypt and decrypt a longer string successfully', async () => {
-            const originalText
-                = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-            const encrypted = await encryptData(originalText, secretKey);
-            const decrypted = await decryptData(encrypted, secretKey);
-
-            expect(encrypted).not.toEqual(originalText);
-            expect(decrypted).toBe(originalText);
+            await testRoundTrip(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+            );
         });
 
         it('should fail to decrypt with an incorrect secret key', async () => {

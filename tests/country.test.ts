@@ -1,10 +1,23 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
     getCountryFromISO,
     getFlagEmoji,
     getLocation,
     showPosition,
 } from '../src/country';
+
+const createMockPosition = () => ({
+    coords: {
+        latitude: 34.0522,
+        longitude: -118.2437,
+        accuracy: 10,
+        altitude: null,
+        altitudeAccuracy: null,
+        heading: null,
+        speed: null,
+    },
+    timestamp: Date.now(),
+});
 
 describe('getCountryFromISO', () => {
     it('should return the country name for a valid ISO code', () => {
@@ -23,20 +36,7 @@ describe('getCountryFromISO', () => {
 
 describe('showPosition', () => {
     it('should extract latitude and longitude from a Position object', () => {
-        const mockPosition = {
-            coords: {
-                latitude: 34.0522,
-                longitude: -118.2437,
-                accuracy: 10,
-                altitude: null,
-                altitudeAccuracy: null,
-                heading: null,
-                speed: null,
-            },
-            timestamp: Date.now(),
-        };
-
-        const result = showPosition(mockPosition);
+        const result = showPosition(createMockPosition());
         expect(result).toEqual({ latitude: 34.0522, longitude: -118.2437 });
     });
 });
@@ -69,24 +69,11 @@ describe('getLocation', () => {
     });
 
     it('should return coordinates when geolocation is supported and successful', async () => {
-        const mockPosition = {
-            coords: {
-                latitude: 34.0522,
-                longitude: -118.2437,
-                accuracy: 10,
-                altitude: null,
-                altitudeAccuracy: null,
-                heading: null,
-                speed: null,
-            },
-            timestamp: Date.now(),
-        };
-
         // Mock getCurrentPosition to call the success callback
         (
             navigator.geolocation.getCurrentPosition as ReturnType<typeof vi.fn>
         ).mockImplementationOnce((successCallback) => {
-            successCallback(mockPosition);
+            successCallback(createMockPosition());
         });
         getLocation();
 

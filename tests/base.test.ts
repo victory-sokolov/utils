@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { bytesToSize, debounce, perfStart, perfStop, throttle, wait } from '../src/base';
 
 describe('bytesToSize', () => {
@@ -40,7 +40,7 @@ describe('bytesToSize', () => {
     });
 });
 
-describe('wait', () => {
+describe('timer-based functions', () => {
     beforeEach(() => {
         vi.useFakeTimers({ toFake: ['setTimeout', 'setInterval', 'clearTimeout', 'clearInterval'] });
     });
@@ -50,244 +50,219 @@ describe('wait', () => {
         vi.useRealTimers();
     });
 
-    it('should resolve after the specified time', async () => {
-        const ms = 1000;
-        const promise = wait(ms);
+    describe('wait', () => {
+        it('should resolve after the specified time', async () => {
+            const ms = 1000;
+            const promise = wait(ms);
 
-        vi.advanceTimersByTime(ms);
+            vi.advanceTimersByTime(ms);
 
-        await expect(promise).resolves.toBeUndefined();
+            await expect(promise).resolves.toBeUndefined();
+        });
+
+        it('should resolve immediately for 0ms', async () => {
+            const promise = wait(0);
+
+            vi.advanceTimersByTime(0);
+
+            await expect(promise).resolves.toBeUndefined();
+        });
     });
 
-    it('should resolve immediately for 0ms', async () => {
-        const promise = wait(0);
+    describe('perfStart and perfStop', () => {
+        it('perfStart should return a number representing the current time', () => {
+            vi.spyOn(performance, 'now').mockReturnValue(1000); // Mock starting time
+            expect(typeof perfStart()).toBe('number');
+            expect(perfStart()).toBe(1000);
+        });
 
-        vi.advanceTimersByTime(0);
+        it('perfStop should calculate the correct elapsed time', () => {
+            vi.spyOn(performance, 'now')
+                .mockReturnValueOnce(1000) // Start time
+                .mockReturnValueOnce(2500); // End time
 
-        await expect(promise).resolves.toBeUndefined();
-    });
-});
+            const startTime = perfStart(); // This will use the first mocked value (1000)
+            vi.advanceTimersByTime(1500); // Advance timers
+            const result = perfStop(startTime); // This will use the second mocked value (2500)
 
-describe('perfStart and perfStop', () => {
-    beforeEach(() => {
-        vi.useFakeTimers({ toFake: ['setTimeout', 'setInterval', 'clearTimeout', 'clearInterval'] });
-    });
+            expect(result).toBe('Function took 1.50 seconds');
 
-    afterEach(() => {
-        vi.restoreAllMocks();
-        vi.useRealTimers();
-    });
+            vi.spyOn(performance, 'now')
+                .mockReturnValueOnce(0) // Start time
+                .mockReturnValueOnce(12345); // End time
 
-    it('perfStart should return a number representing the current time', () => {
-        vi.spyOn(performance, 'now').mockReturnValue(1000); // Mock starting time
-        expect(typeof perfStart()).toBe('number');
-        expect(perfStart()).toBe(1000);
-    });
+            const startTime2 = perfStart();
+            vi.advanceTimersByTime(12345);
+            const result2 = perfStop(startTime2);
+            expect(result2).toBe('Function took 12.35 seconds');
+        });
 
-    it('perfStop should calculate the correct elapsed time', () => {
-        vi.spyOn(performance, 'now')
-            .mockReturnValueOnce(1000) // Start time
-            .mockReturnValueOnce(2500); // End time
+        it('perfStop should handle zero elapsed time', () => {
+            vi.spyOn(performance, 'now')
+                .mockReturnValueOnce(500)
+                .mockReturnValueOnce(500);
 
-        const startTime = perfStart(); // This will use the first mocked value (1000)
-        vi.advanceTimersByTime(1500); // Advance timers
-        const result = perfStop(startTime); // This will use the second mocked value (2500)
+            const startTime = perfStart();
+            const result = perfStop(startTime);
 
-        expect(result).toBe('Function took 1.50 seconds');
-
-        vi.spyOn(performance, 'now')
-            .mockReturnValueOnce(0) // Start time
-            .mockReturnValueOnce(12345); // End time
-
-        const startTime2 = perfStart();
-        vi.advanceTimersByTime(12345);
-        const result2 = perfStop(startTime2);
-        expect(result2).toBe('Function took 12.35 seconds');
+            expect(result).toBe('Function took 0.00 seconds');
+        });
     });
 
-    it('perfStop should handle zero elapsed time', () => {
-        vi.spyOn(performance, 'now')
-            .mockReturnValueOnce(500)
-            .mockReturnValueOnce(500);
+    describe('debounce', () => {
+        it('should call the function only once after the delay', () => {
+            const func = vi.fn();
+            const debouncedFunc = debounce(func, 100);
 
-        const startTime = perfStart();
-        const result = perfStop(startTime);
+            debouncedFunc();
+            debouncedFunc();
+            debouncedFunc();
 
-        expect(result).toBe('Function took 0.00 seconds');
-    });
-});
+            expect(func).not.toHaveBeenCalled();
 
-describe('debounce', () => {
-    beforeEach(() => {
-        vi.useFakeTimers({ toFake: ['setTimeout', 'setInterval', 'clearTimeout', 'clearInterval'] });
-    });
+            vi.advanceTimersByTime(100);
+            expect(func).toHaveBeenCalledTimes(1);
+        });
 
-    afterEach(() => {
-        vi.restoreAllMocks();
-        vi.useRealTimers();
-    });
+        it('should not call the function if called again within the delay', () => {
+            const func = vi.fn();
+            const debouncedFunc = debounce(func, 100);
 
-    it('should call the function only once after the delay', () => {
-        const func = vi.fn();
-        const debouncedFunc = debounce(func, 100);
+            debouncedFunc();
+            vi.advanceTimersByTime(50);
+            debouncedFunc();
+            vi.advanceTimersByTime(50);
+            debouncedFunc();
+            vi.advanceTimersByTime(50);
 
-        debouncedFunc();
-        debouncedFunc();
-        debouncedFunc();
+            expect(func).not.toHaveBeenCalled();
 
-        expect(func).not.toHaveBeenCalled();
+            vi.advanceTimersByTime(50); // Complete the last 100ms delay
+            expect(func).toHaveBeenCalledTimes(1);
+        });
 
-        vi.advanceTimersByTime(100);
-        expect(func).toHaveBeenCalledTimes(1);
-    });
+        it('should pass the latest arguments to the function', () => {
+            const func = vi.fn();
+            const debouncedFunc = debounce(func, 100);
 
-    it('should not call the function if called again within the delay', () => {
-        const func = vi.fn();
-        const debouncedFunc = debounce(func, 100);
+            debouncedFunc(1);
+            debouncedFunc(2);
+            debouncedFunc(3);
 
-        debouncedFunc();
-        vi.advanceTimersByTime(50);
-        debouncedFunc();
-        vi.advanceTimersByTime(50);
-        debouncedFunc();
-        vi.advanceTimersByTime(50);
+            vi.advanceTimersByTime(100);
+            expect(func).toHaveBeenCalledWith(3);
+        });
 
-        expect(func).not.toHaveBeenCalled();
+        it('should allow immediate invocation with flush()', () => {
+            const func = vi.fn();
+            const debouncedFunc = debounce(func, 100);
 
-        vi.advanceTimersByTime(50); // Complete the last 100ms delay
-        expect(func).toHaveBeenCalledTimes(1);
-    });
+            debouncedFunc(1);
+            debouncedFunc(2);
+            debouncedFunc.flush();
 
-    it('should pass the latest arguments to the function', () => {
-        const func = vi.fn();
-        const debouncedFunc = debounce(func, 100);
+            expect(func).toHaveBeenCalledTimes(1);
+            expect(func).toHaveBeenCalledWith(2);
 
-        debouncedFunc(1);
-        debouncedFunc(2);
-        debouncedFunc(3);
+            vi.advanceTimersByTime(100); // Should not call again
+            expect(func).toHaveBeenCalledTimes(1);
+        });
 
-        vi.advanceTimersByTime(100);
-        expect(func).toHaveBeenCalledWith(3);
-    });
+        it('should not call the function again after flush if new calls are made before delay passes', () => {
+            const func = vi.fn();
+            const debouncedFunc = debounce(func, 100);
 
-    it('should allow immediate invocation with flush()', () => {
-        const func = vi.fn();
-        const debouncedFunc = debounce(func, 100);
+            debouncedFunc(1);
+            debouncedFunc.flush(); // Called once with 1
+            expect(func).toHaveBeenCalledTimes(1);
+            expect(func).toHaveBeenCalledWith(1);
 
-        debouncedFunc(1);
-        debouncedFunc(2);
-        debouncedFunc.flush();
+            debouncedFunc(2); // New call
+            expect(func).toHaveBeenCalledTimes(1); // Should not call immediately
 
-        expect(func).toHaveBeenCalledTimes(1);
-        expect(func).toHaveBeenCalledWith(2);
+            vi.advanceTimersByTime(100); // Delay passes
+            expect(func).toHaveBeenCalledTimes(2); // Should call again with 2
+            expect(func).toHaveBeenCalledWith(2);
+        });
 
-        vi.advanceTimersByTime(100); // Should not call again
-        expect(func).toHaveBeenCalledTimes(1);
-    });
+        it('should handle flush() when the debounced function has never been invoked', () => {
+            const func = vi.fn();
+            const debouncedFunc = debounce(func, 100);
 
-    it('should not call the function again after flush if new calls are made before delay passes', () => {
-        const func = vi.fn();
-        const debouncedFunc = debounce(func, 100);
+            debouncedFunc.flush(); // Should do nothing if not invoked
+            expect(func).not.toHaveBeenCalled();
 
-        debouncedFunc(1);
-        debouncedFunc.flush(); // Called once with 1
-        expect(func).toHaveBeenCalledTimes(1);
-        expect(func).toHaveBeenCalledWith(1);
-
-        debouncedFunc(2); // New call
-        expect(func).toHaveBeenCalledTimes(1); // Should not call immediately
-
-        vi.advanceTimersByTime(100); // Delay passes
-        expect(func).toHaveBeenCalledTimes(2); // Should call again with 2
-        expect(func).toHaveBeenCalledWith(2);
+            vi.advanceTimersByTime(100);
+            expect(func).not.toHaveBeenCalled();
+        });
     });
 
-    it('should handle flush() when the debounced function has never been invoked', () => {
-        const func = vi.fn();
-        const debouncedFunc = debounce(func, 100);
+    describe('throttle', () => {
+        it('should call the function after the cooldown on the first invocation', () => {
+            const func = vi.fn();
+            const throttledFunc = throttle(func, 100);
 
-        debouncedFunc.flush(); // Should do nothing if not invoked
-        expect(func).not.toHaveBeenCalled();
+            throttledFunc('first');
+            expect(func).not.toHaveBeenCalled(); // Not called immediately
 
-        vi.advanceTimersByTime(100);
-        expect(func).not.toHaveBeenCalled();
-    });
-});
+            vi.advanceTimersByTime(100);
+            expect(func).toHaveBeenCalledTimes(1); // Called after cooldown
+            expect(func).toHaveBeenCalledWith('first');
+        });
 
-describe('throttle', () => {
-    beforeEach(() => {
-        vi.useFakeTimers({ toFake: ['setTimeout', 'setInterval', 'clearTimeout', 'clearInterval'] });
-    });
+        it('should call the function only once within the cooldown period, with the last arguments', () => {
+            const func = vi.fn();
+            const throttledFunc = throttle(func, 100);
 
-    afterEach(() => {
-        vi.restoreAllMocks();
-        vi.useRealTimers();
-    });
+            throttledFunc('a');
+            expect(func).not.toHaveBeenCalled();
 
-    it('should call the function after the cooldown on the first invocation', () => {
-        const func = vi.fn();
-        const throttledFunc = throttle(func, 100);
+            vi.advanceTimersByTime(50); // Advance half way
+            throttledFunc('b'); // Still within cooldown
+            expect(func).not.toHaveBeenCalled();
 
-        throttledFunc('first');
-        expect(func).not.toHaveBeenCalled(); // Not called immediately
+            vi.advanceTimersByTime(49); // Still within cooldown
+            throttledFunc('c'); // Last call before cooldown ends
+            expect(func).not.toHaveBeenCalled();
 
-        vi.advanceTimersByTime(100);
-        expect(func).toHaveBeenCalledTimes(1); // Called after cooldown
-        expect(func).toHaveBeenCalledWith('first');
-    });
+            vi.advanceTimersByTime(1); // Cooldown passes
+            expect(func).toHaveBeenCalledTimes(1); // Only one call
+            expect(func).toHaveBeenCalledWith('c'); // With the last arguments
+        });
 
-    it('should call the function only once within the cooldown period, with the last arguments', () => {
-        const func = vi.fn();
-        const throttledFunc = throttle(func, 100);
+        it('should allow the function to be called again after the cooldown period', () => {
+            const func = vi.fn();
+            const throttledFunc = throttle(func, 100);
 
-        throttledFunc('a');
-        expect(func).not.toHaveBeenCalled();
+            throttledFunc(1);
+            vi.advanceTimersByTime(100);
+            expect(func).toHaveBeenCalledTimes(1);
+            expect(func).toHaveBeenCalledWith(1);
 
-        vi.advanceTimersByTime(50); // Advance half way
-        throttledFunc('b'); // Still within cooldown
-        expect(func).not.toHaveBeenCalled();
+            throttledFunc(2); // New call after cooldown
+            vi.advanceTimersByTime(100);
+            expect(func).toHaveBeenCalledTimes(2);
+            expect(func).toHaveBeenCalledWith(2);
 
-        vi.advanceTimersByTime(49); // Still within cooldown
-        throttledFunc('c'); // Last call before cooldown ends
-        expect(func).not.toHaveBeenCalled();
+            throttledFunc(3); // Another new call after cooldown
+            vi.advanceTimersByTime(100);
+            expect(func).toHaveBeenCalledTimes(3);
+            expect(func).toHaveBeenCalledWith(3);
+        });
 
-        vi.advanceTimersByTime(1); // Cooldown passes
-        expect(func).toHaveBeenCalledTimes(1); // Only one call
-        expect(func).toHaveBeenCalledWith('c'); // With the last arguments
-    });
+        it('should not call the function if no calls were made within cooldown after initial call', () => {
+            const func = vi.fn();
+            const throttledFunc = throttle(func, 100);
 
-    it('should allow the function to be called again after the cooldown period', () => {
-        const func = vi.fn();
-        const throttledFunc = throttle(func, 100);
+            throttledFunc('initial');
+            expect(func).not.toHaveBeenCalled();
 
-        throttledFunc(1);
-        vi.advanceTimersByTime(100);
-        expect(func).toHaveBeenCalledTimes(1);
-        expect(func).toHaveBeenCalledWith(1);
+            vi.advanceTimersByTime(200); // Pass cooldown
+            expect(func).toHaveBeenCalledTimes(1); // Initial call executed
+            expect(func).toHaveBeenCalledWith('initial');
 
-        throttledFunc(2); // New call after cooldown
-        vi.advanceTimersByTime(100);
-        expect(func).toHaveBeenCalledTimes(2);
-        expect(func).toHaveBeenCalledWith(2);
-
-        throttledFunc(3); // Another new call after cooldown
-        vi.advanceTimersByTime(100);
-        expect(func).toHaveBeenCalledTimes(3);
-        expect(func).toHaveBeenCalledWith(3);
-    });
-
-    it('should not call the function if no calls were made within cooldown after initial call', () => {
-        const func = vi.fn();
-        const throttledFunc = throttle(func, 100);
-
-        throttledFunc('initial');
-        expect(func).not.toHaveBeenCalled();
-
-        vi.advanceTimersByTime(200); // Pass cooldown
-        expect(func).toHaveBeenCalledTimes(1); // Initial call executed
-        expect(func).toHaveBeenCalledWith('initial');
-
-        vi.advanceTimersByTime(100); // No new calls, no further execution
-        expect(func).toHaveBeenCalledTimes(1);
+            vi.advanceTimersByTime(100); // No new calls, no further execution
+            expect(func).toHaveBeenCalledTimes(1);
+        });
     });
 });

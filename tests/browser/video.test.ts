@@ -6,6 +6,20 @@ import {
     stopCamera,
 } from '../../src/browser/video';
 
+const createVideoMock = () => {
+    const srcObjectSetter = vi.fn();
+    const videoMock = {
+        onloadedmetadata: vi.fn(),
+        play: vi.fn(),
+    };
+    Object.defineProperty(videoMock, 'srcObject', {
+        set: srcObjectSetter,
+        get: vi.fn(),
+        configurable: true,
+    });
+    return { videoMock, srcObjectSetter };
+};
+
 describe('test camera', () => {
     describe('cameraEnvironment', () => {
         it('should return "user" if not on a mobile device', () => {
@@ -50,55 +64,45 @@ describe('test camera', () => {
 
     describe('startCamera', () => {
         it('should not start camera if already streaming', async () => {
-            const videoMock: any = {
-                onloadedmetadata: vi.fn(),
-                play: vi.fn(),
-                srcObject: vi.fn(),
+            const { videoMock, srcObjectSetter } = createVideoMock();
+            const extendedVideoMock: any = Object.assign(videoMock, {
                 addTextTrack: vi.fn(),
                 captureStream: vi.fn(),
                 canPlayType: vi.fn(),
                 fastSeek: vi.fn(),
-            };
+            });
             const getUserMediaMock = vi.fn();
             (navigator as any).mediaDevices = {
                 getUserMedia: getUserMediaMock,
             };
 
-            await startCamera(true, videoMock as HTMLVideoElement);
+            await startCamera(true, extendedVideoMock as HTMLVideoElement);
 
             expect(getUserMediaMock).not.toHaveBeenCalled();
             expect(videoMock.play).not.toHaveBeenCalled();
-            expect(videoMock.srcObject).not.toHaveBeenCalled();
+            expect(srcObjectSetter).not.toHaveBeenCalled();
         });
 
         it('should handle getUserMedia error', async () => {
-            const videoMock: any = {
-                onloadedmetadata: vi.fn(),
-                play: vi.fn(),
-                srcObject: vi.fn(),
-            };
+            const { videoMock } = createVideoMock();
             const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
             const getUserMediaMock = vi.fn().mockRejectedValue(new Error('Permission denied'));
             (navigator as any).mediaDevices = {
                 getUserMedia: getUserMediaMock,
             };
 
-            await startCamera(false, videoMock as HTMLVideoElement);
+            await startCamera(false, videoMock as any);
 
             expect(consoleErrorSpy).toHaveBeenCalledWith('An error occured! Error: Permission denied');
             consoleErrorSpy.mockRestore();
         });
 
         it('should handle no getUserMedia support', async () => {
-            const videoMock: any = {
-                onloadedmetadata: vi.fn(),
-                play: vi.fn(),
-                srcObject: vi.fn(),
-            };
+            const { videoMock } = createVideoMock();
             const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
             (navigator as any).mediaDevices = undefined;
 
-            await startCamera(false, videoMock as HTMLVideoElement);
+            await startCamera(false, videoMock as any);
 
             expect(consoleErrorSpy).toHaveBeenCalledWith('getUserMedia not supported');
             consoleErrorSpy.mockRestore();
