@@ -5,7 +5,7 @@ class CustomError extends Error {
     constructor(
         message: string,
         public status?: number,
-        public cause?: Error,
+        public cause?: unknown,
     ) {
         super(message);
         this.name = 'CustomError';
@@ -18,10 +18,10 @@ interface ErrorWithStatus extends Error {
 
 const expectErrorResult = (
     result: { data: unknown; error: ErrorWithStatus | null },
-    ErrorClass: new (message: string, status?: number, cause?: Error) => Error,
+    ErrorClass: new (message: string, status?: number, cause?: unknown) => Error,
     message: string,
     status: number,
-    options?: { cause?: Error },
+    options?: { cause?: unknown },
 ) => {
     expect(result.data).toBeNull();
     expect(result.error).toBeInstanceOf(ErrorClass);

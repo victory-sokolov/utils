@@ -11,14 +11,14 @@ export const toString = (value: unknown): string => Object.prototype.toString.ca
  * @param val - The value to check
  * @returns True if the value is not undefined
  */
-export const isDef = <T = any>(val?: T): val is T => val !== undefined;
+export const isDef = <T = unknown>(val: T): val is T => val !== undefined;
 
 /**
  * Check if a value is a boolean
  * @param val - The value to check
  * @returns True if the value is a boolean
  */
-export const isBoolean = (val: any): val is boolean => typeof val === 'boolean';
+export const isBoolean = (val: unknown): val is boolean => typeof val === 'boolean';
 
 /**
  * Check if a value is a function
@@ -32,7 +32,7 @@ export const isFunction = <T>(val: T): val is T => typeof val === 'function';
  * @param val - The value to check
  * @returns True if the value is a number
  */
-export const isNumber = (val: any): val is number => typeof val === 'number';
+export const isNumber = (val: unknown): val is number => typeof val === 'number';
 
 /**
  * Check if a value is a string
@@ -56,28 +56,28 @@ export const isObject = (val: unknown): val is Record<string, unknown> =>
  * @param val - The value to check
  * @returns True if the value is undefined
  */
-export const isUndefined = (val: any): val is undefined => toString(val) === '[object Undefined]';
+export const isUndefined = (val: unknown): val is undefined => toString(val) === '[object Undefined]';
 
 /**
  * Check if a value is null
  * @param val - The value to check
  * @returns True if the value is null
  */
-export const isNull = (val: any): val is null => toString(val) === '[object Null]';
+export const isNull = (val: unknown): val is null => toString(val) === '[object Null]';
 
 /**
  * Check if a value is a RegExp
  * @param val - The value to check
  * @returns True if the value is a RegExp
  */
-export const isRegExp = (val: any): val is RegExp => toString(val) === '[object RegExp]';
+export const isRegExp = (val: unknown): val is RegExp => toString(val) === '[object RegExp]';
 
 /**
  * Check if a value is a Date
  * @param val - The value to check
  * @returns True if the value is a Date
  */
-export const isDate = (val: any): val is Date => toString(val) === '[object Date]';
+export const isDate = (val: unknown): val is Date => toString(val) === '[object Date]';
 
 /**
  * Check if a value is a JavaScript object or function
@@ -100,7 +100,7 @@ export const isHtmlElement = (element: unknown): element is Element => element i
  * @param key - The property key
  * @returns True if the object has the property
  */
-export const hasProperty = (obj: any, key: string): boolean => {
+export const hasProperty = (obj: unknown, key: string): boolean => {
     if (!obj || !key) {
         return false;
     }
@@ -112,7 +112,7 @@ export const hasProperty = (obj: any, key: string): boolean => {
  * @param val - The value to check
  * @returns True if the value is the window object
  */
-export const isWindow = (val: any): boolean =>
+export const isWindow = (val: unknown): boolean =>
     typeof window !== 'undefined' && toString(val) === '[object Window]';
 
 /**

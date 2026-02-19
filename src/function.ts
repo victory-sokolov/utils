@@ -1,5 +1,7 @@
-export type AnyFunc = (...arg: any) => any;
-export type AnyAsyncFunc<Input extends any[] = any[], Output = any> = (
+export type AnyFunc<Args extends unknown[] = unknown[], Return = unknown> = (
+    ...args: Args
+) => Return;
+export type AnyAsyncFunc<Input extends unknown[] = unknown[], Output = unknown> = (
     ...args: Input
 ) => Promise<Output>;
 
@@ -93,8 +95,9 @@ export function pipe<FirstFn extends AnyFunc, F extends AnyFunc[]>(
  * @param fn Function to check
  * @returns True if function is asynchronous
  */
-export const isAsync = <T extends (...args: any[]) => any>(fn: T): boolean =>
+export const isAsync = <T extends (...args: unknown[]) => unknown>(fn: T): boolean =>
     fn.constructor.name === 'AsyncFunction';
+
 /**
  * Pass the value through the callback, and return the value
  *

@@ -35,7 +35,7 @@ describe('test is utils', () => {
         expect(isDef('')).toBe(true);
         expect(isDef(null)).toBe(true);
         expect(isDef(false)).toBe(true);
-        expect(isDef()).toBe(false);
+        expect(isDef(undefined)).toBe(false);
     });
 
     it('is boolean', () => {
@@ -44,7 +44,7 @@ describe('test is utils', () => {
         expect(isBoolean(0)).toBe(false);
         expect(isBoolean(1)).toBe(false);
         expect(isBoolean(null)).toBe(false);
-        expect(isBoolean()).toBe(false);
+        expect(isBoolean(undefined)).toBe(false);
         expect(isBoolean('true')).toBe(false);
     });
 
@@ -103,14 +103,14 @@ describe('test is utils', () => {
     });
 
     it('is undefined', () => {
-        expect(isUndefined()).toBe(true);
+        expect(isUndefined(undefined)).toBe(true);
         expect(isUndefined(null)).toBe(false);
         expect(isUndefined(0)).toBe(false);
     });
 
     it('is null', () => {
         expect(isNull(null)).toBe(true);
-        expect(isNull()).toBe(false);
+        expect(isNull(undefined)).toBe(false);
         expect(isNull(0)).toBe(false);
     });
 
@@ -180,7 +180,7 @@ describe('test is utils', () => {
         it('isWindow should return false for non-window objects', () => {
             expect(isWindow({})).toBe(false);
             expect(isWindow(null)).toBe(false);
-            expect(isWindow()).toBe(false);
+            expect(isWindow(undefined)).toBe(false);
         });
 
         it('isBrowser should return true in a browser-like environment', () => {
@@ -196,7 +196,7 @@ describe('test is utils', () => {
             expect(toRawType(1)).toBe('Number');
             expect(toRawType(true)).toBe('Boolean');
             expect(toRawType(null)).toBe('Null');
-            expect(toRawType()).toBe('Undefined');
+            expect(toRawType(undefined)).toBe('Undefined');
             expect(toRawType(() => {})).toBe('Function');
             expect(toRawType(new Date())).toBe('Date');
             expect(toRawType(/abc/)).toBe('RegExp');
@@ -209,7 +209,7 @@ describe('test is utils', () => {
             expect(isTruthyAndNotEmpty(0)).toBe(false);
             expect(isTruthyAndNotEmpty('')).toBe(false);
             expect(isTruthyAndNotEmpty(null)).toBe(false);
-            expect(isTruthyAndNotEmpty()).toBe(false);
+            expect(isTruthyAndNotEmpty(undefined)).toBe(false);
             expect(isTruthyAndNotEmpty(Number.NaN)).toBe(false);
         });
 

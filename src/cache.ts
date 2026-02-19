@@ -1,13 +1,13 @@
-type CacheStore<T = any> = Record<string, T | undefined>;
+type CacheStore<T = unknown> = Record<string, T | undefined>;
 
-interface CacheAPI<T = any> {
+interface CacheAPI<T = unknown> {
     set: (key: string, value: T) => void;
     has: (key: string) => boolean;
     get: (key: string) => T | undefined;
     remove: (key: string) => void;
 }
 
-export const cache = <T = any>(): CacheAPI<T> => {
+export const cache = <T = unknown>(): CacheAPI<T> => {
     const store: CacheStore<T> = {};
 
     return {

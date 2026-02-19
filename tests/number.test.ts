@@ -163,7 +163,7 @@ describe('random-based functions', () => {
 
 describe('nFormatter', () => {
     it('should return 0 for undefined input', () => {
-        expect(nFormatter()).toBe(0);
+        expect(nFormatter(undefined)).toBe(0);
     });
 
     it('should return 0 for empty string', () => {

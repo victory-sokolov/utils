@@ -74,7 +74,11 @@ interface ErrorWithStatus extends Error {
  * { ErrorClass: ApiError, defaultStatus: 500 }
  * ```
  */
-type ErrorConstructor<E extends Error> = new (message: string, status?: number, cause?: any) => E;
+type ErrorConstructor<E extends Error> = new (
+    message: string,
+    status?: number,
+    cause?: unknown,
+) => E;
 
 interface TryCatchOptions<E extends Error = ErrorWithStatus> {
     /**
@@ -210,8 +214,8 @@ export async function tryCatch<T, E extends Error = ErrorWithStatus>(
             cause = undefined;
         }
         let status: number;
-        if (typeof (error as any)?.status === 'number') {
-            status = (error as any).status;
+        if (typeof error === 'object' && error !== null && 'status' in error && typeof error.status === 'number') {
+            status = error.status;
         } else {
             status = defaultStatus;
         }

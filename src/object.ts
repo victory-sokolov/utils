@@ -7,7 +7,7 @@ import { isPlainObject, isTruthyAndNotEmpty } from './is';
  * @param keys - Keys to remove from object
  * @returns Object or array of objects with keys removed
  */
-export const omit = <T extends Record<string, any>, K extends keyof T>(
+export const omit = <T extends Record<string, unknown>, K extends keyof T>(
     objOrArray: T | T[],
     ...keys: K[]
 ): Omit<T, K> | Omit<T, K>[] => {
@@ -34,7 +34,7 @@ export const omit = <T extends Record<string, any>, K extends keyof T>(
  * @param props - Keys to select from object
  * @returns Object with selected keys
  */
-export const pick = <T extends Record<string, any>, K extends keyof T>(
+export const pick = <T extends Record<string, unknown>, K extends keyof T>(
     obj: T,
     ...props: K[]
 ): { [P in K]: T[P] } => {
