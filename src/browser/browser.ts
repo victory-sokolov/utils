@@ -21,8 +21,12 @@ export const dataToFile = (content: ArrayBuffer, fileName: string, contentType: 
  * Detect device type: Mobile or Desktop
  * @returns Device type: Mobile or Desktop
  */
-export const detectDeviceType = (): DeviceType =>
-    devices.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+export const detectDeviceType = (): DeviceType => {
+    if (devices.test(navigator.userAgent)) {
+        return 'Mobile';
+    }
+    return 'Desktop';
+};
 
 /**
  * Check if user uses mobile device or desktop

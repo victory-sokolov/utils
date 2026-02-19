@@ -20,7 +20,12 @@ export const rangeParser = (range: NumberRange): number[] => {
  * @param num Number to prepend leading zero
  * @returns String with leading zero
  */
-export const addZero = (num: number): string => (num > 9 ? num.toString() : `0${num}`);
+export const addZero = (num: number): string => {
+    if (num > 9) {
+        return num.toString();
+    }
+    return `0${num}`;
+};
 
 /**
  * Get random number between two numbers

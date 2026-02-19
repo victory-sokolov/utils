@@ -108,7 +108,11 @@ export const randomStr = (len = 32, prefix = ''): string => {
         const rand = Math.random();
         const floor = Math.floor(rand * 36);
         const char = floor.toString(36);
-        result += floor > 9 && rand > 0.3 && rand < 0.7 ? char.toUpperCase() : char;
+        if (floor > 9 && rand > 0.3 && rand < 0.7) {
+            result += char.toUpperCase();
+        } else {
+            result += char;
+        }
     }
     return result.slice(0, len);
 };

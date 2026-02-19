@@ -40,9 +40,15 @@ export const formatPrice = (
 
     const dollars = price / 100;
 
+    let minimumFractionDigits: number;
+    if (dollars % 1 !== 0) {
+        minimumFractionDigits = 2;
+    } else {
+        minimumFractionDigits = 0;
+    }
     return new Intl.NumberFormat(locale, {
         currency,
-        minimumFractionDigits: dollars % 1 !== 0 ? 2 : 0,
+        minimumFractionDigits,
         style: 'currency',
     }).format(dollars);
 };

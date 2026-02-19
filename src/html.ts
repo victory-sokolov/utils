@@ -36,24 +36,28 @@ export const removeInlineStyles = (text: string): string =>
  * @param str HTML string
  * @returns Escaped HTML tags
  */
-export const escape = (str: string): string =>
-    str && reHasUnescapedHtml.test(str)
-        ? str.replace(reUnescapedHtml, chr => htmlEscapes[chr as keyof typeof htmlEscapes])
-        : str || '';
+export const escape = (str: string): string => {
+    if (str && reHasUnescapedHtml.test(str)) {
+        return str.replace(reUnescapedHtml, chr => htmlEscapes[chr as keyof typeof htmlEscapes]);
+    }
+    return str || '';
+};
 
 /**
  * Unescape HTML entities
  * @param str HTML string
  * @returns Unescaped HTML entity
  */
-export const unescape = (str: string): string =>
-    str && reHasEscapedHtml.test(str)
-        ? str.replace(reEscapedHtml, entity => {
-              if (entity.startsWith('&#x')) {
-                  return String.fromCodePoint(Number.parseInt(entity.slice(3, -1), 16));
-              } else if (entity.startsWith('&#')) {
-                  return String.fromCodePoint(Number.parseInt(entity.slice(2, -1), 10));
-              }
-              return htmlUnescapes[entity] || entity;
-          })
-        : str || '';
+export const unescape = (str: string): string => {
+    if (str && reHasEscapedHtml.test(str)) {
+        return str.replace(reEscapedHtml, entity => {
+            if (entity.startsWith('&#x')) {
+                return String.fromCodePoint(Number.parseInt(entity.slice(3, -1), 16));
+            } else if (entity.startsWith('&#')) {
+                return String.fromCodePoint(Number.parseInt(entity.slice(2, -1), 10));
+            }
+            return htmlUnescapes[entity] || entity;
+        });
+    }
+    return str || '';
+};

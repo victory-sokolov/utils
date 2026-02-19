@@ -137,11 +137,17 @@ export const cronToDateTime = (cronSyntax: string): Date => {
     const now = new Date();
     const currentYear = now.getUTCFullYear();
 
+    let dayValue: string;
+    if (days === '*') {
+        dayValue = '1';
+    } else {
+        dayValue = days ?? '1';
+    }
     const nextDate = new Date(
         Date.UTC(
             currentYear,
             Number(months) - 1,
-            Number(days === '*' ? '1' : days),
+            Number(dayValue),
             Number(hours),
             Number(minutes),
             0,

@@ -11,8 +11,12 @@ interface VideoConstraint {
  * Detect which camera environment is used
  * @returns environment ur user camera
  */
-export const cameraEnvironment = (): CameraEnvironment =>
-    isMobileDevice() ? 'environment' : 'user';
+export const cameraEnvironment = (): CameraEnvironment => {
+    if (isMobileDevice()) {
+        return 'environment';
+    }
+    return 'user';
+};
 
 /**
  * Get current resolution depending on device

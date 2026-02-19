@@ -36,7 +36,12 @@ export const bytesToSize = (bytes: number): string => {
     const exp = Math.floor(Math.log(bytes) / Math.log(1000));
     const size = bytes / 1000 ** exp;
     const short = Math.round(size);
-    const unit = exp === 0 ? '' : ` ${SIZE_UNITS[exp - 1]}`;
+    let unit: string;
+    if (exp === 0) {
+        unit = '';
+    } else {
+        unit = ` ${SIZE_UNITS[exp - 1]}`;
+    }
     return short.toString() + unit;
 };
 

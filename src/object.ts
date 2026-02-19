@@ -96,11 +96,10 @@ export function filterFalsyFromObject<T extends RecordObject | RecordObject[]>(o
         return result;
     };
 
-    return (
-        Array.isArray(objOrArray)
-            ? objOrArray.map(item => filterObject(item))
-            : filterObject(objOrArray)
-    ) as T;
+    if (Array.isArray(objOrArray)) {
+        return objOrArray.map(item => filterObject(item)) as T;
+    }
+    return filterObject(objOrArray) as T;
 }
 
 /**
@@ -117,9 +116,11 @@ export const unionWithExclusion = (left: RecordObject, right: RecordObject): Rec
 
                 if (isPlainObject(value)) {
                     const existing = prev[key];
-                    prev[key] = isPlainObject(existing)
-                        ? unionWithExclusion(existing as RecordObject, value as RecordObject)
-                        : value;
+                    if (isPlainObject(existing)) {
+                        prev[key] = unionWithExclusion(existing as RecordObject, value as RecordObject);
+                    } else {
+                        prev[key] = value;
+                    }
                 } else {
                     prev[key] = value;
                 }

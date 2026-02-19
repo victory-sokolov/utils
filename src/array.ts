@@ -7,10 +7,12 @@ import { hasProperty, isString } from './is';
  * @returns flattened array
  */
 export const flattenArray = <T>(listOfArrays: readonly T[]): readonly T[] =>
-    listOfArrays.reduce(
-        (res, arr) => [...res, ...(Array.isArray(arr) ? flattenArray(arr) : [arr])],
-        [] as T[],
-    );
+    listOfArrays.reduce((res, arr) => {
+        if (Array.isArray(arr)) {
+            return [...res, ...flattenArray(arr)];
+        }
+        return [...res, arr];
+    }, [] as T[]);
 
 /**
  * Get unique values from array
@@ -74,8 +76,15 @@ export const sortAsc = <T extends Record<string, any>>(array: readonly T[]): rea
         return 0;
     });
 
-const fSort = (firstValue: number, secondValue: number): number =>
-    firstValue > secondValue ? 1 : firstValue < secondValue ? -1 : 0;
+const fSort = (firstValue: number, secondValue: number): number => {
+    if (firstValue > secondValue) {
+        return 1;
+    }
+    if (firstValue < secondValue) {
+        return -1;
+    }
+    return 0;
+};
 
 /**
  * Sort array by specific function or by the first numeric value in objects
@@ -142,8 +151,12 @@ export const sortBy = (arr: RecordObject[] = [], order = 1, key = ''): RecordObj
  * // Using a callback to find by condition
  * resolveIndex(item => item.id === 'foo', [{id: 'bar'}, {id: 'foo'}]) // returns 1
  */
-const resolveIndex = <T>(index: number | IndexCallback<T>, arr: T[]): number =>
-    typeof index === 'function' ? arr.findIndex(index) : index;
+const resolveIndex = <T>(index: number | IndexCallback<T>, arr: T[]): number => {
+    if (typeof index === 'function') {
+        return arr.findIndex(index);
+    }
+    return index;
+};
 
 /**
  * Get a validated index or return -1 if invalid.
@@ -175,8 +188,16 @@ const getValidIndex = <T>(
         return -1;
     }
     const indexAt = resolveIndex(index, arr);
-    const maxIndex = allowEnd ? arr.length : arr.length - 1;
-    return indexAt >= 0 && indexAt <= maxIndex ? indexAt : -1;
+    let maxIndex: number;
+    if (allowEnd) {
+        maxIndex = arr.length;
+    } else {
+        maxIndex = arr.length - 1;
+    }
+    if (indexAt >= 0 && indexAt <= maxIndex) {
+        return indexAt;
+    }
+    return -1;
 };
 
 /**
@@ -259,7 +280,10 @@ export const median = (arr: number[]): number => {
 
     const mid = Math.floor(arr.length / 2);
     const nums = [...arr].toSorted((first, second) => first - second);
-    return (arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1]! + nums[mid]!) / 2) as number;
+    if (arr.length % 2 !== 0) {
+        return nums[mid] as number;
+    }
+    return ((nums[mid - 1]! + nums[mid]!) / 2) as number;
 };
 
 /**

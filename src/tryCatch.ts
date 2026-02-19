@@ -189,13 +189,32 @@ export async function tryCatch<T, E extends Error = ErrorWithStatus>(
 
     try {
         const result = fn();
-        const data = result instanceof Promise ? await result : result;
+        let data: T;
+        if (result instanceof Promise) {
+            data = await result;
+        } else {
+            data = result;
+        }
         return { data, error: null };
     } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        const cause = error instanceof Error && error.cause ? (error.cause as Error) : undefined;
-        const status =
-            typeof (error as any)?.status === 'number' ? (error as any).status : defaultStatus;
+        let message: string;
+        if (error instanceof Error) {
+            message = error.message;
+        } else {
+            message = String(error);
+        }
+        let cause: Error | undefined;
+        if (error instanceof Error && error.cause) {
+            cause = error.cause as Error;
+        } else {
+            cause = undefined;
+        }
+        let status: number;
+        if (typeof (error as any)?.status === 'number') {
+            status = (error as any).status;
+        } else {
+            status = defaultStatus;
+        }
 
         // If a custom ErrorClass is provided AND the thrown error is already an instance of it,
         // We return the original error instance, but ensure it has status and cause.
