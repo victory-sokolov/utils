@@ -30,9 +30,9 @@ export const showPosition = (position: Position): { latitude: number; longitude:
  * Returns coordinates
  * @returns Position object with latitude and longitude properties
  */
-export const getLocation = (): Position | void => {
+export const getLocation = (): Position => {
     if (navigator.geolocation) {
-        return navigator.geolocation.getCurrentPosition(showPosition);
+        return navigator.geolocation.getCurrentPosition(showPosition)!;
     }
     throw new Error('Geolocation is not supported by this browser.');
 };

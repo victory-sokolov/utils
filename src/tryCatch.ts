@@ -210,8 +210,6 @@ export async function tryCatch<T, E extends Error = ErrorWithStatus>(
         let cause: Error | undefined;
         if (error instanceof Error && error.cause) {
             cause = error.cause as Error;
-        } else {
-            cause = undefined;
         }
         let status: number;
         if (
@@ -229,8 +227,9 @@ export async function tryCatch<T, E extends Error = ErrorWithStatus>(
         // We return the original error instance, but ensure it has status and cause.
         // We do NOT do this if ErrorClass is the native Error, because we want to ensure
         // Native Errors always get a status property applied through Object.assign on a new instance.
+        // Ensure status and cause are on original error
         if (options.ErrorClass && error instanceof options.ErrorClass) {
-            Object.assign(error, { cause, status }); // Ensure status and cause are on original error
+            Object.assign(error, { cause, status });
             return { data: null, error: error as E };
         }
 

@@ -11,6 +11,8 @@
         "perf": "warn",
         "vitest/expect-expect": "error",
         "import/no-cycle": ["error", { "maxDepth": 3 }],
+        "import/no-nodejs-modules": "off",
+        "import/prefer-default-export": "off",
         "import/no-named-export": "off",
         "import/group-exports": "off",
         "import/exports-last": "off",

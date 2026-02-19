@@ -126,10 +126,14 @@ export const slugify = (text: string): string =>
     text
         .toString()
         .toLowerCase()
-        .replaceAll(/\s+/g, '-') // Replace spaces with -
-        .replaceAll(/[^\w-]+/g, '') // Remove all non-word chars
-        .replaceAll(/-{2,}/g, '-') // Replace multiple - with single -
-        .replace(/^-+/, '') // Trim - from start of text
+        // Replace spaces with -
+        .replaceAll(/\s+/g, '-')
+        // Remove all non-word chars
+        .replaceAll(/[^\w-]+/g, '')
+        // Replace multiple - with single -
+        .replaceAll(/-{2,}/g, '-')
+        // Trim - from start of text
+        .replace(/^-+/, '')
         .replace(/-+$/, '');
 
 /**
