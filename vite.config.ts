@@ -4,7 +4,6 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     test: {
         coverage: {
-            reporter: ['text', 'html'],
             exclude: [
                 'node_modules/',
                 'eslint.config.js',
@@ -16,6 +15,7 @@ export default defineConfig({
                 './src/index.ts',
                 './src/node/index.ts',
             ],
+            reporter: ['text', 'html'],
         },
         environment: 'jsdom',
         globals: true,

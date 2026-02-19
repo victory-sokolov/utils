@@ -16,7 +16,7 @@ export const cache = <T = any>(): CacheAPI<T> => {
         },
 
         has(key: string): boolean {
-            return !!this.get(key);
+            return Boolean(this.get(key));
         },
 
         remove(key: string): void {

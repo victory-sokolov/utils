@@ -1,11 +1,11 @@
 import type { CameraEnvironment } from '../types';
 import { isMobileDevice } from './browser';
 
-type VideoConstraint = {
+interface VideoConstraint {
     facingMode?: CameraEnvironment;
     height: { exact?: number; ideal?: number };
     width: { exact?: number; ideal?: number };
-};
+}
 
 /**
  * Detect which camera environment is used

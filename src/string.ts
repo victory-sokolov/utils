@@ -8,11 +8,11 @@ export const camelCase = (str: string): string =>
         // Convert the string to lowercase
         .toLowerCase()
         // Remove all non-alphanumeric characters and spaces
-        .replace(/[^a-z0-9]/g, ' ')
+        .replaceAll(/[^a-z0-9]/g, ' ')
         // Capitalize the first letter of each word (after spaces)
-        .replace(/\s(\w)/g, (match, letter) => letter.toUpperCase())
+        .replaceAll(/\s(\w)/g, (match, letter) => letter.toUpperCase())
         // Remove leading spaces
-        .replace(/\s+/g, '')
+        .replaceAll(/\s+/g, '')
         // Return the first letter in lowercase and the rest as-is
         .replace(/^(\w)/, (match, letter) => letter.toLowerCase());
 
@@ -34,8 +34,8 @@ export const pascalCase = (str: string, separator = ' '): string =>
  */
 export const kebabCase = (str: string): string =>
     str
-        .replace(/([a-z])([A-Z])/g, '$1-$2')
-        .replace(/[\s_]/g, '-')
+        .replaceAll(/([a-z])([A-Z])/g, '$1-$2')
+        .replaceAll(/[\s_]/g, '-')
         .toLowerCase();
 
 /**
@@ -92,7 +92,7 @@ export const isValidUUID = (id: string): boolean => {
  * @returns HEX code
  */
 export const randomHexColorCode = (): string => {
-    const hexValue = (Math.random() * 0xfffff * 1_000_000).toString(16);
+    const hexValue = (Math.random() * 0xf_ff_ff * 1_000_000).toString(16);
     return `#${hexValue.slice(0, 6)}`;
 };
 
@@ -122,9 +122,9 @@ export const slugify = (text: string): string =>
     text
         .toString()
         .toLowerCase()
-        .replace(/\s+/g, '-') // Replace spaces with -
-        .replace(/[^\w-]+/g, '') // Remove all non-word chars
-        .replace(/-{2,}/g, '-') // Replace multiple - with single -
+        .replaceAll(/\s+/g, '-') // Replace spaces with -
+        .replaceAll(/[^\w-]+/g, '') // Remove all non-word chars
+        .replaceAll(/-{2,}/g, '-') // Replace multiple - with single -
         .replace(/^-+/, '') // Trim - from start of text
         .replace(/-+$/, '');
 

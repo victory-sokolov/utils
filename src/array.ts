@@ -7,16 +7,17 @@ import { hasProperty, isString } from './is';
  * @returns flattened array
  */
 export const flattenArray = <T>(listOfArrays: readonly T[]): readonly T[] =>
-    listOfArrays.reduce((res, arr) => {
-        return [...res, ...(Array.isArray(arr) ? flattenArray(arr) : [arr])];
-    }, [] as T[]);
+    listOfArrays.reduce(
+        (res, arr) => [...res, ...(Array.isArray(arr) ? flattenArray(arr) : [arr])],
+        [] as T[],
+    );
 
 /**
  * Get unique values from array
  * @param array - The array to get unique values from
  * @returns Array of unique values
  */
-export const unique = <T>(array: readonly T[]): Collection<T> => Array.from(new Set(array));
+export const unique = <T>(array: readonly T[]): Collection<T> => [...new Set(array)];
 
 /**
  * Remove item from array by value
@@ -54,8 +55,8 @@ export const randomItem = <T>(arr: T[], count: number): T[] => {
  */
 export const shuffleArray = <T>(arr: Collection<T>): Collection<T> =>
     arr
-        .map(value => ({ value, sort: Math.random() }))
-        .sort((first, second) => first.sort - second.sort)
+        .map(value => ({ sort: Math.random(), value }))
+        .toSorted((first, second) => first.sort - second.sort)
         .map(({ value }) => value);
 
 /**
@@ -64,7 +65,7 @@ export const shuffleArray = <T>(arr: Collection<T>): Collection<T> =>
  * @returns Sorted array of objects
  */
 export const sortAsc = <T extends Record<string, any>>(array: readonly T[]): readonly T[] =>
-    [...array].sort((first, second) => {
+    [...array].toSorted((first, second) => {
         if (first.key < second.key) {
             return -1;
         } else if (first.key > second.key) {
@@ -104,11 +105,7 @@ export const sort = <T extends Record<string, unknown>>(
  * @param key - Key to sort by
  * @returns Sorted array of objects
  */
-export const sortBy = (
-    arr: RecordObject[] = [],
-    order: number = 1,
-    key: string = '',
-): RecordObject[] => {
+export const sortBy = (arr: RecordObject[] = [], order = 1, key = ''): RecordObject[] => {
     if (!isString(key) || arr.length === 0 || !hasProperty(arr[0], key)) {
         return arr;
     }
@@ -172,7 +169,7 @@ const resolveIndex = <T>(index: number | IndexCallback<T>, arr: T[]): number =>
 const getValidIndex = <T>(
     index: number | IndexCallback<T>,
     arr: T[] | null | undefined,
-    allowEnd: boolean = false,
+    allowEnd = false,
 ): number => {
     if (!arr) {
         return -1;
@@ -283,7 +280,7 @@ export const intersection = <T>(arr1: T[], arr2: T[]): T[] => {
  * @returns Object where keys are array values and values are the count of occurrences
  */
 export const countBy = (array: (number | string)[]): Record<string, number> =>
-    array.reduce((obj: { [key: string]: number }, item) => {
+    array.reduce((obj: Record<string, number>, item) => {
         if (item in obj) {
             obj[item]! += 1;
         } else {

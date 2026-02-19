@@ -20,11 +20,13 @@ export const formatDate = (date?: Date): string | undefined => {
  * @returns Month array
  */
 export const getMonthList = (): MonthName[] =>
-    Array.from({ length: 12 }, (_, index): MonthName => {
-        return new Date(0, index).toLocaleString('en-US', {
-            month: 'long',
-        }) as MonthName;
-    });
+    Array.from(
+        { length: 12 },
+        (_, index): MonthName =>
+            new Date(0, index).toLocaleString('en-US', {
+                month: 'long',
+            }) as MonthName,
+    );
 
 /**
  * Convert timestamp to date format
@@ -167,11 +169,7 @@ export const cronToDateTime = (cronSyntax: string): Date => {
  * @param step
  * @returns Date range
  */
-export const dateRangeGenerator = function* dateRangeGenerator(
-    start: Date,
-    end: Date,
-    step: number = 1,
-) {
+export const dateRangeGenerator = function* dateRangeGenerator(start: Date, end: Date, step = 1) {
     const currentDate = start;
     while (currentDate < end) {
         yield new Date(currentDate);
