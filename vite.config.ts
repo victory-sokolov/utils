@@ -3,10 +3,6 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
     test: {
-        globals: true,
-        isolate: false,
-        environment: 'jsdom',
-        threads: 4,
         coverage: {
             reporter: ['text', 'html'],
             exclude: [
@@ -21,8 +17,12 @@ export default defineConfig({
                 './src/node/index.ts',
             ],
         },
+        environment: 'jsdom',
+        globals: true,
+        isolate: false,
         resolve: {
             conditions: ['source'],
         },
+        threads: 4,
     },
 });

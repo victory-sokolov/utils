@@ -19,13 +19,14 @@ const plugins = [
     filesize(),
     commonjs(),
     esbuild({
-        target: 'node16',
         minify: true,
+        target: 'node16',
     }),
 ];
 
 export default [
     ...entries.map((input) => ({
+        external: [],
         input,
         output: [
             {
@@ -39,10 +40,10 @@ export default [
                 sourcemap: true,
             },
         ],
-        external: [],
         plugins,
     })),
     ...entries.map((input) => ({
+        external: [],
         input,
         output: [
             {
@@ -58,10 +59,10 @@ export default [
                 format: 'cjs',
             },
         ],
-        external: [],
         plugins: [dts({ respectExternal: true })],
     })),
     {
+        external: ['fs', 'path'],
         input: 'src/node/index.ts',
         output: [
             {
@@ -75,7 +76,6 @@ export default [
                 sourcemap: true,
             },
         ],
-        external: ['fs', 'path'],
         plugins,
     },
 ];

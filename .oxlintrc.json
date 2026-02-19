@@ -1,0 +1,48 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "rules": {
+        "typescript": "error",
+        "import": "warn",
+        "eslint": "warn",
+        "unicorn": "warn",
+        "jsdoc": "warn",
+        "node": "warn",
+        "perf": "warn",
+        "vitest/expect-expect": "error",
+        "import/no-cycle": ["error", { "maxDepth": 3 }],
+        "typescript/no-floating-promises": "error",
+        "typescript/no-unsafe-assignment": "warn",
+        "typescript/no-explicit-any": "error",
+        "no-magic-numbers": "off",
+        "id-length": ["warn", { "exceptions": ["T", "K", "V", "E", "U", "P", "R"] }]
+    },
+    "plugins": ["jest", "import", "typescript", "oxc", "unicorn", "node"],
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "globals": {
+        "expect": true,
+        "describe": true,
+        "it": true,
+        "test": true,
+        "beforeEach": true,
+        "afterEach": true,
+        "beforeAll": true,
+        "afterAll": true,
+        "vi": true,
+        "vitest": true
+    },
+    "categories": {
+        "correctness": "error",
+        "suspicious": "warn",
+        "pedantic": "warn",
+        "perf": "warn",
+        "restriction": "warn",
+        "style": "warn",
+        "nursery": "warn"
+    },
+    "ignorePatterns": ["docs/**", "tests/**"],
+    "settings": {}
+}
