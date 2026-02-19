@@ -6,7 +6,7 @@ import type { MonthName } from './types';
  * @returns YYYY-MM-DD string or undefined if date is not provided
  */
 export const formatDate = (date?: Date): string | undefined => {
-    if (!date) return;
+    if (!date || Number.isNaN(date.getTime())) return;
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
@@ -30,8 +30,8 @@ export const getMonthList = () => {
  * @param timestamp Timestamp in string or number type
  * @returns Formatted date from timestamp
  */
-export const timestampToDate = (timestamp: string | number) => {
-    return formatDate(new Date(Number(timestamp)));
+export const timestampToDate = (timestamp: string | number): string => {
+    return formatDate(new Date(Number(timestamp))) ?? '';
 };
 
 /**

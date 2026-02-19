@@ -60,16 +60,16 @@ describe('tryCatch', () => {
         expectErrorResult(result, Error, errorMessage, 500);
     });
 
-    it('should convert Error thrown values to Error instances with default status', async () => {
+    it('should convert non-Error thrown values (strings) to Error instances with default status', async () => {
         const result = await tryCatch(() => {
-            throw new Error('Non-error string');
+            throw 'Non-error string';
         });
         expectErrorResult(result, Error, 'Non-error string', 500);
     });
 
     it('should convert actual non-Error thrown values (strings) to Error instances', async () => {
         const result = await tryCatch(() => {
-            throw new Error('Plain string error');
+            throw 'Plain string error';
         });
         expectErrorResult(result, Error, 'Plain string error', 500);
     });

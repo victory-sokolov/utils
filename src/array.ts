@@ -188,7 +188,7 @@ const getValidIndex = <T>(
     arr: T[] | null | undefined,
     allowEnd: boolean = false
 ): number => {
-    if (!arr || arr.length === 0) return -1;
+    if (!arr) return -1;
     const indexAt = resolveIndex(index, arr);
     const maxIndex = allowEnd ? arr.length : arr.length - 1;
     return indexAt >= 0 && indexAt <= maxIndex ? indexAt : -1;
