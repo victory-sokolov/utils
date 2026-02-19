@@ -21,21 +21,22 @@ export const $$ = (
 ): NodeListOf<HTMLElement> => context.querySelectorAll(selector);
 
 // Styles
-export const style = (el: HTMLElement, styles: Record<string, string>) => {
+export const style = (el: HTMLElement, styles: Record<string, string>): void => {
     Object.keys(styles).forEach(name => {
         (el.style as any)[name as keyof CSSStyleDeclaration] = styles[name];
     });
 };
 
 // Class
-export const addClass = (el: HTMLElement, ...classArgs: string[]) => el.classList.add(...classArgs);
-export const removeClass = (el: HTMLElement, ...classArgs: string[]) =>
+export const addClass = (el: HTMLElement, ...classArgs: string[]): void =>
+    el.classList.add(...classArgs);
+export const removeClass = (el: HTMLElement, ...classArgs: string[]): void =>
     el.classList.remove(...classArgs);
 
 // Dom operation
-export const insertBefore = (node: HTMLElement, beforeNode: HTMLElement) =>
+export const insertBefore = (node: HTMLElement, beforeNode: HTMLElement): Element | null =>
     node.insertAdjacentElement('beforebegin', beforeNode);
-export const insertAfter = (node: HTMLElement, afterNode: HTMLElement) =>
+export const insertAfter = (node: HTMLElement, afterNode: HTMLElement): Element | null =>
     node.insertAdjacentElement('afterend', afterNode);
-export const prepend = (node: HTMLElement, preNode: HTMLElement) =>
+export const prepend = (node: HTMLElement, preNode: HTMLElement): Element | null =>
     node.insertAdjacentElement('afterbegin', preNode);

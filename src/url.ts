@@ -3,4 +3,4 @@
  * @param url URL to add trailing slash
  * @returns URL with trailing slash added
  */
-export const addTrailingSlash = (url: string) => url.replace(/\/?$/, '/');
+export const addTrailingSlash = (url: string): string => url.replace(/\/?$/, '/');

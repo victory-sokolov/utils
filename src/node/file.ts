@@ -8,7 +8,7 @@ import path from 'node:path';
  * @param fileList List of files
  * @returns List of the files from directory
  */
-export const readDirRecursive = async (dir: string, fileList: string[] = []) => {
+export const readDirRecursive = async (dir: string, fileList: string[] = []): Promise<string[]> => {
     const exclude = new Set(['node_modules', '.venv', '.env']);
     const files = await readdir(dir);
     for (const file of files) {
@@ -28,7 +28,7 @@ export const readDirRecursive = async (dir: string, fileList: string[] = []) => 
  * @param path File path
  * @returns True if file exists otherwise false
  */
-export const isFileExists = async (path: string) => {
+export const isFileExists = async (path: string): Promise<boolean> => {
     try {
         await stat(path);
         return true;
@@ -41,5 +41,5 @@ export const isFileExists = async (path: string) => {
  * Create directory if not exists
  * @param dir
  */
-export const createDirIfNotExists = (dir: string) =>
+export const createDirIfNotExists = (dir: string): void =>
     !existsSync(dir) ? mkdirSync(dir) : undefined;

@@ -17,8 +17,11 @@ type Currency =
  * @example
  * toDollars(1000); // '$10.00'
  */
-export const toDollars = (cents: number, currency: Currency = 'USD', locale: string = 'en-US') =>
-    (cents / 100).toLocaleString(locale, { currency, style: 'currency' });
+export const toDollars = (
+    cents: number,
+    currency: Currency = 'USD',
+    locale: string = 'en-US',
+): string => (cents / 100).toLocaleString(locale, { currency, style: 'currency' });
 
 /**
  * Format price in cents
@@ -30,7 +33,7 @@ export const formatPrice = (
     priceInCents: string,
     currency: Currency = 'USD',
     locale: string = 'en-US',
-) => {
+): string => {
     const price = Number.parseFloat(priceInCents);
 
     // Handle invalid numbers

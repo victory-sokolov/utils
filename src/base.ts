@@ -11,7 +11,7 @@ export const wait = (ms: number): Promise<void> => new Promise(resolve => setTim
  * Start time
  * @returns {number} time in seconds
  */
-export const perfStart = () => performance.now();
+export const perfStart = (): number => performance.now();
 
 /**
  * End time of function
@@ -47,24 +47,27 @@ export const bytesToSize = (bytes: number): string => {
  * @param delay Function delay
  * @returns new function
  */
-export const debounce = <T extends unknown[]>(fn: (...args: T) => void, delay: number) => {
+export const debounce = <T extends unknown[]>(
+    fn: (...args: T) => void,
+    delay: number,
+): ((...args: T) => void) & { flush: () => void } => {
     let timeoutID: ReturnType<typeof setTimeout> | undefined;
     let lastArgs: T | undefined;
 
-    const run = () => {
+    const run = (): void => {
         if (lastArgs) {
             fn(...lastArgs);
             lastArgs = undefined;
         }
     };
 
-    const debounced = (...args: T) => {
+    const debounced = (...args: T): void => {
         clearTimeout(timeoutID);
         lastArgs = args;
         timeoutID = setTimeout(run, delay);
     };
 
-    debounced.flush = () => {
+    debounced.flush = (): void => {
         clearTimeout(timeoutID);
         run();
     };
@@ -78,17 +81,20 @@ export const debounce = <T extends unknown[]>(fn: (...args: T) => void, delay: n
  * @param cooldown Timer arg
  * @returns a new function, which when executed, stores the call arguments and starts the cooldown timer
  */
-export const throttle = <Args extends unknown[]>(fn: (...args: Args) => void, cooldown: number) => {
+export const throttle = <Args extends unknown[]>(
+    fn: (...args: Args) => void,
+    cooldown: number,
+): ((...args: Args) => void) => {
     let lastArgs: Args | undefined;
 
-    const run = () => {
+    const run = (): void => {
         if (lastArgs) {
             fn(...lastArgs);
             lastArgs = undefined;
         }
     };
 
-    const throttled = (...args: Args) => {
+    const throttled = (...args: Args): void => {
         const isOnCooldown = Boolean(lastArgs);
 
         lastArgs = args;

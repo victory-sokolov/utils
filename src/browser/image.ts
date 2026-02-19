@@ -23,7 +23,7 @@ export const setBase64Img = (imageData: string): string => `data:image/png;base6
  * Convert file to base64 encoded format
  * @param file File blob
  */
-export const fileToBase64 = (file: Blob) => {
+export const fileToBase64 = (file: Blob): void => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (event: Event) => (event.target as FileReader).result;

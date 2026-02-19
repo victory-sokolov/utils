@@ -8,7 +8,12 @@ import nodeCrypto from 'node:crypto';
  * @param keyLen Key length. Default to 64
  * @returns Hashed object with meta information
  */
-export const hashString = (str: string, iterations = 10_000, keyLen = 64, digest = 'sha512') => {
+export const hashString = (
+    str: string,
+    iterations = 10_000,
+    keyLen = 64,
+    digest = 'sha512',
+): { hash: string; iterations: number; keyLen: number; salt: string } => {
     const salt = nodeCrypto.randomBytes(128).toString('base64');
     const hash = nodeCrypto.pbkdf2Sync(str, salt, iterations, keyLen, digest).toString('hex');
     return {
@@ -36,7 +41,7 @@ export const validateHash = (
     iterations: number,
     keyLen: number,
     digest: string,
-) =>
+): boolean =>
     savedHash ===
     nodeCrypto.pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString('hex');
 

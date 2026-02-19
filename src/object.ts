@@ -151,7 +151,7 @@ export const uniqueObject = (data: RecordObject[], key: string): RecordObject[] 
  *
  * @category Object
  */
-export const objectKeys = <T extends object>(obj: T) =>
+export const objectKeys = <T extends object>(obj: T): Array<`${keyof T & (string | number | boolean | null | undefined)}`> =>
     Object.keys(obj) as Array<`${keyof T & (string | number | boolean | null | undefined)}`>;
 
 /**
@@ -159,7 +159,7 @@ export const objectKeys = <T extends object>(obj: T) =>
  *
  * @category Object
  */
-export const objectEntries = <T extends object>(obj: T) =>
+export const objectEntries = <T extends object>(obj: T): Array<[keyof T, T[keyof T]]> =>
     Object.entries(obj) as Array<[keyof T, T[keyof T]]>;
 
 /**

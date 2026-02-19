@@ -4,7 +4,7 @@
  * @param v - The value to get type string for
  * @returns The type string
  */
-export const toString = (value: unknown) => Object.prototype.toString.call(value);
+export const toString = (value: unknown): string => Object.prototype.toString.call(value);
 
 /**
  * Check if a value is defined (not undefined)
@@ -84,7 +84,7 @@ export const isDate = (val: any): val is Date => toString(val) === '[object Date
  * @param val - The value to check
  * @returns True if the value is an object or function
  */
-export const isJsObject = (val: any) =>
+export const isJsObject = (val: unknown): boolean =>
     val !== null && (typeof val === 'function' || typeof val === 'object');
 
 /**

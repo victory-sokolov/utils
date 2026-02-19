@@ -1,6 +1,12 @@
 import type { CameraEnvironment } from '../types';
 import { isMobileDevice } from './browser';
 
+type VideoConstraint = {
+    facingMode?: CameraEnvironment;
+    height: { exact?: number; ideal?: number };
+    width: { exact?: number; ideal?: number };
+};
+
 /**
  * Detect which camera environment is used
  * @returns environment ur user camera
@@ -12,13 +18,13 @@ export const cameraEnvironment = (): CameraEnvironment =>
  * Get current resolution depending on device
  * @returns Video resolution
  */
-export const getVideoConstraint = () => {
+export const getVideoConstraint = (): VideoConstraint => {
     const resolutions = {
         qqvga: { height: { exact: 120 }, width: { exact: 160 } },
         qvga: { height: { exact: 240 }, width: { exact: 320 } },
         vga: { height: { exact: 480 }, width: { exact: 640 } },
     } as const;
-    let videoConstraint;
+    let videoConstraint: VideoConstraint;
 
     if (isMobileDevice()) {
         videoConstraint = {

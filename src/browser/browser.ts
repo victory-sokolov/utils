@@ -39,14 +39,15 @@ export const isMobileDevice = (): boolean => {
  * Get Operating System
  * @returns Operating System
  */
-export const getOs = () => navigator?.userAgentData?.platform || navigator?.platform || 'unknown';
+export const getOs = (): string =>
+    navigator?.userAgentData?.platform || navigator?.platform || 'unknown';
 
 /**
  * Save object to json file and download it
  * @param obj Object to export
  * @param fileName output file name
  */
-export const downloadAsJson = (obj: Record<string, unknown>, fileName: string) => {
+export const downloadAsJson = (obj: Record<string, unknown>, fileName: string): void => {
     const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(obj))}`;
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);
@@ -60,7 +61,7 @@ export const downloadAsJson = (obj: Record<string, unknown>, fileName: string) =
  * Check if page is reloaded
  * @returns True if page reloaded
  */
-export const isPageReloaded = () => {
+export const isPageReloaded = (): boolean => {
     const perf = window.performance;
     if (!perf) {
         return false;

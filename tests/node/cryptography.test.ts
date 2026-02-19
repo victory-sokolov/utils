@@ -64,7 +64,10 @@ describe('cryptography', () => {
         it('should invalidate a tampered hash', () => {
             const testString = 'myPassword123';
             const { salt, hash, iterations, keyLen } = hashString(testString);
-            const tamperedHash = `a${hash.slice(1)}`;
+            // Use a character different from the first one to ensure tampering
+            const firstChar = hash[0]!;
+            const tamperChar = firstChar === 'a' ? 'b' : 'a';
+            const tamperedHash = `${tamperChar}${hash.slice(1)}`;
 
             const isValid = validateHash(
                 testString,

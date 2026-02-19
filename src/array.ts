@@ -212,7 +212,7 @@ export const insertItemAtIndex = <T>(
     index: number | IndexCallback<T>,
     value: T,
     arr?: T[] | null,
-) => {
+): T[] => {
     if (!arr) {
         return [];
     }
@@ -234,7 +234,12 @@ export const replaceItemAtIndex = <T>(
     index: number | IndexCallback<T>,
     newValue: T,
     arr?: T[] | null,
-) => modifyAtIndex(index, arr, (array, idx) => [...array.slice(0, idx), newValue, ...array.slice(idx + 1)]);
+): T[] =>
+    modifyAtIndex(index, arr, (array, idx) => [
+        ...array.slice(0, idx),
+        newValue,
+        ...array.slice(idx + 1),
+    ]);
 
 /**
  * Remove an item at an index
@@ -242,7 +247,7 @@ export const replaceItemAtIndex = <T>(
  * @param arr - The array to remove from
  * @returns New array with the item removed
  */
-export const removeItemAtIndex = <T>(index: number | IndexCallback<T>, arr?: T[] | null) =>
+export const removeItemAtIndex = <T>(index: number | IndexCallback<T>, arr?: T[] | null): T[] =>
     modifyAtIndex(index, arr, (array, idx) => [...array.slice(0, idx), ...array.slice(idx + 1)]);
 
 /**
@@ -280,11 +285,8 @@ export const intersection = <T>(arr1: T[], arr2: T[]): T[] => {
 export const countBy = (array: (number | string)[]): Record<string, number> =>
     array.reduce((obj: { [key: string]: number }, item) => {
         if (item in obj) {
-            // item is already a key so increment
             obj[item]! += 1;
         } else {
-            // first time seeing item so initialize it
-            // with count of 1
             obj[item] = 1;
         }
 
@@ -296,7 +298,7 @@ export const countBy = (array: (number | string)[]): Record<string, number> =>
  * @param data - Array of data to count occurrences
  * @returns Object with unique elements as keys and their occurrence counts as values
  */
-export const occurrenceCount = <T>(data: T[]) => {
+export const occurrenceCount = <T>(data: T[]): Record<string, number> => {
     const unique = [...new Set(data)];
     return Object.fromEntries(
         unique.map(char => {

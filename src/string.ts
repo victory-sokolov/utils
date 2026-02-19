@@ -102,7 +102,7 @@ export const randomHexColorCode = (): string => {
  * @param prefix
  * @returns Random string
  */
-export const randomStr = (len = 32, prefix = '') => {
+export const randomStr = (len = 32, prefix = ''): string => {
     let result = prefix;
     for (let idx = 0; idx < len; idx++) {
         const rand = Math.random();
@@ -118,7 +118,7 @@ export const randomStr = (len = 32, prefix = '') => {
  * @param text text to be slugified
  * @returns slugified text
  */
-export const slugify = (text: string) =>
+export const slugify = (text: string): string =>
     text
         .toString()
         .toLowerCase()
@@ -146,7 +146,7 @@ export const capitalize = (str: string): string => {
  * @param length Length of string to truncate
  * @returns Truncated string
  */
-export const truncate = (str: string, length: number) => {
+export const truncate = (str: string, length: number): string => {
     if (!str || str.length <= length) {
         return str;
     }
@@ -158,7 +158,7 @@ export const truncate = (str: string, length: number) => {
  * @param str
  * @returns Masked string
  */
-export const maskString = (str: string) => {
+export const maskString = (str: string): string => {
     const firstChars = str.slice(0, 4);
     const lastChars = str.slice(-4);
     return `${firstChars} **** ${lastChars}`;

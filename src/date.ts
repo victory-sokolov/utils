@@ -19,7 +19,7 @@ export const formatDate = (date?: Date): string | undefined => {
  * Get month names as a list of strings
  * @returns Month array
  */
-export const getMonthList = () =>
+export const getMonthList = (): MonthName[] =>
     Array.from({ length: 12 }, (_, index): MonthName => {
         return new Date(0, index).toLocaleString('en-US', {
             month: 'long',
@@ -81,7 +81,7 @@ export const getMonthLastDay = (date: Date): Date => {
  * @param date Date to get first day of the month
  * @returns First day of the month
  */
-export const getMonthFirstDay = (date: Date) => {
+export const getMonthFirstDay = (date: Date): Date => {
     const monthFirstDay = new Date(date.getFullYear(), date.getMonth());
     return monthFirstDay;
 };
@@ -247,7 +247,7 @@ export const getTimeZone = (lang: string): string => {
  * Get current timestamp
  * @returns timestamp
  */
-export const timestamp = () => Number(Date.now());
+export const timestamp = (): number => Number(Date.now());
 
 /**
  * Get current ISO timestamp (2025-01-26T12:42:00.123Z")

@@ -36,7 +36,7 @@ export const removeInlineStyles = (text: string): string =>
  * @param str HTML string
  * @returns Escaped HTML tags
  */
-export const escape = (str: string) =>
+export const escape = (str: string): string =>
     str && reHasUnescapedHtml.test(str)
         ? str.replace(reUnescapedHtml, chr => htmlEscapes[chr as keyof typeof htmlEscapes])
         : str || '';
@@ -46,7 +46,7 @@ export const escape = (str: string) =>
  * @param str HTML string
  * @returns Unescaped HTML entity
  */
-export const unescape = (str: string) =>
+export const unescape = (str: string): string =>
     str && reHasEscapedHtml.test(str)
         ? str.replace(reEscapedHtml, entity => {
               if (entity.startsWith('&#x')) {

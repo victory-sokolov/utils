@@ -42,6 +42,7 @@ describe('browser utilities', () => {
         _removeChildSpy = vi
             .spyOn(document.body, 'removeChild')
             .mockImplementation((child: Node) => child);
+        vi.spyOn(document.body, 'append').mockImplementation(() => {});
         clickSpy = vi.spyOn(mockAnchor, 'click');
         createObjectURLSpy = vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:mockurl');
         revokeObjectURLSpy = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {});
@@ -61,9 +62,9 @@ describe('browser utilities', () => {
             dataToFile(content, fileName, contentType);
 
             expect(document.createElement).toHaveBeenCalledWith('a');
-            expect(createObjectURLSpy).toHaveBeenCalledWith();
+            expect(createObjectURLSpy).toHaveBeenCalledWith(expect.any(Blob));
             expect(clickSpy).toHaveBeenCalledWith();
-            expect(revokeObjectURLSpy).toHaveBeenCalledWith();
+            expect(revokeObjectURLSpy).toHaveBeenCalledWith('blob:mockurl');
             const mockAnchorAfterCall = (document.createElement as ReturnType<typeof vi.fn>).mock
                 .results[0]!.value;
             expect(mockAnchorAfterCall.download).toBe(fileName);
@@ -163,7 +164,7 @@ describe('browser utilities', () => {
             expect(document.createElement).toHaveBeenCalledWith('a');
             expect(mockAnchor.setAttribute).toHaveBeenCalledWith('href', expectedDataStr);
             expect(mockAnchor.setAttribute).toHaveBeenCalledWith('download', `${fileName}.json`);
-            expect(document.body.appendChild).toHaveBeenCalledWith(mockAnchor);
+            expect(document.body.append).toHaveBeenCalledWith(mockAnchor);
             expect(mockAnchor.click).toHaveBeenCalledWith();
             expect(mockAnchor.remove).toHaveBeenCalledWith();
         });
