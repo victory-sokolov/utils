@@ -41,4 +41,5 @@ export const isFileExists = async (path: string) => {
  * Create directory if not exists
  * @param dir
  */
-export const createDirIfNotExists = (dir: string) => !existsSync(dir) ? mkdirSync(dir) : undefined;
+export const createDirIfNotExists = (dir: string) =>
+    !existsSync(dir) ? mkdirSync(dir) : undefined;

@@ -43,7 +43,9 @@ export const getVideoConstraint = () => {
  */
 export const startCamera = async (isStreaming: boolean, video: HTMLVideoElement): Promise<void> => {
     const constraint = getVideoConstraint();
-    if (isStreaming) {return;}
+    if (isStreaming) {
+        return;
+    }
 
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         try {
@@ -69,7 +71,9 @@ export const startCamera = async (isStreaming: boolean, video: HTMLVideoElement)
  * @param isStreaming isStreaming
  */
 export const stopCamera = (stream: MediaStream, isStreaming: boolean): void => {
-    if (!isStreaming) {return;}
+    if (!isStreaming) {
+        return;
+    }
 
     stream.getTracks().forEach(track => {
         track.stop();

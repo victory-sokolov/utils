@@ -4,7 +4,7 @@
  * @param v - The value to get type string for
  * @returns The type string
  */
-export const toString = (v: any) => Object.prototype.toString.call(v);
+export const toString = (value: unknown) => Object.prototype.toString.call(value);
 
 /**
  * Check if a value is defined (not undefined)
@@ -143,8 +143,12 @@ export const toRawType = (value: unknown): string => {
  * @returns `true` if the value is considered meaningful, otherwise `false`.
  */
 export const isTruthyAndNotEmpty = (value: unknown): boolean => {
-    if (!value) {return false;} // Falsy
-    if (Array.isArray(value) && value.length === 0) {return false;} // Empty array
+    if (!value) {
+        return false;
+    } // Falsy
+    if (Array.isArray(value) && value.length === 0) {
+        return false;
+    } // Empty array
     if (
         value &&
         typeof value === 'object' &&

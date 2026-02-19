@@ -55,7 +55,9 @@ describe('tryCatch', () => {
 
     it('should return null data and an Error for an asynchronous function that rejects with an Error', async () => {
         const errorMessage = 'Async error';
-        const result = await tryCatch(async () => { throw new Error(errorMessage); });
+        const result = await tryCatch(async () => {
+            throw new Error(errorMessage);
+        });
         expectErrorResult(result, Error, errorMessage, 500);
     });
 

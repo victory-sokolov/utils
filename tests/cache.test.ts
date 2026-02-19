@@ -1,7 +1,6 @@
 import { cache } from '../src/cache';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-
 describe('cache', () => {
     let testCache: ReturnType<typeof cache>;
 

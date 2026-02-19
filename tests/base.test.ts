@@ -79,9 +79,7 @@ describe('timer-based functions', () => {
         });
 
         it('perfStop should calculate the correct elapsed time', () => {
-            vi.spyOn(performance, 'now')
-                .mockReturnValueOnce(1000)
-                .mockReturnValueOnce(2500);
+            vi.spyOn(performance, 'now').mockReturnValueOnce(1000).mockReturnValueOnce(2500);
 
             const startTime = perfStart();
             vi.advanceTimersByTime(1500);
@@ -89,9 +87,7 @@ describe('timer-based functions', () => {
 
             expect(result).toBe('Function took 1.50 seconds');
 
-            vi.spyOn(performance, 'now')
-                .mockReturnValueOnce(0)
-                .mockReturnValueOnce(12_345);
+            vi.spyOn(performance, 'now').mockReturnValueOnce(0).mockReturnValueOnce(12_345);
 
             const startTime2 = perfStart();
             vi.advanceTimersByTime(12_345);

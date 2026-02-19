@@ -6,7 +6,9 @@ import type { MonthName } from './types';
  * @returns YYYY-MM-DD string or undefined if date is not provided
  */
 export const formatDate = (date?: Date): string | undefined => {
-    if (!date || Number.isNaN(date.getTime())) {return;}
+    if (!date || Number.isNaN(date.getTime())) {
+        return;
+    }
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
@@ -17,8 +19,9 @@ export const formatDate = (date?: Date): string | undefined => {
  * Get month names as a list of strings
  * @returns Month array
  */
-export const getMonthList = () => Array.from({ length: 12 }, (_, i): MonthName => {
-        return new Date(0, i).toLocaleString('en-US', {
+export const getMonthList = () =>
+    Array.from({ length: 12 }, (_, index): MonthName => {
+        return new Date(0, index).toLocaleString('en-US', {
             month: 'long',
         }) as MonthName;
     });
@@ -28,14 +31,16 @@ export const getMonthList = () => Array.from({ length: 12 }, (_, i): MonthName =
  * @param timestamp Timestamp in string or number type
  * @returns Formatted date from timestamp
  */
-export const timestampToDate = (timestamp: string | number): string => formatDate(new Date(Number(timestamp))) ?? '';
+export const timestampToDate = (timestamp: string | number): string =>
+    formatDate(new Date(Number(timestamp))) ?? '';
 
 /**
  * Convert Date to date with timestamp separated with dashes
  * @param date Date to convert
  * @returns Date with timestamp
  */
-export const dateWithTimeStamp = (date: Date): string => date.toJSON().slice(0, 19).replace('T', '-').replaceAll(':', '-');
+export const dateWithTimeStamp = (date: Date): string =>
+    date.toJSON().slice(0, 19).replace('T', '-').replaceAll(':', '-');
 
 /**
  * Get last day of the week
@@ -162,11 +167,15 @@ export const cronToDateTime = (cronSyntax: string): Date => {
  * @param step
  * @returns Date range
  */
-export const dateRangeGenerator = function*  dateRangeGenerator(start: Date, end: Date, step: number = 1) {
-    const d = start;
-    while (d < end) {
-        yield new Date(d);
-        d.setDate(d.getDate() + step);
+export const dateRangeGenerator = function* dateRangeGenerator(
+    start: Date,
+    end: Date,
+    step: number = 1,
+) {
+    const currentDate = start;
+    while (currentDate < end) {
+        yield new Date(currentDate);
+        currentDate.setDate(currentDate.getDate() + step);
     }
 };
 
@@ -217,7 +226,9 @@ export const timeAgo = (date: Date): string => {
         return `${interval} minutes ago`;
     }
 
-    if (seconds < 10) {return 'just now';}
+    if (seconds < 10) {
+        return 'just now';
+    }
 
     return `${Math.floor(seconds)} seconds ago`;
 };

@@ -22,9 +22,9 @@ export const getCountryFromISO = (iso: string): string | undefined => {
  * @returns Position object with latitude and longitude properties
  */
 export const showPosition = (position: Position) => ({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-    });
+    latitude: position.coords.latitude,
+    longitude: position.coords.longitude,
+});
 
 /**
  * Returns coordinates
@@ -43,8 +43,6 @@ export const getLocation = (): Position | void => {
  * @returns Flag emoji string
  */
 export const getFlagEmoji = (countryCode: string): string => {
-    const codePoints = [...countryCode
-        .toUpperCase()]
-        .map(char => 127_397 + char.codePointAt(0));
+    const codePoints = [...countryCode.toUpperCase()].map(char => 127_397 + char.codePointAt(0));
     return String.fromCodePoint(...codePoints);
 };

@@ -9,19 +9,20 @@ const devices = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
  * @param contentType Output file type
  */
 export const dataToFile = (content: ArrayBuffer, fileName: string, contentType: string): void => {
-    const a = document.createElement('a');
+    const anchor = document.createElement('a');
     const file = new Blob([content], { type: contentType });
-    a.href = URL.createObjectURL(file);
-    a.download = fileName;
-    a.click();
-    URL.revokeObjectURL(a.href);
+    anchor.href = URL.createObjectURL(file);
+    anchor.download = fileName;
+    anchor.click();
+    URL.revokeObjectURL(anchor.href);
 };
 
 /**
  * Detect device type: Mobile or Desktop
  * @returns Device type: Mobile or Desktop
  */
-export const detectDeviceType = (): DeviceType => devices.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+export const detectDeviceType = (): DeviceType =>
+    devices.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
 
 /**
  * Check if user uses mobile device or desktop
@@ -61,11 +62,13 @@ export const downloadAsJson = (obj: Record<string, unknown>, fileName: string) =
  */
 export const isPageReloaded = () => {
     const perf = window.performance;
-    if (!perf) {return false;}
+    if (!perf) {
+        return false;
+    }
 
     if (typeof perf.getEntriesByType === 'function') {
         const entries = perf.getEntriesByType('navigation') as PerformanceNavigationTiming[];
-        return entries.some(e => e.type === 'reload');
+        return entries.some(entry => entry.type === 'reload');
     }
 
     return false;

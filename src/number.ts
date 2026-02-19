@@ -12,7 +12,7 @@ export const rangeParser = (range: NumberRange): number[] => {
         end = start;
         start = 1;
     }
-    return Array.from({ length: end - start + 1 }, (_, i) => i + start);
+    return Array.from({ length: end - start + 1 }, (_, index) => index + start);
 };
 
 /**
@@ -20,7 +20,7 @@ export const rangeParser = (range: NumberRange): number[] => {
  * @param num Number to prepend leading zero
  * @returns String with leading zero
  */
-export const addZero = (num: number) => num > 9 ? num.toString() : `0${num}`;
+export const addZero = (num: number) => (num > 9 ? num.toString() : `0${num}`);
 
 /**
  * Get random number between two numbers
@@ -36,7 +36,9 @@ export const getRandomNumber = (min: number, max: number) => Math.random() * (ma
  * @returns Formatted number
  */
 export const nFormatter = (amount: string | undefined): number => {
-    if (!amount) {return 0;}
+    if (!amount) {
+        return 0;
+    }
     const multipliers: Record<string, number> = { k: 1000, m: 1_000_000 };
     const lastChar = amount.at(-1).toLowerCase();
     if (lastChar in multipliers && multipliers[lastChar] !== undefined) {

@@ -36,10 +36,9 @@ export const validateHash = (
     iterations: number,
     keyLen: number,
     digest: string,
-) => (
-        savedHash ===
-        nodeCrypto.pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString('hex')
-    );
+) =>
+    savedHash ===
+    nodeCrypto.pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString('hex');
 
 /**
  * Derives a cryptographic key from a password using PBKDF2

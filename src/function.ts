@@ -82,11 +82,10 @@ export function pipe<FirstFn extends AnyFunc, F extends AnyFunc[]>(
         const allFns = [firstFnOrSecondFn, ...fns].filter(fn => fn !== undefined);
         return allFns.reduce((acc, fn) => fn(acc), (argOrFirstFn as AnyFunc)());
     }
-        return (fns as AnyFunc[]).reduce(
-            (acc, fn) => fn(acc),
-            (firstFnOrSecondFn as FirstFn)(argOrFirstFn),
-        );
-    
+    return (fns as AnyFunc[]).reduce(
+        (acc, fn) => fn(acc),
+        (firstFnOrSecondFn as FirstFn)(argOrFirstFn),
+    );
 }
 
 /**

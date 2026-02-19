@@ -30,7 +30,9 @@ export const perfStop = (startTime: number): string => {
  * @returns Human readable size from bytes
  */
 export const bytesToSize = (bytes: number): string => {
-    if (bytes === 0) {return '0';}
+    if (bytes === 0) {
+        return '0';
+    }
     const exp = Math.floor(Math.log(bytes) / Math.log(1000));
     const size = bytes / 1000 ** exp;
     const short = Math.round(size);

@@ -118,7 +118,10 @@ describe('filterFalsyFromObject', () => {
             { a: 1, b: 0, c: false, d: null, e: undefined },
             { a: null, b: 12, c: 'hello', d: { a: 1 }, e: [], f: {} },
         ];
-        expect(filterFalsyFromObject(obj)).toStrictEqual([{ a: 1 }, { b: 12, c: 'hello', d: { a: 1 } }]);
+        expect(filterFalsyFromObject(obj)).toStrictEqual([
+            { a: 1 },
+            { b: 12, c: 'hello', d: { a: 1 } },
+        ]);
     });
 
     it('should accept ISO date strings', () => {
