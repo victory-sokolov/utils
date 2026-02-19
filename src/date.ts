@@ -30,7 +30,7 @@ export const getMonthList = () => {
  * @param timestamp Timestamp in string or number type
  * @returns Formatted date from timestamp
  */
-export const timeStamptToDate = (timestamp: string | number) => {
+export const timestampToDate = (timestamp: string | number) => {
     return formatDate(new Date(Number(timestamp)));
 };
 
