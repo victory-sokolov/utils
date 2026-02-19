@@ -214,7 +214,12 @@ export async function tryCatch<T, E extends Error = ErrorWithStatus>(
             cause = undefined;
         }
         let status: number;
-        if (typeof error === 'object' && error !== null && 'status' in error && typeof error.status === 'number') {
+        if (
+            typeof error === 'object' &&
+            error !== null &&
+            'status' in error &&
+            typeof error.status === 'number'
+        ) {
             status = error.status;
         } else {
             status = defaultStatus;

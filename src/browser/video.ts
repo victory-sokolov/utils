@@ -64,7 +64,7 @@ export const startCamera = async (isStreaming: boolean, video: HTMLVideoElement)
                 video: constraint,
             });
             video.srcObject = stream;
-            video.onloadedmetadata = () => {
+            video.onloadedmetadata = (): void => {
                 video.play();
             };
         } catch (error) {

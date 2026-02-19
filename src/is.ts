@@ -56,7 +56,8 @@ export const isObject = (val: unknown): val is Record<string, unknown> =>
  * @param val - The value to check
  * @returns True if the value is undefined
  */
-export const isUndefined = (val: unknown): val is undefined => toString(val) === '[object Undefined]';
+export const isUndefined = (val: unknown): val is undefined =>
+    toString(val) === '[object Undefined]';
 
 /**
  * Check if a value is null

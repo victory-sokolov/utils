@@ -175,7 +175,11 @@ export const cronToDateTime = (cronSyntax: string): Date => {
  * @param step
  * @returns Date range
  */
-export const dateRangeGenerator = function* dateRangeGenerator(start: Date, end: Date, step = 1) {
+export const dateRangeGenerator = function* dateRangeGenerator(
+    start: Date,
+    end: Date,
+    step = 1,
+): Generator<Date> {
     const currentDate = start;
     while (currentDate < end) {
         yield new Date(currentDate);

@@ -66,9 +66,7 @@ export const shuffleArray = <T>(arr: Collection<T>): Collection<T> =>
  * @param array - Array of objects to sort
  * @returns Sorted array of objects
  */
-export const sortAsc = <T extends { key: string | number }>(
-    array: readonly T[],
-): readonly T[] =>
+export const sortAsc = <T extends { key: string | number }>(array: readonly T[]): readonly T[] =>
     [...array].toSorted((first, second) => {
         if (first.key < second.key) {
             return -1;
@@ -101,7 +99,7 @@ export const sort = <T extends Record<string, unknown>>(
     const copyArray = [...arr];
     const fn =
         fSorting ||
-        ((first: T, second: T) => {
+        ((first: T, second: T): number => {
             const valA = Number(Object.values(first)[0]);
             const valB = Number(Object.values(second)[0]);
             return fSort(valA, valB);
