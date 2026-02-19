@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { tryCatch } from '../src/tryCatch';
 
-// Define a custom error class for testing purposes
 class CustomError extends Error {
     constructor(
         message: string,
@@ -41,7 +40,7 @@ describe('tryCatch', () => {
     });
 
     it('should return data and no error for a successful asynchronous function', async () => {
-        const result = await tryCatch(async () => Promise.resolve('async success'));
+        const result = await tryCatch(async () => 'async success');
         expect(result.data).toBe('async success');
         expect(result.error).toBeNull();
     });
@@ -56,7 +55,7 @@ describe('tryCatch', () => {
 
     it('should return null data and an Error for an asynchronous function that rejects with an Error', async () => {
         const errorMessage = 'Async error';
-        const result = await tryCatch(async () => Promise.reject(new Error(errorMessage)));
+        const result = await tryCatch(async () => { throw new Error(errorMessage); });
         expectErrorResult(result, Error, errorMessage, 500);
     });
 
@@ -123,11 +122,11 @@ describe('tryCatch', () => {
     });
 
     it('should handle functions resolving to null or undefined gracefully', async () => {
-        const resultNull = await tryCatch(async () => Promise.resolve(null));
+        const resultNull = await tryCatch(async () => null);
         expect(resultNull.data).toBeNull();
         expect(resultNull.error).toBeNull();
 
-        const resultUndefined = await tryCatch(async () => Promise.resolve(undefined));
+        const resultUndefined = await tryCatch(async () => undefined);
         expect(resultUndefined.data).toBeUndefined();
         expect(resultUndefined.error).toBeNull();
     });
@@ -141,7 +140,7 @@ describe('tryCatch', () => {
             { ErrorClass: CustomError },
         );
         expect(result.data).toBeNull();
-        expect(result.error).toBe(originalError); // Expect exact instance
+        expect(result.error).toBe(originalError);
     });
 
     it('should capture the cause property if present in the thrown error', async () => {

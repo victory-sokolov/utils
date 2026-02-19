@@ -14,17 +14,17 @@ export const cameraEnvironment = (): CameraEnvironment =>
  */
 export const getVideoConstraint = () => {
     const resolutions = {
-        qqvga: { width: { exact: 160 }, height: { exact: 120 } },
-        qvga: { width: { exact: 320 }, height: { exact: 240 } },
-        vga: { width: { exact: 640 }, height: { exact: 480 } },
+        qqvga: { height: { exact: 120 }, width: { exact: 160 } },
+        qvga: { height: { exact: 240 }, width: { exact: 320 } },
+        vga: { height: { exact: 480 }, width: { exact: 640 } },
     } as const;
     let videoConstraint;
 
     if (isMobileDevice()) {
         videoConstraint = {
-            width: { ideal: window.screen.height },
-            height: { ideal: window.screen.width },
             facingMode: cameraEnvironment(),
+            height: { ideal: window.screen.width },
+            width: { ideal: window.screen.height },
         } as const;
     } else {
         if (window.innerWidth < 960) {
@@ -43,20 +43,20 @@ export const getVideoConstraint = () => {
  */
 export const startCamera = async (isStreaming: boolean, video: HTMLVideoElement): Promise<void> => {
     const constraint = getVideoConstraint();
-    if (isStreaming) return;
+    if (isStreaming) {return;}
 
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
-                video: constraint,
                 audio: false,
+                video: constraint,
             });
             video.srcObject = stream;
             video.onloadedmetadata = () => {
                 video.play();
             };
-        } catch (err) {
-            console.error(`An error occured! ${err}`);
+        } catch (error) {
+            console.error(`An error occured! ${error}`);
         }
     } else {
         console.error('getUserMedia not supported');
@@ -69,7 +69,7 @@ export const startCamera = async (isStreaming: boolean, video: HTMLVideoElement)
  * @param isStreaming isStreaming
  */
 export const stopCamera = (stream: MediaStream, isStreaming: boolean): void => {
-    if (!isStreaming) return;
+    if (!isStreaming) {return;}
 
     stream.getTracks().forEach(track => {
         track.stop();

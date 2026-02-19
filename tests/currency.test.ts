@@ -4,9 +4,9 @@ import { formatPrice, toDollars } from '../src/currency';
 describe('formatPrice', () => {
     describe('basic formatting', () => {
         it('should format whole dollar amounts without cents for USD', () => {
-            expect(formatPrice('1000')).toBe('$10'); // $10.00 -> $10
-            expect(formatPrice('5000')).toBe('$50'); // $50.00 -> $50
-            expect(formatPrice('10000')).toBe('$100'); // $100.00 -> $100
+            expect(formatPrice('1000')).toBe('$10');
+            expect(formatPrice('5000')).toBe('$50');
+            expect(formatPrice('10000')).toBe('$100');
         });
 
         it('should format amounts with cents showing 2 decimal places', () => {
@@ -29,12 +29,12 @@ describe('formatPrice', () => {
         });
 
         it('should format EUR correctly - always shows 2 decimal places', () => {
-            expect(formatPrice('1000', 'EUR')).toBe('€10'); // Your function removes .00
+            expect(formatPrice('1000', 'EUR')).toBe('€10');
             expect(formatPrice('1234', 'EUR')).toBe('€12.34');
         });
 
         it('should format GBP correctly - always shows 2 decimal places', () => {
-            expect(formatPrice('1000', 'GBP')).toBe('£10'); // Your function removes .00
+            expect(formatPrice('1000', 'GBP')).toBe('£10');
             expect(formatPrice('1234', 'GBP')).toBe('£12.34');
         });
     });
@@ -46,13 +46,11 @@ describe('formatPrice', () => {
 
         it('should format for German locale', () => {
             const result = formatPrice('123456', 'EUR', 'de-DE');
-            // Could be "1.234,56 €" or "1.234,56€" depending on environment
             expect(result).toMatch(/1\.234,56\s*€/);
         });
 
         it('should format for French locale', () => {
             const result = formatPrice('123456', 'EUR', 'fr-FR');
-            // Could contain various space characters
             expect(result).toContain('1 234,56');
         });
     });
@@ -70,7 +68,7 @@ describe('formatPrice', () => {
         });
 
         it('should handle decimal input strings', () => {
-            expect(formatPrice('99.99')).toBe('$1.00'); // 99.99 cents -> $0.9999 -> $1.00
+            expect(formatPrice('99.99')).toBe('$1.00');
             expect(formatPrice('123.45')).toBe('$1.23');
         });
 
@@ -105,7 +103,7 @@ describe('toDollars', () => {
         it('should convert cents to dollars for whole amounts', () => {
             expect(toDollars(1000)).toBe('$10.00');
             expect(toDollars(5000)).toBe('$50.00');
-            expect(toDollars(10000)).toBe('$100.00');
+            expect(toDollars(10_000)).toBe('$100.00');
         });
 
         it('should convert cents to dollars with decimal amounts', () => {
@@ -139,8 +137,8 @@ describe('toDollars', () => {
         });
 
         it('should format JPY correctly', () => {
-            expect(toDollars(1000, 'JPY')).toBe('¥10'); // JPY usually doesn't use decimals
-            expect(toDollars(1234, 'JPY')).toBe('¥12'); // Rounds down to whole yen
+            expect(toDollars(1000, 'JPY')).toBe('¥10');
+            expect(toDollars(1234, 'JPY')).toBe('¥12');
         });
 
         it('should format CAD correctly', () => {
@@ -151,16 +149,16 @@ describe('toDollars', () => {
 
     describe('different locales', () => {
         it('should use en-US locale by default', () => {
-            expect(toDollars(123456)).toBe('$1,234.56');
+            expect(toDollars(123_456)).toBe('$1,234.56');
         });
 
         it('should format for French locale with EUR', () => {
-            const result = toDollars(123456, 'EUR', 'fr-FR');
-            expect(result).toContain('1 234,56'); // Uses narrow no-break space
+            const result = toDollars(123_456, 'EUR', 'fr-FR');
+            expect(result).toContain('1 234,56');
         });
 
         it('should format for British locale with GBP', () => {
-            expect(toDollars(123456, 'GBP', 'en-GB')).toBe('£1,234.56');
+            expect(toDollars(123_456, 'GBP', 'en-GB')).toBe('£1,234.56');
         });
     });
 
@@ -172,19 +170,18 @@ describe('toDollars', () => {
         });
 
         it('should handle very large amounts', () => {
-            expect(toDollars(100000000)).toBe('$1,000,000.00');
-            expect(toDollars(123456789)).toBe('$1,234,567.89');
+            expect(toDollars(100_000_000)).toBe('$1,000,000.00');
+            expect(toDollars(123_456_789)).toBe('$1,234,567.89');
         });
 
         it('should handle fractional cents (rounding behavior)', () => {
-            // Note: toLocaleString may handle rounding differently by environment
-            expect(toDollars(1000.5)).toBe('$10.01'); // Rounds up
-            expect(toDollars(1000.4)).toBe('$10.00'); // Rounds down
+            expect(toDollars(1000.5)).toBe('$10.01');
+            expect(toDollars(1000.4)).toBe('$10.00');
         });
 
         it('should handle very small fractional amounts', () => {
-            expect(toDollars(0.1)).toBe('$0.00'); // Rounds down
-            expect(toDollars(0.5)).toBe('$0.01'); // Rounds up
+            expect(toDollars(0.1)).toBe('$0.00');
+            expect(toDollars(0.5)).toBe('$0.01');
         });
     });
 
@@ -205,7 +202,6 @@ describe('toDollars', () => {
 
     describe('currency-specific behaviors', () => {
         it("should handle currencies that don't use decimal places", () => {
-            // JPY typically doesn't use decimal places
             expect(toDollars(1000, 'JPY')).toBe('¥10');
             expect(toDollars(1234, 'JPY')).toBe('¥12');
         });

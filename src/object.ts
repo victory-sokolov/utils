@@ -23,10 +23,10 @@ export const omit = <T extends Record<string, any>, K extends keyof T>(
     // Check if input is an array of objects
     if (Array.isArray(objOrArray)) {
         return objOrArray.map(omitKeysFromObject);
-    } else {
+    }
         // Input is a single object
         return omitKeysFromObject(objOrArray);
-    }
+    
 };
 
 /**
@@ -49,7 +49,7 @@ export const pick = <T extends Record<string, any>, K extends keyof T>(
  * @returns Flatten object
  */
 export const flattenObject = (obj: RecordObject): RecordObject => {
-    const flattened: { [k: string]: unknown } = {};
+    const flattened: Record<string, unknown> = {};
 
     Object.keys(obj).forEach(key => {
         const value = obj[key];
@@ -108,8 +108,7 @@ export function filterFalsyFromObject<T extends RecordObject | RecordObject[]>(o
  * @param right
  * @returns New combined object
  */
-export const unionWithExclusion = (left: RecordObject, right: RecordObject): RecordObject => {
-    return [left, right].reduce<RecordObject>((prev, current) => {
+export const unionWithExclusion = (left: RecordObject, right: RecordObject): RecordObject => [left, right].reduce<RecordObject>((prev, current) => {
         if (current) {
             Object.entries(current).forEach(([key, value]) => {
                 if (!value) return;
@@ -126,7 +125,6 @@ export const unionWithExclusion = (left: RecordObject, right: RecordObject): Rec
         }
         return prev;
     }, {} as RecordObject);
-};
 
 /**
  * Flip objects keys with objects values
@@ -142,27 +140,21 @@ export const flip = (data: RecordObject): RecordObject =>
  * @param key Key lookup
  * @returns Filtered object
  */
-export const uniqueObject = (data: RecordObject[], key: string): RecordObject[] => {
-    return [...new Map(data.map(item => [item[key], item])).values()];
-};
+export const uniqueObject = (data: RecordObject[], key: string): RecordObject[] => [...new Map(data.map(item => [item[key], item])).values()];
 
 /**
  * Strict typed `Object.keys`
  *
  * @category Object
  */
-export const objectKeys = <T extends object>(obj: T) => {
-    return Object.keys(obj) as Array<`${keyof T & (string | number | boolean | null | undefined)}`>;
-};
+export const objectKeys = <T extends object>(obj: T) => Object.keys(obj) as Array<`${keyof T & (string | number | boolean | null | undefined)}`>;
 
 /**
  * Strict typed `Object.entries`
  *
  * @category Object
  */
-export const objectEntries = <T extends object>(obj: T) => {
-    return Object.entries(obj) as Array<[keyof T, T[keyof T]]>;
-};
+export const objectEntries = <T extends object>(obj: T) => Object.entries(obj) as Array<[keyof T, T[keyof T]]>;
 
 /**
  * Get unique keys, values by provided key
@@ -172,6 +164,4 @@ export const objectEntries = <T extends object>(obj: T) => {
  * @param key
  * @returns Unique array of objects
  */
-export const getUniqueByKey = <T>(arr: T[], key: keyof T): T[] => {
-    return [...new Map(arr.map(item => [item[key], item])).values()];
-};
+export const getUniqueByKey = <T>(arr: T[], key: keyof T): T[] => [...new Map(arr.map(item => [item[key], item])).values()];

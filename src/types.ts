@@ -24,10 +24,8 @@ export type Fn<T = void> = () => T;
  */
 export type ElementOf<T> = T extends (infer E)[] ? E : never;
 
-export type RecordObject<Keys extends string | number | symbol = string, Value = unknown> = {
-    [Prop in Keys]: Value;
-};
-export type Collection<T> = Array<T>;
+export type RecordObject<Keys extends string | number | symbol = string, Value = unknown> = Record<Keys, Value>;
+export type Collection<T> = T[];
 export type Callable = <T>(...params: Collection<T>) => T;
 export type IndexCallback<T = unknown> = (value: T, index: number, obj: T[]) => unknown;
 

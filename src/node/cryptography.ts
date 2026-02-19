@@ -8,14 +8,14 @@ import nodeCrypto from 'node:crypto';
  * @param keyLen Key length. Default to 64
  * @returns Hashed object with meta information
  */
-export const hashString = (str: string, iterations = 10000, keyLen = 64, digest = 'sha512') => {
+export const hashString = (str: string, iterations = 10_000, keyLen = 64, digest = 'sha512') => {
     const salt = nodeCrypto.randomBytes(128).toString('base64');
     const hash = nodeCrypto.pbkdf2Sync(str, salt, iterations, keyLen, digest).toString('hex');
     return {
-        salt,
         hash,
         iterations,
         keyLen,
+        salt,
     };
 };
 
@@ -36,12 +36,10 @@ export const validateHash = (
     iterations: number,
     keyLen: number,
     digest: string,
-) => {
-    return (
+) => (
         savedHash ===
         nodeCrypto.pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString('hex')
     );
-};
 
 /**
  * Derives a cryptographic key from a password using PBKDF2
@@ -62,11 +60,11 @@ async function deriveKey(secret: string): Promise<CryptoKey> {
         {
             name: 'PBKDF2',
             salt: encoder.encode('reposter-salt'), // You can make this configurable via env if needed
-            iterations: 100000,
+            iterations: 100_000,
             hash: 'SHA-256',
         },
         keyMaterial,
-        { name: 'AES-GCM', length: 256 },
+        { length: 256, name: 'AES-GCM' },
         false,
         ['encrypt', 'decrypt'],
     );
@@ -84,7 +82,7 @@ export async function encryptData(plainText: string, secretKey: string): Promise
 
     const iv = crypto.getRandomValues(new Uint8Array(12)); // 12-byte IV for AES-GCM
     const encrypted = await crypto.subtle.encrypt(
-        { name: 'AES-GCM', iv },
+        { iv, name: 'AES-GCM' },
         key,
         encoder.encode(plainText),
     );
@@ -110,6 +108,6 @@ export async function decryptData(encryptedData: string, secretKey: string): Pro
     const encrypted = encoded.subarray(12);
     const key = await deriveKey(secretKey);
 
-    const decrypted = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, encrypted);
+    const decrypted = await crypto.subtle.decrypt({ iv, name: 'AES-GCM' }, key, encrypted);
     return new TextDecoder().decode(decrypted);
 }

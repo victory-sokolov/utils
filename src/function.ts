@@ -31,7 +31,7 @@ type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [
  * Call every function in an array
  * @param functions List of functions to call
  */
-export const batchInvoke = (functions: Array<() => void>): void => {
+export const batchInvoke = (functions: (() => void)[]): void => {
     functions.forEach(fn => fn && fn());
 };
 
@@ -81,12 +81,12 @@ export function pipe<FirstFn extends AnyFunc, F extends AnyFunc[]>(
     if (typeof argOrFirstFn === 'function') {
         const allFns = [firstFnOrSecondFn, ...fns].filter(fn => fn !== undefined);
         return allFns.reduce((acc, fn) => fn(acc), (argOrFirstFn as AnyFunc)());
-    } else {
+    }
         return (fns as AnyFunc[]).reduce(
             (acc, fn) => fn(acc),
             (firstFnOrSecondFn as FirstFn)(argOrFirstFn),
         );
-    }
+    
 }
 
 /**

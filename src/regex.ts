@@ -44,4 +44,4 @@ export const isValidUrl = (url: string) => {
     return urlPattern.test(url);
 };
 
-export const trimNewLines = (s: string) => s.replace(/^\n+|\n+$/g, '');
+export const trimNewLines = (s: string) => s.replaceAll(/^\n+|\n+$/g, '');

@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
 import {
     cronToDateTime,
     dateRangeGenerator,
@@ -24,7 +25,7 @@ import {
 describe('test date utils', () => {
     describe('getMonthList', () => {
         it('month names', () => {
-            expect(getMonthList()).toEqual([
+            expect(getMonthList()).toStrictEqual([
                 'January',
                 'February',
                 'March',
@@ -124,10 +125,8 @@ describe('test date utils', () => {
         });
 
         it('should return the correct next date for a future cron expression', () => {
-            // Set current time to August 1, 2023, 10:00:00 UTC
             vi.setSystemTime(new Date('2023-08-01T10:00:00Z'));
 
-            // Cron for August 18, 2023, 12:34:00 UTC (Friday, dayOfWeek 5)
             const cronExpression = '34 12 18 8 5';
             const expectedNextDate = new Date('2023-08-18T12:34:00Z');
 
@@ -136,27 +135,19 @@ describe('test date utils', () => {
         });
 
         it('should adjust to the next year if the calculated date is in the past', () => {
-            // Set current time to August 20, 2023, 10:00:00 UTC
             vi.setSystemTime(new Date('2023-08-20T10:00:00Z'));
 
-            // Cron for August 18, 2023, 12:34:00 UTC (Friday, dayOfWeek 5)
-            // This date is in the past relative to system time, so it should be adjusted to next year.
             const cronExpression = '34 12 18 8 5';
-            const expectedNextDate = new Date('2024-08-18T12:34:00Z'); // Adjusted to next year
+            const expectedNextDate = new Date('2024-08-18T12:34:00Z');
 
             const result = cronToDateTime(cronExpression);
             expect(result.toISOString()).toBe(expectedNextDate.toISOString());
         });
 
         it('should correctly handle day of week adjustment', () => {
-            // Set current time to August 1, 2023, 10:00:00 UTC (Tuesday, dayOfWeek 2)
             vi.setSystemTime(new Date('2023-08-01T10:00:00Z'));
 
-            // Cron for any day in August, 12:00:00 UTC, specifically Monday (dayOfWeek 1)
             const cronExpression = '0 12 * 8 1';
-            // The first Monday in August 2023 is August 7.
-            // cronToDateTime calculates 1st August, day 2. Needs to adjust to day 1.
-            // 7 - 1 = 6. 1st + 6 = 7th.
             const expectedNextDate = new Date('2023-08-07T12:00:00Z');
 
             const result = cronToDateTime(cronExpression);
@@ -164,12 +155,10 @@ describe('test date utils', () => {
         });
 
         it('should handle different cron parts correctly', () => {
-            // Set current time
-            vi.setSystemTime(new Date('2023-01-01T00:00:00Z')); // Jan 1, 2023 is a Sunday (dayOfWeek 0)
+            vi.setSystemTime(new Date('2023-01-01T00:00:00Z'));
 
-            // Cron for 15:30 on the 10th day of the 3rd month (March), on a Tuesday (dayOfWeek 2)
             const cronExpression = '30 15 10 3 2';
-            const expectedNextDate = new Date('2023-03-14T15:30:00Z'); // March 14, 2023 is a Tuesday
+            const expectedNextDate = new Date('2023-03-14T15:30:00Z');
 
             const result = cronToDateTime(cronExpression);
             expect(result.toISOString()).toBe(expectedNextDate.toISOString());
@@ -186,17 +175,17 @@ describe('test date utils', () => {
         });
 
         it('should convert a numeric timestamp to YYYY-MM-DD format', () => {
-            const timestamp = 1672531200000; // January 1, 2023 00:00:00 UTC
+            const timestamp = 1_672_531_200_000;
             expect(timestampToDate(timestamp)).toBe('2023-01-01');
         });
 
         it('should convert a string timestamp to YYYY-MM-DD format', () => {
-            const timestamp = '1672531200000'; // January 1, 2023 00:00:00 UTC
+            const timestamp = '1672531200000';
             expect(timestampToDate(timestamp)).toBe('2023-01-01');
         });
 
         it('should pad month and day with leading zeros', () => {
-            const timestamp = 1672531200000; // Jan 1, 2023
+            const timestamp = 1_672_531_200_000;
             expect(timestampToDate(timestamp)).toBe('2023-01-01');
         });
     });
@@ -208,7 +197,7 @@ describe('test date utils', () => {
         });
 
         it('should return undefined if no date is provided', () => {
-            expect(formatDate(undefined)).toBeUndefined();
+            expect(formatDate()).toBeUndefined();
             expect(formatDate(null as any)).toBeUndefined();
         });
 
@@ -220,8 +209,8 @@ describe('test date utils', () => {
 
     describe('secondsInDays', () => {
         it('should convert days to seconds correctly', () => {
-            expect(secondsInDays(1)).toBe(86400); // 1 day = 24 * 60 * 60 seconds
-            expect(secondsInDays(5)).toBe(432000); // 5 days
+            expect(secondsInDays(1)).toBe(86_400);
+            expect(secondsInDays(5)).toBe(432_000);
             expect(secondsInDays(0)).toBe(0);
         });
     });
@@ -238,49 +227,49 @@ describe('test date utils', () => {
         it('should return "just now" for dates less than 10 seconds ago', () => {
             const now = new Date('2023-01-01T12:00:00Z');
             vi.setSystemTime(now);
-            const date = new Date(now.getTime() - 5 * 1000); // 5 seconds ago
+            const date = new Date(now.getTime() - 5 * 1000);
             expect(timeAgo(date)).toBe('just now');
         });
 
         it('should return "X seconds ago" for dates between 10 and 59 seconds ago', () => {
             const now = new Date('2023-01-01T12:00:00Z');
             vi.setSystemTime(now);
-            const date = new Date(now.getTime() - 15 * 1000); // 15 seconds ago
+            const date = new Date(now.getTime() - 15 * 1000);
             expect(timeAgo(date)).toBe('15 seconds ago');
         });
 
         it('should return "X minutes ago" for dates between 1 and 59 minutes ago', () => {
             const now = new Date('2023-01-01T12:00:00Z');
             vi.setSystemTime(now);
-            const date = new Date(now.getTime() - 2 * 60 * 1000); // 2 minutes ago
+            const date = new Date(now.getTime() - 2 * 60 * 1000);
             expect(timeAgo(date)).toBe('2 minutes ago');
         });
 
         it('should return "X hours ago" for dates between 1 and 23 hours ago', () => {
             const now = new Date('2023-01-01T12:00:00Z');
             vi.setSystemTime(now);
-            const date = new Date(now.getTime() - 3 * 3600 * 1000); // 3 hours ago
+            const date = new Date(now.getTime() - 3 * 3600 * 1000);
             expect(timeAgo(date)).toBe('3 hours ago');
         });
 
         it('should return "X days ago" for dates between 1 and 29 days ago', () => {
             const now = new Date('2023-01-01T12:00:00Z');
             vi.setSystemTime(now);
-            const date = new Date(now.getTime() - 4 * 86400 * 1000); // 4 days ago
+            const date = new Date(now.getTime() - 4 * 86_400 * 1000);
             expect(timeAgo(date)).toBe('4 days ago');
         });
 
         it('should return "X months ago" for dates between 1 and 11 months ago', () => {
             const now = new Date('2023-01-01T12:00:00Z');
             vi.setSystemTime(now);
-            const date = new Date(now.getTime() - 2 * 30 * 86400 * 1000); // Roughly 2 months ago
+            const date = new Date(now.getTime() - 2 * 30 * 86_400 * 1000);
             expect(timeAgo(date)).toBe('2 months ago');
         });
 
         it('should return "X years ago" for dates 1 year or more ago', () => {
             const now = new Date('2023-01-01T12:00:00Z');
             vi.setSystemTime(now);
-            const date = new Date(now.getTime() - 2 * 365 * 86400 * 1000); // Roughly 2 years ago
+            const date = new Date(now.getTime() - 2 * 365 * 86_400 * 1000);
             expect(timeAgo(date)).toBe('2 years ago');
         });
     });
@@ -290,7 +279,6 @@ describe('test date utils', () => {
 
         beforeEach(() => {
             originalIntlDateTimeFormat = Intl.DateTimeFormat;
-            // Mock Intl.DateTimeFormat().resolvedOptions().timeZone
             (Intl as any).DateTimeFormat = vi.fn(() => ({
                 resolvedOptions: () => ({ timeZone: 'America/New_York' }),
             }));
@@ -317,21 +305,14 @@ describe('test date utils', () => {
         });
 
         it('should return the current timestamp', () => {
-            const now = 1672531200000; // January 1, 2023 00:00:00 UTC
+            const now = 1_672_531_200_000;
             vi.setSystemTime(now);
             expect(timestamp()).toBe(now);
         });
     });
 
     describe('timestampIso', () => {
-        // timestampIso is a top-level const, so its value is determined when the module is loaded.
-        // To test it with fake timers, we need to mock Date.prototype.toISOString directly before module import
-        // or reload the module after setting up fake timers.
-        // For simplicity and to avoid module reload complexities in vitest,
-        // we'll assume a basic check of its format.
         it('should return a string in ISO 8601 format', () => {
-            // This test is less precise about the exact time due to const export behavior
-            // but confirms the format.
             const isoRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/;
             expect(timestampIso).toMatch(isoRegex);
         });
@@ -353,10 +334,9 @@ describe('test date utils', () => {
 
             for (const expectedDate of expectedDates) {
                 const generatedDate = dateGenerator.next().value;
-                expect(generatedDate).toEqual(expectedDate);
+                expect(generatedDate).toStrictEqual(expectedDate);
             }
 
-            // Ensure that the generator stops after generating all dates
             const lastGeneratedDate = dateGenerator.next().value;
             expect(lastGeneratedDate).toBeUndefined();
         });

@@ -180,7 +180,6 @@ describe('string-utils', () => {
         it('test hasNonAlphanumeric', () => {
             expect(isAlphaNumeric('tag1')).toBe(true);
             expect(isAlphaNumeric('HelloWorld')).toBe(true);
-            // Falsy test
             expect(isAlphaNumeric('github-actions')).toBe(false);
             expect(isAlphaNumeric('Hello-World')).toBe(false);
             expect(isAlphaNumeric('!!')).toBe(false);
@@ -235,7 +234,7 @@ describe('string-utils', () => {
                 const result = randomStr(5, prefix);
 
                 expect(result).toHaveLength(5);
-                expect(result).toBe(prefix.substring(0, 5));
+                expect(result).toBe(prefix.slice(0, 5));
             });
         });
     });

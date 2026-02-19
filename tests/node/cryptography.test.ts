@@ -9,7 +9,7 @@ describe('cryptography', () => {
 
             expect(salt).toBeTypeOf('string');
             expect(hash).toBeTypeOf('string');
-            expect(iterations).toBe(10000); // Default value
+            expect(iterations).toBe(10_000); // Default value
             expect(keyLen).toBe(64); // Default value
             expect(salt.length).toBeGreaterThan(0);
             expect(hash.length).toBeGreaterThan(0);
@@ -18,9 +18,9 @@ describe('cryptography', () => {
         it('should produce different hashes for different salts with the same password', () => {
             const testString = 'myPassword123';
             const { hash: hash1 } = hashString(testString);
-            const { hash: hash2 } = hashString(testString); // Will generate a new salt
+            const { hash: hash2 } = hashString(testString);
 
-            expect(hash1).not.toEqual(hash2);
+            expect(hash1).not.toStrictEqual(hash2);
         });
 
         it('should produce different hashes for different passwords (each with random salt)', () => {
@@ -29,12 +29,12 @@ describe('cryptography', () => {
             const { hash: hash1 } = hashString(testString1);
             const { hash: hash2 } = hashString(testString2);
 
-            expect(hash1).not.toEqual(hash2);
+            expect(hash1).not.toStrictEqual(hash2);
         });
 
         it('should allow custom iterations and keyLen', () => {
             const testString = 'myPassword123';
-            const customIterations = 50000;
+            const customIterations = 50_000;
             const customKeyLen = 32;
             const { iterations, keyLen } = hashString(testString, customIterations, customKeyLen);
 
@@ -95,12 +95,12 @@ describe('cryptography', () => {
     });
 
     describe('encryptData and decryptData', () => {
-        const secretKey = 'this-is-a-very-secret-key-that-is-long-enough'; // Must be long enough for deriveKey
+        const secretKey = 'this-is-a-very-secret-key-that-is-long-enough';
 
         const testRoundTrip = async (originalText: string) => {
             const encrypted = await encryptData(originalText, secretKey);
             const decrypted = await decryptData(encrypted, secretKey);
-            expect(encrypted).not.toEqual(originalText);
+            expect(encrypted).not.toStrictEqual(originalText);
             expect(decrypted).toBe(originalText);
         };
 
@@ -126,7 +126,6 @@ describe('cryptography', () => {
             const originalText = 'Another secret';
             const encrypted = await encryptData(originalText, secretKey);
 
-            // Tamper with the encrypted data by changing one character
             const tamperedEncrypted = `${encrypted.slice(0, -5)}AAAAA`;
 
             await expect(decryptData(tamperedEncrypted, secretKey)).rejects.toThrow();

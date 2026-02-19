@@ -3,8 +3,7 @@
  * @param str string to camelCase
  * @returns Camelcased string
  */
-export const camelCase = (str: string): string => {
-    return (
+export const camelCase = (str: string): string => (
         str
             // Convert the string to lowercase
             .toLowerCase()
@@ -17,45 +16,38 @@ export const camelCase = (str: string): string => {
             // Return the first letter in lowercase and the rest as-is
             .replace(/^(\w)/, (match, letter) => letter.toLowerCase())
     );
-};
 
 /**
  * String to pascalcase (example: iterationCount)
  * @param str string to pascalcase
  * @returns Pascal case string
  */
-export const pascalCase = (str: string, separator = ' '): string => {
-    return str
+export const pascalCase = (str: string, separator = ' '): string => str
         .split(separator)
         .map(word => word.replace(/^\w/, c => c.toUpperCase()))
         .join('');
-};
 
 /**
  * String to kebabcase
  * @param str string to kebabcase
  * @returns KebabCase string
  */
-export const kebabCase = (str: string): string => {
-    return str
+export const kebabCase = (str: string): string => str
         .replace(/([a-z])([A-Z])/g, '$1-$2')
         .replace(/[\s_]/g, '-')
         .toLowerCase();
-};
 
 /**
  * Escape HTML string
  * @param unsafe Unsafe string to escape
  * @returns escaped HTML string
  */
-export const escapeHtml = (unsafe: string): string => {
-    return unsafe
+export const escapeHtml = (unsafe: string): string => unsafe
         .replaceAll('&', '&amp;')
         .replaceAll('<', '&lt;')
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
         .replaceAll("'", '&#039;');
-};
 
 /**
  * Remove Zerowidth characters from string
@@ -63,7 +55,7 @@ export const escapeHtml = (unsafe: string): string => {
  * @returns string with zerowidth characters removed
  */
 export const removeZeroWidthSpace = (str: string): string =>
-    str.replace(/[\u200B-\u200D\uFEFF]/g, '');
+    str.replaceAll(/[\u200B-\u200D\uFEFF]/g, '');
 
 /**
  * Check whether string ends with any item in the array
@@ -71,9 +63,7 @@ export const removeZeroWidthSpace = (str: string): string =>
  * @param items String array of items to check agains the data string
  * @returns boolean
  */
-export const endsWithAny = (data: string, items: string[]): boolean => {
-    return items.some(element => data.endsWith(element));
-};
+export const endsWithAny = (data: string, items: string[]): boolean => items.some(element => data.endsWith(element));
 
 /**
  * Check whether string starts with any item in the array
@@ -81,9 +71,7 @@ export const endsWithAny = (data: string, items: string[]): boolean => {
  * @param items String array of items to check agains the data string
  * @returns boolean
  */
-export const startsWithAny = (data: string, items: string[]): boolean => {
-    return items.some(element => data.startsWith(element));
-};
+export const startsWithAny = (data: string, items: string[]): boolean => items.some(element => data.startsWith(element));
 
 /**
  * Validate if string is a valid UUID
@@ -100,7 +88,7 @@ export const isValidUUID = (id: string): boolean => {
  * @returns HEX code
  */
 export const randomHexColorCode = (): string => {
-    const n = (Math.random() * 0xfffff * 1000000).toString(16);
+    const n = (Math.random() * 0xFFFFF * 1_000_000).toString(16);
     return `#${n.slice(0, 6)}`;
 };
 
@@ -118,7 +106,7 @@ export const randomStr = (len = 32, prefix = '') => {
         const c = floor.toString(36);
         s += floor > 9 && rand > 0.3 && rand < 0.7 ? c.toUpperCase() : c;
     }
-    return s.substring(0, len);
+    return s.slice(0, len);
 };
 
 /**
@@ -126,16 +114,14 @@ export const randomStr = (len = 32, prefix = '') => {
  * @param text text to be slugified
  * @returns slugified text
  */
-export const slugify = (text: string) => {
-    return text
+export const slugify = (text: string) => text
         .toString()
         .toLowerCase()
         .replace(/\s+/g, '-') // Replace spaces with -
         .replace(/[^\w-]+/g, '') // Remove all non-word chars
         .replace(/-{2,}/g, '-') // Replace multiple - with single -
         .replace(/^-+/, '') // Trim - from start of text
-        .replace(/-+$/, ''); // Trim - from end of text
-};
+        .replace(/-+$/, '');
 
 /**
  * Capitalize first letter
@@ -143,7 +129,7 @@ export const slugify = (text: string) => {
  * @returns Capitalized string
  */
 export const capitalize = (str: string): string => {
-    if (!str || typeof str !== 'string') return str;
+    if (!str || typeof str !== 'string') {return str;}
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
@@ -154,7 +140,7 @@ export const capitalize = (str: string): string => {
  * @returns Truncated string
  */
 export const truncate = (str: string, length: number) => {
-    if (!str || str.length <= length) return str;
+    if (!str || str.length <= length) {return str;}
     return `${str.slice(0, length)}...`;
 };
 
@@ -165,7 +151,7 @@ export const truncate = (str: string, length: number) => {
  */
 export const maskString = (str: string) => {
     const firstChars = str.slice(0, 4);
-    const lastChars = str.slice(str.length - 4);
+    const lastChars = str.slice(- 4);
     return `${firstChars} **** ${lastChars}`;
 };
 

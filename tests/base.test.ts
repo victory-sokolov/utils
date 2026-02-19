@@ -14,24 +14,24 @@ describe('bytesToSize', () => {
     });
 
     it('should correctly convert bytes to megabytes', () => {
-        expect(bytesToSize(1048576)).toBe('1 MB');
-        expect(bytesToSize(2097152)).toBe('2 MB');
-        expect(bytesToSize(3145728)).toBe('3 MB');
-        expect(bytesToSize(1572864)).toBe('2 MB');
+        expect(bytesToSize(1_048_576)).toBe('1 MB');
+        expect(bytesToSize(2_097_152)).toBe('2 MB');
+        expect(bytesToSize(3_145_728)).toBe('3 MB');
+        expect(bytesToSize(1_572_864)).toBe('2 MB');
     });
 
     it('should correctly convert bytes to gigabytes', () => {
-        expect(bytesToSize(1073741824)).toBe('1 GB');
-        expect(bytesToSize(2147483648)).toBe('2 GB');
-        expect(bytesToSize(3221225472)).toBe('3 GB');
-        expect(bytesToSize(1610612736)).toBe('2 GB');
+        expect(bytesToSize(1_073_741_824)).toBe('1 GB');
+        expect(bytesToSize(2_147_483_648)).toBe('2 GB');
+        expect(bytesToSize(3_221_225_472)).toBe('3 GB');
+        expect(bytesToSize(1_610_612_736)).toBe('2 GB');
     });
 
     it('should correctly convert bytes to terabytes', () => {
-        expect(bytesToSize(1099511627776)).toBe('1 TB');
-        expect(bytesToSize(2199023255552)).toBe('2 TB');
-        expect(bytesToSize(3298534883328)).toBe('3 TB');
-        expect(bytesToSize(1649267441664)).toBe('2 TB');
+        expect(bytesToSize(1_099_511_627_776)).toBe('1 TB');
+        expect(bytesToSize(2_199_023_255_552)).toBe('2 TB');
+        expect(bytesToSize(3_298_534_883_328)).toBe('3 TB');
+        expect(bytesToSize(1_649_267_441_664)).toBe('2 TB');
     });
 
     it('should correctly format bytes less than 1000 without a unit', () => {
@@ -73,28 +73,28 @@ describe('timer-based functions', () => {
 
     describe('perfStart and perfStop', () => {
         it('perfStart should return a number representing the current time', () => {
-            vi.spyOn(performance, 'now').mockReturnValue(1000); // Mock starting time
+            vi.spyOn(performance, 'now').mockReturnValue(1000);
             expect(typeof perfStart()).toBe('number');
             expect(perfStart()).toBe(1000);
         });
 
         it('perfStop should calculate the correct elapsed time', () => {
             vi.spyOn(performance, 'now')
-                .mockReturnValueOnce(1000) // Start time
-                .mockReturnValueOnce(2500); // End time
+                .mockReturnValueOnce(1000)
+                .mockReturnValueOnce(2500);
 
-            const startTime = perfStart(); // This will use the first mocked value (1000)
-            vi.advanceTimersByTime(1500); // Advance timers
-            const result = perfStop(startTime); // This will use the second mocked value (2500)
+            const startTime = perfStart();
+            vi.advanceTimersByTime(1500);
+            const result = perfStop(startTime);
 
             expect(result).toBe('Function took 1.50 seconds');
 
             vi.spyOn(performance, 'now')
-                .mockReturnValueOnce(0) // Start time
-                .mockReturnValueOnce(12345); // End time
+                .mockReturnValueOnce(0)
+                .mockReturnValueOnce(12_345);
 
             const startTime2 = perfStart();
-            vi.advanceTimersByTime(12345);
+            vi.advanceTimersByTime(12_345);
             const result2 = perfStop(startTime2);
             expect(result2).toBe('Function took 12.35 seconds');
         });
@@ -137,7 +137,7 @@ describe('timer-based functions', () => {
 
             expect(func).not.toHaveBeenCalled();
 
-            vi.advanceTimersByTime(50); // Complete the last 100ms delay
+            vi.advanceTimersByTime(50);
             expect(func).toHaveBeenCalledTimes(1);
         });
 
@@ -164,7 +164,7 @@ describe('timer-based functions', () => {
             expect(func).toHaveBeenCalledTimes(1);
             expect(func).toHaveBeenCalledWith(2);
 
-            vi.advanceTimersByTime(100); // Should not call again
+            vi.advanceTimersByTime(100);
             expect(func).toHaveBeenCalledTimes(1);
         });
 
@@ -173,15 +173,15 @@ describe('timer-based functions', () => {
             const debouncedFunc = debounce(func, 100);
 
             debouncedFunc(1);
-            debouncedFunc.flush(); // Called once with 1
+            debouncedFunc.flush();
             expect(func).toHaveBeenCalledTimes(1);
             expect(func).toHaveBeenCalledWith(1);
 
-            debouncedFunc(2); // New call
-            expect(func).toHaveBeenCalledTimes(1); // Should not call immediately
+            debouncedFunc(2);
+            expect(func).toHaveBeenCalledTimes(1);
 
-            vi.advanceTimersByTime(100); // Delay passes
-            expect(func).toHaveBeenCalledTimes(2); // Should call again with 2
+            vi.advanceTimersByTime(100);
+            expect(func).toHaveBeenCalledTimes(2);
             expect(func).toHaveBeenCalledWith(2);
         });
 
@@ -189,7 +189,7 @@ describe('timer-based functions', () => {
             const func = vi.fn();
             const debouncedFunc = debounce(func, 100);
 
-            debouncedFunc.flush(); // Should do nothing if not invoked
+            debouncedFunc.flush();
             expect(func).not.toHaveBeenCalled();
 
             vi.advanceTimersByTime(100);
@@ -203,10 +203,10 @@ describe('timer-based functions', () => {
             const throttledFunc = throttle(func, 100);
 
             throttledFunc('first');
-            expect(func).not.toHaveBeenCalled(); // Not called immediately
+            expect(func).not.toHaveBeenCalled();
 
             vi.advanceTimersByTime(100);
-            expect(func).toHaveBeenCalledTimes(1); // Called after cooldown
+            expect(func).toHaveBeenCalledTimes(1);
             expect(func).toHaveBeenCalledWith('first');
         });
 
@@ -217,17 +217,17 @@ describe('timer-based functions', () => {
             throttledFunc('a');
             expect(func).not.toHaveBeenCalled();
 
-            vi.advanceTimersByTime(50); // Advance half way
-            throttledFunc('b'); // Still within cooldown
+            vi.advanceTimersByTime(50);
+            throttledFunc('b');
             expect(func).not.toHaveBeenCalled();
 
-            vi.advanceTimersByTime(49); // Still within cooldown
-            throttledFunc('c'); // Last call before cooldown ends
+            vi.advanceTimersByTime(49);
+            throttledFunc('c');
             expect(func).not.toHaveBeenCalled();
 
-            vi.advanceTimersByTime(1); // Cooldown passes
-            expect(func).toHaveBeenCalledTimes(1); // Only one call
-            expect(func).toHaveBeenCalledWith('c'); // With the last arguments
+            vi.advanceTimersByTime(1);
+            expect(func).toHaveBeenCalledTimes(1);
+            expect(func).toHaveBeenCalledWith('c');
         });
 
         it('should allow the function to be called again after the cooldown period', () => {
@@ -239,12 +239,12 @@ describe('timer-based functions', () => {
             expect(func).toHaveBeenCalledTimes(1);
             expect(func).toHaveBeenCalledWith(1);
 
-            throttledFunc(2); // New call after cooldown
+            throttledFunc(2);
             vi.advanceTimersByTime(100);
             expect(func).toHaveBeenCalledTimes(2);
             expect(func).toHaveBeenCalledWith(2);
 
-            throttledFunc(3); // Another new call after cooldown
+            throttledFunc(3);
             vi.advanceTimersByTime(100);
             expect(func).toHaveBeenCalledTimes(3);
             expect(func).toHaveBeenCalledWith(3);
@@ -257,11 +257,11 @@ describe('timer-based functions', () => {
             throttledFunc('initial');
             expect(func).not.toHaveBeenCalled();
 
-            vi.advanceTimersByTime(200); // Pass cooldown
-            expect(func).toHaveBeenCalledTimes(1); // Initial call executed
+            vi.advanceTimersByTime(200);
+            expect(func).toHaveBeenCalledTimes(1);
             expect(func).toHaveBeenCalledWith('initial');
 
-            vi.advanceTimersByTime(100); // No new calls, no further execution
+            vi.advanceTimersByTime(100);
             expect(func).toHaveBeenCalledTimes(1);
         });
     });

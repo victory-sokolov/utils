@@ -1,4 +1,6 @@
 import { cache } from '../src/cache';
+import { beforeEach, describe, expect, it } from 'vitest';
+
 
 describe('cache', () => {
     let testCache: ReturnType<typeof cache>;
@@ -37,8 +39,8 @@ describe('cache', () => {
 
         expect(testCache.get('string')).toBe('hello');
         expect(testCache.get('number')).toBe(42);
-        expect(testCache.get('object')).toEqual({ key: 'value' });
-        expect(testCache.get('array')).toEqual([1, 2, 3]);
+        expect(testCache.get('object')).toStrictEqual({ key: 'value' });
+        expect(testCache.get('array')).toStrictEqual([1, 2, 3]);
     });
 
     it('should overwrite existing values', () => {
@@ -62,9 +64,8 @@ describe('cache', () => {
             // @ts-expect-error - Testing invalid type
             const testFn = () => userCache.set('user2', 'invalid');
 
-            // Runtime check
             expect(testFn()).toBeUndefined();
-            expect(userCache.get('user1')).toEqual(testUser);
+            expect(userCache.get('user1')).toStrictEqual(testUser);
         });
     });
 

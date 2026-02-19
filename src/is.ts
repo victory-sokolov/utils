@@ -11,7 +11,7 @@ export const toString = (v: any) => Object.prototype.toString.call(v);
  * @param val - The value to check
  * @returns True if the value is not undefined
  */
-export const isDef = <T = any>(val?: T): val is T => typeof val !== 'undefined';
+export const isDef = <T = any>(val?: T): val is T => val !== undefined;
 
 /**
  * Check if a value is a boolean
@@ -104,10 +104,10 @@ export const hasProperty = (obj: any, key: string): boolean => {
     if (!obj || !key) {
         return false;
     }
-    return Object.prototype.hasOwnProperty.call(obj, key);
+    return Object.hasOwn(obj, key);
 };
 
-// @ts-ignore
+// @ts-expect-error
 /**
  * Check if a value is the window object
  * @param val - The value to check
@@ -115,7 +115,7 @@ export const hasProperty = (obj: any, key: string): boolean => {
  */
 export const isWindow = (val: any): boolean =>
     typeof window !== 'undefined' && toString(val) === '[object Window]';
-// @ts-ignore
+// @ts-expect-error
 /**
  * Check if the code is running in a browser
  * @returns True if running in browser
@@ -143,8 +143,8 @@ export const toRawType = (value: unknown): string => {
  * @returns `true` if the value is considered meaningful, otherwise `false`.
  */
 export const isTruthyAndNotEmpty = (value: unknown): boolean => {
-    if (!value) return false; // falsy
-    if (Array.isArray(value) && value.length === 0) return false; // empty array
+    if (!value) {return false;} // Falsy
+    if (Array.isArray(value) && value.length === 0) {return false;} // Empty array
     if (
         value &&
         typeof value === 'object' &&

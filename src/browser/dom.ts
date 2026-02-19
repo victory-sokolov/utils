@@ -20,19 +20,19 @@ export const $$ = (
     context: Document | HTMLElement = document,
 ): NodeListOf<HTMLElement> => context.querySelectorAll(selector);
 
-// styles
-export const style = (el: HTMLElement, styles: { [key: string]: string }) => {
+// Styles
+export const style = (el: HTMLElement, styles: Record<string, string>) => {
     Object.keys(styles).forEach(name => {
         (el.style as any)[name as keyof CSSStyleDeclaration] = styles[name];
     });
 };
 
-// class
+// Class
 export const addClass = (el: HTMLElement, ...classArgs: string[]) => el.classList.add(...classArgs);
 export const removeClass = (el: HTMLElement, ...classArgs: string[]) =>
     el.classList.remove(...classArgs);
 
-// dom operation
+// Dom operation
 export const insertBefore = (node: HTMLElement, beforeNode: HTMLElement) =>
     node.insertAdjacentElement('beforebegin', beforeNode);
 export const insertAfter = (node: HTMLElement, afterNode: HTMLElement) =>

@@ -9,12 +9,12 @@ import path from 'node:path';
  * @returns List of the files from directory
  */
 export const readDirRecursive = async (dir: string, fileList: string[] = []) => {
-    const exclude = ['node_modules', '.venv', '.env'];
+    const exclude = new Set(['node_modules', '.venv', '.env']);
     const files = await readdir(dir);
     for (const file of files) {
         const filePath = path.join(dir, file);
         const fileStat = await stat(filePath);
-        if (fileStat.isDirectory() && !exclude.includes(file)) {
+        if (fileStat.isDirectory() && !exclude.has(file)) {
             fileList = await readDirRecursive(filePath, fileList);
         } else {
             fileList.push(filePath);
@@ -41,6 +41,4 @@ export const isFileExists = async (path: string) => {
  * Create directory if not exists
  * @param dir
  */
-export const createDirIfNotExists = (dir: string) => {
-    return !existsSync(dir) ? mkdirSync(dir) : undefined;
-};
+export const createDirIfNotExists = (dir: string) => !existsSync(dir) ? mkdirSync(dir) : undefined;

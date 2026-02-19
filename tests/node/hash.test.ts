@@ -4,26 +4,25 @@ import { pbkdf2Sync } from 'node:crypto';
 import { describe, expect, it, vi } from 'vitest';
 import { hashString, validateHash } from '../../src/node/cryptography';
 
-vi.mock('node:crypto', async importOriginal => {
+vi.mock<typeof import('node:crypto')>('node:crypto', async importOriginal => {
     const actual = await importOriginal<typeof import('node:crypto')>();
     return {
         ...actual,
-        randomBytes: vi.fn(() => 'mocked-salt'),
         pbkdf2Sync: vi.fn(() => 'mocked-hash'),
+        randomBytes: vi.fn(() => 'mocked-salt'),
     };
 });
 
 describe('validate hashString', () => {
     it('should generate a hash with the expected properties', ({ skip }) => {
-        // Mock randomBytes and pbkdf2Sync functions
         skip();
         const result = hashString('password', 1000, 32, 'sha256');
 
-        expect(result).toEqual({
-            salt: 'mocked-salt',
+        expect(result).toStrictEqual({
             hash: 'mocked-hash',
             iterations: 1000,
             keyLen: 32,
+            salt: 'mocked-salt',
         });
     });
 });

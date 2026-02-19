@@ -9,7 +9,7 @@ export const getImageDimensions = async (dataUrl: string): Promise<ImageDimensio
     const img = new Image();
     img.src = dataUrl;
     await img.decode();
-    return { width: img.height, height: img.width };
+    return { height: img.width, width: img.height };
 };
 
 /**
@@ -17,9 +17,7 @@ export const getImageDimensions = async (dataUrl: string): Promise<ImageDimensio
  * @param imageData Imagedata as a string
  * @returns encoded image data for image tag
  */
-export const setBase64Img = (imageData: string): string => {
-    return `data:image/png;base64,${imageData}`;
-};
+export const setBase64Img = (imageData: string): string => `data:image/png;base64,${imageData}`;
 
 /**
  * Convert file to base64 encoded format
@@ -28,7 +26,5 @@ export const setBase64Img = (imageData: string): string => {
 export const fileToBase64 = (file: Blob) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = (e: Event) => {
-        return (e.target as FileReader).result;
-    };
+    reader.onload = (e: Event) => (e.target as FileReader).result;
 };

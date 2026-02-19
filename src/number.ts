@@ -20,9 +20,7 @@ export const rangeParser = (range: NumberRange): number[] => {
  * @param num Number to prepend leading zero
  * @returns String with leading zero
  */
-export const addZero = (num: number) => {
-    return num > 9 ? num.toString() : `0${num}`;
-};
+export const addZero = (num: number) => num > 9 ? num.toString() : `0${num}`;
 
 /**
  * Get random number between two numbers
@@ -30,9 +28,7 @@ export const addZero = (num: number) => {
  * @param max Max number
  * @returns Number between min and max number
  */
-export const getRandomNumber = (min: number, max: number) => {
-    return Math.random() * (max - min) + min;
-};
+export const getRandomNumber = (min: number, max: number) => Math.random() * (max - min) + min;
 
 /**
  * Format string like 20k, 1m to number
@@ -40,9 +36,9 @@ export const getRandomNumber = (min: number, max: number) => {
  * @returns Formatted number
  */
 export const nFormatter = (amount: string | undefined): number => {
-    if (!amount) return 0;
-    const multipliers: Record<string, number> = { k: 1000, m: 1000000 };
-    const lastChar = amount.charAt(amount.length - 1).toLowerCase();
+    if (!amount) {return 0;}
+    const multipliers: Record<string, number> = { k: 1000, m: 1_000_000 };
+    const lastChar = amount.at(-1).toLowerCase();
     if (lastChar in multipliers && multipliers[lastChar] !== undefined) {
         return Number.parseFloat(amount.slice(0, -1)) * multipliers[lastChar]!;
     }

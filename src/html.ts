@@ -21,7 +21,7 @@ const reHasEscapedHtml = new RegExp(reEscapedHtml.source);
  * @param text Text with HTML tags
  * @returns Text with HTML tags removed
  */
-export const removeHtmlTags = (text: string): string => text.replace(/<(?:.|\\n)*?>/g, '');
+export const removeHtmlTags = (text: string): string => text.replaceAll(/<(?:.|\\n)*?>/g, '');
 
 /**
  * Remove inline css styles
@@ -29,26 +29,23 @@ export const removeHtmlTags = (text: string): string => text.replace(/<(?:.|\\n)
  * @returns cleaned HTML with inline styles removed
  */
 export const removeInlineStyles = (text: string): string =>
-    text.replace(/\s*style\s*=\s*"(.*?)"/g, '');
+    text.replaceAll(/\s*style\s*=\s*"(.*?)"/g, '');
 
 /**
  * Escape HTML tags to entities
  * @param str HTML string
  * @returns Escaped HTML tags
  */
-export const escape = (str: string) => {
-    return str && reHasUnescapedHtml.test(str)
+export const escape = (str: string) => str && reHasUnescapedHtml.test(str)
         ? str.replace(reUnescapedHtml, chr => htmlEscapes[chr as keyof typeof htmlEscapes])
         : str || '';
-};
 
 /**
  * Unescape HTML entities
  * @param str HTML string
  * @returns Unescaped HTML entity
  */
-export const unescape = (str: string) => {
-    return str && reHasEscapedHtml.test(str)
+export const unescape = (str: string) => str && reHasEscapedHtml.test(str)
         ? str.replace(reEscapedHtml, entity => {
               if (entity.startsWith('&#x')) {
                   return String.fromCodePoint(Number.parseInt(entity.slice(3, -1), 16));
@@ -58,4 +55,3 @@ export const unescape = (str: string) => {
               return htmlUnescapes[entity] || entity;
           })
         : str || '';
-};

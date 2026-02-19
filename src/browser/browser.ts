@@ -21,9 +21,7 @@ export const dataToFile = (content: ArrayBuffer, fileName: string, contentType: 
  * Detect device type: Mobile or Desktop
  * @returns Device type: Mobile or Desktop
  */
-export const detectDeviceType = (): DeviceType => {
-    return devices.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
-};
+export const detectDeviceType = (): DeviceType => devices.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
 
 /**
  * Check if user uses mobile device or desktop
@@ -40,9 +38,7 @@ export const isMobileDevice = (): boolean => {
  * Get Operating System
  * @returns Operating System
  */
-export const getOs = () => {
-    return navigator?.userAgentData?.platform || navigator?.platform || 'unknown';
-};
+export const getOs = () => navigator?.userAgentData?.platform || navigator?.platform || 'unknown';
 
 /**
  * Save object to json file and download it
@@ -54,7 +50,7 @@ export const downloadAsJson = (obj: Record<string, unknown>, fileName: string) =
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);
     downloadAnchorNode.setAttribute('download', `${fileName}.json`);
-    document.body.appendChild(downloadAnchorNode); // required for firefox
+    document.body.append(downloadAnchorNode); // Required for firefox
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
 };
@@ -65,7 +61,7 @@ export const downloadAsJson = (obj: Record<string, unknown>, fileName: string) =
  */
 export const isPageReloaded = () => {
     const perf = window.performance;
-    if (!perf) return false;
+    if (!perf) {return false;}
 
     if (typeof perf.getEntriesByType === 'function') {
         const entries = perf.getEntriesByType('navigation') as PerformanceNavigationTiming[];

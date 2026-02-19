@@ -16,7 +16,7 @@ describe('dOM helpers', () => {
     beforeEach(() => {
         parent = document.createElement('div');
         child = document.createElement('span');
-        parent.appendChild(child);
+        parent.append(child);
     });
 
     it('should return the first element matching the given selector', () => {

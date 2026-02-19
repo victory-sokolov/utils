@@ -13,11 +13,11 @@ const createVideoMock = () => {
         play: vi.fn(),
     };
     Object.defineProperty(videoMock, 'srcObject', {
-        set: srcObjectSetter,
-        get: vi.fn(),
         configurable: true,
+        get: vi.fn(),
+        set: srcObjectSetter,
     });
-    return { videoMock, srcObjectSetter };
+    return { srcObjectSetter, videoMock };
 };
 
 describe('test camera', () => {
@@ -34,9 +34,9 @@ describe('test camera', () => {
             const isMobileDeviceMock = vi.fn().mockReturnValue(false);
             (globalThis as any).isMobileDevice = isMobileDeviceMock;
 
-            expect(getVideoConstraint()).toEqual({
-                width: { exact: 640 },
+            expect(getVideoConstraint()).toStrictEqual({
                 height: { exact: 480 },
+                width: { exact: 640 },
             });
         });
 
@@ -45,19 +45,19 @@ describe('test camera', () => {
             (globalThis as any).isMobileDevice = isMobileDeviceMock;
             Object.defineProperty(window, 'innerWidth', { value: 800 });
 
-            expect(getVideoConstraint()).toEqual({
-                width: { exact: 320 },
+            expect(getVideoConstraint()).toStrictEqual({
                 height: { exact: 240 },
+                width: { exact: 320 },
             });
         });
 
         it('should return mobile constraints if on mobile device', () => {
-            Object.defineProperty(navigator, 'userAgent', { value: 'iPhone', configurable: true });
+            Object.defineProperty(navigator, 'userAgent', { configurable: true, value: 'iPhone' });
 
-            expect(getVideoConstraint()).toEqual({
-                width: { ideal: window.screen.height },
-                height: { ideal: window.screen.width },
+            expect(getVideoConstraint()).toStrictEqual({
                 facingMode: 'environment',
+                height: { ideal: window.screen.width },
+                width: { ideal: window.screen.height },
             });
         });
     });
@@ -67,8 +67,8 @@ describe('test camera', () => {
             const { videoMock, srcObjectSetter } = createVideoMock();
             const extendedVideoMock: any = Object.assign(videoMock, {
                 addTextTrack: vi.fn(),
-                captureStream: vi.fn(),
                 canPlayType: vi.fn(),
+                captureStream: vi.fn(),
                 fastSeek: vi.fn(),
             });
             const getUserMediaMock = vi.fn();
@@ -116,7 +116,7 @@ describe('test camera', () => {
             const trackMock = { stop: vi.fn() };
             const streamMock = { getTracks: vi.fn().mockReturnValue([trackMock]) };
             stopCamera(streamMock as any, true);
-            expect(trackMock.stop).toHaveBeenCalled();
+            expect(trackMock.stop).toHaveBeenCalledWith();
         });
 
         it('should not stop tracks if not streaming', () => {

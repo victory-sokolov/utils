@@ -18,7 +18,7 @@ type Currency =
  * toDollars(1000); // '$10.00'
  */
 export const toDollars = (cents: number, currency: Currency = 'USD', locale: string = 'en-US') =>
-    (cents / 100).toLocaleString(locale, { style: 'currency', currency });
+    (cents / 100).toLocaleString(locale, { currency, style: 'currency' });
 
 /**
  * Format price in cents
@@ -41,8 +41,8 @@ export const formatPrice = (
     const dollars = price / 100;
 
     return new Intl.NumberFormat(locale, {
-        style: 'currency',
         currency,
         minimumFractionDigits: dollars % 1 !== 0 ? 2 : 0,
+        style: 'currency',
     }).format(dollars);
 };

@@ -198,17 +198,17 @@ export async function tryCatch<T, E extends Error = ErrorWithStatus>(
             typeof (error as any)?.status === 'number' ? (error as any).status : defaultStatus;
 
         // If a custom ErrorClass is provided AND the thrown error is already an instance of it,
-        // we return the original error instance, but ensure it has status and cause.
+        // We return the original error instance, but ensure it has status and cause.
         // We do NOT do this if ErrorClass is the native Error, because we want to ensure
-        // native Errors always get a status property applied through Object.assign on a new instance.
+        // Native Errors always get a status property applied through Object.assign on a new instance.
         if (options.ErrorClass && error instanceof options.ErrorClass) {
-            Object.assign(error, { status, cause }); // Ensure status and cause are on original error
+            Object.assign(error, { cause, status }); // Ensure status and cause are on original error
             return { data: null, error: error as E };
         }
 
         // Otherwise, always create a new error instance.
         const newError = new ErrorClass(message);
-        Object.assign(newError, { status, cause });
+        Object.assign(newError, { cause, status });
 
         return { data: null, error: newError as E };
     }

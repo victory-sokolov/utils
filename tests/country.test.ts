@@ -3,12 +3,12 @@ import { getCountryFromISO, getFlagEmoji, getLocation, showPosition } from '../s
 
 const createMockPosition = () => ({
     coords: {
-        latitude: 34.0522,
-        longitude: -118.2437,
         accuracy: 10,
         altitude: null,
         altitudeAccuracy: null,
         heading: null,
+        latitude: 34.0522,
+        longitude: -118.2437,
         speed: null,
     },
     timestamp: Date.now(),
@@ -32,7 +32,7 @@ describe('getCountryFromISO', () => {
 describe('showPosition', () => {
     it('should extract latitude and longitude from a Position object', () => {
         const result = showPosition(createMockPosition());
-        expect(result).toEqual({ latitude: 34.0522, longitude: -118.2437 });
+        expect(result).toStrictEqual({ latitude: 34.0522, longitude: -118.2437 });
     });
 });
 
@@ -41,30 +41,27 @@ describe('getLocation', () => {
 
     beforeEach(() => {
         originalNavigatorGeolocation = navigator.geolocation;
-        // Mock navigator.geolocation
         Object.defineProperty(navigator, 'geolocation', {
             configurable: true,
-            writable: true,
             value: {
                 getCurrentPosition: vi.fn(),
                 watchPosition: vi.fn(),
                 clearWatch: vi.fn(),
             },
+            writable: true,
         });
     });
 
     afterEach(() => {
-        // Restore original navigator.geolocation
         Object.defineProperty(navigator, 'geolocation', {
             configurable: true,
-            writable: true,
             value: originalNavigatorGeolocation,
+            writable: true,
         });
         vi.restoreAllMocks();
     });
 
     it('should return coordinates when geolocation is supported and successful', async () => {
-        // Mock getCurrentPosition to call the success callback
         (
             navigator.geolocation.getCurrentPosition as ReturnType<typeof vi.fn>
         ).mockImplementationOnce(successCallback => {
@@ -72,21 +69,14 @@ describe('getLocation', () => {
         });
         getLocation();
 
-        // Expect getCurrentPosition to have been called
         expect(navigator.geolocation.getCurrentPosition).toHaveBeenCalledTimes(1);
-
-        // Expect showPosition to have been called with the correct position
-        // This is tricky because getLocation returns void.
-        // We'll trust showPosition test covers its logic.
-        // For getLocation, we confirm it *tries* to get position.
     });
 
     it('should reject when geolocation is not supported', async () => {
-        // Set navigator.geolocation to undefined to simulate no support
         Object.defineProperty(navigator, 'geolocation', {
             configurable: true,
-            writable: true,
             value: undefined,
+            writable: true,
         });
 
         await expect(() => getLocation()).toThrow('Geolocation is not supported by this browser.');
