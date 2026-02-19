@@ -1,6 +1,19 @@
 import type { MonthName } from './types';
 
 /**
+ * Format date to YYYY-MM-DD format
+ * @param date - The date to format
+ * @returns YYYY-MM-DD string or undefined if date is not provided
+ */
+export const formatDate = (date?: Date): string | undefined => {
+    if (!date) return;
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
+/**
  * Get month names as a list of strings
  * @returns Month array
  */
@@ -18,24 +31,7 @@ export const getMonthList = () => {
  * @returns Formatted date from timestamp
  */
 export const timeStamptToDate = (timestamp: string | number) => {
-    const date = new Date(Number(timestamp));
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-};
-
-/**
- * Format date to YY-MM-DD format
- * @param date - The date to format
- * @returns YY-MM-DD string or undefined if date is not provided
- */
-export const formatDate = (date?: Date): string | undefined => {
-    if (!date) return;
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    return formatDate(new Date(Number(timestamp)));
 };
 
 /**
