@@ -1,10 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import {
-    getCountryFromISO,
-    getFlagEmoji,
-    getLocation,
-    showPosition,
-} from '../src/country';
+import { getCountryFromISO, getFlagEmoji, getLocation, showPosition } from '../src/country';
 
 const createMockPosition = () => ({
     coords: {
@@ -72,15 +67,13 @@ describe('getLocation', () => {
         // Mock getCurrentPosition to call the success callback
         (
             navigator.geolocation.getCurrentPosition as ReturnType<typeof vi.fn>
-        ).mockImplementationOnce((successCallback) => {
+        ).mockImplementationOnce(successCallback => {
             successCallback(createMockPosition());
         });
         getLocation();
 
         // Expect getCurrentPosition to have been called
-        expect(navigator.geolocation.getCurrentPosition).toHaveBeenCalledTimes(
-            1
-        );
+        expect(navigator.geolocation.getCurrentPosition).toHaveBeenCalledTimes(1);
 
         // Expect showPosition to have been called with the correct position
         // This is tricky because getLocation returns void.
@@ -96,9 +89,7 @@ describe('getLocation', () => {
             value: undefined,
         });
 
-        await expect(() => getLocation()).toThrow(
-            'Geolocation is not supported by this browser.'
-        );
+        await expect(() => getLocation()).toThrow('Geolocation is not supported by this browser.');
     });
 });
 

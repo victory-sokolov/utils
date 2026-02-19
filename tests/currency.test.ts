@@ -204,7 +204,7 @@ describe('toDollars', () => {
     });
 
     describe('currency-specific behaviors', () => {
-        it('should handle currencies that don\'t use decimal places', () => {
+        it("should handle currencies that don't use decimal places", () => {
             // JPY typically doesn't use decimal places
             expect(toDollars(1000, 'JPY')).toBe('¥10');
             expect(toDollars(1234, 'JPY')).toBe('¥12');

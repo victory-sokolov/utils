@@ -1,16 +1,16 @@
-export type MonthName
-    = | 'January'
-        | 'February'
-        | 'March'
-        | 'April'
-        | 'May'
-        | 'June'
-        | 'July'
-        | 'August'
-        | 'September'
-        | 'October'
-        | 'November'
-        | 'December';
+export type MonthName =
+    | 'January'
+    | 'February'
+    | 'March'
+    | 'April'
+    | 'May'
+    | 'June'
+    | 'July'
+    | 'August'
+    | 'September'
+    | 'October'
+    | 'November'
+    | 'December';
 export type DeviceType = 'Mobile' | 'Desktop';
 export type CameraEnvironment = 'environment' | 'user';
 
@@ -39,8 +39,8 @@ export interface ImageDimension {
 export type NonNegativeInteger<T extends number> = number extends T
     ? never
     : `${T}` extends `-${string}` | `${string}.${string}`
-        ? never
-        : T;
+      ? never
+      : T;
 
 export type Maybe<T> = T | null | undefined;
 
@@ -54,17 +54,17 @@ export type Prettify<T> = {
 /**
  * Fetch response type
  */
-export type FetchResponse<T>
-    = | {
-        statusCode: number;
-        data: T;
-        error: null;
-    }
+export type FetchResponse<T> =
     | {
-        statusCode: number | null;
-        data: T | null;
-        error: Error;
-    };
+          statusCode: number;
+          data: T;
+          error: null;
+      }
+    | {
+          statusCode: number | null;
+          data: T | null;
+          error: Error;
+      };
 
 /**
  * Constructs a type by excluding `null` and `undefined` from a given type `T`.

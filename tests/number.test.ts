@@ -140,16 +140,16 @@ describe('random-based functions', () => {
             describe('error cases', () => {
                 it('should throw error for zero length', () => {
                     expect(() => generateNumberWithLength(0)).toThrow(
-                        'Length must be greater than zero'
+                        'Length must be greater than zero',
                     );
                 });
 
                 it('should throw error for negative length', () => {
                     expect(() => generateNumberWithLength(-1)).toThrow(
-                        'Length must be greater than zero'
+                        'Length must be greater than zero',
                     );
                     expect(() => generateNumberWithLength(-5)).toThrow(
-                        'Length must be greater than zero'
+                        'Length must be greater than zero',
                     );
                 });
             });
@@ -158,7 +158,7 @@ describe('random-based functions', () => {
                 it('should always return numbers with correct length', () => {
                     const lengths = [1, 2, 3, 4, 5];
 
-                    lengths.forEach((length) => {
+                    lengths.forEach(length => {
                         const result = generateNumberWithLength(length);
                         expect(result.toString()).toHaveLength(length);
                         expect(result).toBeGreaterThanOrEqual(10 ** (length - 1));

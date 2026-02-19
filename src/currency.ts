@@ -1,14 +1,14 @@
-type Currency
-    = | 'USD' // United States Dollar
-        | 'EUR' // Euro
-        | 'GBP' // British Pound Sterling
-        | 'JPY' // Japanese Yen
-        | 'CAD' // Canadian Dollar
-        | 'AUD' // Australian Dollar
-        | 'RUB' // Russian Ruble
-        | 'INR' // Indian Rupee
-        | 'CNY' // Chinese Yuan
-        | 'CHF'; // Swiss Franc
+type Currency =
+    | 'USD' // United States Dollar
+    | 'EUR' // Euro
+    | 'GBP' // British Pound Sterling
+    | 'JPY' // Japanese Yen
+    | 'CAD' // Canadian Dollar
+    | 'AUD' // Australian Dollar
+    | 'RUB' // Russian Ruble
+    | 'INR' // Indian Rupee
+    | 'CNY' // Chinese Yuan
+    | 'CHF'; // Swiss Franc
 
 /**
  * Convert cents to dollars
@@ -17,11 +17,8 @@ type Currency
  * @example
  * toDollars(1000); // '$10.00'
  */
-export const toDollars = (
-    cents: number,
-    currency: Currency = 'USD',
-    locale: string = 'en-US'
-) => (cents / 100).toLocaleString(locale, { style: 'currency', currency });
+export const toDollars = (cents: number, currency: Currency = 'USD', locale: string = 'en-US') =>
+    (cents / 100).toLocaleString(locale, { style: 'currency', currency });
 
 /**
  * Format price in cents
@@ -32,7 +29,7 @@ export const toDollars = (
 export const formatPrice = (
     priceInCents: string,
     currency: Currency = 'USD',
-    locale: string = 'en-US'
+    locale: string = 'en-US',
 ) => {
     const price = Number.parseFloat(priceInCents);
 

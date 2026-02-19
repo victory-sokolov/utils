@@ -3,7 +3,11 @@ import { tryCatch } from '../src/tryCatch';
 
 // Define a custom error class for testing purposes
 class CustomError extends Error {
-    constructor(message: string, public status?: number, public cause?: Error) {
+    constructor(
+        message: string,
+        public status?: number,
+        public cause?: Error,
+    ) {
         super(message);
         this.name = 'CustomError';
     }
@@ -18,7 +22,7 @@ const expectErrorResult = (
     ErrorClass: new (message: string, status?: number, cause?: Error) => Error,
     message: string,
     status: number,
-    options?: { cause?: Error }
+    options?: { cause?: Error },
 ) => {
     expect(result.data).toBeNull();
     expect(result.error).toBeInstanceOf(ErrorClass);
@@ -37,9 +41,7 @@ describe('tryCatch', () => {
     });
 
     it('should return data and no error for a successful asynchronous function', async () => {
-        const result = await tryCatch(async () =>
-            Promise.resolve('async success')
-        );
+        const result = await tryCatch(async () => Promise.resolve('async success'));
         expect(result.data).toBe('async success');
         expect(result.error).toBeNull();
     });
@@ -54,9 +56,7 @@ describe('tryCatch', () => {
 
     it('should return null data and an Error for an asynchronous function that rejects with an Error', async () => {
         const errorMessage = 'Async error';
-        const result = await tryCatch(async () =>
-            Promise.reject(new Error(errorMessage))
-        );
+        const result = await tryCatch(async () => Promise.reject(new Error(errorMessage)));
         expectErrorResult(result, Error, errorMessage, 500);
     });
 
@@ -82,7 +82,7 @@ describe('tryCatch', () => {
             () => {
                 throw new Error(errorMessage);
             },
-            { ErrorClass: CustomError }
+            { ErrorClass: CustomError },
         );
         expectErrorResult(result, CustomError, errorMessage, 500);
     });
@@ -96,7 +96,7 @@ describe('tryCatch', () => {
             () => {
                 throw thrownError;
             },
-            { ErrorClass: CustomError }
+            { ErrorClass: CustomError },
         );
         expectErrorResult(result, CustomError, errorMessage, 404);
     });
@@ -107,7 +107,7 @@ describe('tryCatch', () => {
             () => {
                 throw new Error(errorMessage);
             },
-            { ErrorClass: CustomError, defaultStatus: 400 }
+            { ErrorClass: CustomError, defaultStatus: 400 },
         );
         expectErrorResult(result, CustomError, errorMessage, 400);
     });
@@ -117,7 +117,7 @@ describe('tryCatch', () => {
             () => {
                 throw new Error('Something went wrong');
             },
-            { ErrorClass: CustomError, defaultStatus: 503 }
+            { ErrorClass: CustomError, defaultStatus: 503 },
         );
         expectErrorResult(result, CustomError, 'Something went wrong', 503);
     });
@@ -127,9 +127,7 @@ describe('tryCatch', () => {
         expect(resultNull.data).toBeNull();
         expect(resultNull.error).toBeNull();
 
-        const resultUndefined = await tryCatch(async () =>
-            Promise.resolve(undefined)
-        );
+        const resultUndefined = await tryCatch(async () => Promise.resolve(undefined));
         expect(resultUndefined.data).toBeUndefined();
         expect(resultUndefined.error).toBeNull();
     });
@@ -140,7 +138,7 @@ describe('tryCatch', () => {
             () => {
                 throw originalError;
             },
-            { ErrorClass: CustomError }
+            { ErrorClass: CustomError },
         );
         expect(result.data).toBeNull();
         expect(result.error).toBe(originalError); // Expect exact instance
@@ -159,20 +157,19 @@ describe('tryCatch', () => {
 
     it('should capture the cause property when using a custom error class', async () => {
         const innerError = new Error('Network issue');
-        const thrownError = Object.assign(
-            new Error('External service call failed'),
-            {
-                cause: innerError,
-                status: 502,
-            }
-        );
+        const thrownError = Object.assign(new Error('External service call failed'), {
+            cause: innerError,
+            status: 502,
+        });
         const result = await tryCatch(
             () => {
                 throw thrownError;
             },
-            { ErrorClass: CustomError, defaultStatus: 500 }
+            { ErrorClass: CustomError, defaultStatus: 500 },
         );
-        expectErrorResult(result, CustomError, 'External service call failed', 502, { cause: innerError });
+        expectErrorResult(result, CustomError, 'External service call failed', 502, {
+            cause: innerError,
+        });
     });
 
     it('should correctly handle thrown Error instances when no ErrorClass is provided', async () => {

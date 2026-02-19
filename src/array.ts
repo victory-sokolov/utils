@@ -6,9 +6,7 @@ import { hasProperty, isString } from './is';
  * @param listOfArrays List of arrays to flatten
  * @returns flattened array
  */
-export const flattenArray = <T>(
-    listOfArrays: ReadonlyArray<T>
-): ReadonlyArray<T> => {
+export const flattenArray = <T>(listOfArrays: ReadonlyArray<T>): ReadonlyArray<T> => {
     return listOfArrays.reduce((res, arr) => {
         return [...res, ...(Array.isArray(arr) ? flattenArray(arr) : [arr])];
     }, [] as T[]);
@@ -29,11 +27,8 @@ export const unique = <T>(array: readonly T[]): Collection<T> => {
  * @param values - The values to remove from the array
  * @returns Array with removed items
  */
-export const removeItem = <T>(
-    array: Collection<T>,
-    values: T[]
-): Collection<T> => {
-    return array.filter((item) => !values.includes(item));
+export const removeItem = <T>(array: Collection<T>, values: T[]): Collection<T> => {
+    return array.filter(item => !values.includes(item));
 };
 
 /**
@@ -48,7 +43,7 @@ export const randomItem = <T>(arr: T[], count: number): Array<T> => {
 
     return Array.from(
         { length: count },
-        () => arr[Math.round(Math.random() * (arr.length - 1))] as T
+        () => arr[Math.round(Math.random() * (arr.length - 1))] as T,
     );
 };
 
@@ -59,7 +54,7 @@ export const randomItem = <T>(arr: T[], count: number): Array<T> => {
  */
 export const shuffleArray = <T>(arr: Collection<T>): Collection<T> => {
     return arr
-        .map((value) => ({ value, sort: Math.random() }))
+        .map(value => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);
 };
@@ -70,7 +65,7 @@ export const shuffleArray = <T>(arr: Collection<T>): Collection<T> => {
  * @returns Sorted array of objects
  */
 export const sortAsc = <T extends Record<string, any>>(
-    array: ReadonlyArray<T>
+    array: ReadonlyArray<T>,
 ): ReadonlyArray<T> => {
     return [...array].sort((a, b) => {
         if (a.key < b.key) {
@@ -94,16 +89,16 @@ const fSort = (firstValue: number, secondValue: number): number => {
  */
 export const sort = <T extends Record<string, unknown>>(
     arr: T[] = [],
-    fSorting: ((a: T, b: T) => number) | null = null
+    fSorting: ((a: T, b: T) => number) | null = null,
 ): T[] => {
     const copyArray = [...arr];
-    const fn
-        = fSorting
-            || ((a: T, b: T) => {
-                const valA = Number(Object.values(a)[0]);
-                const valB = Number(Object.values(b)[0]);
-                return fSort(valA, valB);
-            });
+    const fn =
+        fSorting ||
+        ((a: T, b: T) => {
+            const valA = Number(Object.values(a)[0]);
+            const valB = Number(Object.values(b)[0]);
+            return fSort(valA, valB);
+        });
     copyArray.sort(fn);
     return copyArray;
 };
@@ -117,7 +112,7 @@ export const sort = <T extends Record<string, unknown>>(
 export const sortBy = (
     arr: RecordObject[] = [],
     order: number = 1,
-    key: string = ''
+    key: string = '',
 ): RecordObject[] => {
     if (!isString(key) || !arr.length || !hasProperty(arr[0], key)) {
         return arr;
@@ -155,10 +150,7 @@ export const sortBy = (
  * // Using a callback to find by condition
  * resolveIndex(item => item.id === 'foo', [{id: 'bar'}, {id: 'foo'}]) // returns 1
  */
-const resolveIndex = <T>(
-    index: number | IndexCallback<T>,
-    arr: T[]
-): number => {
+const resolveIndex = <T>(index: number | IndexCallback<T>, arr: T[]): number => {
     return typeof index === 'function' ? arr.findIndex(index) : index;
 };
 
@@ -186,7 +178,7 @@ const resolveIndex = <T>(
 const getValidIndex = <T>(
     index: number | IndexCallback<T>,
     arr: T[] | null | undefined,
-    allowEnd: boolean = false
+    allowEnd: boolean = false,
 ): number => {
     if (!arr) return -1;
     const indexAt = resolveIndex(index, arr);
@@ -201,7 +193,7 @@ const getValidIndex = <T>(
 const modifyAtIndex = <T>(
     index: number | IndexCallback<T>,
     arr: T[] | null | undefined,
-    modifier: (arr: T[], indexAt: number) => T[]
+    modifier: (arr: T[], indexAt: number) => T[],
 ): T[] => {
     if (!arr) return [];
     const indexAt = getValidIndex(index, arr);
@@ -219,7 +211,7 @@ const modifyAtIndex = <T>(
 export const insertItemAtIndex = <T>(
     index: number | IndexCallback<T>,
     value: T,
-    arr?: T[] | null
+    arr?: T[] | null,
 ) => {
     if (!arr) return [];
     const indexAt = getValidIndex(index, arr, true);
@@ -237,7 +229,7 @@ export const insertItemAtIndex = <T>(
 export const replaceItemAtIndex = <T>(
     index: number | IndexCallback<T>,
     newValue: T,
-    arr?: T[] | null
+    arr?: T[] | null,
 ) => {
     return modifyAtIndex(index, arr, (a, i) => [...a.slice(0, i), newValue, ...a.slice(i + 1)]);
 };
@@ -248,10 +240,7 @@ export const replaceItemAtIndex = <T>(
  * @param arr - The array to remove from
  * @returns New array with the item removed
  */
-export const removeItemAtIndex = <T>(
-    index: number | IndexCallback<T>,
-    arr?: T[] | null
-) => {
+export const removeItemAtIndex = <T>(index: number | IndexCallback<T>, arr?: T[] | null) => {
     return modifyAtIndex(index, arr, (a, i) => [...a.slice(0, i), ...a.slice(i + 1)]);
 };
 
@@ -265,9 +254,7 @@ export const median = (arr: number[]): number => {
 
     const mid = Math.floor(arr.length / 2);
     const nums = [...arr].sort((a, b) => a - b);
-    return (
-        arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1]! + nums[mid]!) / 2
-    ) as number;
+    return (arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1]! + nums[mid]!) / 2) as number;
 };
 
 /**
@@ -279,7 +266,7 @@ export const median = (arr: number[]): number => {
  */
 export const intersection = <T>(arr1: T[], arr2: T[]): T[] => {
     const set = new Set(arr1);
-    return arr2.filter((x) => set.has(x));
+    return arr2.filter(x => set.has(x));
 };
 
 /**
@@ -287,9 +274,7 @@ export const intersection = <T>(arr1: T[], arr2: T[]): T[] => {
  * @param array - Array of elements to count
  * @returns Object where keys are array values and values are the count of occurrences
  */
-export const countBy = (
-    array: Array<number | string>
-): Record<string, number> => {
+export const countBy = (array: Array<number | string>): Record<string, number> => {
     return array.reduce((obj: { [key: string]: number }, item) => {
         if (item in obj) {
             // item is already a key so increment
@@ -312,9 +297,9 @@ export const countBy = (
 export const occurrenceCount = <T>(data: Array<T>) => {
     const unique = Array.from(new Set(data));
     return Object.fromEntries(
-        unique.map((char) => {
-            const occurrenceCount = data.filter((c) => c === char).length;
+        unique.map(char => {
+            const occurrenceCount = data.filter(c => c === char).length;
             return [char, occurrenceCount];
-        })
+        }),
     );
 };

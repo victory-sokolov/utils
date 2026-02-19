@@ -1,4 +1,13 @@
-import { $, $$, addClass, insertAfter, insertBefore, prepend, removeClass, style } from '../../src/browser/dom';
+import {
+    $,
+    $$,
+    addClass,
+    insertAfter,
+    insertBefore,
+    prepend,
+    removeClass,
+    style,
+} from '../../src/browser/dom';
 
 describe('dOM helpers', () => {
     let parent: HTMLElement;

@@ -22,7 +22,7 @@ describe('flattenArray', () => {
             flattenArray([
                 [1, 2],
                 [3, 4],
-            ])
+            ]),
         ).toEqual([1, 2, 3, 4]);
     });
 
@@ -119,10 +119,16 @@ describe('sortAsc', () => {
     });
 
     it('should maintain original order for equal keys', () => {
-        const objects = [{ key: 1, value: 'b' }, { key: 1, value: 'a' }];
+        const objects = [
+            { key: 1, value: 'b' },
+            { key: 1, value: 'a' },
+        ];
         const sortedObjects = sortAsc<any>(objects);
         // Using toStrictEqual to ensure array and object equality including value
-        expect(sortedObjects).toEqual([{ key: 1, value: 'b' }, { key: 1, value: 'a' }]);
+        expect(sortedObjects).toEqual([
+            { key: 1, value: 'b' },
+            { key: 1, value: 'a' },
+        ]);
     });
 
     it('should sort array in ascending order correctly', () => {
@@ -141,7 +147,7 @@ describe('insertItemAtIndex', () => {
 
     it('inserts the item at the index returned by the callback', () => {
         const arr = [1, 2, 3];
-        const result = insertItemAtIndex((item) => item === 2, 4, arr);
+        const result = insertItemAtIndex(item => item === 2, 4, arr);
         expect(result).toEqual([1, 4, 2, 3]);
     });
 
@@ -157,7 +163,7 @@ describe('insertItemAtIndex', () => {
         const result = insertItemAtIndex(5, 4, arr); // Index out of bounds
         expect(result).toEqual(arr);
 
-        const resultCallback = insertItemAtIndex((item) => item === 99, 4, arr); // Item not found
+        const resultCallback = insertItemAtIndex(item => item === 99, 4, arr); // Item not found
         expect(resultCallback).toEqual(arr);
     });
 });
@@ -200,7 +206,7 @@ describe('replaceItemAtIndex', () => {
         const result = replaceItemAtIndex(5, newValue, arr); // Index out of bounds
         expect(result).toEqual(arr);
 
-        const resultCallback = replaceItemAtIndex((item) => item === 99, newValue, arr); // Item not found
+        const resultCallback = replaceItemAtIndex(item => item === 99, newValue, arr); // Item not found
         expect(resultCallback).toEqual(arr);
     });
 });
@@ -216,7 +222,7 @@ describe('removeItemAtIndex', () => {
     it('removes item based on callback function', () => {
         const arr = [{ id: 1 }, { id: 2 }, { id: 3 }];
         const expected = [{ id: 1 }, { id: 3 }];
-        const result = removeItemAtIndex((item) => item.id === 2, arr);
+        const result = removeItemAtIndex(item => item.id === 2, arr);
         expect(result).toEqual(expected);
     });
 

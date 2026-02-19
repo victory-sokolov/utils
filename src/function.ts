@@ -3,31 +3,26 @@ export type AnyAsyncFunc<Input extends any[] = any[], Output = any> = (
     ...args: Input
 ) => Promise<Output>;
 
-type FirstParameter<F extends AnyFunc> = F extends (
-    arg: infer P,
-    ...args: any[]
-) => any
+type FirstParameter<F extends AnyFunc> = F extends (arg: infer P, ...args: any[]) => any
     ? P
     : never;
 
 // Helper type to get the parameter types of a function
-type ParametersOf<F extends AnyFunc> = F extends (...args: infer P) => any
-    ? P
-    : never;
+type ParametersOf<F extends AnyFunc> = F extends (...args: infer P) => any ? P : never;
 
 type PipeArgs<F extends AnyFunc[], Acc extends AnyFunc[] = []> = F extends [
-    (...args: infer A) => infer B
+    (...args: infer A) => infer B,
 ]
     ? [...Acc, (...args: A) => B]
     : F extends [(...args: infer A) => any, ...infer Tail]
-        ? Tail extends [(arg: infer B) => any, ...any[]]
-            ? PipeArgs<Tail, [...Acc, (...args: A) => B]>
-            : Acc
-        : Acc;
+      ? Tail extends [(arg: infer B) => any, ...any[]]
+          ? PipeArgs<Tail, [...Acc, (...args: A) => B]>
+          : Acc
+      : Acc;
 
 type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [
     ...any[],
-    (...arg: any) => infer R
+    (...arg: any) => infer R,
 ]
     ? R
     : Else;
@@ -37,7 +32,7 @@ type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [
  * @param functions List of functions to call
  */
 export const batchInvoke = (functions: Array<() => void>): void => {
-    functions.forEach((fn) => fn && fn());
+    functions.forEach(fn => fn && fn());
 };
 
 /**
@@ -68,17 +63,13 @@ export const batchInvoke = (functions: Array<() => void>): void => {
 export function pipe<FirstFn extends AnyFunc, F extends AnyFunc[]>(
     arg: ParametersOf<FirstFn>[0],
     firstFn: FirstFn,
-    ...fns: PipeArgs<F, ReturnType<FirstFn>> extends F
-        ? F
-        : PipeArgs<F, ReturnType<FirstFn>>
+    ...fns: PipeArgs<F, ReturnType<FirstFn>> extends F ? F : PipeArgs<F, ReturnType<FirstFn>>
 ): LastFnReturnType<F, ReturnType<FirstFn>>;
 
 // Overload 2: Without argument - firstFn must take no parameters
 export function pipe<FirstFn extends () => any, F extends AnyFunc[]>(
     firstFn: FirstFn,
-    ...fns: PipeArgs<F, ReturnType<FirstFn>> extends F
-        ? F
-        : PipeArgs<F, ReturnType<FirstFn>>
+    ...fns: PipeArgs<F, ReturnType<FirstFn>> extends F ? F : PipeArgs<F, ReturnType<FirstFn>>
 ): LastFnReturnType<F, ReturnType<FirstFn>>;
 
 // Implementation
@@ -88,14 +79,12 @@ export function pipe<FirstFn extends AnyFunc, F extends AnyFunc[]>(
     ...fns: any[]
 ): any {
     if (typeof argOrFirstFn === 'function') {
-        const allFns = [firstFnOrSecondFn, ...fns].filter(
-            (fn) => fn !== undefined
-        );
+        const allFns = [firstFnOrSecondFn, ...fns].filter(fn => fn !== undefined);
         return allFns.reduce((acc, fn) => fn(acc), (argOrFirstFn as AnyFunc)());
     } else {
         return (fns as AnyFunc[]).reduce(
             (acc, fn) => fn(acc),
-            (firstFnOrSecondFn as FirstFn)(argOrFirstFn)
+            (firstFnOrSecondFn as FirstFn)(argOrFirstFn),
         );
     }
 }

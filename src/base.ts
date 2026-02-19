@@ -5,8 +5,7 @@ const SIZE_UNITS = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
  * @param ms Pause in milliseconds
  * @returns Promise
  */
-export const wait = (ms: number): Promise<void> =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+export const wait = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
 
 /**
  * Start time
@@ -46,10 +45,7 @@ export const bytesToSize = (bytes: number): string => {
  * @param delay Function delay
  * @returns new function
  */
-export const debounce = <T extends unknown[]>(
-    fn: (...args: T) => void,
-    delay: number,
-) => {
+export const debounce = <T extends unknown[]>(fn: (...args: T) => void, delay: number) => {
     let timeoutID: ReturnType<typeof setTimeout> | undefined;
     let lastArgs: T | undefined;
 
@@ -80,10 +76,7 @@ export const debounce = <T extends unknown[]>(
  * @param cooldown Timer arg
  * @returns a new function, which when executed, stores the call arguments and starts the cooldown timer
  */
-export const throttle = <Args extends unknown[]>(
-    fn: (...args: Args) => void,
-    cooldown: number,
-) => {
+export const throttle = <Args extends unknown[]>(fn: (...args: Args) => void, cooldown: number) => {
     let lastArgs: Args | undefined;
 
     const run = () => {

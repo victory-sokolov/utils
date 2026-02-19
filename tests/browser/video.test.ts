@@ -93,7 +93,9 @@ describe('test camera', () => {
 
             await startCamera(false, videoMock as any);
 
-            expect(consoleErrorSpy).toHaveBeenCalledWith('An error occured! Error: Permission denied');
+            expect(consoleErrorSpy).toHaveBeenCalledWith(
+                'An error occured! Error: Permission denied',
+            );
             consoleErrorSpy.mockRestore();
         });
 

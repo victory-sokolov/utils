@@ -209,7 +209,7 @@ describe('string-utils', () => {
             it('should generate a string of specified length', () => {
                 const lengths = [1, 10, 50, 100];
 
-                lengths.forEach((len) => {
+                lengths.forEach(len => {
                     const result = randomStr(len);
                     expect(result).toHaveLength(len);
                 });

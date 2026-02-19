@@ -62,7 +62,9 @@ describe('escape HTML entities', () => {
 
     it('should escape all relevant HTML characters', () => {
         expect(escape('<>"\'')).toBe('&lt;&gt;&quot;&#39;');
-        expect(escape('String with <tag>, "quote", & ampersand, \'apostrophe\'')).toBe('String with &lt;tag&gt;, &quot;quote&quot;, &amp; ampersand, &#39;apostrophe&#39;');
+        expect(escape('String with <tag>, "quote", & ampersand, \'apostrophe\'')).toBe(
+            'String with &lt;tag&gt;, &quot;quote&quot;, &amp; ampersand, &#39;apostrophe&#39;',
+        );
     });
 });
 
@@ -86,13 +88,17 @@ describe('unescape HTML entities', () => {
 
     it('should unescape all relevant HTML entities', () => {
         expect(unescape('&lt;&gt;&quot;&#39;&amp;')).toBe('<>"\'&');
-        expect(unescape('String with &lt;tag&gt;, &quot;quote&quot;, &amp;ampersand, &#39;apostrophe&#39;')).toBe('String with <tag>, "quote", &ampersand, \'apostrophe\'');
+        expect(
+            unescape(
+                'String with &lt;tag&gt;, &quot;quote&quot;, &amp;ampersand, &#39;apostrophe&#39;',
+            ),
+        ).toBe('String with <tag>, "quote", &ampersand, \'apostrophe\'');
     });
 
     it('should handle numeric and hex character references', () => {
-        expect(unescape('&#x27;')).toBe('\''); // Hex for '
-        expect(unescape('&#39;')).toBe('\''); // Numeric for '
-        expect(unescape('&#0039;')).toBe('\''); // Padded numeric for '
+        expect(unescape('&#x27;')).toBe("'"); // Hex for '
+        expect(unescape('&#39;')).toBe("'"); // Numeric for '
+        expect(unescape('&#0039;')).toBe("'"); // Padded numeric for '
     });
     it('should handle unknown or malformed entities by returning the original entity or default', () => {
         // The current implementation defaults to '\'' for unknown entities,

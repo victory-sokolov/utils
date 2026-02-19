@@ -41,10 +41,7 @@ export const getVideoConstraint = () => {
  * @param isStreaming Is camera streaming
  * @param video HTMLVideoElement
  */
-export const startCamera = async (
-    isStreaming: boolean,
-    video: HTMLVideoElement,
-): Promise<void> => {
+export const startCamera = async (isStreaming: boolean, video: HTMLVideoElement): Promise<void> => {
     const constraint = getVideoConstraint();
     if (isStreaming) return;
 
@@ -74,7 +71,7 @@ export const startCamera = async (
 export const stopCamera = (stream: MediaStream, isStreaming: boolean): void => {
     if (!isStreaming) return;
 
-    stream.getTracks().forEach((track) => {
+    stream.getTracks().forEach(track => {
         track.stop();
     });
 };

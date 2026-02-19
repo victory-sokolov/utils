@@ -60,7 +60,10 @@ describe('objectEntries', () => {
     it('should return strict typed entries', () => {
         const obj = { a: 1, b: 2 };
         const entries = objectEntries(obj);
-        expect(entries).toEqual([['a', 1], ['b', 2]]);
+        expect(entries).toEqual([
+            ['a', 1],
+            ['b', 2],
+        ]);
         // Type check: entries should be [keyof T, T[keyof T]][]
     });
 });
@@ -114,10 +117,7 @@ describe('filterFalsyFromObject', () => {
             { a: 1, b: 0, c: false, d: null, e: undefined },
             { a: null, b: 12, c: 'hello', d: { a: 1 }, e: [], f: {} },
         ];
-        expect(filterFalsyFromObject(obj)).toEqual([
-            { a: 1 },
-            { b: 12, c: 'hello', d: { a: 1 } },
-        ]);
+        expect(filterFalsyFromObject(obj)).toEqual([{ a: 1 }, { b: 12, c: 'hello', d: { a: 1 } }]);
     });
     it('should accept ISO date strings', () => {
         const obj = { a: 1, timestamp: '2025-02-15T00:00:00.000Z' };

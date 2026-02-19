@@ -42,7 +42,9 @@ describe('bytesToSize', () => {
 
 describe('timer-based functions', () => {
     beforeEach(() => {
-        vi.useFakeTimers({ toFake: ['setTimeout', 'setInterval', 'clearTimeout', 'clearInterval'] });
+        vi.useFakeTimers({
+            toFake: ['setTimeout', 'setInterval', 'clearTimeout', 'clearInterval'],
+        });
     });
 
     afterEach(() => {
@@ -98,9 +100,7 @@ describe('timer-based functions', () => {
         });
 
         it('perfStop should handle zero elapsed time', () => {
-            vi.spyOn(performance, 'now')
-                .mockReturnValueOnce(500)
-                .mockReturnValueOnce(500);
+            vi.spyOn(performance, 'now').mockReturnValueOnce(500).mockReturnValueOnce(500);
 
             const startTime = perfStart();
             const result = perfStop(startTime);

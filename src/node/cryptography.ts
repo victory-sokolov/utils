@@ -8,16 +8,9 @@ import nodeCrypto from 'node:crypto';
  * @param keyLen Key length. Default to 64
  * @returns Hashed object with meta information
  */
-export const hashString = (
-    str: string,
-    iterations = 10000,
-    keyLen = 64,
-    digest = 'sha512'
-) => {
+export const hashString = (str: string, iterations = 10000, keyLen = 64, digest = 'sha512') => {
     const salt = nodeCrypto.randomBytes(128).toString('base64');
-    const hash = nodeCrypto
-        .pbkdf2Sync(str, salt, iterations, keyLen, digest)
-        .toString('hex');
+    const hash = nodeCrypto.pbkdf2Sync(str, salt, iterations, keyLen, digest).toString('hex');
     return {
         salt,
         hash,
@@ -42,13 +35,11 @@ export const validateHash = (
     savedSalt: string,
     iterations: number,
     keyLen: number,
-    digest: string
+    digest: string,
 ) => {
     return (
-        savedHash
-        === nodeCrypto
-            .pbkdf2Sync(password, savedSalt, iterations, keyLen, digest)
-            .toString('hex')
+        savedHash ===
+        nodeCrypto.pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString('hex')
     );
 };
 
@@ -64,7 +55,7 @@ async function deriveKey(secret: string): Promise<CryptoKey> {
         encoder.encode(secret),
         'PBKDF2',
         false,
-        ['deriveBits', 'deriveKey']
+        ['deriveBits', 'deriveKey'],
     );
 
     return crypto.subtle.deriveKey(
@@ -77,7 +68,7 @@ async function deriveKey(secret: string): Promise<CryptoKey> {
         keyMaterial,
         { name: 'AES-GCM', length: 256 },
         false,
-        ['encrypt', 'decrypt']
+        ['encrypt', 'decrypt'],
     );
 }
 
@@ -87,10 +78,7 @@ async function deriveKey(secret: string): Promise<CryptoKey> {
  * @param secretKey The secret key (must be at least 32 characters long).
  * @returns Encrypted text.
  */
-export async function encryptData(
-    plainText: string,
-    secretKey: string
-): Promise<string> {
+export async function encryptData(plainText: string, secretKey: string): Promise<string> {
     const encoder = new TextEncoder();
     const key = await deriveKey(secretKey);
 
@@ -98,7 +86,7 @@ export async function encryptData(
     const encrypted = await crypto.subtle.encrypt(
         { name: 'AES-GCM', iv },
         key,
-        encoder.encode(plainText)
+        encoder.encode(plainText),
     );
 
     // Combine IV + encrypted data
@@ -114,10 +102,7 @@ export async function encryptData(
  * @param secretKey The secret key (must be the same as used during encryption).
  * @returns The decrypted plain text string.
  */
-export async function decryptData(
-    encryptedData: string,
-    secretKey: string
-): Promise<string> {
+export async function decryptData(encryptedData: string, secretKey: string): Promise<string> {
     const encoded = Buffer.from(encryptedData, 'base64'); // Convert from Base64
     // Extract IV (first 12 bytes) using subarray
     const iv = encoded.subarray(0, 12);
@@ -125,10 +110,6 @@ export async function decryptData(
     const encrypted = encoded.subarray(12);
     const key = await deriveKey(secretKey);
 
-    const decrypted = await crypto.subtle.decrypt(
-        { name: 'AES-GCM', iv },
-        key,
-        encrypted
-    );
+    const decrypted = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, encrypted);
     return new TextDecoder().decode(decrypted);
 }

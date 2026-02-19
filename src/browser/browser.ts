@@ -69,7 +69,7 @@ export const isPageReloaded = () => {
 
     if (typeof perf.getEntriesByType === 'function') {
         const entries = perf.getEntriesByType('navigation') as PerformanceNavigationTiming[];
-        return entries.some((e) => e.type === 'reload');
+        return entries.some(e => e.type === 'reload');
     }
 
     return false;

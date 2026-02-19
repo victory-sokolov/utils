@@ -41,8 +41,7 @@ export const isNumber = (val: any): val is number => typeof val === 'number';
  * @example
  * isString('hello'); // true
  */
-export const isString = (val: unknown): val is string =>
-    typeof val === 'string';
+export const isString = (val: unknown): val is string => typeof val === 'string';
 
 /**
  * Check if a value is an object (not null)
@@ -57,32 +56,28 @@ export const isObject = (val: unknown): val is Record<string, unknown> =>
  * @param val - The value to check
  * @returns True if the value is undefined
  */
-export const isUndefined = (val: any): val is undefined =>
-    toString(val) === '[object Undefined]';
+export const isUndefined = (val: any): val is undefined => toString(val) === '[object Undefined]';
 
 /**
  * Check if a value is null
  * @param val - The value to check
  * @returns True if the value is null
  */
-export const isNull = (val: any): val is null =>
-    toString(val) === '[object Null]';
+export const isNull = (val: any): val is null => toString(val) === '[object Null]';
 
 /**
  * Check if a value is a RegExp
  * @param val - The value to check
  * @returns True if the value is a RegExp
  */
-export const isRegExp = (val: any): val is RegExp =>
-    toString(val) === '[object RegExp]';
+export const isRegExp = (val: any): val is RegExp => toString(val) === '[object RegExp]';
 
 /**
  * Check if a value is a Date
  * @param val - The value to check
  * @returns True if the value is a Date
  */
-export const isDate = (val: any): val is Date =>
-    toString(val) === '[object Date]';
+export const isDate = (val: any): val is Date => toString(val) === '[object Date]';
 
 /**
  * Check if a value is a JavaScript object or function
@@ -97,8 +92,7 @@ export const isJsObject = (val: any) =>
  * @param element - The element to check
  * @returns True if the value is an HTML element
  */
-export const isHtmlElement = (element: unknown): element is Element =>
-    element instanceof Element;
+export const isHtmlElement = (element: unknown): element is Element => element instanceof Element;
 
 /**
  * Check if an object has a specific property
@@ -152,12 +146,12 @@ export const isTruthyAndNotEmpty = (value: unknown): boolean => {
     if (!value) return false; // falsy
     if (Array.isArray(value) && value.length === 0) return false; // empty array
     if (
-        value
-        && typeof value === 'object'
-        && !Array.isArray(value)
-        && !isDate(value)
-        && !isRegExp(value)
-        && Object.keys(value).length === 0
+        value &&
+        typeof value === 'object' &&
+        !Array.isArray(value) &&
+        !isDate(value) &&
+        !isRegExp(value) &&
+        Object.keys(value).length === 0
     ) {
         return false;
     }

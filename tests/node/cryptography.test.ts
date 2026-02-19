@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-    decryptData,
-    encryptData,
-    hashString,
-    validateHash,
-} from '../../src/node/cryptography';
+import { decryptData, encryptData, hashString, validateHash } from '../../src/node/cryptography';
 
 describe('cryptography', () => {
     describe('hashString', () => {
@@ -41,11 +36,7 @@ describe('cryptography', () => {
             const testString = 'myPassword123';
             const customIterations = 50000;
             const customKeyLen = 32;
-            const { iterations, keyLen } = hashString(
-                testString,
-                customIterations,
-                customKeyLen
-            );
+            const { iterations, keyLen } = hashString(testString, customIterations, customKeyLen);
 
             expect(iterations).toBe(customIterations);
             expect(keyLen).toBe(customKeyLen);
@@ -57,14 +48,7 @@ describe('cryptography', () => {
             const testString = 'myPassword123';
             const { salt, hash, iterations, keyLen } = hashString(testString);
 
-            const isValid = validateHash(
-                testString,
-                hash,
-                salt,
-                iterations,
-                keyLen,
-                'sha512'
-            );
+            const isValid = validateHash(testString, hash, salt, iterations, keyLen, 'sha512');
             expect(isValid).toBe(true);
         });
 
@@ -73,14 +57,7 @@ describe('cryptography', () => {
             const wrongString = 'wrongPassword';
             const { salt, hash, iterations, keyLen } = hashString(testString);
 
-            const isValid = validateHash(
-                wrongString,
-                hash,
-                salt,
-                iterations,
-                keyLen,
-                'sha512'
-            );
+            const isValid = validateHash(wrongString, hash, salt, iterations, keyLen, 'sha512');
             expect(isValid).toBe(false);
         });
 
@@ -95,7 +72,7 @@ describe('cryptography', () => {
                 salt,
                 iterations,
                 keyLen,
-                'sha512'
+                'sha512',
             );
             expect(isValid).toBe(false);
         });
@@ -111,7 +88,7 @@ describe('cryptography', () => {
                 tamperedSalt,
                 iterations,
                 keyLen,
-                'sha512'
+                'sha512',
             );
             expect(isValid).toBe(false);
         });
@@ -133,7 +110,7 @@ describe('cryptography', () => {
 
         it('should encrypt and decrypt a longer string successfully', async () => {
             await testRoundTrip(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
             );
         });
 
@@ -142,9 +119,7 @@ describe('cryptography', () => {
             const encrypted = await encryptData(originalText, secretKey);
             const wrongSecretKey = 'this-is-an-incorrect-secret-key';
 
-            await expect(
-                decryptData(encrypted, wrongSecretKey)
-            ).rejects.toThrow();
+            await expect(decryptData(encrypted, wrongSecretKey)).rejects.toThrow();
         });
 
         it('should fail to decrypt tampered encrypted data', async () => {
@@ -154,9 +129,7 @@ describe('cryptography', () => {
             // Tamper with the encrypted data by changing one character
             const tamperedEncrypted = `${encrypted.slice(0, -5)}AAAAA`;
 
-            await expect(
-                decryptData(tamperedEncrypted, secretKey)
-            ).rejects.toThrow();
+            await expect(decryptData(tamperedEncrypted, secretKey)).rejects.toThrow();
         });
     });
 });

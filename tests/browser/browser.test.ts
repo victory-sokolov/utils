@@ -32,7 +32,7 @@ describe('browser utilities', () => {
 
         // Store original to restore later
         originalCreateElement = document.createElement.bind(document);
-        document.createElement = vi.fn((tagName) => {
+        document.createElement = vi.fn(tagName => {
             if (tagName === 'a') {
                 return mockAnchor as any;
             }
@@ -46,12 +46,8 @@ describe('browser utilities', () => {
             .spyOn(document.body, 'removeChild')
             .mockImplementation((child: Node) => child);
         clickSpy = vi.spyOn(mockAnchor, 'click');
-        createObjectURLSpy = vi
-            .spyOn(URL, 'createObjectURL')
-            .mockReturnValue('blob:mockurl');
-        revokeObjectURLSpy = vi
-            .spyOn(URL, 'revokeObjectURL')
-            .mockImplementation(() => {});
+        createObjectURLSpy = vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:mockurl');
+        revokeObjectURLSpy = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {});
     });
 
     afterEach(() => {
@@ -74,9 +70,8 @@ describe('browser utilities', () => {
             // In a real browser, revokeObjectURL is called later or handled by the browser.
             // For testing, we mock it and check if it's called.
             expect(revokeObjectURLSpy).toHaveBeenCalled(); // This might not be explicitly called in the utility itself, but implicitly by the browser when the object is no longer needed. We'll adjust if this fails.
-            const mockAnchorAfterCall = (
-                document.createElement as ReturnType<typeof vi.fn>
-            ).mock.results[0]!.value;
+            const mockAnchorAfterCall = (document.createElement as ReturnType<typeof vi.fn>).mock
+                .results[0]!.value;
             expect(mockAnchorAfterCall.download).toBe(fileName);
         });
     });
@@ -164,24 +159,17 @@ describe('browser utilities', () => {
             const testObject = { key: 'value', num: 123 };
             const fileName = 'config';
             const expectedDataStr = `data:text/json;charset=utf-8,${encodeURIComponent(
-                JSON.stringify(testObject)
+                JSON.stringify(testObject),
             )}`;
 
             downloadAsJson(testObject, fileName);
 
-            const mockAnchor = (
-                document.createElement as ReturnType<typeof vi.fn>
-            ).mock.results[0]!.value;
+            const mockAnchor = (document.createElement as ReturnType<typeof vi.fn>).mock.results[0]!
+                .value;
 
             expect(document.createElement).toHaveBeenCalledWith('a');
-            expect(mockAnchor.setAttribute).toHaveBeenCalledWith(
-                'href',
-                expectedDataStr
-            );
-            expect(mockAnchor.setAttribute).toHaveBeenCalledWith(
-                'download',
-                `${fileName}.json`
-            );
+            expect(mockAnchor.setAttribute).toHaveBeenCalledWith('href', expectedDataStr);
+            expect(mockAnchor.setAttribute).toHaveBeenCalledWith('download', `${fileName}.json`);
             expect(document.body.appendChild).toHaveBeenCalledWith(mockAnchor);
             expect(mockAnchor.click).toHaveBeenCalled();
             expect(mockAnchor.remove).toHaveBeenCalled();
@@ -216,9 +204,7 @@ describe('browser utilities', () => {
         });
 
         it('should return true if entryType is "reload"', () => {
-            (
-                window.performance.getEntriesByType as ReturnType<typeof vi.fn>
-            ).mockReturnValue([
+            (window.performance.getEntriesByType as ReturnType<typeof vi.fn>).mockReturnValue([
                 {
                     entryType: 'navigation',
                     name: 'http://localhost/',
@@ -229,9 +215,7 @@ describe('browser utilities', () => {
         });
 
         it('should return false if entryType is not "reload"', () => {
-            (
-                window.performance.getEntriesByType as ReturnType<typeof vi.fn>
-            ).mockReturnValue([
+            (window.performance.getEntriesByType as ReturnType<typeof vi.fn>).mockReturnValue([
                 {
                     entryType: 'navigation',
                     name: 'http://localhost/',
@@ -242,9 +226,7 @@ describe('browser utilities', () => {
         });
 
         it('should return false if no navigation entries are found', () => {
-            (
-                window.performance.getEntriesByType as ReturnType<typeof vi.fn>
-            ).mockReturnValue([]);
+            (window.performance.getEntriesByType as ReturnType<typeof vi.fn>).mockReturnValue([]);
             expect(isPageReloaded()).toBe(false);
         });
 

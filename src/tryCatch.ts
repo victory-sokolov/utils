@@ -182,7 +182,7 @@ interface TryCatchOptions<E extends Error = ErrorWithStatus> {
  */
 export async function tryCatch<T, E extends Error = ErrorWithStatus>(
     fn: () => T | Promise<T>,
-    options: TryCatchOptions<E> = {}
+    options: TryCatchOptions<E> = {},
 ): Promise<Result<T, E>> {
     const ErrorClass = (options.ErrorClass ?? (Error as unknown)) as ErrorConstructor<E>;
     const { defaultStatus = 500 } = options;
@@ -193,8 +193,9 @@ export async function tryCatch<T, E extends Error = ErrorWithStatus>(
         return { data, error: null };
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        const cause = (error instanceof Error && error.cause) ? error.cause as Error : undefined;
-        const status = (typeof (error as any)?.status === 'number') ? (error as any).status : defaultStatus;
+        const cause = error instanceof Error && error.cause ? (error.cause as Error) : undefined;
+        const status =
+            typeof (error as any)?.status === 'number' ? (error as any).status : defaultStatus;
 
         // If a custom ErrorClass is provided AND the thrown error is already an instance of it,
         // we return the original error instance, but ensure it has status and cause.

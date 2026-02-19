@@ -6,15 +6,15 @@
 export const camelCase = (str: string): string => {
     return (
         str
-        // Convert the string to lowercase
+            // Convert the string to lowercase
             .toLowerCase()
-        // Remove all non-alphanumeric characters and spaces
+            // Remove all non-alphanumeric characters and spaces
             .replace(/[^a-z0-9]/g, ' ')
-        // Capitalize the first letter of each word (after spaces)
+            // Capitalize the first letter of each word (after spaces)
             .replace(/\s(\w)/g, (match, letter) => letter.toUpperCase())
-        // Remove leading spaces
+            // Remove leading spaces
             .replace(/\s+/g, '')
-        // Return the first letter in lowercase and the rest as-is
+            // Return the first letter in lowercase and the rest as-is
             .replace(/^(\w)/, (match, letter) => letter.toLowerCase())
     );
 };
@@ -27,7 +27,7 @@ export const camelCase = (str: string): string => {
 export const pascalCase = (str: string, separator = ' '): string => {
     return str
         .split(separator)
-        .map((word) => word.replace(/^\w/, (c) => c.toUpperCase()))
+        .map(word => word.replace(/^\w/, c => c.toUpperCase()))
         .join('');
 };
 
@@ -54,7 +54,7 @@ export const escapeHtml = (unsafe: string): string => {
         .replaceAll('<', '&lt;')
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
-        .replaceAll('\'', '&#039;');
+        .replaceAll("'", '&#039;');
 };
 
 /**
@@ -72,7 +72,7 @@ export const removeZeroWidthSpace = (str: string): string =>
  * @returns boolean
  */
 export const endsWithAny = (data: string, items: string[]): boolean => {
-    return items.some((element) => data.endsWith(element));
+    return items.some(element => data.endsWith(element));
 };
 
 /**
@@ -82,7 +82,7 @@ export const endsWithAny = (data: string, items: string[]): boolean => {
  * @returns boolean
  */
 export const startsWithAny = (data: string, items: string[]): boolean => {
-    return items.some((element) => data.startsWith(element));
+    return items.some(element => data.startsWith(element));
 };
 
 /**
@@ -91,8 +91,7 @@ export const startsWithAny = (data: string, items: string[]): boolean => {
  * @returns True if UUID is valid
  */
 export const isValidUUID = (id: string): boolean => {
-    const regexExp
-        = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    const regexExp = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     return regexExp.test(id);
 };
 
@@ -101,7 +100,7 @@ export const isValidUUID = (id: string): boolean => {
  * @returns HEX code
  */
 export const randomHexColorCode = (): string => {
-    const n = (Math.random() * 0xFFFFF * 1000000).toString(16);
+    const n = (Math.random() * 0xfffff * 1000000).toString(16);
     return `#${n.slice(0, 6)}`;
 };
 
@@ -175,5 +174,4 @@ export const maskString = (str: string) => {
  * @param str - The input string to validate.
  * @returns `true` if the string contains non-alphanumeric characters, otherwise `false`.
  */
-export const isAlphaNumeric = (str: string): boolean =>
-    /^[a-z0-9]+$/i.test(str);
+export const isAlphaNumeric = (str: string): boolean => /^[a-z0-9]+$/i.test(str);
