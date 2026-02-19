@@ -1,3 +1,15 @@
+# [0.32.0](https://github.com/victory-sokolov/utils/compare/v0.31.5...v0.32.0) (2026-02-19)
+
+
+### Bug Fixes
+
+* fix function name ([17f9c56](https://github.com/victory-sokolov/utils/commit/17f9c5604a1dd164500409ff40a954f5e0373230))
+
+
+### Features
+
+* isPlainObject - detect if provided object is plain object structure ([eeaea91](https://github.com/victory-sokolov/utils/commit/eeaea912effd33116f953dc83a6904694fc7777a))
+
 ## [0.31.5](https://github.com/victory-sokolov/utils/compare/v0.31.4...v0.31.5) (2025-12-23)
 
 
