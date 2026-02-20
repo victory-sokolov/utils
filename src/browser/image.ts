@@ -28,7 +28,26 @@ export const setBase64Img = (imageData: string): string => `data:image/png;base6
 export const fileToBase64 = (file: Blob): Promise<string | ArrayBuffer | null> =>
     new Promise((resolve, reject) => {
         const reader = new FileReader();
+        reader.addEventListener(
+            'load',
+            () => {
+                resolve(reader.result);
+            },
+            { once: true },
+        );
+        reader.addEventListener(
+            'error',
+            () => {
+                reject(reader.error ?? new Error('File read error'));
+            },
+            { once: true },
+        );
+        reader.addEventListener(
+            'abort',
+            () => {
+                reject(reader.error ?? new Error('File read aborted'));
+            },
+            { once: true },
+        );
         reader.readAsDataURL(file);
-        reader.addEventListener('load', (): void => resolve(reader.result));
-        reader.addEventListener('error', (error): void => reject(error));
     });

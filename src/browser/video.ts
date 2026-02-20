@@ -70,7 +70,7 @@ export const startCamera = (isStreaming: boolean, video: HTMLVideoElement): Prom
             })
             .catch((error: unknown) => {
                 // oxlint-disable-next-line no-console
-                console.error(`An error occured! ${error}`);
+                console.error(`An error occurred! ${error}`);
             });
     }
     // oxlint-disable-next-line no-console

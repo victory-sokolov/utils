@@ -1,4 +1,3 @@
-/* eslint-disable import/no-nodejs-modules */
 import { Buffer } from 'node:buffer';
 import nodeCrypto from 'node:crypto';
 
@@ -31,7 +30,7 @@ interface ValidateHashOptions {
  * @returns Hashed object with meta information
  */
 export const hashString = (options: HashOptions): HashResult => {
-    const { digest = 'sha512', iterations = 10_000, keyLen = 64, str } = options;
+    const { digest = 'sha512', iterations = 210_000, keyLen = 64, str } = options;
     const salt = nodeCrypto.randomBytes(128).toString('base64');
     const hash = nodeCrypto.pbkdf2Sync(str, salt, iterations, keyLen, digest).toString('hex');
     return {

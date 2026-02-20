@@ -8,7 +8,7 @@ describe('hashString and validateHash', () => {
 
         expect(hash).toBeTypeOf('string');
         expect(salt).toBeTypeOf('string');
-        expect(iterations).toBe(10_000);
+        expect(iterations).toBe(210_000);
         expect(keyLen).toBe(64);
 
         const isValid = validateHash({

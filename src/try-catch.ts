@@ -245,7 +245,7 @@ const buildError = <E extends Error>(
     message: string,
     params: ErrorParams,
 ): Failure<E> => {
-    const newError = new ErrorClass(message);
+    const newError = new ErrorClass(message, params.status, params.cause);
     return createErrorResult(newError, params);
 };
 
