@@ -7,11 +7,19 @@
 export const toString = (value: unknown): string => Object.prototype.toString.call(value);
 
 /**
+ * Check if a value is undefined
+ * @param val - The value to check
+ * @returns True if the value is undefined
+ */
+export const isUndefined = (val: unknown): val is undefined =>
+    toString(val) === '[object Undefined]';
+
+/**
  * Check if a value is defined (not undefined)
  * @param val - The value to check
  * @returns True if the value is not undefined
  */
-export const isDef = <T = unknown>(val: T): val is T => val !== undefined;
+export const isDef = <T = unknown>(val: T): val is T => !isUndefined(val);
 
 /**
  * Check if a value is a boolean
@@ -50,14 +58,6 @@ export const isString = (val: unknown): val is string => typeof val === 'string'
  */
 export const isObject = (val: unknown): val is Record<string, unknown> =>
     typeof val === 'object' && val !== null;
-
-/**
- * Check if a value is undefined
- * @param val - The value to check
- * @returns True if the value is undefined
- */
-export const isUndefined = (val: unknown): val is undefined =>
-    toString(val) === '[object Undefined]';
 
 /**
  * Check if a value is null

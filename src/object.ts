@@ -1,5 +1,5 @@
-import type { RecordObject } from './types';
 import { isPlainObject, isTruthyAndNotEmpty } from './is';
+import type { RecordObject } from './types';
 
 /**
  * Remove specific keys from object
@@ -13,16 +13,18 @@ export const omit = <T extends Record<string, unknown>, K extends keyof T>(
 ): Omit<T, K> | Omit<T, K>[] => {
     // Function to remove keys from a single object
     const omitKeysFromObject = (obj: T): T => {
-        const newObj = { ...obj };
-        for (const key of keys) {
-            delete newObj[key];
+        const newObj: Record<string, unknown> = {};
+        for (const key in obj) {
+            if (Object.hasOwn(obj, key) && !keys.includes(key as K)) {
+                newObj[key] = obj[key];
+            }
         }
-        return newObj;
+        return newObj as T;
     };
 
     // Check if input is an array of objects
     if (Array.isArray(objOrArray)) {
-        return objOrArray.map(omitKeysFromObject);
+        return objOrArray.map(item => omitKeysFromObject(item));
     }
     // Input is a single object
     return omitKeysFromObject(objOrArray);
@@ -108,8 +110,19 @@ export function filterFalsyFromObject<T extends RecordObject | RecordObject[]>(o
  * @param right
  * @returns New combined object
  */
-const copyValue = (value: unknown): unknown =>
-    isPlainObject(value) ? { ...(value as RecordObject) } : value;
+const copyValue = (value: unknown): unknown => {
+    if (isPlainObject(value)) {
+        const obj = value as RecordObject;
+        const copy: RecordObject = {};
+        for (const key in obj) {
+            if (Object.hasOwn(obj, key)) {
+                copy[key] = obj[key];
+            }
+        }
+        return copy;
+    }
+    return value;
+};
 
 const processObject = (obj: RecordObject, result: RecordObject): void => {
     for (const key in obj) {
@@ -126,10 +139,11 @@ export const unionWithExclusion = (left: RecordObject, right: RecordObject): Rec
         if (Object.hasOwn(right, key) && right[key]) {
             const value = right[key];
             const existing = result[key];
-            result[key] =
-                isPlainObject(value) && isPlainObject(existing)
-                    ? unionWithExclusion(existing, value)
-                    : value;
+            if (isPlainObject(value) && isPlainObject(existing)) {
+                result[key] = unionWithExclusion(existing, value);
+            } else {
+                result[key] = value;
+            }
         }
     }
     return result;

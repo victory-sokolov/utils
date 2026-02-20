@@ -1,11 +1,11 @@
 import { flip } from './object';
 
 const htmlEscapes = {
+    '"': '&quot;',
     '&': '&amp;',
+    "'": '&#39;',
     '<': '&lt;',
     '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
 };
 const htmlUnescapes = flip(htmlEscapes) as Record<string, string>;
 

@@ -26,6 +26,8 @@ export const setBase64Img = (imageData: string): string => `data:image/png;base6
 export const fileToBase64 = (file: Blob): void => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = (event: Event): string | ArrayBuffer | null =>
-        (event.target as FileReader).result;
+    reader.addEventListener(
+        'load',
+        (event: Event): string | ArrayBuffer | null => (event.target as FileReader).result,
+    );
 };

@@ -25,12 +25,12 @@ export const readDirRecursive = async (dir: string, fileList: string[] = []): Pr
 
 /**
  * Check if specified file exists
- * @param path File path
+ * @param filePath File path
  * @returns True if file exists otherwise false
  */
-export const isFileExists = async (path: string): Promise<boolean> => {
+export const isFileExists = async (filePath: string): Promise<boolean> => {
     try {
-        await stat(path);
+        await stat(filePath);
         return true;
     } catch {
         return false;

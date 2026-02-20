@@ -1,3 +1,5 @@
+import { kebabCase } from '../string.js';
+
 /**
  * Wrapper for querySelector
  * @param selector HTML Selector as a string
@@ -22,9 +24,12 @@ export const $$ = (
 
 // Styles
 export const style = (el: HTMLElement, styles: Record<string, string>): void => {
-    Object.keys(styles).forEach(name => {
-        (el.style as any)[name as keyof CSSStyleDeclaration] = styles[name];
-    });
+    for (const name of Object.keys(styles)) {
+        const value = styles[name];
+        if (value) {
+            el.style.setProperty(kebabCase(name), value);
+        }
+    }
 };
 
 // Class

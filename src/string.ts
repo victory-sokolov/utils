@@ -92,7 +92,7 @@ export const isValidUUID = (id: string): boolean => {
  * @returns HEX code
  */
 export const randomHexColorCode = (): string => {
-    const hexValue = (Math.random() * 0xf_ff_ff * 1_000_000).toString(16);
+    const hexValue = (Math.random() * 0xF_FF_FF * 1_000_000).toString(16);
     return `#${hexValue.slice(0, 6)}`;
 };
 

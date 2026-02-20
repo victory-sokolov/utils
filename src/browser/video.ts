@@ -28,15 +28,13 @@ export const getVideoConstraint = (): VideoConstraint => {
         qvga: { height: { exact: 240 }, width: { exact: 320 } },
         vga: { height: { exact: 480 }, width: { exact: 640 } },
     } as const;
-    let videoConstraint: VideoConstraint;
+    let videoConstraint: VideoConstraint = {
+        facingMode: cameraEnvironment(),
+        height: { ideal: window.screen.width },
+        width: { ideal: window.screen.height },
+    };
 
-    if (isMobileDevice()) {
-        videoConstraint = {
-            facingMode: cameraEnvironment(),
-            height: { ideal: window.screen.width },
-            width: { ideal: window.screen.height },
-        } as const;
-    } else {
+    if (!isMobileDevice()) {
         if (window.innerWidth < 960) {
             videoConstraint = resolutions.qvga;
         } else {
@@ -64,13 +62,15 @@ export const startCamera = async (isStreaming: boolean, video: HTMLVideoElement)
                 video: constraint,
             });
             video.srcObject = stream;
-            video.onloadedmetadata = (): void => {
+            video.addEventListener('loadedmetadata', (): void => {
                 video.play();
-            };
+            });
         } catch (error) {
+            // oxlint-disable-next-line no-console
             console.error(`An error occured! ${error}`);
         }
     } else {
+        // oxlint-disable-next-line no-console
         console.error('getUserMedia not supported');
     }
 };
@@ -85,7 +85,8 @@ export const stopCamera = (stream: MediaStream, isStreaming: boolean): void => {
         return;
     }
 
-    stream.getTracks().forEach(track => {
+    const tracks = stream.getTracks();
+    for (const track of tracks) {
         track.stop();
-    });
+    }
 };

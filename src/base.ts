@@ -5,7 +5,10 @@ const SIZE_UNITS = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
  * @param ms Pause in milliseconds
  * @returns Promise
  */
-export const wait = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
+export const wait = (ms: number): Promise<void> =>
+    new Promise(resolve => {
+        setTimeout(resolve, ms);
+    });
 
 /**
  * Start time
@@ -36,10 +39,8 @@ export const bytesToSize = (bytes: number): string => {
     const exp = Math.floor(Math.log(bytes) / Math.log(1000));
     const size = bytes / 1000 ** exp;
     const short = Math.round(size);
-    let unit: string;
-    if (exp === 0) {
-        unit = '';
-    } else {
+    let unit = '';
+    if (exp > 0) {
         unit = ` ${SIZE_UNITS[exp - 1]}`;
     }
     return short.toString() + unit;

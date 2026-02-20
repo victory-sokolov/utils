@@ -20,7 +20,7 @@
         "typescript/no-unsafe-assignment": "warn",
         "typescript/no-explicit-any": "error",
         "no-magic-numbers": "off",
-        "id-length": ["warn", { "exceptions": ["_", "A", "B", "T", "K", "F", "V", "E", "U", "P", "R"] }],
+        "id-length": ["warn", { "exceptions": ["_", "$", "A", "B", "T", "K", "F", "V", "E", "U", "P", "R"] }],
         "max-lines": ["warn", { "max": 500 }]
     },
     "plugins": ["jest", "import", "typescript", "oxc", "unicorn", "node"],

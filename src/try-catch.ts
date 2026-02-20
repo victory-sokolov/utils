@@ -82,19 +82,18 @@ type ErrorConstructor<E extends Error> = new (
 
 interface TryCatchOptions<E extends Error = ErrorWithStatus> {
     /**
+     * Default HTTP status code to use when caught error has no status property.
+     *
+     * @default 500
+     */
+    defaultStatus?: number;
+    /**
      * Custom error class constructor for transforming caught errors.
      * If provided, all caught errors will be converted to instances of this class.
      *
      * @default Error
      */
     ErrorClass?: ErrorConstructor<E>;
-
-    /**
-     * Default HTTP status code to use when caught error has no status property.
-     *
-     * @default 500
-     */
-    defaultStatus?: number;
 }
 
 /**
@@ -184,39 +183,95 @@ interface TryCatchOptions<E extends Error = ErrorWithStatus> {
  * @see {@link ErrorWithStatus} for the default error type
  *
  */
-const resolveData = async <T>(fn: () => T | Promise<T>): Promise<T> => {
+const resolveData = <T>(fn: () => T | Promise<T>): Promise<T> | T => {
     const result = fn();
-    return result instanceof Promise ? await result : result;
+    if (result instanceof Promise) {
+        return result;
+    }
+    return result;
 };
 
-const extractErrorInfo = (error: unknown, defaultStatus: number) => {
-    const message = error instanceof Error ? error.message : String(error);
-    const cause = error instanceof Error && error.cause ? (error.cause as Error) : undefined;
-    const status =
+interface ExtractedErrorInfo {
+    cause: Error | null;
+    message: string;
+    status: number;
+}
+
+const extractMessage = (error: unknown): string => {
+    if (error instanceof Error) {
+        return error.message;
+    }
+    return String(error);
+};
+
+const extractCause = (error: unknown): Error | null => {
+    if (error instanceof Error && error.cause) {
+        return error.cause as Error;
+    }
+    
+    return null;
+};
+
+const extractStatus = (error: unknown, defaultStatus: number): number => {
+    if (
         typeof error === 'object' &&
         error !== null &&
         'status' in error &&
         typeof error.status === 'number'
-            ? error.status
-            : defaultStatus;
-    return { message, cause, status };
+    ) {
+        const { status } = error;
+        return status;
+    }
+    return defaultStatus;
 };
 
-export async function tryCatch<T, E extends Error = ErrorWithStatus>(
+const extractErrorInfo = (error: unknown, defaultStatus: number): ExtractedErrorInfo => ({
+    cause: extractCause(error),
+    message: extractMessage(error),
+    status: extractStatus(error, defaultStatus),
+});
+
+interface ErrorParams {
+    cause: Error | null;
+    status: number;
+}
+
+const createErrorResult = <E extends Error>(error: E, params: ErrorParams): Failure<E> => {
+    Object.assign(error, params);
+    return { data: null, error };
+};
+
+const buildError = <E extends Error>(
+    ErrorClass: ErrorConstructor<E>,
+    message: string,
+    params: ErrorParams,
+): Failure<E> => {
+    const newError = new ErrorClass(message);
+    return createErrorResult(newError, params);
+};
+
+const resolveAsyncData = async <T>(data: Promise<T> | T): Promise<T> => {
+    if (data instanceof Promise) {
+        return await data;
+    }
+    return data;
+};
+
+export const tryCatch = async <T, E extends Error = ErrorWithStatus>(
     fn: () => T | Promise<T>,
     options: TryCatchOptions<E> = {},
-): Promise<Result<T, E>> {
+): Promise<Result<T, E>> => {
     const ErrorClass = (options.ErrorClass ?? (Error as unknown)) as ErrorConstructor<E>;
+    const defaultStatus = options.defaultStatus ?? 500;
     try {
-        return { data: await resolveData(fn), error: null };
+        const resolvedData = await resolveAsyncData(resolveData(fn));
+        return { data: resolvedData, error: null };
     } catch (error) {
-        const { message, cause, status } = extractErrorInfo(error, options.defaultStatus ?? 500);
+        const { message, cause, status } = extractErrorInfo(error, defaultStatus);
+        const params: ErrorParams = { cause, status };
         if (options.ErrorClass && error instanceof options.ErrorClass) {
-            Object.assign(error, { cause, status });
-            return { data: null, error: error as E };
+            return createErrorResult(error as E, params);
         }
-        const newError = new ErrorClass(message);
-        Object.assign(newError, { cause, status });
-        return { data: null, error: newError as E };
+        return buildError(ErrorClass, message, params);
     }
-}
+};

@@ -1,5 +1,12 @@
 type Currency = 'USD' | 'EUR' | 'GBP' | 'JPY' | 'CAD' | 'AUD' | 'RUB' | 'INR' | 'CNY' | 'CHF';
 
+const getFractionDigits = (dollars: number): number => {
+    if (dollars % 1 === 0) {
+        return 0;
+    }
+    return 2;
+};
+
 /**
  * Convert cents to dollars
  * @param cents Number of cents
@@ -30,12 +37,7 @@ export const formatPrice = (
 
     const dollars = price / 100;
 
-    let minimumFractionDigits: number;
-    if (dollars % 1 !== 0) {
-        minimumFractionDigits = 2;
-    } else {
-        minimumFractionDigits = 0;
-    }
+    const minimumFractionDigits: number = getFractionDigits(dollars);
     return new Intl.NumberFormat(locale, {
         currency,
         minimumFractionDigits,
