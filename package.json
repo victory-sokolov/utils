@@ -51,6 +51,7 @@
         "version": "bun run lint && git add -A src",
         "postversion": "git push && git push --tags",
         "typecheck": "tsc --pretty",
+        "check": "bun run typecheck && bun run lint && bun run format:check && bun run test && bun run jscpd",
         "clean": "rimraf ./node_modules && rimraf dist",
         "prepush": "git pull --rebase",
         "update": "bun update -i",
