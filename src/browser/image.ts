@@ -11,7 +11,7 @@ interface ImageDimension {
 export const getImageDimensions = (dataUrl: string): Promise<ImageDimension> => {
     const img = new Image();
     img.src = dataUrl;
-    return img.decode().then(() => ({ height: img.width, width: img.height }));
+    return img.decode().then(() => ({ width: img.width, height: img.height }));
 };
 
 /**
