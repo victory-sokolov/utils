@@ -8,20 +8,27 @@ import path from 'node:path';
  * @param initialList List of files
  * @returns List of the files from directory
  */
-export const readDirRecursive = async (dir: string, initialList: string[] = []): Promise<string[]> => {
+export const readDirRecursive = (dir: string, initialList: string[] = []): Promise<string[]> => {
     const exclude = new Set(['node_modules', '.venv', '.env']);
-    const files = await readdir(dir);
-    let fileList = initialList;
-    for (const file of files) {
-        const filePath = path.join(dir, file);
-        const fileStat = await stat(filePath);
-        if (fileStat.isDirectory() && !exclude.has(file)) {
-            fileList = await readDirRecursive(filePath, fileList);
-        } else {
-            fileList.push(filePath);
-        }
-    }
-    return fileList;
+
+    return readdir(dir).then((files) => {
+        const filePaths = files.map((file) => path.join(dir, file));
+
+        return Promise.all(
+            filePaths.map((filePath) =>
+                stat(filePath).then((fileStat) => {
+                    const fileName = path.basename(filePath);
+                    if (fileStat.isDirectory() && !exclude.has(fileName)) {
+                        return readDirRecursive(filePath, []);
+                    }
+                    return [filePath];
+                }),
+            ),
+        ).then((results) => {
+            const allFiles = results.flat();
+            return [...initialList, ...allFiles];
+        });
+    });
 };
 
 /**
@@ -29,14 +36,10 @@ export const readDirRecursive = async (dir: string, initialList: string[] = []):
  * @param filePath File path
  * @returns True if file exists otherwise false
  */
-export const isFileExists = async (filePath: string): Promise<boolean> => {
-    try {
-        await stat(filePath);
-        return true;
-    } catch {
-        return false;
-    }
-};
+export const isFileExists = (filePath: string): Promise<boolean> =>
+    stat(filePath)
+        .then(() => true)
+        .catch(() => false);
 
 /**
  * Create directory if not exists

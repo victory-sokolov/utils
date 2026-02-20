@@ -79,7 +79,7 @@ describe('getLocation', () => {
             writable: true,
         });
 
-        await expect(() => getLocation()).toThrow('Geolocation is not supported by this browser.');
+        await expect(getLocation()).rejects.toThrow('Geolocation is not supported by this browser.');
     });
 });
 

@@ -49,30 +49,32 @@ export const getVideoConstraint = (): VideoConstraint => {
  * @param isStreaming Is camera streaming
  * @param video HTMLVideoElement
  */
-export const startCamera = async (isStreaming: boolean, video: HTMLVideoElement): Promise<void> => {
+export const startCamera = (isStreaming: boolean, video: HTMLVideoElement): Promise<void> => {
     const constraint = getVideoConstraint();
     if (isStreaming) {
-        return;
+        return Promise.resolve();
     }
 
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({
+        return navigator.mediaDevices
+            .getUserMedia({
                 audio: false,
                 video: constraint,
+            })
+            .then((stream) => {
+                video.srcObject = stream;
+                video.addEventListener('loadedmetadata', (): void => {
+                    video.play();
+                });
+            })
+            .catch((error: unknown) => {
+                // oxlint-disable-next-line no-console
+                console.error(`An error occured! ${error}`);
             });
-            video.srcObject = stream;
-            video.addEventListener('loadedmetadata', (): void => {
-                video.play();
-            });
-        } catch (error) {
-            // oxlint-disable-next-line no-console
-            console.error(`An error occured! ${error}`);
-        }
-    } else {
-        // oxlint-disable-next-line no-console
-        console.error('getUserMedia not supported');
     }
+    // oxlint-disable-next-line no-console
+    console.error('getUserMedia not supported');
+    return Promise.resolve();
 };
 
 /**

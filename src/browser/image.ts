@@ -1,15 +1,17 @@
-import type { ImageDimension } from '../types';
+interface ImageDimension {
+    width: number;
+    height: number;
+}
 
 /**
  * Get image dimension from dataUrl string
  * @param dataUrl Data url string
  * @returns image dimension (height, width)
  */
-export const getImageDimensions = async (dataUrl: string): Promise<ImageDimension> => {
+export const getImageDimensions = (dataUrl: string): Promise<ImageDimension> => {
     const img = new Image();
     img.src = dataUrl;
-    await img.decode();
-    return { height: img.width, width: img.height };
+    return img.decode().then(() => ({ height: img.width, width: img.height }));
 };
 
 /**

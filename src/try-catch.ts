@@ -249,28 +249,30 @@ const buildError = <E extends Error>(
     return createErrorResult(newError, params);
 };
 
-const resolveAsyncData = async <T>(data: Promise<T> | T): Promise<T> => {
+const resolveAsyncData = <T>(data: Promise<T> | T): Promise<T> => {
     if (data instanceof Promise) {
-        return await data;
+        return data;
     }
-    return data;
+    return Promise.resolve(data);
 };
 
-export const tryCatch = async <T, E extends Error = ErrorWithStatus>(
+export const tryCatch = <T, E extends Error = ErrorWithStatus>(
     fn: () => T | Promise<T>,
     options: TryCatchOptions<E> = {},
 ): Promise<Result<T, E>> => {
     const ErrorClass = (options.ErrorClass ?? (Error as unknown)) as ErrorConstructor<E>;
     const defaultStatus = options.defaultStatus ?? 500;
-    try {
-        const resolvedData = await resolveAsyncData(resolveData(fn));
-        return { data: resolvedData, error: null };
-    } catch (error) {
-        const { message, cause, status } = extractErrorInfo(error, defaultStatus);
-        const params: ErrorParams = { cause, status };
-        if (options.ErrorClass && error instanceof options.ErrorClass) {
-            return createErrorResult(error as E, params);
-        }
-        return buildError(ErrorClass, message, params);
-    }
+
+    // Use Promise.resolve().then() to catch synchronous throws from fn()
+    return Promise.resolve()
+        .then(() => resolveAsyncData(resolveData(fn)))
+        .then((resolvedData) => ({ data: resolvedData, error: null }))
+        .catch((error: unknown) => {
+            const { message, cause, status } = extractErrorInfo(error, defaultStatus);
+            const params: ErrorParams = { cause, status };
+            if (options.ErrorClass && error instanceof options.ErrorClass) {
+                return createErrorResult(error as E, params);
+            }
+            return buildError(ErrorClass, message, params);
+        });
 };

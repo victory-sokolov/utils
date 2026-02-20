@@ -32,11 +32,6 @@ export type Collection<T> = T[];
 export type Callable = <T>(...params: Collection<T>) => T;
 export type IndexCallback<T = unknown> = (value: T, index: number, obj: T[]) => unknown;
 
-export interface ImageDimension {
-    width: number;
-    height: number;
-}
-
 export type NonNegativeInteger<T extends number> = number extends T
     ? never
     : `${T}` extends `-${string}` | `${string}.${string}`
