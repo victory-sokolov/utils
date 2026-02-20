@@ -141,7 +141,7 @@ describe('cryptography', () => {
         it('should fail to decrypt with an incorrect secret key', () => {
             const originalText = 'Secret message';
             return encryptData(originalText, secretKey).then(encrypted => {
-                const wrongSecretKey = 'this-is-an-incorrect-secret-key';
+                const wrongSecretKey = 'this-is-an-incorrect-secret-key!';
                 return expect(decryptData(encrypted, wrongSecretKey)).rejects.toThrow();
             });
         });

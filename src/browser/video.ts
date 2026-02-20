@@ -65,9 +65,9 @@ export const startCamera = (isStreaming: boolean, video: HTMLVideoElement): Prom
             .then(stream => {
                 video.srcObject = stream;
                 return new Promise<void>((resolve, reject) => {
-                    video.onloadedmetadata = () => {
+                    video.addEventListener('loadedmetadata', (): void => {
                         video.play().then(resolve).catch(reject);
-                    };
+                    });
                 });
             })
             .catch((error: unknown) => {

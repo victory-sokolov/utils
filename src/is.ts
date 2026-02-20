@@ -102,7 +102,7 @@ export const isHtmlElement = (element: unknown): element is Element => element i
  * @returns True if the object has the property
  */
 export const hasProperty = (obj: unknown, key: string): boolean => {
-    if (!obj || !key) {
+    if (typeof obj !== 'object' || obj === null || !key) {
         return false;
     }
     return Object.hasOwn(obj, key);

@@ -57,13 +57,20 @@ export const validateHash = (options: ValidateHashOptions): boolean => {
 const SALT_LENGTH = 16;
 const IV_LENGTH = 12;
 
+const validateSecretKey = (secretKey: string): void => {
+    if (secretKey.length < 32) {
+        throw new Error('secretKey must be at least 32 characters long');
+    }
+};
+
 /**
  * Derives a cryptographic key from a password using PBKDF2
- * @param secret Secret key
+ * @param secret Secret key (must be at least 32 characters)
  * @param salt Random salt for key derivation
  * @returns Derived CryptoKey
  */
 const deriveKey = (secret: string, salt: BufferSource): Promise<CryptoKey> => {
+    validateSecretKey(secret);
     const encoder = new TextEncoder();
     return crypto.subtle
         .importKey('raw', encoder.encode(secret), 'PBKDF2', false, ['deriveBits', 'deriveKey'])

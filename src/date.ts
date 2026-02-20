@@ -131,34 +131,54 @@ export const dateTimeToCron = (date: Date): string => {
  * @param cronSyntax
  * @returns Date object
  */
-const getDayValue = (days: string | undefined): string => {
-    if (days === '*') return '1';
-    return days ?? '1';
+interface NormalizedCronValues {
+    months: number;
+    days: number;
+    hours: number;
+    minutes: number;
+    dayOfWeek: number;
+    year: number;
+}
+
+const normalizeCronValue = (value: string, defaultValue: number): number => {
+    if (value === '*' || !value) return defaultValue;
+    const num = Number(value);
+    if (Number.isNaN(num)) return defaultValue;
+    return num;
+};
+
+const createNextDate = (values: NormalizedCronValues): Date =>
+    new Date(
+        Date.UTC(values.year, values.months - 1, values.days, values.hours, values.minutes, 0),
+    );
+
+const adjustToDayOfWeek = (date: Date, targetDay: number): void => {
+    if (targetDay === -1) return;
+    date.setUTCDate(date.getUTCDate() + ((targetDay - date.getUTCDay() + 7) % 7));
+};
+
+const parseCronSyntax = (cronSyntax: string, now: Date): NormalizedCronValues => {
+    const [minutes = '', hours = '', days = '', months = '', dayOfWeek = ''] =
+        cronSyntax.split(' ');
+    return {
+        dayOfWeek: normalizeCronValue(dayOfWeek, -1),
+        days: normalizeCronValue(days, 1),
+        hours: normalizeCronValue(hours, 0),
+        minutes: normalizeCronValue(minutes, 0),
+        months: normalizeCronValue(months, now.getUTCMonth() + 1),
+        year: now.getUTCFullYear(),
+    };
 };
 
 export const cronToDateTime = (cronSyntax: string): Date => {
-    const [minutes, hours, days, months, dayOfWeek] = cronSyntax.split(' ');
     const now = new Date();
-    const nextDate = new Date(
-        Date.UTC(
-            now.getUTCFullYear(),
-            Number(months) - 1,
-            Number(getDayValue(days)),
-            Number(hours),
-            Number(minutes),
-            0,
-        ),
-    );
-    const adjustToDayOfWeek = (): void => {
-        nextDate.setUTCDate(
-            nextDate.getUTCDate() + ((Number(dayOfWeek) - nextDate.getUTCDay() + 7) % 7),
-        );
-    };
+    const values = parseCronSyntax(cronSyntax, now);
+    const nextDate = createNextDate(values);
 
-    adjustToDayOfWeek();
+    adjustToDayOfWeek(nextDate, values.dayOfWeek);
     if (nextDate.getTime() <= now.getTime()) {
         nextDate.setUTCFullYear(nextDate.getUTCFullYear() + 1);
-        adjustToDayOfWeek();
+        adjustToDayOfWeek(nextDate, values.dayOfWeek);
     }
     return nextDate;
 };
