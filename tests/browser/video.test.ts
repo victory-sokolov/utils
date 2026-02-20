@@ -56,8 +56,8 @@ describe('test camera', () => {
 
             expect(getVideoConstraint()).toStrictEqual({
                 facingMode: 'environment',
-                height: { ideal: window.screen.width },
-                width: { ideal: window.screen.height },
+                height: { ideal: window.screen.height },
+                width: { ideal: window.screen.width },
             });
         });
     });
