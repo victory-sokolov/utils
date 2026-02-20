@@ -9,7 +9,7 @@ describe('cryptography', () => {
 
             expect(salt).toBeTypeOf('string');
             expect(hash).toBeTypeOf('string');
-            expect(iterations).toBe(21_0000);
+            expect(iterations).toBe(210_000);
             expect(keyLen).toBe(64);
             expect(salt.length).toBeGreaterThan(0);
             expect(hash.length).toBeGreaterThan(0);
