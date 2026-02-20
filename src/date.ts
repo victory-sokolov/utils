@@ -131,38 +131,30 @@ export const dateTimeToCron = (date: Date): string => {
  * @param cronSyntax
  * @returns Date object
  */
+const getDayValue = (days: string | undefined): string => {
+    if (days === '*') return '1';
+    return days ?? '1';
+};
+
 export const cronToDateTime = (cronSyntax: string): Date => {
     const [minutes, hours, days, months, dayOfWeek] = cronSyntax.split(' ');
-
     const now = new Date();
-    const currentYear = now.getUTCFullYear();
-
-    let dayValue: string;
-    if (days === '*') {
-        dayValue = '1';
-    } else {
-        dayValue = days ?? '1';
-    }
     const nextDate = new Date(
         Date.UTC(
-            currentYear,
+            now.getUTCFullYear(),
             Number(months) - 1,
-            Number(dayValue),
+            Number(getDayValue(days)),
             Number(hours),
             Number(minutes),
             0,
         ),
     );
-
-    // Calculate day of the week adjustment
-    const dayDiff = (Number(dayOfWeek) - nextDate.getUTCDay() + 7) % 7;
-    nextDate.setUTCDate(nextDate.getUTCDate() + dayDiff);
-
-    // Ensure the next date is in the future
+    nextDate.setUTCDate(
+        nextDate.getUTCDate() + ((Number(dayOfWeek) - nextDate.getUTCDay() + 7) % 7),
+    );
     if (nextDate.getTime() <= now.getTime()) {
-        nextDate.setUTCFullYear(currentYear + 1);
+        nextDate.setUTCFullYear(now.getUTCFullYear() + 1);
     }
-
     return nextDate;
 };
 
@@ -207,38 +199,23 @@ export const secondsInDays = (days: number): number => {
  * @param date
  * @return Time ago string from Date object
  */
+const TIME_INTERVALS: [number, string][] = [
+    [31_536_000, 'years'],
+    [2_592_000, 'months'],
+    [86_400, 'days'],
+    [3600, 'hours'],
+    [60, 'minutes'],
+];
+
 export const timeAgo = (date: Date): string => {
     const seconds = Math.floor((Date.now() - date.valueOf()) / 1000);
-
-    let interval = Math.floor(seconds / 31_536_000);
-    if (interval > 1) {
-        return `${interval} years ago`;
+    for (const [divisor, unit] of TIME_INTERVALS) {
+        const interval = Math.floor(seconds / divisor);
+        if (interval > 1) {
+            return `${interval} ${unit} ago`;
+        }
     }
-
-    interval = Math.floor(seconds / 2_592_000);
-    if (interval > 1) {
-        return `${interval} months ago`;
-    }
-
-    interval = Math.floor(seconds / 86_400);
-    if (interval > 1) {
-        return `${interval} days ago`;
-    }
-
-    interval = Math.floor(seconds / 3600);
-    if (interval > 1) {
-        return `${interval} hours ago`;
-    }
-
-    interval = Math.floor(seconds / 60);
-    if (interval > 1) {
-        return `${interval} minutes ago`;
-    }
-
-    if (seconds < 10) {
-        return 'just now';
-    }
-
+    if (seconds < 10) return 'just now';
     return `${Math.floor(seconds)} seconds ago`;
 };
 

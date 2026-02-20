@@ -108,34 +108,30 @@ export function filterFalsyFromObject<T extends RecordObject | RecordObject[]>(o
  * @param right
  * @returns New combined object
  */
+const copyValue = (value: unknown): unknown =>
+    isPlainObject(value) ? { ...(value as RecordObject) } : value;
+
+const processObject = (obj: RecordObject, result: RecordObject): void => {
+    for (const key in obj) {
+        if (Object.hasOwn(obj, key) && obj[key]) {
+            result[key] = copyValue(obj[key]);
+        }
+    }
+};
+
 export const unionWithExclusion = (left: RecordObject, right: RecordObject): RecordObject => {
     const result: RecordObject = {};
-
-    // Process left object
-    for (const key in left) {
-        if (Object.hasOwn(left, key)) {
-            const value = left[key];
-            if (value) {
-                result[key] = isPlainObject(value)
-                    ? { ...(value as RecordObject) }
-                    : value;
-            }
-        }
-    }
-
-    // Process right object (merge/overwrite)
+    processObject(left, result);
     for (const key in right) {
-        if (Object.hasOwn(right, key)) {
+        if (Object.hasOwn(right, key) && right[key]) {
             const value = right[key];
-            if (value) {
-                const existing = result[key];
-                result[key] = isPlainObject(value) && isPlainObject(existing)
+            const existing = result[key];
+            result[key] =
+                isPlainObject(value) && isPlainObject(existing)
                     ? unionWithExclusion(existing, value)
                     : value;
-            }
         }
     }
-
     return result;
 };
 

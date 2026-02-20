@@ -56,19 +56,21 @@ export const debounce = <T extends unknown[]>(
     fn: (...args: T) => void,
     delay: number,
 ): ((...args: T) => void) & { flush: () => void } => {
-    let timeoutID: ReturnType<typeof setTimeout> | undefined;
-    let lastArgs: T | undefined;
+    let timeoutID: ReturnType<typeof setTimeout>;
+    let lastArgs: T = [] as unknown as T;
+    let hasLastArgs = false;
 
     const run = (): void => {
-        if (lastArgs) {
+        if (hasLastArgs) {
             fn(...lastArgs);
-            lastArgs = undefined;
+            hasLastArgs = false;
         }
     };
 
     const debounced = (...args: T): void => {
         clearTimeout(timeoutID);
         lastArgs = args;
+        hasLastArgs = true;
         timeoutID = setTimeout(run, delay);
     };
 
@@ -90,19 +92,21 @@ export const throttle = <Args extends unknown[]>(
     fn: (...args: Args) => void,
     cooldown: number,
 ): ((...args: Args) => void) => {
-    let lastArgs: Args | undefined;
+    let lastArgs: Args = [] as unknown as Args;
+    let hasLastArgs = false;
 
     const run = (): void => {
-        if (lastArgs) {
+        if (hasLastArgs) {
             fn(...lastArgs);
-            lastArgs = undefined;
+            hasLastArgs = false;
         }
     };
 
     const throttled = (...args: Args): void => {
-        const isOnCooldown = Boolean(lastArgs);
+        const isOnCooldown = hasLastArgs;
 
         lastArgs = args;
+        hasLastArgs = true;
 
         if (isOnCooldown) {
             return;

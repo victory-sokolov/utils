@@ -104,7 +104,7 @@ export const randomHexColorCode = (): string => {
  */
 export const randomStr = (len = 32, prefix = ''): string => {
     let result = prefix;
-    for (let idx = 0; idx < len; idx++) {
+    for (let idx = 0; idx < len; idx += 1) {
         const rand = Math.random();
         const floor = Math.floor(rand * 36);
         const char = floor.toString(36);

@@ -1,14 +1,4 @@
-type Currency =
-    | 'USD'
-    | 'EUR'
-    | 'GBP'
-    | 'JPY'
-    | 'CAD'
-    | 'AUD'
-    | 'RUB'
-    | 'INR'
-    | 'CNY'
-    | 'CHF';
+type Currency = 'USD' | 'EUR' | 'GBP' | 'JPY' | 'CAD' | 'AUD' | 'RUB' | 'INR' | 'CNY' | 'CHF';
 
 /**
  * Convert cents to dollars

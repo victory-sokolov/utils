@@ -275,23 +275,17 @@ describe('test date utils', () => {
     });
 
     describe('getTimeZone', () => {
-        let originalIntlDateTimeFormat: typeof Intl.DateTimeFormat;
-
-        beforeEach(() => {
-            originalIntlDateTimeFormat = Intl.DateTimeFormat;
-            (Intl as any).DateTimeFormat = vi.fn(() => ({
-                resolvedOptions: () => ({ timeZone: 'America/New_York' }),
-            }));
-        });
-
-        afterEach(() => {
-            Intl.DateTimeFormat = originalIntlDateTimeFormat;
-            vi.restoreAllMocks();
-        });
-
         it('should return the correct timezone for a given language', () => {
+            const spy = vi.spyOn(Intl, 'DateTimeFormat').mockImplementation(function () {
+                return {
+                    resolvedOptions: () => ({ timeZone: 'America/New_York' }),
+                };
+            } as any);
+
             expect(getTimeZone('en-US')).toBe('America/New_York');
-            expect(Intl.DateTimeFormat).toHaveBeenCalledWith('en-US');
+            expect(spy).toHaveBeenCalledWith('en-US');
+
+            spy.mockRestore();
         });
     });
 
