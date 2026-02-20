@@ -111,7 +111,9 @@ describe('test camera', () => {
             const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
             (navigator as any).mediaDevices = undefined;
 
-            await startCamera(false, videoMock as any);
+            await expect(startCamera(false, videoMock as any)).rejects.toThrow(
+                'getUserMedia not supported',
+            );
 
             expect(consoleErrorSpy).toHaveBeenCalledWith('getUserMedia not supported');
             consoleErrorSpy.mockRestore();

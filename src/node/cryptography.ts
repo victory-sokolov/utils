@@ -71,18 +71,27 @@ const validateSecretKey = (secretKey: string): void => {
  * @param salt Random salt for key derivation
  * @returns Derived CryptoKey
  */
-const deriveKey = (secret: string, salt: BufferSource): Promise<CryptoKey> => {
-    validateSecretKey(secret);
+const deriveKey = (
+    secret: string,
+    salt: Uint8Array,
+): Promise<nodeCrypto.webcrypto.CryptoKey> => {
+    const { webcrypto } = nodeCrypto;
     const encoder = new TextEncoder();
-    return crypto.subtle
-        .importKey('raw', encoder.encode(secret), 'PBKDF2', false, ['deriveBits', 'deriveKey'])
+    return Promise.resolve()
+        .then(() => validateSecretKey(secret))
+        .then(() =>
+            webcrypto.subtle.importKey('raw', encoder.encode(secret), 'PBKDF2', false, [
+                'deriveBits',
+                'deriveKey',
+            ]),
+        )
         .then(keyMaterial =>
-            crypto.subtle.deriveKey(
+            webcrypto.subtle.deriveKey(
                 {
                     hash: 'SHA-256',
                     iterations: 100_000,
                     name: 'PBKDF2',
-                    salt,
+                    salt: (salt.buffer as ArrayBuffer).slice(salt.byteOffset, salt.byteOffset + salt.byteLength),
                 },
                 keyMaterial,
                 { length: 256, name: 'AES-GCM' },
@@ -99,12 +108,13 @@ const deriveKey = (secret: string, salt: BufferSource): Promise<CryptoKey> => {
  * @returns Encrypted text (base64 encoded: salt + IV + ciphertext).
  */
 export const encryptData = (plainText: string, secretKey: string): Promise<string> => {
+    const { webcrypto } = nodeCrypto;
     const encoder = new TextEncoder();
-    const salt = crypto.getRandomValues(new Uint8Array(SALT_LENGTH));
+    const salt = webcrypto.getRandomValues(new Uint8Array(SALT_LENGTH));
 
     return deriveKey(secretKey, salt).then(key => {
-        const iv = crypto.getRandomValues(new Uint8Array(IV_LENGTH));
-        return crypto.subtle
+        const iv = webcrypto.getRandomValues(new Uint8Array(IV_LENGTH));
+        return webcrypto.subtle
             .encrypt({ iv, name: 'AES-GCM' }, key, encoder.encode(plainText))
             .then(encrypted => {
                 const combined = new Uint8Array(SALT_LENGTH + IV_LENGTH + encrypted.byteLength);
@@ -123,6 +133,7 @@ export const encryptData = (plainText: string, secretKey: string): Promise<strin
  * @returns The decrypted plain text string.
  */
 export const decryptData = (encryptedData: string, secretKey: string): Promise<string> => {
+    const { webcrypto } = nodeCrypto;
     const encoded = Buffer.from(encryptedData, 'base64');
     if (encoded.byteLength <= SALT_LENGTH + IV_LENGTH) {
         return Promise.reject(new Error('encryptedData is too short or malformed'));
@@ -132,7 +143,7 @@ export const decryptData = (encryptedData: string, secretKey: string): Promise<s
     const encrypted = new Uint8Array(encoded.subarray(SALT_LENGTH + IV_LENGTH));
 
     return deriveKey(secretKey, salt).then(key =>
-        crypto.subtle
+        webcrypto.subtle
             .decrypt({ iv, name: 'AES-GCM' }, key, encrypted)
             .then(decrypted => new TextDecoder().decode(decrypted)),
     );

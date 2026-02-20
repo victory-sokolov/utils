@@ -78,6 +78,7 @@ export const startCamera = (isStreaming: boolean, video: HTMLVideoElement): Prom
     // oxlint-disable-next-line no-console
     console.error('getUserMedia not supported');
     return Promise.reject(new Error('getUserMedia not supported'));
+};
 
 /**
  * Stop current video stream

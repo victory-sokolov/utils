@@ -200,6 +200,7 @@ export const dateRangeGenerator = function* dateRangeGenerator(
     end: Date,
     step = 1,
 ): Generator<Date> {
+    if (step <= 0) throw new RangeError('step must be a positive number');
     let currentDateMs = start.getTime();
     const endMs = end.getTime();
     while (currentDateMs < endMs) {

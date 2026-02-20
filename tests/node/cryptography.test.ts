@@ -131,6 +131,20 @@ describe('cryptography', () => {
             });
         };
 
+        it('should reject Promise for encryptData with short secret key', () => {
+            return expect(encryptData('test', 'short')).rejects.toThrow(
+                'secretKey must be at least 32 characters long',
+            );
+        });
+
+        it('should reject Promise for decryptData with short secret key', () => {
+            // Use a base64 string long enough to pass the length check (SALT_LENGTH + IV_LENGTH + some ciphertext)
+            const fakeEncrypted = Buffer.alloc(50, 'a').toString('base64');
+            return expect(decryptData(fakeEncrypted, 'short')).rejects.toThrow(
+                'secretKey must be at least 32 characters long',
+            );
+        });
+
         it('should encrypt and decrypt a simple string successfully', () => {
             return testRoundTrip('Hello, World!');
         });
