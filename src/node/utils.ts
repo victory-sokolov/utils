@@ -7,4 +7,4 @@ import process from 'node:process';
  * getCmdArgs(); // ['--name=John', '--age=30']
  * @returns CMD args
  */
-export const getCmdArgs = () => process.argv.slice(2);
+export const getCmdArgs = (): string[] => process.argv.slice(2);

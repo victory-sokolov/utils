@@ -1,33 +1,20 @@
-export type AnyFunc = (...arg: any) => any;
-export type AnyAsyncFunc<Input extends any[] = any[], Output = any> = (
+export type AnyFunc<Args extends unknown[] = unknown[], Return = unknown> = (
+    ...args: Args
+) => Return;
+export type AnyAsyncFunc<Input extends unknown[] = unknown[], Output = unknown> = (
     ...args: Input
 ) => Promise<Output>;
 
-type FirstParameter<F extends AnyFunc> = F extends (
-    arg: infer P,
-    ...args: any[]
-) => any
+type FirstParameter<F extends AnyFunc> = F extends (arg: infer P, ...args: never) => unknown
     ? P
     : never;
 
 // Helper type to get the parameter types of a function
-type ParametersOf<F extends AnyFunc> = F extends (...args: infer P) => any
-    ? P
-    : never;
-
-type PipeArgs<F extends AnyFunc[], Acc extends AnyFunc[] = []> = F extends [
-    (...args: infer A) => infer B
-]
-    ? [...Acc, (...args: A) => B]
-    : F extends [(...args: infer A) => any, ...infer Tail]
-        ? Tail extends [(arg: infer B) => any, ...any[]]
-            ? PipeArgs<Tail, [...Acc, (...args: A) => B]>
-            : Acc
-        : Acc;
+type ParametersOf<F extends AnyFunc> = F extends (...args: infer P) => unknown ? P : never;
 
 type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [
-    ...any[],
-    (...arg: any) => infer R
+    ...never[],
+    (...arg: never) => infer R,
 ]
     ? R
     : Else;
@@ -36,8 +23,12 @@ type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [
  * Call every function in an array
  * @param functions List of functions to call
  */
-export const batchInvoke = (functions: Array<() => void>): void => {
-    functions.forEach((fn) => fn && fn());
+export const batchInvoke = (functions: (() => void)[]): void => {
+    for (const fn of functions) {
+        if (fn) {
+            fn();
+        }
+    }
 };
 
 /**
@@ -68,36 +59,36 @@ export const batchInvoke = (functions: Array<() => void>): void => {
 export function pipe<FirstFn extends AnyFunc, F extends AnyFunc[]>(
     arg: ParametersOf<FirstFn>[0],
     firstFn: FirstFn,
-    ...fns: PipeArgs<F, ReturnType<FirstFn>> extends F
-        ? F
-        : PipeArgs<F, ReturnType<FirstFn>>
+    ...fns: F
 ): LastFnReturnType<F, ReturnType<FirstFn>>;
 
 // Overload 2: Without argument - firstFn must take no parameters
-export function pipe<FirstFn extends () => any, F extends AnyFunc[]>(
+export function pipe<FirstFn extends () => unknown, F extends AnyFunc[]>(
     firstFn: FirstFn,
-    ...fns: PipeArgs<F, ReturnType<FirstFn>> extends F
-        ? F
-        : PipeArgs<F, ReturnType<FirstFn>>
+    ...fns: F
 ): LastFnReturnType<F, ReturnType<FirstFn>>;
 
 // Implementation
 export function pipe<FirstFn extends AnyFunc, F extends AnyFunc[]>(
     argOrFirstFn?: FirstParameter<FirstFn> | FirstFn,
     firstFnOrSecondFn?: FirstFn | F[0],
-    ...fns: any[]
-): any {
+    ...fns: F
+): unknown {
     if (typeof argOrFirstFn === 'function') {
         const allFns = [firstFnOrSecondFn, ...fns].filter(
-            (fn) => fn !== undefined
+            (fn): fn is AnyFunc => typeof fn === 'function',
         );
-        return allFns.reduce((acc, fn) => fn(acc), (argOrFirstFn as AnyFunc)());
-    } else {
-        return (fns as AnyFunc[]).reduce(
-            (acc, fn) => fn(acc),
-            (firstFnOrSecondFn as FirstFn)(argOrFirstFn)
-        );
+        let result = (argOrFirstFn as AnyFunc)();
+        for (const fn of allFns) {
+            result = fn(result);
+        }
+        return result;
     }
+    let result = (firstFnOrSecondFn as FirstFn)(argOrFirstFn);
+    for (const fn of fns) {
+        result = fn(result);
+    }
+    return result;
 }
 
 /**
@@ -105,8 +96,9 @@ export function pipe<FirstFn extends AnyFunc, F extends AnyFunc[]>(
  * @param fn Function to check
  * @returns True if function is asynchronous
  */
-export const isAsync = <T extends (...args: any[]) => any>(fn: T): boolean =>
+export const isAsync = <T extends (...args: unknown[]) => unknown>(fn: T): boolean =>
     fn.constructor.name === 'AsyncFunction';
+
 /**
  * Pass the value through the callback, and return the value
  *
@@ -119,7 +111,7 @@ export const isAsync = <T extends (...args: any[]) => any>(fn: T): boolean =>
  * }
  *
  */
-export function tap<T>(value: T, callback: (value: T) => void): T {
+export const tap = <T>(value: T, callback: (value: T) => void): T => {
     callback(value);
     return value;
-}
+};

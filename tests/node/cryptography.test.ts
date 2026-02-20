@@ -1,51 +1,47 @@
 import { describe, expect, it } from 'vitest';
-import {
-    decryptData,
-    encryptData,
-    hashString,
-    validateHash,
-} from '../../src/node/cryptography';
+import { decryptData, encryptData, hashString, validateHash } from '../../src/node/cryptography';
 
 describe('cryptography', () => {
     describe('hashString', () => {
         it('should hash a string and return salt, hash, iterations, and keyLen', () => {
             const testString = 'myPassword123';
-            const { salt, hash, iterations, keyLen } = hashString(testString);
+            const { salt, hash, iterations, keyLen, digest } = hashString({ str: testString });
 
             expect(salt).toBeTypeOf('string');
             expect(hash).toBeTypeOf('string');
-            expect(iterations).toBe(10000); // Default value
-            expect(keyLen).toBe(64); // Default value
+            expect(digest).toBe('sha512');
+            expect(iterations).toBe(210_000);
+            expect(keyLen).toBe(64);
             expect(salt.length).toBeGreaterThan(0);
             expect(hash.length).toBeGreaterThan(0);
         });
 
         it('should produce different hashes for different salts with the same password', () => {
             const testString = 'myPassword123';
-            const { hash: hash1 } = hashString(testString);
-            const { hash: hash2 } = hashString(testString); // Will generate a new salt
+            const { hash: hash1 } = hashString({ str: testString });
+            const { hash: hash2 } = hashString({ str: testString });
 
-            expect(hash1).not.toEqual(hash2);
+            expect(hash1).not.toStrictEqual(hash2);
         });
 
         it('should produce different hashes for different passwords (each with random salt)', () => {
             const testString1 = 'myPassword123';
             const testString2 = 'myOtherPassword';
-            const { hash: hash1 } = hashString(testString1);
-            const { hash: hash2 } = hashString(testString2);
+            const { hash: hash1 } = hashString({ str: testString1 });
+            const { hash: hash2 } = hashString({ str: testString2 });
 
-            expect(hash1).not.toEqual(hash2);
+            expect(hash1).not.toStrictEqual(hash2);
         });
 
         it('should allow custom iterations and keyLen', () => {
             const testString = 'myPassword123';
-            const customIterations = 50000;
+            const customIterations = 50_000;
             const customKeyLen = 32;
-            const { iterations, keyLen } = hashString(
-                testString,
-                customIterations,
-                customKeyLen
-            );
+            const { iterations, keyLen } = hashString({
+                iterations: customIterations,
+                keyLen: customKeyLen,
+                str: testString,
+            });
 
             expect(iterations).toBe(customIterations);
             expect(keyLen).toBe(customKeyLen);
@@ -55,108 +51,124 @@ describe('cryptography', () => {
     describe('validateHash', () => {
         it('should validate a correct hash', () => {
             const testString = 'myPassword123';
-            const { salt, hash, iterations, keyLen } = hashString(testString);
+            const { salt, hash, iterations, keyLen, digest } = hashString({ str: testString });
 
-            const isValid = validateHash(
-                testString,
-                hash,
-                salt,
+            const isValid = validateHash({
+                digest,
                 iterations,
                 keyLen,
-                'sha512'
-            );
+                password: testString,
+                savedHash: hash,
+                savedSalt: salt,
+            });
             expect(isValid).toBe(true);
         });
 
         it('should invalidate an incorrect password', () => {
             const testString = 'myPassword123';
             const wrongString = 'wrongPassword';
-            const { salt, hash, iterations, keyLen } = hashString(testString);
+            const { salt, hash, iterations, keyLen, digest } = hashString({ str: testString });
 
-            const isValid = validateHash(
-                wrongString,
-                hash,
-                salt,
+            const isValid = validateHash({
+                digest,
                 iterations,
                 keyLen,
-                'sha512'
-            );
+                password: wrongString,
+                savedHash: hash,
+                savedSalt: salt,
+            });
             expect(isValid).toBe(false);
         });
 
         it('should invalidate a tampered hash', () => {
             const testString = 'myPassword123';
-            const { salt, hash, iterations, keyLen } = hashString(testString);
-            const tamperedHash = `a${hash.slice(1)}`;
+            const { salt, hash, iterations, keyLen, digest } = hashString({ str: testString });
+            // Use a character different from the first one to ensure tampering
+            const firstChar = hash[0]!;
+            const tamperChar = firstChar === 'a' ? 'b' : 'a';
+            const tamperedHash = `${tamperChar}${hash.slice(1)}`;
 
-            const isValid = validateHash(
-                testString,
-                tamperedHash,
-                salt,
+            const isValid = validateHash({
+                digest,
                 iterations,
                 keyLen,
-                'sha512'
-            );
+                password: testString,
+                savedHash: tamperedHash,
+                savedSalt: salt,
+            });
             expect(isValid).toBe(false);
         });
 
         it('should invalidate a tampered salt', () => {
             const testString = 'myPassword123';
-            const { hash, iterations, keyLen } = hashString(testString);
-            const tamperedSalt = `a${hashString(testString).salt.slice(1)}`; // Tamper with the salt
+            const { hash, salt, iterations, keyLen, digest } = hashString({ str: testString });
+            // Tamper with the original salt that was used to create the hash
+            const firstChar = salt[0]!;
+            const tamperChar = firstChar === 'a' ? 'b' : 'a';
+            const tamperedSalt = `${tamperChar}${salt.slice(1)}`;
 
-            const isValid = validateHash(
-                testString,
-                hash,
-                tamperedSalt,
+            const isValid = validateHash({
+                digest,
                 iterations,
                 keyLen,
-                'sha512'
-            );
+                password: testString,
+                savedHash: hash,
+                savedSalt: tamperedSalt,
+            });
             expect(isValid).toBe(false);
         });
     });
 
     describe('encryptData and decryptData', () => {
-        const secretKey = 'this-is-a-very-secret-key-that-is-long-enough'; // Must be long enough for deriveKey
+        const secretKey = 'this-is-a-very-secret-key-that-is-long-enough';
 
-        const testRoundTrip = async (originalText: string) => {
-            const encrypted = await encryptData(originalText, secretKey);
-            const decrypted = await decryptData(encrypted, secretKey);
-            expect(encrypted).not.toEqual(originalText);
-            expect(decrypted).toBe(originalText);
+        const testRoundTrip = (originalText: string) => {
+            return encryptData(originalText, secretKey).then(encrypted => {
+                return decryptData(encrypted, secretKey).then(decrypted => {
+                    expect(encrypted).not.toStrictEqual(originalText);
+                    expect(decrypted).toBe(originalText);
+                });
+            });
         };
 
-        it('should encrypt and decrypt a simple string successfully', async () => {
-            await testRoundTrip('Hello, World!');
-        });
-
-        it('should encrypt and decrypt a longer string successfully', async () => {
-            await testRoundTrip(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        it('should reject Promise for encryptData with short secret key', () => {
+            return expect(encryptData('test', 'short')).rejects.toThrow(
+                'secretKey must be at least 32 characters long',
             );
         });
 
-        it('should fail to decrypt with an incorrect secret key', async () => {
-            const originalText = 'Secret message';
-            const encrypted = await encryptData(originalText, secretKey);
-            const wrongSecretKey = 'this-is-an-incorrect-secret-key';
-
-            await expect(
-                decryptData(encrypted, wrongSecretKey)
-            ).rejects.toThrow();
+        it('should reject Promise for decryptData with short secret key', () => {
+            // Use a base64 string long enough to pass the length check (SALT_LENGTH + IV_LENGTH + some ciphertext)
+            const fakeEncrypted = Buffer.alloc(50, 'a').toString('base64');
+            return expect(decryptData(fakeEncrypted, 'short')).rejects.toThrow(
+                'secretKey must be at least 32 characters long',
+            );
         });
 
-        it('should fail to decrypt tampered encrypted data', async () => {
+        it('should encrypt and decrypt a simple string successfully', () => {
+            return testRoundTrip('Hello, World!');
+        });
+
+        it('should encrypt and decrypt a longer string successfully', () => {
+            return testRoundTrip(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            );
+        });
+
+        it('should fail to decrypt with an incorrect secret key', () => {
+            const originalText = 'Secret message';
+            return encryptData(originalText, secretKey).then(encrypted => {
+                const wrongSecretKey = 'this-is-an-incorrect-secret-key!';
+                return expect(decryptData(encrypted, wrongSecretKey)).rejects.toThrow();
+            });
+        });
+
+        it('should fail to decrypt tampered encrypted data', () => {
             const originalText = 'Another secret';
-            const encrypted = await encryptData(originalText, secretKey);
-
-            // Tamper with the encrypted data by changing one character
-            const tamperedEncrypted = `${encrypted.slice(0, -5)}AAAAA`;
-
-            await expect(
-                decryptData(tamperedEncrypted, secretKey)
-            ).rejects.toThrow();
+            return encryptData(originalText, secretKey).then(encrypted => {
+                const tamperedEncrypted = `${encrypted.slice(0, -5)}AAAAA`;
+                return expect(decryptData(tamperedEncrypted, secretKey)).rejects.toThrow();
+            });
         });
     });
 });

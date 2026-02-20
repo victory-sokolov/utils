@@ -1,16 +1,20 @@
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
-import json from '@rollup/plugin-json';
-import resolve from '@rollup/plugin-node-resolve';
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
 import filesize from 'rollup-plugin-filesize';
+import json from '@rollup/plugin-json';
+import resolve from '@rollup/plugin-node-resolve';
+import path from 'node:path';
 
 const entries = ['src/index.ts'];
 
 const plugins = [
     alias({
-        entries: [{ find: /^node:(.+)$/, replacement: '$1' }],
+        entries: [
+            { find: /^node:(.+)$/, replacement: '$1' },
+            { find: /^@\/(.+)\.js$/, replacement: path.resolve('src/$1.ts') },
+        ],
     }),
     resolve({
         preferBuiltins: true,
@@ -19,13 +23,14 @@ const plugins = [
     filesize(),
     commonjs(),
     esbuild({
-        target: 'node16',
         minify: true,
+        target: 'node16',
     }),
 ];
 
 export default [
     ...entries.map((input) => ({
+        external: [],
         input,
         output: [
             {
@@ -39,10 +44,10 @@ export default [
                 sourcemap: true,
             },
         ],
-        external: [],
         plugins,
     })),
     ...entries.map((input) => ({
+        external: [],
         input,
         output: [
             {
@@ -58,10 +63,10 @@ export default [
                 format: 'cjs',
             },
         ],
-        external: [],
         plugins: [dts({ respectExternal: true })],
     })),
     {
+        external: ['fs', 'path'],
         input: 'src/node/index.ts',
         output: [
             {
@@ -75,7 +80,6 @@ export default [
                 sourcemap: true,
             },
         ],
-        external: ['fs', 'path'],
         plugins,
     },
 ];

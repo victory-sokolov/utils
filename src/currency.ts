@@ -1,14 +1,11 @@
-type Currency
-    = | 'USD' // United States Dollar
-        | 'EUR' // Euro
-        | 'GBP' // British Pound Sterling
-        | 'JPY' // Japanese Yen
-        | 'CAD' // Canadian Dollar
-        | 'AUD' // Australian Dollar
-        | 'RUB' // Russian Ruble
-        | 'INR' // Indian Rupee
-        | 'CNY' // Chinese Yuan
-        | 'CHF'; // Swiss Franc
+type Currency = 'USD' | 'EUR' | 'GBP' | 'JPY' | 'CAD' | 'AUD' | 'RUB' | 'INR' | 'CNY' | 'CHF';
+
+const getFractionDigits = (dollars: number): number => {
+    if (dollars % 1 === 0) {
+        return 0;
+    }
+    return 2;
+};
 
 /**
  * Convert cents to dollars
@@ -17,11 +14,8 @@ type Currency
  * @example
  * toDollars(1000); // '$10.00'
  */
-export const toDollars = (
-    cents: number,
-    currency: Currency = 'USD',
-    locale: string = 'en-US'
-) => (cents / 100).toLocaleString(locale, { style: 'currency', currency });
+export const toDollars = (cents: number, currency: Currency = 'USD', locale = 'en-US'): string =>
+    (cents / 100).toLocaleString(locale, { currency, style: 'currency' });
 
 /**
  * Format price in cents
@@ -32,8 +26,8 @@ export const toDollars = (
 export const formatPrice = (
     priceInCents: string,
     currency: Currency = 'USD',
-    locale: string = 'en-US'
-) => {
+    locale = 'en-US',
+): string => {
     const price = Number.parseFloat(priceInCents);
 
     // Handle invalid numbers
@@ -43,9 +37,10 @@ export const formatPrice = (
 
     const dollars = price / 100;
 
+    const minimumFractionDigits: number = getFractionDigits(dollars);
     return new Intl.NumberFormat(locale, {
-        style: 'currency',
         currency,
-        minimumFractionDigits: dollars % 1 !== 0 ? 2 : 0,
+        minimumFractionDigits,
+        style: 'currency',
     }).format(dollars);
 };

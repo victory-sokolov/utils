@@ -41,42 +41,45 @@
         "build": "rollup -c",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
+        "lint": "oxlint --deny-warnings",
+        "lint:fix": "oxlint  --fix",
+        "format": "oxfmt src tests",
+        "format:check": "oxfmt --check src tests",
         "docs": "typedoc ./src --out docs",
         "prepublishOnly": "bun run lint && bun run test",
         "preversion": "bun run lint && bun run test",
         "version": "bun run lint && git add -A src",
         "postversion": "git push && git push --tags",
         "typecheck": "tsc --pretty",
+        "check": "bun run typecheck && bun run lint && bun run format:check && bun run test && bun run jscpd",
         "clean": "rimraf ./node_modules && rimraf dist",
-        "commit": "cz",
-        "semantic-release": "semantic-release",
         "prepush": "git pull --rebase",
         "update": "bun update -i",
-        "jscpd": "jscpd src/ tests"
+        "jscpd": "jscpd src/ tests",
+        "release": "semantic-release",
+        "release:dry": "semantic-release --dry-run",
+        "prepare": "lefthook install"
     },
     "devDependencies": {
-        "@antfu/eslint-config": "^6.7.3",
+        "@commitlint/cli": "^20.4.2",
+        "@commitlint/config-conventional": "^20.4.2",
         "@rollup/plugin-alias": "^6.0.0",
         "@rollup/plugin-commonjs": "^29.0.0",
         "@rollup/plugin-json": "^6.1.0",
         "@rollup/plugin-node-resolve": "^16.0.3",
         "@semantic-release/changelog": "^6.0.3",
-        "@semantic-release/git": "10.0.1",
+        "@semantic-release/git": "^10.0.1",
+        "@semantic-release/github": "^12.0.6",
         "@types/node": "^25.2.1",
         "@types/webrtc": "^0.0.47",
-        "@typescript-eslint/eslint-plugin": "^8.54.0",
         "@vitest/coverage-v8": "4.0.16",
         "c8": "^10.1.3",
-        "commitizen": "^4.3.1",
-        "cz-conventional-changelog": "^3.3.0",
-        "eslint": "^9.39.2",
-        "eslint-plugin-vitest": "^0.5.4",
-        "esno": "4.8.0",
         "jscpd": "^4.0.8",
         "jsdom": "^27.4.0",
+        "lefthook": "^2.1.1",
         "lint-staged": "16.2.7",
+        "oxfmt": "^0.33.0",
+        "oxlint": "^1.48.0",
         "rollup": "^4.57.1",
         "rollup-plugin-dts": "^6.3.0",
         "rollup-plugin-esbuild": "^6.2.1",
@@ -88,21 +91,9 @@
         "typedoc-plugin-missing-exports": "^4.1.2",
         "typedoc-theme-hierarchy": "6.0.0",
         "typescript": "^5.9.3",
-        "typescript-eslint": "^8.54.0",
         "user-agent-data-types": "^0.4.2",
         "vite": "^7.3.1",
         "vitest": "^4.0.18"
-    },
-    "config": {
-        "commitizen": {
-            "path": "./node_modules/cz-conventional-changelog"
-        }
-    },
-    "lint-staged": {
-        "src/**/*.{ts,tsx}": [
-            "bun run typecheck",
-            "bun run lint"
-        ]
     },
     "publishConfig": {
         "access": "public"

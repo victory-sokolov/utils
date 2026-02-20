@@ -1,5 +1,5 @@
-import { describe, expect } from 'vitest';
-import { escape, removeHtmlTags, removeInlineStyles, unescape } from '../src/html'; // Added removeInlineStyles
+import { describe, expect, it } from 'vitest';
+import { escape, removeHtmlTags, removeInlineStyles, unescape } from '../src/html';
 
 describe('removeHtmlTags', () => {
     it('remove tags', () => {
@@ -62,7 +62,9 @@ describe('escape HTML entities', () => {
 
     it('should escape all relevant HTML characters', () => {
         expect(escape('<>"\'')).toBe('&lt;&gt;&quot;&#39;');
-        expect(escape('String with <tag>, "quote", & ampersand, \'apostrophe\'')).toBe('String with &lt;tag&gt;, &quot;quote&quot;, &amp; ampersand, &#39;apostrophe&#39;');
+        expect(escape('String with <tag>, "quote", & ampersand, \'apostrophe\'')).toBe(
+            'String with &lt;tag&gt;, &quot;quote&quot;, &amp; ampersand, &#39;apostrophe&#39;',
+        );
     });
 });
 
@@ -86,21 +88,23 @@ describe('unescape HTML entities', () => {
 
     it('should unescape all relevant HTML entities', () => {
         expect(unescape('&lt;&gt;&quot;&#39;&amp;')).toBe('<>"\'&');
-        expect(unescape('String with &lt;tag&gt;, &quot;quote&quot;, &amp;ampersand, &#39;apostrophe&#39;')).toBe('String with <tag>, "quote", &ampersand, \'apostrophe\'');
+        expect(
+            unescape(
+                'String with &lt;tag&gt;, &quot;quote&quot;, &amp;ampersand, &#39;apostrophe&#39;',
+            ),
+        ).toBe('String with <tag>, "quote", &ampersand, \'apostrophe\'');
     });
 
     it('should handle numeric and hex character references', () => {
-        expect(unescape('&#x27;')).toBe('\''); // Hex for '
-        expect(unescape('&#39;')).toBe('\''); // Numeric for '
-        expect(unescape('&#0039;')).toBe('\''); // Padded numeric for '
+        expect(unescape('&#x27;')).toBe("'");
+        expect(unescape('&#39;')).toBe("'");
+        expect(unescape('&#0039;')).toBe("'");
     });
+
     it('should handle unknown or malformed entities by returning the original entity or default', () => {
-        // The current implementation defaults to '\'' for unknown entities,
-        // which might be an intended behavior or a side-effect.
-        // It's defined in htmlUnescapes, where undefined entity returns '\''
-        expect(unescape('&unknown;')).toBe('&unknown;'); // Should remain as is
-        expect(unescape('&ampersand;')).toBe('&ampersand;'); // Not recognized by the map
-        expect(unescape('&#xyz;')).toBe('&#xyz;'); // Malformed numeric/hex
+        expect(unescape('&unknown;')).toBe('&unknown;');
+        expect(unescape('&ampersand;')).toBe('&ampersand;');
+        expect(unescape('&#xyz;')).toBe('&#xyz;');
     });
 
     it('should return &apos; for &apos; as it is not in the unescapes map', () => {

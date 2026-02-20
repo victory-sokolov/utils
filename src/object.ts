@@ -1,5 +1,5 @@
-import type { RecordObject } from './types';
 import { isPlainObject, isTruthyAndNotEmpty } from './is';
+import type { RecordObject } from './types';
 
 /**
  * Remove specific keys from object
@@ -7,26 +7,27 @@ import { isPlainObject, isTruthyAndNotEmpty } from './is';
  * @param keys - Keys to remove from object
  * @returns Object or array of objects with keys removed
  */
-export const omit = <T extends Record<string, any>, K extends keyof T>(
+export const omit = <T extends Record<string, unknown>, K extends keyof T>(
     objOrArray: T | T[],
     ...keys: K[]
 ): Omit<T, K> | Omit<T, K>[] => {
     // Function to remove keys from a single object
     const omitKeysFromObject = (obj: T): T => {
-        const newObj = { ...obj };
-        keys.forEach((key) => {
-            delete newObj[key];
-        });
-        return newObj;
+        const newObj: Record<string, unknown> = {};
+        for (const key in obj) {
+            if (Object.hasOwn(obj, key) && !keys.includes(key as unknown as K)) {
+                newObj[key] = obj[key];
+            }
+        }
+        return newObj as T;
     };
 
     // Check if input is an array of objects
     if (Array.isArray(objOrArray)) {
-        return objOrArray.map(omitKeysFromObject);
-    } else {
-        // Input is a single object
-        return omitKeysFromObject(objOrArray);
+        return objOrArray.map(item => omitKeysFromObject(item));
     }
+    // Input is a single object
+    return omitKeysFromObject(objOrArray);
 };
 
 /**
@@ -35,13 +36,11 @@ export const omit = <T extends Record<string, any>, K extends keyof T>(
  * @param props - Keys to select from object
  * @returns Object with selected keys
  */
-export const pick = <T extends Record<string, any>, K extends keyof T>(
+export const pick = <T extends Record<string, unknown>, K extends keyof T>(
     obj: T,
     ...props: K[]
 ): { [P in K]: T[P] } => {
-    const filteredArray = Object.entries(obj).filter(([key]) =>
-        props.includes(key as K)
-    );
+    const filteredArray = Object.entries(obj).filter(([key]) => props.includes(key as K));
     return Object.fromEntries(filteredArray) as Pick<T, K>;
 };
 
@@ -51,9 +50,9 @@ export const pick = <T extends Record<string, any>, K extends keyof T>(
  * @returns Flatten object
  */
 export const flattenObject = (obj: RecordObject): RecordObject => {
-    const flattened: { [k: string]: unknown } = {};
+    const flattened: Record<string, unknown> = {};
 
-    Object.keys(obj).forEach((key) => {
+    for (const key of Object.keys(obj)) {
         const value = obj[key];
 
         if (isPlainObject(value)) {
@@ -61,7 +60,7 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
         } else {
             flattened[key] = value;
         }
-    });
+    }
 
     return flattened;
 };
@@ -88,9 +87,7 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
  */
 export function filterFalsyFromObject<T extends RecordObject>(obj: T): T;
 export function filterFalsyFromObject<T extends RecordObject>(arr: T[]): T[];
-export function filterFalsyFromObject<T extends RecordObject | RecordObject[]>(
-    objOrArray: T
-): T {
+export function filterFalsyFromObject<T extends RecordObject | RecordObject[]>(objOrArray: T): T {
     const filterObject = <U extends RecordObject>(obj: U): U => {
         const result = {} as U;
         for (const key in obj) {
@@ -101,11 +98,10 @@ export function filterFalsyFromObject<T extends RecordObject | RecordObject[]>(
         return result;
     };
 
-    return (
-        Array.isArray(objOrArray)
-            ? objOrArray.map((o) => filterObject(o))
-            : filterObject(objOrArray)
-    ) as T;
+    if (Array.isArray(objOrArray)) {
+        return objOrArray.map(item => filterObject(item)) as T;
+    }
+    return filterObject(objOrArray) as T;
 }
 
 /**
@@ -114,30 +110,43 @@ export function filterFalsyFromObject<T extends RecordObject | RecordObject[]>(
  * @param right
  * @returns New combined object
  */
-export const unionWithExclusion = (
-    left: RecordObject,
-    right: RecordObject
-): RecordObject => {
-    return [left, right].reduce<RecordObject>((prev, current) => {
-        if (current) {
-            Object.entries(current).forEach(([key, value]) => {
-                if (!value) return;
-
-                if (isPlainObject(value)) {
-                    const existing = prev[key];
-                    prev[key] = isPlainObject(existing)
-                        ? unionWithExclusion(
-                                existing as RecordObject,
-                                value as RecordObject
-                            )
-                        : value;
-                } else {
-                    prev[key] = value;
-                }
-            });
+const copyValue = (value: unknown): unknown => {
+    if (isPlainObject(value)) {
+        const obj = value as RecordObject;
+        const copy: RecordObject = {};
+        for (const key in obj) {
+            if (Object.hasOwn(obj, key)) {
+                copy[key] = obj[key];
+            }
         }
-        return prev;
-    }, {} as RecordObject);
+        return copy;
+    }
+    return value;
+};
+
+const processObject = (obj: RecordObject, result: RecordObject): void => {
+    for (const key in obj) {
+        if (Object.hasOwn(obj, key) && obj[key]) {
+            result[key] = copyValue(obj[key]);
+        }
+    }
+};
+
+export const unionWithExclusion = (left: RecordObject, right: RecordObject): RecordObject => {
+    const result: RecordObject = {};
+    processObject(left, result);
+    for (const key in right) {
+        if (Object.hasOwn(right, key) && right[key]) {
+            const value = right[key];
+            const existing = result[key];
+            if (isPlainObject(value) && isPlainObject(existing)) {
+                result[key] = unionWithExclusion(existing, value);
+            } else {
+                result[key] = value;
+            }
+        }
+    }
+    return result;
 };
 
 /**
@@ -146,9 +155,7 @@ export const unionWithExclusion = (
  * @returns Inverted object
  */
 export const flip = (data: RecordObject): RecordObject =>
-    Object.fromEntries(
-        Object.entries(data).map(([key, value]) => [value, key])
-    );
+    Object.fromEntries(Object.entries(data).map(([key, value]) => [value, key]));
 
 /**
  * Filter array of objects and remove dublicates by provided key
@@ -156,31 +163,27 @@ export const flip = (data: RecordObject): RecordObject =>
  * @param key Key lookup
  * @returns Filtered object
  */
-export const uniqueObject = (
-    data: RecordObject[],
-    key: string
-): RecordObject[] => {
-    return [...new Map(data.map((item) => [item[key], item])).values()];
-};
+export const uniqueObject = (data: RecordObject[], key: string): RecordObject[] => [
+    ...new Map(data.map(item => [item[key], item])).values(),
+];
 
 /**
  * Strict typed `Object.keys`
  *
  * @category Object
  */
-export const objectKeys = <T extends object>(obj: T) => {
-    return Object.keys(obj) as Array<`${keyof T
-        & (string | number | boolean | null | undefined)}`>;
-};
+export const objectKeys = <T extends object>(
+    obj: T,
+): `${keyof T & (string | number | boolean | null | undefined)}`[] =>
+    Object.keys(obj) as `${keyof T & (string | number | boolean | null | undefined)}`[];
 
 /**
  * Strict typed `Object.entries`
  *
  * @category Object
  */
-export const objectEntries = <T extends object>(obj: T) => {
-    return Object.entries(obj) as Array<[keyof T, T[keyof T]]>;
-};
+export const objectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][] =>
+    Object.entries(obj) as [keyof T, T[keyof T]][];
 
 /**
  * Get unique keys, values by provided key
@@ -190,6 +193,6 @@ export const objectEntries = <T extends object>(obj: T) => {
  * @param key
  * @returns Unique array of objects
  */
-export const getUniqueByKey = <T>(arr: T[], key: keyof T): T[] => {
-    return [...new Map(arr.map((item) => [item[key], item])).values()];
-};
+export const getUniqueByKey = <T>(arr: T[], key: keyof T): T[] => [
+    ...new Map(arr.map(item => [item[key], item])).values(),
+];

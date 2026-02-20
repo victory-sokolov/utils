@@ -22,40 +22,40 @@ describe('flattenArray', () => {
             flattenArray([
                 [1, 2],
                 [3, 4],
-            ])
-        ).toEqual([1, 2, 3, 4]);
+            ]),
+        ).toStrictEqual([1, 2, 3, 4]);
     });
 
     it('should return the original array if it is not nested', () => {
-        expect(flattenArray([1, 2, 3, [4], [5]])).toEqual([1, 2, 3, 4, 5]);
+        expect(flattenArray([1, 2, 3, [4], [5]])).toStrictEqual([1, 2, 3, 4, 5]);
     });
 
     it('should return an empty array if the input is an empty array', () => {
-        expect(flattenArray([])).toEqual([]);
+        expect(flattenArray([])).toStrictEqual([]);
     });
 });
 
 describe('unique', () => {
     it('should return an array of unique values', () => {
-        expect(unique([1, 2, 3, 2, 3, 4, 3, 4, 5])).toEqual([1, 2, 3, 4, 5]);
+        expect(unique([1, 2, 3, 2, 3, 4, 3, 4, 5])).toStrictEqual([1, 2, 3, 4, 5]);
     });
 
     it('should return an empty array if the input is an empty array', () => {
-        expect(unique([])).toEqual([]);
+        expect(unique([])).toStrictEqual([]);
     });
 });
 
 describe('removeItem', () => {
     it('should remove items from the array', () => {
-        expect(removeItem([1, 2, 3, 4, 5], [3, 4])).toEqual([1, 2, 5]);
+        expect(removeItem([1, 2, 3, 4, 5], [3, 4])).toStrictEqual([1, 2, 5]);
     });
 
     it('should return the original array if there are no items to remove', () => {
-        expect(removeItem([1, 2, 3, 4, 5], [])).toEqual([1, 2, 3, 4, 5]);
+        expect(removeItem([1, 2, 3, 4, 5], [])).toStrictEqual([1, 2, 3, 4, 5]);
     });
 
     it('should return an empty array if the input array is empty', () => {
-        expect(removeItem([], [3, 4])).toEqual([]);
+        expect(removeItem([], [3, 4])).toStrictEqual([]);
     });
 });
 
@@ -65,25 +65,25 @@ describe('randomItem', () => {
     });
 
     it('should return an empty array if count is 0', () => {
-        expect(randomItem([1, 2, 3, 4, 5], 0)).toEqual([1, 2, 3, 4, 5]);
+        expect(randomItem([1, 2, 3, 4, 5], 0)).toStrictEqual([1, 2, 3, 4, 5]);
     });
 
     it('should return the original array if count is greater than the length of the array', () => {
-        expect(randomItem([1, 2, 3, 4, 5], 10)).toEqual([1, 2, 3, 4, 5]);
+        expect(randomItem([1, 2, 3, 4, 5], 10)).toStrictEqual([1, 2, 3, 4, 5]);
     });
 
     it('should return an empty array if the input array is empty', () => {
-        expect(randomItem([], 1)).toEqual([]);
+        expect(randomItem([], 1)).toStrictEqual([]);
     });
 });
 
 describe('shuffleArray', () => {
     it('should shuffle the values in the array', () => {
-        expect(shuffleArray([1, 2, 3, 4, 5])).not.toEqual([1, 2, 3, 4, 5]);
+        expect(shuffleArray([1, 2, 3, 4, 5])).not.toStrictEqual([1, 2, 3, 4, 5]);
     });
 
     it('should return an empty array if the input array is empty', () => {
-        expect(shuffleArray([])).toEqual([]);
+        expect(shuffleArray([])).toStrictEqual([]);
     });
 });
 
@@ -91,16 +91,16 @@ describe('sortAsc', () => {
     it('sorts an array of numbers in ascending order', () => {
         const obj = [
             {
-                name: 'Test',
                 age: 20,
+                name: 'Test',
             },
             {
-                name: 'Atest',
                 age: 30,
+                name: 'Atest',
             },
         ] as const;
         const sortedNumbers = sortAsc<any>(obj);
-        expect(sortedNumbers).toEqual([
+        expect(sortedNumbers).toStrictEqual([
             {
                 age: 20,
                 name: 'Test',
@@ -115,20 +115,26 @@ describe('sortAsc', () => {
     it('sorts an array of objects based on their "key" property in ascending order', () => {
         const objects = [{ key: 3 }, { key: 2 }, { key: 1 }];
         const sortedObjects = sortAsc<any>(objects);
-        expect(sortedObjects).toEqual([{ key: 1 }, { key: 2 }, { key: 3 }]);
+        expect(sortedObjects).toStrictEqual([{ key: 1 }, { key: 2 }, { key: 3 }]);
     });
 
     it('should maintain original order for equal keys', () => {
-        const objects = [{ key: 1, value: 'b' }, { key: 1, value: 'a' }];
+        const objects = [
+            { key: 1, value: 'b' },
+            { key: 1, value: 'a' },
+        ];
         const sortedObjects = sortAsc<any>(objects);
         // Using toStrictEqual to ensure array and object equality including value
-        expect(sortedObjects).toEqual([{ key: 1, value: 'b' }, { key: 1, value: 'a' }]);
+        expect(sortedObjects).toStrictEqual([
+            { key: 1, value: 'b' },
+            { key: 1, value: 'a' },
+        ]);
     });
 
     it('should sort array in ascending order correctly', () => {
         const objects = [{ key: 1 }, { key: 3 }, { key: 2 }];
         const sortedObjects = sortAsc<any>(objects);
-        expect(sortedObjects).toEqual([{ key: 1 }, { key: 2 }, { key: 3 }]);
+        expect(sortedObjects).toStrictEqual([{ key: 1 }, { key: 2 }, { key: 3 }]);
     });
 });
 
@@ -136,29 +142,29 @@ describe('insertItemAtIndex', () => {
     it('inserts the item at the specified index', () => {
         const arr = [1, 2, 3];
         const result = insertItemAtIndex(1, 4, arr);
-        expect(result).toEqual([1, 4, 2, 3]);
+        expect(result).toStrictEqual([1, 4, 2, 3]);
     });
 
     it('inserts the item at the index returned by the callback', () => {
         const arr = [1, 2, 3];
-        const result = insertItemAtIndex((item) => item === 2, 4, arr);
-        expect(result).toEqual([1, 4, 2, 3]);
+        const result = insertItemAtIndex(item => item === 2, 4, arr);
+        expect(result).toStrictEqual([1, 4, 2, 3]);
     });
 
     it('returns an empty array when arr is null or undefined', () => {
         let result = insertItemAtIndex(1, 4, null);
-        expect(result).toEqual([]);
+        expect(result).toStrictEqual([]);
         result = insertItemAtIndex(1, 4);
-        expect(result).toEqual([]);
+        expect(result).toStrictEqual([]);
     });
 
     it('should return the original array if the index is not found', () => {
         const arr = [1, 2, 3];
         const result = insertItemAtIndex(5, 4, arr); // Index out of bounds
-        expect(result).toEqual(arr);
+        expect(result).toStrictEqual(arr);
 
-        const resultCallback = insertItemAtIndex((item) => item === 99, 4, arr); // Item not found
-        expect(resultCallback).toEqual(arr);
+        const resultCallback = insertItemAtIndex(item => item === 99, 4, arr); // Item not found
+        expect(resultCallback).toStrictEqual(arr);
     });
 });
 
@@ -168,14 +174,14 @@ describe('replaceItemAtIndex', () => {
         const newValue = 100;
         const index = 2;
         const expected = [1, 2, 100, 4];
-        expect(replaceItemAtIndex(index, newValue, arr)).toEqual(expected);
+        expect(replaceItemAtIndex(index, newValue, arr)).toStrictEqual(expected);
     });
 
     it('should return an empty array if no array is passed', () => {
         const newValue = 100;
         const index = 2;
         const expected: number[] = [];
-        expect(replaceItemAtIndex(index, newValue)).toEqual(expected);
+        expect(replaceItemAtIndex(index, newValue)).toStrictEqual(expected);
     });
 
     it('should replace the item at the index found by the callback', () => {
@@ -191,17 +197,17 @@ describe('replaceItemAtIndex', () => {
             { id: 100, value: 'x' },
             { id: 3, value: 'c' },
         ];
-        expect(replaceItemAtIndex(index, newValue, arr)).toEqual(expected);
+        expect(replaceItemAtIndex(index, newValue, arr)).toStrictEqual(expected);
     });
 
     it('should return the original array if the index is not found', () => {
         const arr = [1, 2, 3];
         const newValue = 100;
         const result = replaceItemAtIndex(5, newValue, arr); // Index out of bounds
-        expect(result).toEqual(arr);
+        expect(result).toStrictEqual(arr);
 
-        const resultCallback = replaceItemAtIndex((item) => item === 99, newValue, arr); // Item not found
-        expect(resultCallback).toEqual(arr);
+        const resultCallback = replaceItemAtIndex(item => item === 99, newValue, arr); // Item not found
+        expect(resultCallback).toStrictEqual(arr);
     });
 });
 
@@ -210,25 +216,25 @@ describe('removeItemAtIndex', () => {
         const arr = [1, 2, 3, 4, 5];
         const expected = [1, 2, 4, 5];
         const result = removeItemAtIndex(2, arr);
-        expect(result).toEqual(expected);
+        expect(result).toStrictEqual(expected);
     });
 
     it('removes item based on callback function', () => {
         const arr = [{ id: 1 }, { id: 2 }, { id: 3 }];
         const expected = [{ id: 1 }, { id: 3 }];
-        const result = removeItemAtIndex((item) => item.id === 2, arr);
-        expect(result).toEqual(expected);
+        const result = removeItemAtIndex(item => item.id === 2, arr);
+        expect(result).toStrictEqual(expected);
     });
 
     it('returns empty array if input array is null', () => {
         const result = removeItemAtIndex(2, null);
-        expect(result).toEqual([]);
+        expect(result).toStrictEqual([]);
     });
 
     it('returns original array if index is not found', () => {
         const arr = [1, 2, 3, 4, 5];
         const result = removeItemAtIndex(10, arr);
-        expect(result).toEqual(arr);
+        expect(result).toStrictEqual(arr);
     });
 });
 
@@ -237,13 +243,13 @@ describe('sort', () => {
         const arr = [{ value: 3 }, { value: 1 }, { value: 2 }];
         const customSort = (a: { value: number }, b: { value: number }) => a.value - b.value;
         const result = sort(arr, customSort);
-        expect(result).toEqual([{ value: 1 }, { value: 2 }, { value: 3 }]);
+        expect(result).toStrictEqual([{ value: 1 }, { value: 2 }, { value: 3 }]);
     });
 
-    it('should sort an array using the default sorting function when fSorting is null', () => {
-        const arr = [{ a: 3 }, { a: 1 }, { a: 2 }]; // Uses Object.values(a)[0]
-        const result = sort(arr, null);
-        expect(result).toEqual([{ a: 1 }, { a: 2 }, { a: 3 }]);
+    it('should sort an array using the default sorting function when fSorting is undefined', () => {
+        const arr = [{ a: 3 }, { a: 1 }, { a: 2 }];
+        const result = sort(arr, undefined);
+        expect(result).toStrictEqual([{ a: 1 }, { a: 2 }, { a: 3 }]);
     });
 
     it('should return a new array instance', () => {
@@ -252,24 +258,24 @@ describe('sort', () => {
         expect(result).not.toBe(arr);
     });
 
-    it('should handle empty array when fSorting is null', () => {
-        const result = sort([], null);
-        expect(result).toEqual([]);
+    it('should handle empty array when fSorting is undefined', () => {
+        const result = sort([], undefined);
+        expect(result).toStrictEqual([]);
     });
 
     it('should handle empty array when fSorting is provided', () => {
         const customSort = (a: { value: number }, b: { value: number }) => a.value - b.value;
         const result = sort([], customSort);
-        expect(result).toEqual([]);
+        expect(result).toStrictEqual([]);
     });
 
-    it('should handle objects with non-numeric first values when fSorting is null', () => {
+    it('should handle objects with non-numeric first values when fSorting is undefined', () => {
         const arr = [{ a: 'b' }, { a: 'a' }];
-        const result = sort(arr, null);
+        const result = sort(arr, undefined);
         // Default sort converts to Number, 'b' -> NaN, 'a' -> NaN. NaN comparison is tricky.
         // It should maintain original order for NaN if comparison is 0.
         // The default fSort uses (valA > valB ? 1 : valA < valB ? -1 : 0) which handles NaN comparisons as 0
-        expect(result).toEqual([{ a: 'b' }, { a: 'a' }]);
+        expect(result).toStrictEqual([{ a: 'b' }, { a: 'a' }]);
     });
 });
 describe('intersection', () => {
@@ -277,7 +283,7 @@ describe('intersection', () => {
         const arr1 = [1, 2, 3, 4];
         const arr2 = [3, 4, 5, 6];
         const expectedResult = [3, 4];
-        expect(intersection(arr1, arr2)).toEqual(expectedResult);
+        expect(intersection(arr1, arr2)).toStrictEqual(expectedResult);
     });
 });
 
@@ -299,37 +305,37 @@ describe('countBy', () => {
         const array = [1, 2, 3, 2, 3, 3, 4, 5];
         const expectedResult = { 1: 1, 2: 2, 3: 3, 4: 1, 5: 1 };
 
-        expect(countBy(array)).toEqual(expectedResult);
+        expect(countBy(array)).toStrictEqual(expectedResult);
     });
 
     it('countBy should return an empty object if passed an empty array', () => {
         const array = ['hello', 'world', 'hello'];
         const expectedResult = { hello: 2, world: 1 };
 
-        expect(countBy(array)).toEqual(expectedResult);
+        expect(countBy(array)).toStrictEqual(expectedResult);
     });
 
     it('countBy should return an object with the count of each item in the array even if the array contains duplicate items', () => {
         const array = [1, 1, 2, 3, 3, 3];
         const expectedResult = { 1: 2, 2: 1, 3: 3 };
 
-        expect(countBy(array)).toEqual(expectedResult);
+        expect(countBy(array)).toStrictEqual(expectedResult);
     });
 });
 
 describe('sortBy', () => {
     const users = [
         {
-            name: 'John',
             age: 30,
+            name: 'John',
         },
         {
-            name: 'Nick',
             age: 42,
+            name: 'Nick',
         },
         {
-            name: 'Tom',
             age: 20,
+            name: 'Tom',
         },
     ];
 
@@ -337,72 +343,73 @@ describe('sortBy', () => {
         const sorted = sortBy(users, 1, 'age');
         const expected = [
             {
-                name: 'Tom',
                 age: 20,
+                name: 'Tom',
             },
             {
-                name: 'John',
                 age: 30,
+                name: 'John',
             },
             {
-                name: 'Nick',
                 age: 42,
+                name: 'Nick',
             },
         ];
-        expect(sorted).toEqual(expected);
+        expect(sorted).toStrictEqual(expected);
     });
+
     it('should sort array of objects in asc order', () => {
         const sorted = sortBy(users, -1, 'age');
         const expected = [
             {
-                name: 'Nick',
                 age: 42,
+                name: 'Nick',
             },
             {
-                name: 'John',
                 age: 30,
+                name: 'John',
             },
             {
-                name: 'Tom',
                 age: 20,
+                name: 'Tom',
             },
         ];
-        expect(sorted).toEqual(expected);
+        expect(sorted).toStrictEqual(expected);
     });
 
     it('should return the original array if key is not a string', () => {
         const sorted = sortBy(users, 1, null as any); // Pass null as key
-        expect(sorted).toEqual(users);
+        expect(sorted).toStrictEqual(users);
     });
 
     it('should return the original array if the input array is empty', () => {
         const sorted = sortBy([], 1, 'age');
-        expect(sorted).toEqual([]);
+        expect(sorted).toStrictEqual([]);
     });
 
     it('should return the original array if the key does not exist on the first object', () => {
         const sorted = sortBy(users, 1, 'nonExistentKey');
-        expect(sorted).toEqual(users);
+        expect(sorted).toStrictEqual(users);
     });
 
     it('should sort array of objects by string key in asc order', () => {
         const sorted = sortBy(users, 1, 'name');
         const expected = [
-            { name: 'John', age: 30 },
-            { name: 'Nick', age: 42 },
-            { name: 'Tom', age: 20 },
+            { age: 30, name: 'John' },
+            { age: 42, name: 'Nick' },
+            { age: 20, name: 'Tom' },
         ];
-        expect(sorted).toEqual(expected);
+        expect(sorted).toStrictEqual(expected);
     });
 
     it('should sort array of objects by string key in desc order', () => {
         const sorted = sortBy(users, -1, 'name');
         const expected = [
-            { name: 'Tom', age: 20 },
-            { name: 'Nick', age: 42 },
-            { name: 'John', age: 30 },
+            { age: 20, name: 'Tom' },
+            { age: 42, name: 'Nick' },
+            { age: 30, name: 'John' },
         ];
-        expect(sorted).toEqual(expected);
+        expect(sorted).toStrictEqual(expected);
     });
 
     it('should return original order for mixed types or non-sortable types', () => {
@@ -413,7 +420,7 @@ describe('sortBy', () => {
         ];
         // When sorting by 'value', the default comparator should return 0 for mixed types, preserving order
         const sorted = sortBy(mixedUsers, 1, 'value');
-        expect(sorted).toEqual(mixedUsers);
+        expect(sorted).toStrictEqual(mixedUsers);
     });
 });
 
@@ -422,7 +429,7 @@ describe('occurrenceCount', () => {
         const numbers = [1, 2, 3, 2, 1, 1, 4];
         const result = occurrenceCount(numbers);
 
-        expect(result).toEqual({
+        expect(result).toStrictEqual({
             1: 3,
             2: 2,
             3: 1,
@@ -434,7 +441,7 @@ describe('occurrenceCount', () => {
         const strings = ['a', 'b', 'a', 'c', 'b', 'a'];
         const result = occurrenceCount(strings);
 
-        expect(result).toEqual({
+        expect(result).toStrictEqual({
             a: 3,
             b: 2,
             c: 1,
@@ -445,11 +452,11 @@ describe('occurrenceCount', () => {
         const mixed = [1, '2', true, '2', 1, false, true];
         const result = occurrenceCount(mixed);
 
-        expect(result).toEqual({
+        expect(result).toStrictEqual({
             1: 2,
             2: 2,
-            true: 2,
             false: 1,
+            true: 2,
         });
     });
 });

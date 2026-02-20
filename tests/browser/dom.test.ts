@@ -1,4 +1,13 @@
-import { $, $$, addClass, insertAfter, insertBefore, prepend, removeClass, style } from '../../src/browser/dom';
+import {
+    $,
+    $$,
+    addClass,
+    insertAfter,
+    insertBefore,
+    prepend,
+    removeClass,
+    style,
+} from '../../src/browser/dom';
 
 describe('dOM helpers', () => {
     let parent: HTMLElement;
@@ -7,7 +16,7 @@ describe('dOM helpers', () => {
     beforeEach(() => {
         parent = document.createElement('div');
         child = document.createElement('span');
-        parent.appendChild(child);
+        parent.append(child);
     });
 
     it('should return the first element matching the given selector', () => {

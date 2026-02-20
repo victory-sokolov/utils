@@ -1,0 +1,45 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "rules": {
+        "curly": "off",
+        "typescript": "error",
+        "import": "warn",
+        "eslint": "warn",
+        "unicorn": "warn",
+        "jsdoc": "warn",
+        "node": "warn",
+        "perf": "warn",
+        "vitest/expect-expect": "error",
+        "unicorn/no-null": "off",
+        "unicorn/number-literal-case": "off",
+        "import/no-cycle": ["error", { "maxDepth": 3 }],
+        "import/no-nodejs-modules": "off",
+        "import/prefer-default-export": "off",
+        "import/no-named-export": "off",
+        "import/group-exports": "off",
+        "import/exports-last": "off",
+        "typescript/no-floating-promises": "error",
+        "typescript/no-unsafe-assignment": "warn",
+        "typescript/no-explicit-any": "error",
+        "no-magic-numbers": "off",
+        "id-length": ["warn", { "exceptions": ["_", "$", "A", "B", "T", "K", "F", "V", "E", "U", "P", "R"] }],
+        "max-lines": ["warn", { "max": 500 }]
+    },
+    "plugins": ["jest", "import", "typescript", "oxc", "unicorn", "node"],
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "categories": {
+        "correctness": "error",
+        "suspicious": "warn",
+        "pedantic": "warn",
+        "perf": "warn",
+        "restriction": "warn",
+        "style": "warn",
+        "nursery": "warn"
+    },
+    "ignorePatterns": ["docs/**", "tests/**", "**/*.cjs", "rollup.config.js", "vite.config.ts"],
+    "settings": {}
+}

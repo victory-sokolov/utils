@@ -1,10 +1,6 @@
 /** @vitest-environment jsdom */
 
-import {
-    describe,
-    expect,
-    it
-} from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
     hasProperty,
     isBoolean,
@@ -80,8 +76,8 @@ describe('test is utils', () => {
     it('is object', () => {
         expect(isObject({})).toBe(true);
         expect(isObject({ a: 1 })).toBe(true);
-        expect(isObject([])).toBe(true); // Arrays are objects
-        expect(isObject(null)).toBe(false); // null is not an object
+        expect(isObject([])).toBe(true);
+        expect(isObject(null)).toBe(false);
         expect(isObject(1)).toBe(false);
         expect(isObject('string')).toBe(false);
     });
@@ -136,7 +132,7 @@ describe('test is utils', () => {
 
     describe('isHtmlElement', () => {
         it('should return true for an instance of Element', () => {
-            const mockElement = document.createElement('div'); // JSDOM Element
+            const mockElement = document.createElement('div');
             expect(isHtmlElement(mockElement)).toBe(true);
         });
 

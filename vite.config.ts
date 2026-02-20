@@ -1,14 +1,15 @@
 /// <reference types="vitest" />
+import path from 'node:path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, 'src'),
+        },
+    },
     test: {
-        globals: true,
-        isolate: false,
-        environment: 'jsdom',
-        threads: 4,
         coverage: {
-            reporter: ['text', 'html'],
             exclude: [
                 'node_modules/',
                 'eslint.config.js',
@@ -20,9 +21,15 @@ export default defineConfig({
                 './src/index.ts',
                 './src/node/index.ts',
             ],
+            reporter: ['text', 'html'],
         },
+        environment: 'jsdom',
+        globals: true,
+        isolate: false,
         resolve: {
             conditions: ['source'],
         },
+        pool: 'forks',
+        maxWorkers: 4,
     },
 });

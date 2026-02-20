@@ -1,10 +1,3 @@
-interface Position {
-    coords: {
-        latitude: number;
-        longitude: number;
-    };
-}
-
 /**
  * Get country name from ISO code
  * @param iso ISO code
@@ -18,25 +11,33 @@ export const getCountryFromISO = (iso: string): string | undefined => {
 };
 
 /**
- * Position position object
- * @returns Position object with latitude and longitude properties
+ * Extract coordinates from GeolocationPosition
+ * @param position GeolocationPosition from the browser API
+ * @returns Object with latitude and longitude properties
  */
-export const showPosition = (position: Position) => {
-    return {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-    };
-};
+export const showPosition = (
+    position: GeolocationPosition,
+): { latitude: number; longitude: number } => ({
+    latitude: position.coords.latitude,
+    longitude: position.coords.longitude,
+});
 
 /**
  * Returns coordinates
- * @returns Position object with latitude and longitude properties
+ * @returns Promise with latitude and longitude properties
  */
-export const getLocation = (): Position | void => {
-    if (navigator.geolocation) {
-        return navigator.geolocation.getCurrentPosition(showPosition);
-    }
-    throw new Error('Geolocation is not supported by this browser.');
+// eslint-disable-next-line arrow-body-style
+export const getLocation = (): Promise<{ latitude: number; longitude: number }> => {
+    return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+            reject(new Error('Geolocation is not supported by this browser.'));
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(
+            position => resolve(showPosition(position)),
+            error => reject(error),
+        );
+    });
 };
 
 /**
@@ -45,9 +46,8 @@ export const getLocation = (): Position | void => {
  * @returns Flag emoji string
  */
 export const getFlagEmoji = (countryCode: string): string => {
-    const codePoints = countryCode
-        .toUpperCase()
-        .split('')
-        .map((char) => 127397 + char.charCodeAt(0));
+    const codePoints = [...countryCode.toUpperCase()].map(
+        char => 127_397 + (char.codePointAt(0) ?? 0),
+    );
     return String.fromCodePoint(...codePoints);
 };

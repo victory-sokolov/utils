@@ -9,15 +9,15 @@ import {
 
 describe('test rangeParser', () => {
     it('single number', () => {
-        expect(rangeParser('5')).toEqual([1, 2, 3, 4, 5]);
+        expect(rangeParser('5')).toStrictEqual([1, 2, 3, 4, 5]);
     });
 
     it('range with dash', () => {
-        expect(rangeParser('2-5')).toEqual([2, 3, 4, 5]);
+        expect(rangeParser('2-5')).toStrictEqual([2, 3, 4, 5]);
     });
 
     it('range with comma', () => {
-        expect(rangeParser('2,5')).toEqual([2, 3, 4, 5]);
+        expect(rangeParser('2,5')).toStrictEqual([2, 3, 4, 5]);
     });
 });
 
@@ -31,11 +31,10 @@ describe('addZero', () => {
         });
 
         it('should add leading zero to negative numbers (due to comparison logic)', () => {
-            // Current function adds zero to negatives because they're < 9
             expect(addZero(-1)).toBe('0-1');
             expect(addZero(-5)).toBe('0-5');
-            expect(addZero(-10)).toBe('0-10'); // -10 < 9, so gets leading zero
-            expect(addZero(-100)).toBe('0-100'); // -100 < 9, so gets leading zero
+            expect(addZero(-10)).toBe('0-10');
+            expect(addZero(-100)).toBe('0-100');
         });
     });
 
@@ -71,12 +70,12 @@ describe('random-based functions', () => {
         describe('range validation', () => {
             it('should return numbers within the specified range', () => {
                 const testCases = [
-                    { random: 0, min: 0, max: 10, expected: 0 },
-                    { random: 0.5, min: 0, max: 10, expected: 5 },
-                    { random: 1, min: 0, max: 10, expected: 10 },
-                    { random: 0, min: 5, max: 15, expected: 5 },
-                    { random: 1, min: 5, max: 15, expected: 15 },
-                    { random: 0.25, min: 10, max: 20, expected: 12.5 },
+                    { expected: 0, max: 10, min: 0, random: 0 },
+                    { expected: 5, max: 10, min: 0, random: 0.5 },
+                    { expected: 10, max: 10, min: 0, random: 1 },
+                    { expected: 5, max: 15, min: 5, random: 0 },
+                    { expected: 15, max: 15, min: 5, random: 1 },
+                    { expected: 12.5, max: 20, min: 10, random: 0.25 },
                 ];
 
                 testCases.forEach(({ random, min, max, expected }) => {
@@ -109,7 +108,7 @@ describe('random-based functions', () => {
                 Math.random = vi.fn().mockReturnValue(0.5);
 
                 const result = generateNumberWithLength(1);
-                expect(result).toBe(5); // Math.random() * (9 - 0 + 1) + 0 = 0.5 * 10 + 0 = 5
+                expect(result).toBe(5);
                 expect(result.toString()).toHaveLength(1);
             });
 
@@ -117,8 +116,6 @@ describe('random-based functions', () => {
                 Math.random = vi.fn().mockReturnValue(0.25);
 
                 const result = generateNumberWithLength(2);
-                // min = 10, max = 99, range = 90
-                // 0.25 * 90 = 22.5, floor = 22, + min(10) = 32
                 expect(result).toBe(32);
                 expect(result.toString()).toHaveLength(2);
             });
@@ -127,12 +124,6 @@ describe('random-based functions', () => {
                 Math.random = vi.fn().mockReturnValue(0.75);
 
                 const result = generateNumberWithLength(3);
-
-                // The calculation should be:
-                // min = 100, max = 999, range = 900
-                // Math.random() * (max - min + 1) = 0.75 * 900 = 675
-                // Math.floor(675) = 675
-                // + min(100) = 775
                 expect(result).toBe(775);
                 expect(result.toString()).toHaveLength(3);
             });
@@ -140,16 +131,16 @@ describe('random-based functions', () => {
             describe('error cases', () => {
                 it('should throw error for zero length', () => {
                     expect(() => generateNumberWithLength(0)).toThrow(
-                        'Length must be greater than zero'
+                        'Length must be greater than zero',
                     );
                 });
 
                 it('should throw error for negative length', () => {
                     expect(() => generateNumberWithLength(-1)).toThrow(
-                        'Length must be greater than zero'
+                        'Length must be greater than zero',
                     );
                     expect(() => generateNumberWithLength(-5)).toThrow(
-                        'Length must be greater than zero'
+                        'Length must be greater than zero',
                     );
                 });
             });
@@ -158,7 +149,7 @@ describe('random-based functions', () => {
                 it('should always return numbers with correct length', () => {
                     const lengths = [1, 2, 3, 4, 5];
 
-                    lengths.forEach((length) => {
+                    lengths.forEach(length => {
                         const result = generateNumberWithLength(length);
                         expect(result.toString()).toHaveLength(length);
                         expect(result).toBeGreaterThanOrEqual(10 ** (length - 1));
@@ -191,9 +182,9 @@ describe('nFormatter', () => {
     });
 
     it('should handle m suffix (millions)', () => {
-        expect(nFormatter('1m')).toBe(1000000);
-        expect(nFormatter('3.2m')).toBe(3200000);
-        expect(nFormatter('1M')).toBe(1000000);
+        expect(nFormatter('1m')).toBe(1_000_000);
+        expect(nFormatter('3.2m')).toBe(3_200_000);
+        expect(nFormatter('1M')).toBe(1_000_000);
     });
 
     it('should ignore unknown suffixes', () => {

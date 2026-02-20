@@ -1,4 +1,4 @@
-import type { DeviceType } from '../types';
+type DeviceType = 'Mobile' | 'Desktop';
 
 const devices = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
 
@@ -9,12 +9,12 @@ const devices = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
  * @param contentType Output file type
  */
 export const dataToFile = (content: ArrayBuffer, fileName: string, contentType: string): void => {
-    const a = document.createElement('a');
+    const anchor = document.createElement('a');
     const file = new Blob([content], { type: contentType });
-    a.href = URL.createObjectURL(file);
-    a.download = fileName;
-    a.click();
-    URL.revokeObjectURL(a.href);
+    anchor.href = URL.createObjectURL(file);
+    anchor.download = fileName;
+    anchor.click();
+    URL.revokeObjectURL(anchor.href);
 };
 
 /**
@@ -22,7 +22,10 @@ export const dataToFile = (content: ArrayBuffer, fileName: string, contentType: 
  * @returns Device type: Mobile or Desktop
  */
 export const detectDeviceType = (): DeviceType => {
-    return devices.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+    if (devices.test(navigator.userAgent)) {
+        return 'Mobile';
+    }
+    return 'Desktop';
 };
 
 /**
@@ -40,8 +43,14 @@ export const isMobileDevice = (): boolean => {
  * Get Operating System
  * @returns Operating System
  */
-export const getOs = () => {
-    return navigator?.userAgentData?.platform || navigator?.platform || 'unknown';
+export const getOs = (): string => {
+    if (navigator.userAgentData && navigator.userAgentData.platform) {
+        return navigator.userAgentData.platform;
+    }
+    if (navigator.platform) {
+        return navigator.platform;
+    }
+    return 'unknown';
 };
 
 /**
@@ -49,12 +58,13 @@ export const getOs = () => {
  * @param obj Object to export
  * @param fileName output file name
  */
-export const downloadAsJson = (obj: Record<string, unknown>, fileName: string) => {
+export const downloadAsJson = (obj: Record<string, unknown>, fileName: string): void => {
     const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(obj))}`;
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);
     downloadAnchorNode.setAttribute('download', `${fileName}.json`);
-    document.body.appendChild(downloadAnchorNode); // required for firefox
+    // Required for firefox
+    document.body.append(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
 };
@@ -63,13 +73,15 @@ export const downloadAsJson = (obj: Record<string, unknown>, fileName: string) =
  * Check if page is reloaded
  * @returns True if page reloaded
  */
-export const isPageReloaded = () => {
-    const perf = window.performance;
-    if (!perf) return false;
+export const isPageReloaded = (): boolean => {
+    const perf = globalThis.performance;
+    if (!perf) {
+        return false;
+    }
 
     if (typeof perf.getEntriesByType === 'function') {
         const entries = perf.getEntriesByType('navigation') as PerformanceNavigationTiming[];
-        return entries.some((e) => e.type === 'reload');
+        return entries.some(entry => entry.type === 'reload');
     }
 
     return false;

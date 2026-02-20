@@ -6,13 +6,15 @@ const SIZE_UNITS = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
  * @returns Promise
  */
 export const wait = (ms: number): Promise<void> =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+    new Promise(resolve => {
+        setTimeout(resolve, ms);
+    });
 
 /**
  * Start time
  * @returns {number} time in seconds
  */
-export const perfStart = () => performance.now();
+export const perfStart = (): number => performance.now();
 
 /**
  * End time of function
@@ -31,11 +33,16 @@ export const perfStop = (startTime: number): string => {
  * @returns Human readable size from bytes
  */
 export const bytesToSize = (bytes: number): string => {
-    if (bytes === 0) return '0';
+    if (bytes === 0) {
+        return '0';
+    }
     const exp = Math.floor(Math.log(bytes) / Math.log(1000));
     const size = bytes / 1000 ** exp;
     const short = Math.round(size);
-    const unit = exp === 0 ? '' : ` ${SIZE_UNITS[exp - 1]}`;
+    let unit = '';
+    if (exp > 0) {
+        unit = ` ${SIZE_UNITS[exp - 1]}`;
+    }
     return short.toString() + unit;
 };
 
@@ -49,25 +56,31 @@ export const bytesToSize = (bytes: number): string => {
 export const debounce = <T extends unknown[]>(
     fn: (...args: T) => void,
     delay: number,
-) => {
-    let timeoutID: ReturnType<typeof setTimeout> | undefined;
-    let lastArgs: T | undefined;
+): ((...args: T) => void) & { flush: () => void } => {
+    let timeoutID: ReturnType<typeof setTimeout> | null = null;
+    let lastArgs: T = [] as unknown as T;
+    let hasLastArgs = false;
 
-    const run = () => {
-        if (lastArgs) {
+    const run = (): void => {
+        if (hasLastArgs) {
             fn(...lastArgs);
-            lastArgs = undefined;
+            hasLastArgs = false;
         }
     };
 
-    const debounced = (...args: T) => {
-        clearTimeout(timeoutID);
+    const debounced = (...args: T): void => {
+        if (timeoutID !== null) {
+            clearTimeout(timeoutID);
+        }
         lastArgs = args;
+        hasLastArgs = true;
         timeoutID = setTimeout(run, delay);
     };
 
-    debounced.flush = () => {
-        clearTimeout(timeoutID);
+    debounced.flush = (): void => {
+        if (timeoutID !== null) {
+            clearTimeout(timeoutID);
+        }
         run();
     };
 
@@ -83,20 +96,22 @@ export const debounce = <T extends unknown[]>(
 export const throttle = <Args extends unknown[]>(
     fn: (...args: Args) => void,
     cooldown: number,
-) => {
-    let lastArgs: Args | undefined;
+): ((...args: Args) => void) => {
+    let lastArgs: Args = [] as unknown as Args;
+    let hasLastArgs = false;
 
-    const run = () => {
-        if (lastArgs) {
+    const run = (): void => {
+        if (hasLastArgs) {
             fn(...lastArgs);
-            lastArgs = undefined;
+            hasLastArgs = false;
         }
     };
 
-    const throttled = (...args: Args) => {
-        const isOnCooldown = !!lastArgs;
+    const throttled = (...args: Args): void => {
+        const isOnCooldown = hasLastArgs;
 
         lastArgs = args;
+        hasLastArgs = true;
 
         if (isOnCooldown) {
             return;

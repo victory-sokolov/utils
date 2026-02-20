@@ -12,6 +12,6 @@ export * from './number';
 export * from './object';
 export * from './regex';
 export * from './string';
-export * from './tryCatch';
+export * from './try-catch';
 export * from './types';
 export * from './url';

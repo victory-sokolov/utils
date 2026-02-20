@@ -6,7 +6,9 @@ import type { MonthName } from './types';
  * @returns YYYY-MM-DD string or undefined if date is not provided
  */
 export const formatDate = (date?: Date): string | undefined => {
-    if (!date || Number.isNaN(date.getTime())) return;
+    if (!date || Number.isNaN(date.getTime())) {
+        return;
+    }
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
@@ -17,22 +19,22 @@ export const formatDate = (date?: Date): string | undefined => {
  * Get month names as a list of strings
  * @returns Month array
  */
-export const getMonthList = () => {
-    return Array.from({ length: 12 }, (_, i): MonthName => {
-        return new Date(0, i).toLocaleString('en-US', {
-            month: 'long',
-        }) as MonthName;
-    });
-};
+export const getMonthList = (): MonthName[] =>
+    Array.from(
+        { length: 12 },
+        (_, index): MonthName =>
+            new Date(0, index).toLocaleString('en-US', {
+                month: 'long',
+            }) as MonthName,
+    );
 
 /**
  * Convert timestamp to date format
  * @param timestamp Timestamp in string or number type
  * @returns Formatted date from timestamp
  */
-export const timestampToDate = (timestamp: string | number): string => {
-    return formatDate(new Date(Number(timestamp))) ?? '';
-};
+export const timestampToDate = (timestamp: string | number): string =>
+    formatDate(new Date(Number(timestamp))) ?? '';
 
 /**
  * Convert Date to date with timestamp separated with dashes
@@ -40,7 +42,9 @@ export const timestampToDate = (timestamp: string | number): string => {
  * @returns Date with timestamp
  */
 export const dateWithTimeStamp = (date: Date): string => {
-    return date.toJSON().slice(0, 19).replace('T', '-').replaceAll(':', '-');
+    const json = date.toJSON();
+    if (!json) throw new TypeError('Invalid date provided');
+    return json.slice(0, 19).replace('T', '-').replaceAll(':', '-');
 };
 
 /**
@@ -49,8 +53,7 @@ export const dateWithTimeStamp = (date: Date): string => {
  * @returns Last day of the week
  */
 export const getWeekLastDay = (date: Date): Date => {
-    const weekLastDayInMilliseconds
-        = date.getTime() + (6 - date.getDay()) * 86400000;
+    const weekLastDayInMilliseconds = date.getTime() + (6 - date.getDay()) * 86_400_000;
     const weekLastDay = new Date(weekLastDayInMilliseconds);
     return weekLastDay;
 };
@@ -61,8 +64,7 @@ export const getWeekLastDay = (date: Date): Date => {
  * @returns First day of the week
  */
 export const getWeekFirstDay = (date: Date): Date => {
-    const weekFirstDayInMilliseconds
-        = date.getTime() - (date.getDay() - 1) * 86400000;
+    const weekFirstDayInMilliseconds = date.getTime() - (date.getDay() - 1) * 86_400_000;
     const weekFirstDay = new Date(weekFirstDayInMilliseconds);
     return weekFirstDay;
 };
@@ -74,7 +76,7 @@ export const getWeekFirstDay = (date: Date): Date => {
  */
 export const getMonthLastDay = (date: Date): Date => {
     const monthNextFirstDay = new Date(date.getFullYear(), date.getMonth() + 1);
-    const monthLastDayInMilliseconds = monthNextFirstDay.getTime() - 86400000;
+    const monthLastDayInMilliseconds = monthNextFirstDay.getTime() - 86_400_000;
     const monthLastDay = new Date(monthLastDayInMilliseconds);
     return monthLastDay;
 };
@@ -84,7 +86,7 @@ export const getMonthLastDay = (date: Date): Date => {
  * @param date Date to get first day of the month
  * @returns First day of the month
  */
-export const getMonthFirstDay = (date: Date) => {
+export const getMonthFirstDay = (date: Date): Date => {
     const monthFirstDay = new Date(date.getFullYear(), date.getMonth());
     return monthFirstDay;
 };
@@ -106,9 +108,9 @@ export const toLongDate = (date: string): string => {
         throw new Error(`Invalid date provided: ${date}`);
     }
     return new Date(date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
         day: 'numeric',
+        month: 'long',
+        year: 'numeric',
     });
 };
 
@@ -132,32 +134,55 @@ export const dateTimeToCron = (date: Date): string => {
  * @param cronSyntax
  * @returns Date object
  */
-export const cronToDateTime = (cronSyntax: string): Date => {
-    const [minutes, hours, days, months, dayOfWeek] = cronSyntax.split(' ');
+interface NormalizedCronValues {
+    months: number;
+    days: number;
+    hours: number;
+    minutes: number;
+    dayOfWeek: number;
+    year: number;
+}
 
-    const now = new Date();
-    const currentYear = now.getUTCFullYear();
+const normalizeCronValue = (value: string, defaultValue: number): number => {
+    if (value === '*' || !value) return defaultValue;
+    const num = Number(value);
+    if (Number.isNaN(num)) return defaultValue;
+    return num;
+};
 
-    const nextDate = new Date(
-        Date.UTC(
-            currentYear,
-            Number(months) - 1,
-            Number(days === '*' ? '1' : days),
-            Number(hours),
-            Number(minutes),
-            0
-        )
+const createNextDate = (values: NormalizedCronValues): Date =>
+    new Date(
+        Date.UTC(values.year, values.months - 1, values.days, values.hours, values.minutes, 0),
     );
 
-    // Calculate day of the week adjustment
-    const dayDiff = (Number(dayOfWeek) - nextDate.getUTCDay() + 7) % 7;
-    nextDate.setUTCDate(nextDate.getUTCDate() + dayDiff);
+const adjustToDayOfWeek = (date: Date, targetDay: number): void => {
+    if (targetDay === -1) return;
+    date.setUTCDate(date.getUTCDate() + ((targetDay - date.getUTCDay() + 7) % 7));
+};
 
-    // Ensure the next date is in the future
+const parseCronSyntax = (cronSyntax: string, now: Date): NormalizedCronValues => {
+    const [minutes = '', hours = '', days = '', months = '', dayOfWeek = ''] =
+        cronSyntax.split(' ');
+    return {
+        dayOfWeek: normalizeCronValue(dayOfWeek, -1),
+        days: normalizeCronValue(days, 1),
+        hours: normalizeCronValue(hours, 0),
+        minutes: normalizeCronValue(minutes, 0),
+        months: normalizeCronValue(months, now.getUTCMonth() + 1),
+        year: now.getUTCFullYear(),
+    };
+};
+
+export const cronToDateTime = (cronSyntax: string): Date => {
+    const now = new Date();
+    const values = parseCronSyntax(cronSyntax, now);
+    const nextDate = createNextDate(values);
+
+    adjustToDayOfWeek(nextDate, values.dayOfWeek);
     if (nextDate.getTime() <= now.getTime()) {
-        nextDate.setUTCFullYear(currentYear + 1);
+        nextDate.setUTCFullYear(nextDate.getUTCFullYear() + 1);
+        adjustToDayOfWeek(nextDate, values.dayOfWeek);
     }
-
     return nextDate;
 };
 
@@ -170,15 +195,17 @@ export const cronToDateTime = (cronSyntax: string): Date => {
  * @param step
  * @returns Date range
  */
-export const dateRangeGenerator = function* (
+export const dateRangeGenerator = function* dateRangeGenerator(
     start: Date,
     end: Date,
-    step: number = 1
-) {
-    const d = start;
-    while (d < end) {
-        yield new Date(d);
-        d.setDate(d.getDate() + step);
+    step = 1,
+): Generator<Date> {
+    if (step <= 0) throw new RangeError('step must be a positive number');
+    let currentDateMs = start.getTime();
+    const endMs = end.getTime();
+    while (currentDateMs < endMs) {
+        yield new Date(currentDateMs);
+        currentDateMs += step * 86_400_000;
     }
 };
 
@@ -201,37 +228,27 @@ export const secondsInDays = (days: number): number => {
  * @param date
  * @return Time ago string from Date object
  */
+const TIME_INTERVALS: [number, string, string][] = [
+    [31_536_000, 'year', 'years'],
+    [2_592_000, 'month', 'months'],
+    [86_400, 'day', 'days'],
+    [3600, 'hour', 'hours'],
+    [60, 'minute', 'minutes'],
+];
+
 export const timeAgo = (date: Date): string => {
-    const seconds = Math.floor((new Date().valueOf() - date.valueOf()) / 1000);
-
-    let interval = Math.floor(seconds / 31536000);
-    if (interval > 1) {
-        return `${interval} years ago`;
+    const seconds = Math.floor((Date.now() - date.valueOf()) / 1000);
+    for (const [divisor, singular, plural] of TIME_INTERVALS) {
+        const interval = Math.floor(seconds / divisor);
+        if (interval >= 1) {
+            if (interval === 1) {
+                return `${interval} ${singular} ago`;
+            }
+            return `${interval} ${plural} ago`;
+        }
     }
-
-    interval = Math.floor(seconds / 2592000);
-    if (interval > 1) {
-        return `${interval} months ago`;
-    }
-
-    interval = Math.floor(seconds / 86400);
-    if (interval > 1) {
-        return `${interval} days ago`;
-    }
-
-    interval = Math.floor(seconds / 3600);
-    if (interval > 1) {
-        return `${interval} hours ago`;
-    }
-
-    interval = Math.floor(seconds / 60);
-    if (interval > 1) {
-        return `${interval} minutes ago`;
-    }
-
     if (seconds < 10) return 'just now';
-
-    return `${Math.floor(seconds)} seconds ago`;
+    return `${seconds} seconds ago`;
 };
 
 /**
@@ -240,7 +257,7 @@ export const timeAgo = (date: Date): string => {
  * @returns Timezone
  */
 export const getTimeZone = (lang: string): string => {
-    const options = Intl.DateTimeFormat(lang).resolvedOptions();
+    const options = new Intl.DateTimeFormat(lang).resolvedOptions();
     return options.timeZone;
 };
 
@@ -248,7 +265,7 @@ export const getTimeZone = (lang: string): string => {
  * Get current timestamp
  * @returns timestamp
  */
-export const timestamp = () => +Date.now();
+export const timestamp = (): number => Date.now();
 
 /**
  * Get current ISO timestamp (2025-01-26T12:42:00.123Z")
@@ -262,12 +279,7 @@ export const timestampIso = new Date().toISOString();
  * @returns UTC formatted date string
  */
 export const toUtc = (date: string | Date): string => {
-    let utcDate = new Date();
-    if (typeof date === 'string') {
-        utcDate = new Date(date);
-    } else {
-        utcDate = new Date(date.getTime());
-    }
+    const utcDate = new Date(date);
 
     // Check if the date is valid
     if (Number.isNaN(utcDate.getTime())) {

@@ -1,18 +1,16 @@
-export type MonthName
-    = | 'January'
-        | 'February'
-        | 'March'
-        | 'April'
-        | 'May'
-        | 'June'
-        | 'July'
-        | 'August'
-        | 'September'
-        | 'October'
-        | 'November'
-        | 'December';
-export type DeviceType = 'Mobile' | 'Desktop';
-export type CameraEnvironment = 'environment' | 'user';
+export type MonthName =
+    | 'January'
+    | 'February'
+    | 'March'
+    | 'April'
+    | 'May'
+    | 'June'
+    | 'July'
+    | 'August'
+    | 'September'
+    | 'October'
+    | 'November'
+    | 'December';
 
 /**
  * Function type
@@ -24,23 +22,19 @@ export type Fn<T = void> = () => T;
  */
 export type ElementOf<T> = T extends (infer E)[] ? E : never;
 
-export type RecordObject<Keys extends string | number | symbol = string, Value = unknown> = {
-    [Prop in Keys]: Value;
-};
-export type Collection<T> = Array<T>;
+export type RecordObject<Keys extends string | number | symbol = string, Value = unknown> = Record<
+    Keys,
+    Value
+>;
+export type Collection<T> = T[];
 export type Callable = <T>(...params: Collection<T>) => T;
 export type IndexCallback<T = unknown> = (value: T, index: number, obj: T[]) => unknown;
-
-export interface ImageDimension {
-    width: number;
-    height: number;
-}
 
 export type NonNegativeInteger<T extends number> = number extends T
     ? never
     : `${T}` extends `-${string}` | `${string}.${string}`
-        ? never
-        : T;
+      ? never
+      : T;
 
 export type Maybe<T> = T | null | undefined;
 
@@ -54,17 +48,17 @@ export type Prettify<T> = {
 /**
  * Fetch response type
  */
-export type FetchResponse<T>
-    = | {
-        statusCode: number;
-        data: T;
-        error: null;
-    }
+export type FetchResponse<T> =
     | {
-        statusCode: number | null;
-        data: T | null;
-        error: Error;
-    };
+          statusCode: number;
+          data: T;
+          error: null;
+      }
+    | {
+          statusCode: number | null;
+          data: T | null;
+          error: Error;
+      };
 
 /**
  * Constructs a type by excluding `null` and `undefined` from a given type `T`.

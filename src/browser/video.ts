@@ -1,32 +1,40 @@
-import type { CameraEnvironment } from '../types';
 import { isMobileDevice } from './browser';
+
+type CameraEnvironment = 'environment' | 'user';
+
+interface VideoConstraint {
+    facingMode?: CameraEnvironment;
+    height: { exact?: number; ideal?: number };
+    width: { exact?: number; ideal?: number };
+}
 
 /**
  * Detect which camera environment is used
- * @returns environment ur user camera
+ * @returns environment or user camera
  */
-export const cameraEnvironment = (): CameraEnvironment =>
-    isMobileDevice() ? 'environment' : 'user';
+export const cameraEnvironment = (): CameraEnvironment => {
+    if (isMobileDevice()) {
+        return 'environment';
+    }
+    return 'user';
+};
 
 /**
  * Get current resolution depending on device
  * @returns Video resolution
  */
-export const getVideoConstraint = () => {
+export const getVideoConstraint = (): VideoConstraint => {
     const resolutions = {
-        qqvga: { width: { exact: 160 }, height: { exact: 120 } },
-        qvga: { width: { exact: 320 }, height: { exact: 240 } },
-        vga: { width: { exact: 640 }, height: { exact: 480 } },
+        qvga: { height: { exact: 240 }, width: { exact: 320 } },
+        vga: { height: { exact: 480 }, width: { exact: 640 } },
     } as const;
-    let videoConstraint;
+    let videoConstraint: VideoConstraint = {
+        facingMode: cameraEnvironment(),
+        height: { ideal: window.screen.height },
+        width: { ideal: window.screen.width },
+    };
 
-    if (isMobileDevice()) {
-        videoConstraint = {
-            width: { ideal: window.screen.height },
-            height: { ideal: window.screen.width },
-            facingMode: cameraEnvironment(),
-        } as const;
-    } else {
+    if (!isMobileDevice()) {
         if (window.innerWidth < 960) {
             videoConstraint = resolutions.qvga;
         } else {
@@ -41,29 +49,35 @@ export const getVideoConstraint = () => {
  * @param isStreaming Is camera streaming
  * @param video HTMLVideoElement
  */
-export const startCamera = async (
-    isStreaming: boolean,
-    video: HTMLVideoElement,
-): Promise<void> => {
+export const startCamera = (isStreaming: boolean, video: HTMLVideoElement): Promise<void> => {
     const constraint = getVideoConstraint();
-    if (isStreaming) return;
+    if (isStreaming) {
+        return Promise.resolve();
+    }
 
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({
-                video: constraint,
+        return navigator.mediaDevices
+            .getUserMedia({
                 audio: false,
+                video: constraint,
+            })
+            .then(stream => {
+                video.srcObject = stream;
+                return new Promise<void>((resolve, reject) => {
+                    video.addEventListener('loadedmetadata', (): void => {
+                        video.play().then(resolve).catch(reject);
+                    });
+                });
+            })
+            .catch((error: unknown) => {
+                // oxlint-disable-next-line no-console
+                console.error(`An error occurred! ${error}`);
+                throw error;
             });
-            video.srcObject = stream;
-            video.onloadedmetadata = () => {
-                video.play();
-            };
-        } catch (err) {
-            console.error(`An error occured! ${err}`);
-        }
-    } else {
-        console.error('getUserMedia not supported');
     }
+    // oxlint-disable-next-line no-console
+    console.error('getUserMedia not supported');
+    return Promise.reject(new Error('getUserMedia not supported'));
 };
 
 /**
@@ -72,9 +86,12 @@ export const startCamera = async (
  * @param isStreaming isStreaming
  */
 export const stopCamera = (stream: MediaStream, isStreaming: boolean): void => {
-    if (!isStreaming) return;
+    if (!isStreaming) {
+        return;
+    }
 
-    stream.getTracks().forEach((track) => {
+    const tracks = stream.getTracks();
+    for (const track of tracks) {
         track.stop();
-    });
+    }
 };
