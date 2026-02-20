@@ -76,7 +76,7 @@ export function pipe<FirstFn extends AnyFunc, F extends AnyFunc[]>(
 ): unknown {
     if (typeof argOrFirstFn === 'function') {
         const allFns = [firstFnOrSecondFn, ...fns].filter(
-            (fn): fn is AnyFunc => fn !== undefined && fn !== null,
+            (fn): fn is AnyFunc => typeof fn === 'function',
         );
         let result = (argOrFirstFn as AnyFunc)();
         for (const fn of allFns) {
