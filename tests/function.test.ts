@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { batchInvoke, isAsync, pipe, tap } from '../src/function';
+import { AnyFunc, batchInvoke, isAsync, pipe, tap } from '../src/function';
 
 describe('batchInvoke', () => {
     it('should call every function in the array', () => {
@@ -19,20 +19,22 @@ describe('pipe', () => {
     it('should pass the result of one function to another', () => {
         const addTwo = () => 5 + 2;
         const multiplyByThree = (num: number) => num * 3;
-        expect(pipe(addTwo, multiplyByThree)).toBe(21);
+        expect(pipe(addTwo, multiplyByThree as AnyFunc)).toBe(21);
     });
 
     it('first function should accept a parameter and pass the result of one function to another', () => {
         const addTwo = (x: number) => x + 2;
         const multiplyByThree = (num: number) => num * 3;
-        expect(pipe(2, addTwo, multiplyByThree)).toBe(12);
+        expect(pipe(2, addTwo as AnyFunc, multiplyByThree as AnyFunc)).toBe(12);
     });
 
     it('should pass the result of one function with arguments to another using several functions', () => {
         const addTwo = (num: number) => num + 2;
         const multiplyByThree = (num: number) => num * 3;
         const subtractFive = (num: number) => num - 5;
-        expect(pipe(10, addTwo, multiplyByThree, subtractFive)).toBe(31);
+        expect(
+            pipe(10, addTwo as AnyFunc, multiplyByThree as AnyFunc, subtractFive as AnyFunc),
+        ).toBe(31);
     });
 });
 

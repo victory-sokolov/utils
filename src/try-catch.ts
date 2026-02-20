@@ -266,7 +266,7 @@ export const tryCatch = <T, E extends Error = ErrorWithStatus>(
     // Use Promise.resolve().then() to catch synchronous throws from fn()
     return Promise.resolve()
         .then(() => resolveAsyncData(resolveData(fn)))
-        .then((resolvedData) => ({ data: resolvedData, error: null }))
+        .then(resolvedData => ({ data: resolvedData, error: null }))
         .catch((error: unknown) => {
             const { message, cause, status } = extractErrorInfo(error, defaultStatus);
             const params: ErrorParams = { cause, status };

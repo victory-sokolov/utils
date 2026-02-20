@@ -11,12 +11,12 @@ import path from 'node:path';
 export const readDirRecursive = (dir: string, initialList: string[] = []): Promise<string[]> => {
     const exclude = new Set(['node_modules', '.venv', '.env']);
 
-    return readdir(dir).then((files) => {
-        const filePaths = files.map((file) => path.join(dir, file));
+    return readdir(dir).then(files => {
+        const filePaths = files.map(file => path.join(dir, file));
 
         return Promise.all(
-            filePaths.map((filePath) =>
-                stat(filePath).then((fileStat) => {
+            filePaths.map(filePath =>
+                stat(filePath).then(fileStat => {
                     const fileName = path.basename(filePath);
                     if (fileStat.isDirectory() && !exclude.has(fileName)) {
                         return readDirRecursive(filePath, []);
@@ -24,7 +24,7 @@ export const readDirRecursive = (dir: string, initialList: string[] = []): Promi
                     return [filePath];
                 }),
             ),
-        ).then((results) => {
+        ).then(results => {
             const allFiles = results.flat();
             return [...initialList, ...allFiles];
         });

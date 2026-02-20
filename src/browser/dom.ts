@@ -1,4 +1,4 @@
-import { kebabCase } from '../string.js';
+import { kebabCase } from '@/string.js';
 
 /**
  * Wrapper for querySelector

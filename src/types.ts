@@ -11,8 +11,6 @@ export type MonthName =
     | 'October'
     | 'November'
     | 'December';
-export type DeviceType = 'Mobile' | 'Desktop';
-export type CameraEnvironment = 'environment' | 'user';
 
 /**
  * Function type

@@ -15,7 +15,7 @@ export const omit = <T extends Record<string, unknown>, K extends keyof T>(
     const omitKeysFromObject = (obj: T): T => {
         const newObj: Record<string, unknown> = {};
         for (const key in obj) {
-            if (Object.hasOwn(obj, key) && !keys.includes(key as K)) {
+            if (Object.hasOwn(obj, key) && !keys.includes(key as unknown as K)) {
                 newObj[key] = obj[key];
             }
         }

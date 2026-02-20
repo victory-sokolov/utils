@@ -1,5 +1,6 @@
-import type { CameraEnvironment } from '../types';
 import { isMobileDevice } from './browser';
+
+type CameraEnvironment = 'environment' | 'user';
 
 interface VideoConstraint {
     facingMode?: CameraEnvironment;
@@ -61,7 +62,7 @@ export const startCamera = (isStreaming: boolean, video: HTMLVideoElement): Prom
                 audio: false,
                 video: constraint,
             })
-            .then((stream) => {
+            .then(stream => {
                 video.srcObject = stream;
                 video.addEventListener('loadedmetadata', (): void => {
                     video.play();

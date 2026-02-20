@@ -1,4 +1,4 @@
-import type { DeviceType } from '../types';
+type DeviceType = 'Mobile' | 'Desktop';
 
 const devices = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
 

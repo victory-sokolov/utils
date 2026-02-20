@@ -5,12 +5,16 @@ import esbuild from 'rollup-plugin-esbuild';
 import filesize from 'rollup-plugin-filesize';
 import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
+import path from 'node:path';
 
 const entries = ['src/index.ts'];
 
 const plugins = [
     alias({
-        entries: [{ find: /^node:(.+)$/, replacement: '$1' }],
+        entries: [
+            { find: /^node:(.+)$/, replacement: '$1' },
+            { find: /^@\/(.+)\.js$/, replacement: path.resolve('src/$1.ts') },
+        ],
     }),
     resolve({
         preferBuiltins: true,

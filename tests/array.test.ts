@@ -246,9 +246,9 @@ describe('sort', () => {
         expect(result).toStrictEqual([{ value: 1 }, { value: 2 }, { value: 3 }]);
     });
 
-    it('should sort an array using the default sorting function when fSorting is null', () => {
+    it('should sort an array using the default sorting function when fSorting is undefined', () => {
         const arr = [{ a: 3 }, { a: 1 }, { a: 2 }];
-        const result = sort(arr, null);
+        const result = sort(arr, undefined);
         expect(result).toStrictEqual([{ a: 1 }, { a: 2 }, { a: 3 }]);
     });
 
@@ -258,8 +258,8 @@ describe('sort', () => {
         expect(result).not.toBe(arr);
     });
 
-    it('should handle empty array when fSorting is null', () => {
-        const result = sort([], null);
+    it('should handle empty array when fSorting is undefined', () => {
+        const result = sort([], undefined);
         expect(result).toStrictEqual([]);
     });
 
@@ -269,9 +269,9 @@ describe('sort', () => {
         expect(result).toStrictEqual([]);
     });
 
-    it('should handle objects with non-numeric first values when fSorting is null', () => {
+    it('should handle objects with non-numeric first values when fSorting is undefined', () => {
         const arr = [{ a: 'b' }, { a: 'a' }];
-        const result = sort(arr, null);
+        const result = sort(arr, undefined);
         // Default sort converts to Number, 'b' -> NaN, 'a' -> NaN. NaN comparison is tricky.
         // It should maintain original order for NaN if comparison is 0.
         // The default fSort uses (valA > valB ? 1 : valA < valB ? -1 : 0) which handles NaN comparisons as 0

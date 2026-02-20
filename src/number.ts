@@ -44,7 +44,7 @@ const MEGA = 1_000_000;
  * @param amount amount as string
  * @returns Formatted number
  */
-export const nFormatter = (amount: string | null): number => {
+export const nFormatter = (amount: string | null | undefined): number => {
     if (!amount) {
         return 0;
     }

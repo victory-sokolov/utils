@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { getCountryFromISO, getFlagEmoji, getLocation, showPosition } from '../src/country';
 
-const createMockPosition = () => ({
+const createMockPosition = (): GeolocationPosition => ({
     coords: {
         accuracy: 10,
         altitude: null,
@@ -10,8 +10,10 @@ const createMockPosition = () => ({
         latitude: 34.0522,
         longitude: -118.2437,
         speed: null,
+        toJSON: () => ({}),
     },
     timestamp: Date.now(),
+    toJSON: () => ({}),
 });
 
 describe('getCountryFromISO', () => {
@@ -79,7 +81,9 @@ describe('getLocation', () => {
             writable: true,
         });
 
-        await expect(getLocation()).rejects.toThrow('Geolocation is not supported by this browser.');
+        await expect(getLocation()).rejects.toThrow(
+            'Geolocation is not supported by this browser.',
+        );
     });
 });
 

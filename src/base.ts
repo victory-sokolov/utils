@@ -69,14 +69,18 @@ export const debounce = <T extends unknown[]>(
     };
 
     const debounced = (...args: T): void => {
-        clearTimeout(timeoutID);
+        if (timeoutID !== null) {
+            clearTimeout(timeoutID);
+        }
         lastArgs = args;
         hasLastArgs = true;
         timeoutID = setTimeout(run, delay);
     };
 
     debounced.flush = (): void => {
-        clearTimeout(timeoutID);
+        if (timeoutID !== null) {
+            clearTimeout(timeoutID);
+        }
         run();
     };
 

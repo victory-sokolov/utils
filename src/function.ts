@@ -5,10 +5,7 @@ export type AnyAsyncFunc<Input extends unknown[] = unknown[], Output = unknown> 
     ...args: Input
 ) => Promise<Output>;
 
-type FirstParameter<F extends AnyFunc> = F extends (
-    arg: infer P,
-    ...args: never
-) => unknown
+type FirstParameter<F extends AnyFunc> = F extends (arg: infer P, ...args: never) => unknown
     ? P
     : never;
 
@@ -78,7 +75,9 @@ export function pipe<FirstFn extends AnyFunc, F extends AnyFunc[]>(
     ...fns: F
 ): unknown {
     if (typeof argOrFirstFn === 'function') {
-        const allFns = [firstFnOrSecondFn, ...fns].filter(Boolean as (fn: unknown) => fn is AnyFunc);
+        const allFns = [firstFnOrSecondFn, ...fns].filter(
+            (fn): fn is AnyFunc => fn !== undefined && fn !== null,
+        );
         let result = (argOrFirstFn as AnyFunc)();
         for (const fn of allFns) {
             result = fn(result);
