@@ -1,3 +1,21 @@
+## [0.32.1](https://github.com/victory-sokolov/utils/compare/v0.32.0...v0.32.1) (2026-02-20)
+
+
+### Bug Fixes
+
+* cache get drops empty values ([4b6c485](https://github.com/victory-sokolov/utils/commit/4b6c48546af9f7e82f6385570881ea1d0d42f301))
+* cronToDateTime adjust dates ([245115e](https://github.com/victory-sokolov/utils/commit/245115e4648ea4b44956ff0005798fc32cec1529))
+* edge cases for date, video and cryptography ([e374439](https://github.com/victory-sokolov/utils/commit/e374439a783664fa8ea1ac4596047a8b1be2747a))
+* fix add vi test imports and autofix oxlint issue ([64d1385](https://github.com/victory-sokolov/utils/commit/64d138531e21b659ac1e3f227d22a1e1d8125189))
+* fix all no-ternary issues ([111cbce](https://github.com/victory-sokolov/utils/commit/111cbce1f2f20d24f977b35f8b5f08bdbaee79b2))
+* fix coderabbit issues ([a783be2](https://github.com/victory-sokolov/utils/commit/a783be250862fcd38a208cd359b1c3ddb708f2d0))
+* fix few bugs in utils functions ([884782d](https://github.com/victory-sokolov/utils/commit/884782d891ef6b223e048a2e6b834ccac2c04955))
+* fix rest linter issues ([838f5a1](https://github.com/victory-sokolov/utils/commit/838f5a14a70f0cf8f28fe26436b95c5651431907))
+* fix time interval and types ([f94bd63](https://github.com/victory-sokolov/utils/commit/f94bd636a166425a0a01a16d21d0c6fea10f88a6))
+* fix type issues and tests ([52aee88](https://github.com/victory-sokolov/utils/commit/52aee886b6aa15201c1fddc38b343ee6ffff9eca))
+* linter issues ([575c412](https://github.com/victory-sokolov/utils/commit/575c412d2f76e15826f6e1a14c7db88a51d071e7))
+* refactor cryptography functions ([d4c3906](https://github.com/victory-sokolov/utils/commit/d4c3906dbd7a52ac1f0feb95f2a899c374862d4d))
+
 # [0.32.0](https://github.com/victory-sokolov/utils/compare/v0.31.5...v0.32.0) (2026-02-19)
 
 
