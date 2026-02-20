@@ -29,6 +29,11 @@ export default defineConfig({
         resolve: {
             conditions: ['source'],
         },
-        threads: 4,
+        pool: 'forks',
+        poolOptions: {
+            forks: {
+                maxForks: 4,
+            },
+        },
     },
 });
