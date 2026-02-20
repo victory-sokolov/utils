@@ -31,8 +31,8 @@ export const getVideoConstraint = (): VideoConstraint => {
     } as const;
     let videoConstraint: VideoConstraint = {
         facingMode: cameraEnvironment(),
-        height: { ideal: window.screen.width },
-        width: { ideal: window.screen.height },
+        height: { ideal: window.screen.height },
+        width: { ideal: window.screen.width },
     };
 
     if (!isMobileDevice()) {
