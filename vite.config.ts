@@ -30,10 +30,6 @@ export default defineConfig({
             conditions: ['source'],
         },
         pool: 'forks',
-        poolOptions: {
-            forks: {
-                maxForks: 4,
-            },
-        },
+        maxWorkers: 4,
     },
 });

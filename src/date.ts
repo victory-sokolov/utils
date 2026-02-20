@@ -149,11 +149,16 @@ export const cronToDateTime = (cronSyntax: string): Date => {
             0,
         ),
     );
-    nextDate.setUTCDate(
-        nextDate.getUTCDate() + ((Number(dayOfWeek) - nextDate.getUTCDay() + 7) % 7),
-    );
+    const adjustToDayOfWeek = (): void => {
+        nextDate.setUTCDate(
+            nextDate.getUTCDate() + ((Number(dayOfWeek) - nextDate.getUTCDay() + 7) % 7),
+        );
+    };
+
+    adjustToDayOfWeek();
     if (nextDate.getTime() <= now.getTime()) {
-        nextDate.setUTCFullYear(now.getUTCFullYear() + 1);
+        nextDate.setUTCFullYear(nextDate.getUTCFullYear() + 1);
+        adjustToDayOfWeek();
     }
     return nextDate;
 };

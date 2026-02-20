@@ -138,7 +138,7 @@ describe('test date utils', () => {
             vi.setSystemTime(new Date('2023-08-20T10:00:00Z'));
 
             const cronExpression = '34 12 18 8 5';
-            const expectedNextDate = new Date('2024-08-18T12:34:00Z');
+            const expectedNextDate = new Date('2024-08-23T12:34:00Z');
 
             const result = cronToDateTime(cronExpression);
             expect(result.toISOString()).toBe(expectedNextDate.toISOString());
