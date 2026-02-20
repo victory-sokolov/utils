@@ -41,8 +41,11 @@ export const timestampToDate = (timestamp: string | number): string =>
  * @param date Date to convert
  * @returns Date with timestamp
  */
-export const dateWithTimeStamp = (date: Date): string =>
-    date.toJSON().slice(0, 19).replace('T', '-').replaceAll(':', '-');
+export const dateWithTimeStamp = (date: Date): string => {
+    const json = date.toJSON();
+    if (!json) throw new TypeError('Invalid date provided');
+    return json.slice(0, 19).replace('T', '-').replaceAll(':', '-');
+};
 
 /**
  * Get last day of the week
