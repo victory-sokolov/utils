@@ -12,10 +12,7 @@ export const cache = <T = unknown>(): CacheAPI<T> => {
 
     const get = (key: string): Optional<T> => {
         if (store.has(key)) {
-            const value = store.get(key);
-            if (value) {
-                return value;
-            }
+            return store.get(key);
         }
     };
 
