@@ -55,12 +55,16 @@ export const validateHash = (options: ValidateHashOptions): boolean => {
     );
 };
 
+const SALT_LENGTH = 16;
+const IV_LENGTH = 12;
+
 /**
  * Derives a cryptographic key from a password using PBKDF2
  * @param secret Secret key
- * @returns Short hash
+ * @param salt Random salt for key derivation
+ * @returns Derived CryptoKey
  */
-const deriveKey = (secret: string): Promise<CryptoKey> => {
+const deriveKey = (secret: string, salt: BufferSource): Promise<CryptoKey> => {
     const encoder = new TextEncoder();
     return crypto.subtle
         .importKey('raw', encoder.encode(secret), 'PBKDF2', false, ['deriveBits', 'deriveKey'])
@@ -70,7 +74,7 @@ const deriveKey = (secret: string): Promise<CryptoKey> => {
                     hash: 'SHA-256',
                     iterations: 100_000,
                     name: 'PBKDF2',
-                    salt: encoder.encode('reposter-salt'),
+                    salt,
                 },
                 keyMaterial,
                 { length: 256, name: 'AES-GCM' },
@@ -84,19 +88,21 @@ const deriveKey = (secret: string): Promise<CryptoKey> => {
  * Encrypts a string using AES-GCM with a given secret key.
  * @param plainText The text to encrypt.
  * @param secretKey The secret key (must be at least 32 characters long).
- * @returns Encrypted text.
+ * @returns Encrypted text (base64 encoded: salt + IV + ciphertext).
  */
 export const encryptData = (plainText: string, secretKey: string): Promise<string> => {
     const encoder = new TextEncoder();
+    const salt = crypto.getRandomValues(new Uint8Array(SALT_LENGTH));
 
-    return deriveKey(secretKey).then(key => {
-        const iv = crypto.getRandomValues(new Uint8Array(12));
+    return deriveKey(secretKey, salt).then(key => {
+        const iv = crypto.getRandomValues(new Uint8Array(IV_LENGTH));
         return crypto.subtle
             .encrypt({ iv, name: 'AES-GCM' }, key, encoder.encode(plainText))
             .then(encrypted => {
-                const combined = new Uint8Array(iv.length + encrypted.byteLength);
-                combined.set(iv);
-                combined.set(new Uint8Array(encrypted), iv.length);
+                const combined = new Uint8Array(SALT_LENGTH + IV_LENGTH + encrypted.byteLength);
+                combined.set(salt, 0);
+                combined.set(iv, SALT_LENGTH);
+                combined.set(new Uint8Array(encrypted), SALT_LENGTH + IV_LENGTH);
                 return Buffer.from(combined).toString('base64');
             });
     });
@@ -104,16 +110,17 @@ export const encryptData = (plainText: string, secretKey: string): Promise<strin
 
 /**
  * Decrypts encrypted data using AES-GCM.
- * @param encryptedData The encrypted Base64 string.
+ * @param encryptedData The encrypted Base64 string (salt + IV + ciphertext).
  * @param secretKey The secret key (must be the same as used during encryption).
  * @returns The decrypted plain text string.
  */
 export const decryptData = (encryptedData: string, secretKey: string): Promise<string> => {
     const encoded = Buffer.from(encryptedData, 'base64');
-    const encrypted = new Uint8Array(encoded.subarray(12));
-    const iv = new Uint8Array(encoded.subarray(0, 12));
+    const salt = new Uint8Array(encoded.subarray(0, SALT_LENGTH));
+    const iv = new Uint8Array(encoded.subarray(SALT_LENGTH, SALT_LENGTH + IV_LENGTH));
+    const encrypted = new Uint8Array(encoded.subarray(SALT_LENGTH + IV_LENGTH));
 
-    return deriveKey(secretKey).then(key =>
+    return deriveKey(secretKey, salt).then(key =>
         crypto.subtle
             .decrypt({ iv, name: 'AES-GCM' }, key, encrypted)
             .then(decrypted => new TextDecoder().decode(decrypted)),

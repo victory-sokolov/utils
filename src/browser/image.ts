@@ -11,7 +11,7 @@ interface ImageDimension {
 export const getImageDimensions = (dataUrl: string): Promise<ImageDimension> => {
     const img = new Image();
     img.src = dataUrl;
-    return img.decode().then(() => ({ width: img.width, height: img.height }));
+    return img.decode().then(() => ({ height: img.height, width: img.width }));
 };
 
 /**
@@ -25,11 +25,10 @@ export const setBase64Img = (imageData: string): string => `data:image/png;base6
  * Convert file to base64 encoded format
  * @param file File blob
  */
-export const fileToBase64 = (file: Blob): void => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener(
-        'load',
-        (event: Event): string | ArrayBuffer | null => (event.target as FileReader).result,
-    );
-};
+export const fileToBase64 = (file: Blob): Promise<string | ArrayBuffer | null> =>
+    new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.addEventListener('load', (): void => resolve(reader.result));
+        reader.addEventListener('error', (error): void => reject(error));
+    });
