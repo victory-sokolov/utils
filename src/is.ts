@@ -19,7 +19,7 @@ export const isUndefined = (val: unknown): val is undefined =>
  * @param val - The value to check
  * @returns True if the value is not undefined
  */
-export const isDef = <T = unknown>(val: T): val is T => !isUndefined(val);
+export const isDef = <T = unknown>(val: T): val is Exclude<T, undefined> => !isUndefined(val);
 
 /**
  * Check if a value is a boolean
