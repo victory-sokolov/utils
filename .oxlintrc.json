@@ -10,6 +10,7 @@
         "node": "warn",
         "perf": "warn",
         "vitest/expect-expect": "error",
+        "unicorn/no-null": "off",
         "import/no-cycle": ["error", { "maxDepth": 3 }],
         "import/no-nodejs-modules": "off",
         "import/prefer-default-export": "off",

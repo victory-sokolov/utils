@@ -5,12 +5,13 @@ import path from 'node:path';
 /**
  * Read directory recursively to get all files in the directory
  * @param dir Directory to files
- * @param fileList List of files
+ * @param initialList List of files
  * @returns List of the files from directory
  */
-export const readDirRecursive = async (dir: string, fileList: string[] = []): Promise<string[]> => {
+export const readDirRecursive = async (dir: string, initialList: string[] = []): Promise<string[]> => {
     const exclude = new Set(['node_modules', '.venv', '.env']);
     const files = await readdir(dir);
+    let fileList = initialList;
     for (const file of files) {
         const filePath = path.join(dir, file);
         const fileStat = await stat(filePath);

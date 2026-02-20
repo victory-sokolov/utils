@@ -1,10 +1,3 @@
-interface Position {
-    coords: {
-        latitude: number;
-        longitude: number;
-    };
-}
-
 /**
  * Get country name from ISO code
  * @param iso ISO code
@@ -18,23 +11,33 @@ export const getCountryFromISO = (iso: string): string | undefined => {
 };
 
 /**
- * Position position object
- * @returns Position object with latitude and longitude properties
+ * Extract coordinates from GeolocationPosition
+ * @param position GeolocationPosition from the browser API
+ * @returns Object with latitude and longitude properties
  */
-export const showPosition = (position: Position): { latitude: number; longitude: number } => ({
+export const showPosition = (
+    position: GeolocationPosition,
+): { latitude: number; longitude: number } => ({
     latitude: position.coords.latitude,
     longitude: position.coords.longitude,
 });
 
 /**
  * Returns coordinates
- * @returns Position object with latitude and longitude properties
+ * @returns Promise with latitude and longitude properties
  */
-export const getLocation = (): Position => {
-    if (navigator.geolocation) {
-        return navigator.geolocation.getCurrentPosition(showPosition)!;
-    }
-    throw new Error('Geolocation is not supported by this browser.');
+// eslint-disable-next-line arrow-body-style
+export const getLocation = (): Promise<{ latitude: number; longitude: number }> => {
+    return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+            reject(new Error('Geolocation is not supported by this browser.'));
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(
+            position => resolve(showPosition(position)),
+            error => reject(error),
+        );
+    });
 };
 
 /**

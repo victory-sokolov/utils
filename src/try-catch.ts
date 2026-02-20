@@ -208,7 +208,6 @@ const extractCause = (error: unknown): Error | null => {
     if (error instanceof Error && error.cause) {
         return error.cause as Error;
     }
-    
     return null;
 };
 
