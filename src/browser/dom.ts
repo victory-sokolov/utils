@@ -39,9 +39,12 @@ export const removeClass = (el: HTMLElement, ...classArgs: string[]): void =>
     el.classList.remove(...classArgs);
 
 // Dom operation
-export const insertBefore = (node: HTMLElement, beforeNode: HTMLElement): Element | null =>
-    node.insertAdjacentElement('beforebegin', beforeNode);
-export const insertAfter = (node: HTMLElement, afterNode: HTMLElement): Element | null =>
-    node.insertAdjacentElement('afterend', afterNode);
-export const prepend = (node: HTMLElement, preNode: HTMLElement): Element | null =>
-    node.insertAdjacentElement('afterbegin', preNode);
+export const insertBefore = (node: HTMLElement, beforeNode: HTMLElement): void => {
+    node.before(beforeNode);
+};
+export const insertAfter = (node: HTMLElement, afterNode: HTMLElement): void => {
+    node.after(afterNode);
+};
+export const prepend = (node: HTMLElement, preNode: HTMLElement): void => {
+    node.prepend(preNode);
+};

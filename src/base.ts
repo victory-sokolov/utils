@@ -57,7 +57,7 @@ export const debounce = <T extends unknown[]>(
     fn: (...args: T) => void,
     delay: number,
 ): ((...args: T) => void) & { flush: () => void } => {
-    let timeoutID: ReturnType<typeof setTimeout>;
+    let timeoutID: ReturnType<typeof setTimeout> | undefined;
     let lastArgs: T = [] as unknown as T;
     let hasLastArgs = false;
 

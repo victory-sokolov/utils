@@ -15,16 +15,6 @@ type FirstParameter<F extends AnyFunc> = F extends (
 // Helper type to get the parameter types of a function
 type ParametersOf<F extends AnyFunc> = F extends (...args: infer P) => unknown ? P : never;
 
-type PipeArgs<F extends AnyFunc[], Acc extends AnyFunc[] = []> = F extends [
-    (...args: infer A) => infer B,
-]
-    ? [...Acc, (...args: A) => B]
-    : F extends [(...args: infer A) => unknown, ...infer Tail]
-      ? Tail extends [(arg: infer B) => unknown, ...never[]]
-          ? PipeArgs<Tail, [...Acc, (...args: A) => B]>
-          : Acc
-      : Acc;
-
 type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [
     ...never[],
     (...arg: never) => infer R,

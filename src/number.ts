@@ -36,6 +36,9 @@ export const addZero = (num: number): string => {
 export const getRandomNumber = (min: number, max: number): number =>
     Math.random() * (max - min) + min;
 
+const KILO = 1000;
+const MEGA = 1_000_000;
+
 /**
  * Format string like 20k, 1m to number
  * @param amount amount as string
@@ -45,7 +48,8 @@ export const nFormatter = (amount: string | null): number => {
     if (!amount) {
         return 0;
     }
-    const multipliers: Record<string, number> = { k: 1000, m: 1_000_000 };
+    // eslint-disable-next-line id-length
+    const multipliers: Record<string, number> = { k: KILO, m: MEGA };
     const lastChar = (amount.at(-1) ?? '').toLowerCase();
     const multiplier = multipliers[lastChar];
     if (multiplier) {
