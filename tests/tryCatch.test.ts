@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { tryCatch } from '../src/tryCatch';
+import { tryCatch } from '../src/try-catch';
 
 class CustomError extends Error {
     constructor(

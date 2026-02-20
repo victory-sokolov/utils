@@ -114,13 +114,13 @@ export const hasProperty = (obj: unknown, key: string): boolean => {
  * @returns True if the value is the window object
  */
 export const isWindow = (val: unknown): boolean =>
-    typeof window !== 'undefined' && toString(val) === '[object Window]';
+    'window' in globalThis && toString(val) === '[object Window]';
 
 /**
  * Check if the code is running in a browser
  * @returns True if running in browser
  */
-export const isBrowser = typeof window !== 'undefined';
+export const isBrowser = 'window' in globalThis;
 
 /**
  * Convert type [Object object] to raw type Object

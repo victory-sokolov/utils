@@ -14,9 +14,9 @@ export const omit = <T extends Record<string, unknown>, K extends keyof T>(
     // Function to remove keys from a single object
     const omitKeysFromObject = (obj: T): T => {
         const newObj = { ...obj };
-        keys.forEach(key => {
+        for (const key of keys) {
             delete newObj[key];
-        });
+        }
         return newObj;
     };
 
@@ -50,7 +50,7 @@ export const pick = <T extends Record<string, unknown>, K extends keyof T>(
 export const flattenObject = (obj: RecordObject): RecordObject => {
     const flattened: Record<string, unknown> = {};
 
-    Object.keys(obj).forEach(key => {
+    for (const key of Object.keys(obj)) {
         const value = obj[key];
 
         if (isPlainObject(value)) {
@@ -58,7 +58,7 @@ export const flattenObject = (obj: RecordObject): RecordObject => {
         } else {
             flattened[key] = value;
         }
-    });
+    }
 
     return flattened;
 };
@@ -108,29 +108,36 @@ export function filterFalsyFromObject<T extends RecordObject | RecordObject[]>(o
  * @param right
  * @returns New combined object
  */
-export const unionWithExclusion = (left: RecordObject, right: RecordObject): RecordObject =>
-    [left, right].reduce<RecordObject>((prev, current) => {
-        if (current) {
-            Object.entries(current).forEach(([key, value]) => {
-                if (!value) return;
+export const unionWithExclusion = (left: RecordObject, right: RecordObject): RecordObject => {
+    const result: RecordObject = {};
 
-                if (isPlainObject(value)) {
-                    const existing = prev[key];
-                    if (isPlainObject(existing)) {
-                        prev[key] = unionWithExclusion(
-                            existing as RecordObject,
-                            value as RecordObject,
-                        );
-                    } else {
-                        prev[key] = value;
-                    }
-                } else {
-                    prev[key] = value;
-                }
-            });
+    // Process left object
+    for (const key in left) {
+        if (Object.hasOwn(left, key)) {
+            const value = left[key];
+            if (value) {
+                result[key] = isPlainObject(value)
+                    ? { ...(value as RecordObject) }
+                    : value;
+            }
         }
-        return prev;
-    }, {} as RecordObject);
+    }
+
+    // Process right object (merge/overwrite)
+    for (const key in right) {
+        if (Object.hasOwn(right, key)) {
+            const value = right[key];
+            if (value) {
+                const existing = result[key];
+                result[key] = isPlainObject(value) && isPlainObject(existing)
+                    ? unionWithExclusion(existing, value)
+                    : value;
+            }
+        }
+    }
+
+    return result;
+};
 
 /**
  * Flip objects keys with objects values

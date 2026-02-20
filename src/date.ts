@@ -180,10 +180,11 @@ export const dateRangeGenerator = function* dateRangeGenerator(
     end: Date,
     step = 1,
 ): Generator<Date> {
-    const currentDate = start;
-    while (currentDate < end) {
-        yield new Date(currentDate);
-        currentDate.setDate(currentDate.getDate() + step);
+    let currentDateMs = start.getTime();
+    const endMs = end.getTime();
+    while (currentDateMs < endMs) {
+        yield new Date(currentDateMs);
+        currentDateMs += step * 86_400_000;
     }
 };
 
@@ -247,7 +248,7 @@ export const timeAgo = (date: Date): string => {
  * @returns Timezone
  */
 export const getTimeZone = (lang: string): string => {
-    const options = Intl.DateTimeFormat(lang).resolvedOptions();
+    const options = new Intl.DateTimeFormat(lang).resolvedOptions();
     return options.timeZone;
 };
 

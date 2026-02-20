@@ -6,13 +6,17 @@ import { hasProperty, isString } from './is';
  * @param listOfArrays List of arrays to flatten
  * @returns flattened array
  */
-export const flattenArray = <T>(listOfArrays: readonly T[]): readonly T[] =>
-    listOfArrays.reduce((res, arr) => {
+export const flattenArray = <T>(listOfArrays: readonly T[]): T[] => {
+    const result: T[] = [];
+    for (const arr of listOfArrays) {
         if (Array.isArray(arr)) {
-            return [...res, ...flattenArray(arr)];
+            result.push(...flattenArray(arr));
+        } else {
+            result.push(arr);
         }
-        return [...res, arr];
-    }, [] as T[]);
+    }
+    return result;
+};
 
 /**
  * Get unique values from array
@@ -94,7 +98,7 @@ const fSort = (firstValue: number, secondValue: number): number => {
  */
 export const sort = <T extends Record<string, unknown>>(
     arr: T[] = [],
-    fSorting: ((first: T, second: T) => number) | null = null,
+    fSorting?: (first: T, second: T) => number,
 ): T[] => {
     const copyArray = [...arr];
     const fn =
@@ -153,7 +157,7 @@ export const sortBy = (arr: RecordObject[] = [], order = 1, key = ''): RecordObj
  */
 const resolveIndex = <T>(index: number | IndexCallback<T>, arr: T[]): number => {
     if (typeof index === 'function') {
-        return arr.findIndex(index);
+        return arr.findIndex((item, idx, array) => index(item, idx, array));
     }
     return index;
 };
@@ -188,11 +192,9 @@ const getValidIndex = <T>(
         return -1;
     }
     const indexAt = resolveIndex(index, arr);
-    let maxIndex: number;
-    if (allowEnd) {
-        maxIndex = arr.length;
-    } else {
-        maxIndex = arr.length - 1;
+    let maxIndex = arr.length;
+    if (!allowEnd) {
+        maxIndex -= 1;
     }
     if (indexAt >= 0 && indexAt <= maxIndex) {
         return indexAt;
@@ -283,7 +285,9 @@ export const median = (arr: number[]): number => {
     if (arr.length % 2 !== 0) {
         return nums[mid] as number;
     }
-    return ((nums[mid - 1]! + nums[mid]!) / 2) as number;
+    const lower = nums[mid - 1];
+    const upper = nums[mid];
+    return ((lower ?? 0) + (upper ?? 0)) / 2;
 };
 
 /**
@@ -303,16 +307,13 @@ export const intersection = <T>(arr1: T[], arr2: T[]): T[] => {
  * @param array - Array of elements to count
  * @returns Object where keys are array values and values are the count of occurrences
  */
-export const countBy = (array: (number | string)[]): Record<string, number> =>
-    array.reduce((obj: Record<string, number>, item) => {
-        if (item in obj) {
-            obj[item]! += 1;
-        } else {
-            obj[item] = 1;
-        }
-
-        return obj;
-    }, {});
+export const countBy = (array: (number | string)[]): Record<string, number> => {
+    const result: Record<string, number> = {};
+    for (const item of array) {
+        result[item] = (result[item] ?? 0) + 1;
+    }
+    return result;
+};
 
 /**
  * Count occurrences of each unique element in the array
@@ -320,9 +321,9 @@ export const countBy = (array: (number | string)[]): Record<string, number> =>
  * @returns Object with unique elements as keys and their occurrence counts as values
  */
 export const occurrenceCount = <T>(data: T[]): Record<string, number> => {
-    const unique = [...new Set(data)];
+    const uniqueItems = [...new Set(data)];
     return Object.fromEntries(
-        unique.map(char => {
+        uniqueItems.map(char => {
             const count = data.filter(item => item === char).length;
             return [char, count];
         }),
