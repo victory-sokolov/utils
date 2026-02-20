@@ -2,6 +2,7 @@ import { Buffer } from 'node:buffer';
 import nodeCrypto from 'node:crypto';
 
 interface HashResult {
+    digest: string;
     hash: string;
     iterations: number;
     keyLen: number;
@@ -34,6 +35,7 @@ export const hashString = (options: HashOptions): HashResult => {
     const salt = nodeCrypto.randomBytes(128).toString('base64');
     const hash = nodeCrypto.pbkdf2Sync(str, salt, iterations, keyLen, digest).toString('hex');
     return {
+        digest,
         hash,
         iterations,
         keyLen,
@@ -122,6 +124,9 @@ export const encryptData = (plainText: string, secretKey: string): Promise<strin
  */
 export const decryptData = (encryptedData: string, secretKey: string): Promise<string> => {
     const encoded = Buffer.from(encryptedData, 'base64');
+    if (encoded.byteLength <= SALT_LENGTH + IV_LENGTH) {
+        return Promise.reject(new Error('encryptedData is too short or malformed'));
+    }
     const salt = new Uint8Array(encoded.subarray(0, SALT_LENGTH));
     const iv = new Uint8Array(encoded.subarray(SALT_LENGTH, SALT_LENGTH + IV_LENGTH));
     const encrypted = new Uint8Array(encoded.subarray(SALT_LENGTH + IV_LENGTH));

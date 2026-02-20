@@ -10,7 +10,7 @@ interface VideoConstraint {
 
 /**
  * Detect which camera environment is used
- * @returns environment ur user camera
+ * @returns environment or user camera
  */
 export const cameraEnvironment = (): CameraEnvironment => {
     if (isMobileDevice()) {
@@ -25,7 +25,6 @@ export const cameraEnvironment = (): CameraEnvironment => {
  */
 export const getVideoConstraint = (): VideoConstraint => {
     const resolutions = {
-        qqvga: { height: { exact: 120 }, width: { exact: 160 } },
         qvga: { height: { exact: 240 }, width: { exact: 320 } },
         vga: { height: { exact: 480 }, width: { exact: 640 } },
     } as const;
@@ -73,6 +72,7 @@ export const startCamera = (isStreaming: boolean, video: HTMLVideoElement): Prom
             .catch((error: unknown) => {
                 // oxlint-disable-next-line no-console
                 console.error(`An error occurred! ${error}`);
+                throw error;
             });
     }
     // oxlint-disable-next-line no-console

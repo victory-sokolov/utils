@@ -86,15 +86,22 @@ describe('test camera', () => {
         it('should handle getUserMedia error', async () => {
             const { videoMock } = createVideoMock();
             const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-            const getUserMediaMock = vi.fn().mockRejectedValue(new Error('Permission denied'));
+            const mockError = {
+                message: 'Permission denied',
+                name: 'NotAllowedError',
+                toString() {
+                    return 'NotAllowedError: Permission denied';
+                },
+            };
+            const getUserMediaMock = vi.fn().mockRejectedValue(mockError);
             (navigator as any).mediaDevices = {
                 getUserMedia: getUserMediaMock,
             };
 
-            await startCamera(false, videoMock as any);
+            await expect(startCamera(false, videoMock as any)).rejects.toEqual(mockError);
 
             expect(consoleErrorSpy).toHaveBeenCalledWith(
-                'An error occurred! Error: Permission denied',
+                'An error occurred! NotAllowedError: Permission denied',
             );
             consoleErrorSpy.mockRestore();
         });

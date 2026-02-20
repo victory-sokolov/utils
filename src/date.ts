@@ -224,24 +224,27 @@ export const secondsInDays = (days: number): number => {
  * @param date
  * @return Time ago string from Date object
  */
-const TIME_INTERVALS: [number, string][] = [
-    [31_536_000, 'years'],
-    [2_592_000, 'months'],
-    [86_400, 'days'],
-    [3600, 'hours'],
-    [60, 'minutes'],
+const TIME_INTERVALS: [number, string, string][] = [
+    [31_536_000, 'year', 'years'],
+    [2_592_000, 'month', 'months'],
+    [86_400, 'day', 'days'],
+    [3600, 'hour', 'hours'],
+    [60, 'minute', 'minutes'],
 ];
 
 export const timeAgo = (date: Date): string => {
     const seconds = Math.floor((Date.now() - date.valueOf()) / 1000);
-    for (const [divisor, unit] of TIME_INTERVALS) {
+    for (const [divisor, singular, plural] of TIME_INTERVALS) {
         const interval = Math.floor(seconds / divisor);
         if (interval >= 1) {
-            return `${interval} ${unit} ago`;
+            if (interval === 1) {
+                return `${interval} ${singular} ago`;
+            }
+            return `${interval} ${plural} ago`;
         }
     }
     if (seconds < 10) return 'just now';
-    return `${Math.floor(seconds)} seconds ago`;
+    return `${seconds} seconds ago`;
 };
 
 /**
@@ -258,7 +261,7 @@ export const getTimeZone = (lang: string): string => {
  * Get current timestamp
  * @returns timestamp
  */
-export const timestamp = (): number => Number(Date.now());
+export const timestamp = (): number => Date.now();
 
 /**
  * Get current ISO timestamp (2025-01-26T12:42:00.123Z")
@@ -272,12 +275,7 @@ export const timestampIso = new Date().toISOString();
  * @returns UTC formatted date string
  */
 export const toUtc = (date: string | Date): string => {
-    let utcDate = new Date();
-    if (typeof date === 'string') {
-        utcDate = new Date(date);
-    } else {
-        utcDate = new Date(date);
-    }
+    const utcDate = new Date(date);
 
     // Check if the date is valid
     if (Number.isNaN(utcDate.getTime())) {

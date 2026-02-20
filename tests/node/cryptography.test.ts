@@ -5,10 +5,11 @@ describe('cryptography', () => {
     describe('hashString', () => {
         it('should hash a string and return salt, hash, iterations, and keyLen', () => {
             const testString = 'myPassword123';
-            const { salt, hash, iterations, keyLen } = hashString({ str: testString });
+            const { salt, hash, iterations, keyLen, digest } = hashString({ str: testString });
 
             expect(salt).toBeTypeOf('string');
             expect(hash).toBeTypeOf('string');
+            expect(digest).toBe('sha512');
             expect(iterations).toBe(210_000);
             expect(keyLen).toBe(64);
             expect(salt.length).toBeGreaterThan(0);
@@ -50,10 +51,10 @@ describe('cryptography', () => {
     describe('validateHash', () => {
         it('should validate a correct hash', () => {
             const testString = 'myPassword123';
-            const { salt, hash, iterations, keyLen } = hashString({ str: testString });
+            const { salt, hash, iterations, keyLen, digest } = hashString({ str: testString });
 
             const isValid = validateHash({
-                digest: 'sha512',
+                digest,
                 iterations,
                 keyLen,
                 password: testString,
@@ -66,10 +67,10 @@ describe('cryptography', () => {
         it('should invalidate an incorrect password', () => {
             const testString = 'myPassword123';
             const wrongString = 'wrongPassword';
-            const { salt, hash, iterations, keyLen } = hashString({ str: testString });
+            const { salt, hash, iterations, keyLen, digest } = hashString({ str: testString });
 
             const isValid = validateHash({
-                digest: 'sha512',
+                digest,
                 iterations,
                 keyLen,
                 password: wrongString,
@@ -81,14 +82,14 @@ describe('cryptography', () => {
 
         it('should invalidate a tampered hash', () => {
             const testString = 'myPassword123';
-            const { salt, hash, iterations, keyLen } = hashString({ str: testString });
+            const { salt, hash, iterations, keyLen, digest } = hashString({ str: testString });
             // Use a character different from the first one to ensure tampering
             const firstChar = hash[0]!;
             const tamperChar = firstChar === 'a' ? 'b' : 'a';
             const tamperedHash = `${tamperChar}${hash.slice(1)}`;
 
             const isValid = validateHash({
-                digest: 'sha512',
+                digest,
                 iterations,
                 keyLen,
                 password: testString,
@@ -100,12 +101,14 @@ describe('cryptography', () => {
 
         it('should invalidate a tampered salt', () => {
             const testString = 'myPassword123';
-            const { hash, iterations, keyLen } = hashString({ str: testString });
-            const { salt: otherSalt } = hashString({ str: testString });
-            const tamperedSalt = `a${otherSalt.slice(1)}`; // Tamper with the salt
+            const { hash, salt, iterations, keyLen, digest } = hashString({ str: testString });
+            // Tamper with the original salt that was used to create the hash
+            const firstChar = salt[0]!;
+            const tamperChar = firstChar === 'a' ? 'b' : 'a';
+            const tamperedSalt = `${tamperChar}${salt.slice(1)}`;
 
             const isValid = validateHash({
-                digest: 'sha512',
+                digest,
                 iterations,
                 keyLen,
                 password: testString,
