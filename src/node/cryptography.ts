@@ -71,10 +71,7 @@ const validateSecretKey = (secretKey: string): void => {
  * @param salt Random salt for key derivation
  * @returns Derived CryptoKey
  */
-const deriveKey = (
-    secret: string,
-    salt: Uint8Array,
-): Promise<nodeCrypto.webcrypto.CryptoKey> => {
+const deriveKey = (secret: string, salt: Uint8Array): Promise<nodeCrypto.webcrypto.CryptoKey> => {
     const { webcrypto } = nodeCrypto;
     const encoder = new TextEncoder();
     return Promise.resolve()
@@ -91,7 +88,10 @@ const deriveKey = (
                     hash: 'SHA-256',
                     iterations: 100_000,
                     name: 'PBKDF2',
-                    salt: (salt.buffer as ArrayBuffer).slice(salt.byteOffset, salt.byteOffset + salt.byteLength),
+                    salt: (salt.buffer as ArrayBuffer).slice(
+                        salt.byteOffset,
+                        salt.byteOffset + salt.byteLength,
+                    ),
                 },
                 keyMaterial,
                 { length: 256, name: 'AES-GCM' },
