@@ -216,7 +216,7 @@ export const timeAgo = (date: Date): string => {
     const seconds = Math.floor((Date.now() - date.valueOf()) / 1000);
     for (const [divisor, unit] of TIME_INTERVALS) {
         const interval = Math.floor(seconds / divisor);
-        if (interval > 1) {
+        if (interval >= 1) {
             return `${interval} ${unit} ago`;
         }
     }
