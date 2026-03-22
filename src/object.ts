@@ -318,7 +318,11 @@ const cloneArray = <U>(arr: unknown[], cache: DeepCloneCache, recurse: typeof cl
 };
 
 // oxlint-disable-next-line max-statements
-const cloneObject = <U>(obj: Record<string, unknown>, cache: DeepCloneCache, recurse: typeof cloneValue): U => {
+const cloneObject = <U>(
+    obj: Record<string, unknown>,
+    cache: DeepCloneCache,
+    recurse: typeof cloneValue,
+): U => {
     if (cache.has(obj)) {
         return cache.get(obj) as U;
     }
