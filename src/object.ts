@@ -222,7 +222,11 @@ export const omitBy = <T extends Record<string, unknown>, K extends keyof T & st
 type RemoveEmptyCache = WeakMap<object, unknown>;
 
 // oxlint-disable-next-line max-statements
-const removeEmptyArray = <U>(arr: unknown[], cache: RemoveEmptyCache, recurse: typeof removeEmptyValue): U | null => {
+const removeEmptyArray = <U>(
+    arr: unknown[],
+    cache: RemoveEmptyCache,
+    recurse: typeof removeEmptyValue,
+): U | null => {
     if (cache.has(arr)) {
         return cache.get(arr) as U | null;
     }
