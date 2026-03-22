@@ -1,3 +1,18 @@
+# [0.33.0](https://github.com/victory-sokolov/utils/compare/v0.32.1...v0.33.0) (2026-03-22)
+
+
+### Bug Fixes
+
+* linter issues ([7a13a90](https://github.com/victory-sokolov/utils/commit/7a13a90d5a25be85693c5c4232e5b28cf4c0e5cd))
+* linter issues ([34fbf4f](https://github.com/victory-sokolov/utils/commit/34fbf4f864aabf6eaeb9f9b9d041d39d5d77de4a))
+* recursion issues ([518198b](https://github.com/victory-sokolov/utils/commit/518198bdec5a6652b1bdc4d03920d9077f5f3285))
+* tests ([d1ee9a7](https://github.com/victory-sokolov/utils/commit/d1ee9a73b62b01ce8322547e9640e28cd6442700))
+
+
+### Features
+
+* add object manipulation utilities ([18e4785](https://github.com/victory-sokolov/utils/commit/18e47851171dc251f2ae6febe719254651793194))
+
 ## [0.32.1](https://github.com/victory-sokolov/utils/compare/v0.32.0...v0.32.1) (2026-02-20)
 
 
