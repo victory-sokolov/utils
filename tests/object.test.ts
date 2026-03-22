@@ -245,6 +245,29 @@ describe('removeEmpty', () => {
         expect(removeEmpty(false)).toBe(false);
         expect(removeEmpty('hello')).toBe('hello');
     });
+
+    it('should handle circular object references', () => {
+        const obj: { a: number; self?: unknown } = { a: 1 };
+        obj.self = obj;
+        const result = removeEmpty(obj);
+        expect(result).toEqual({ a: 1, self: obj });
+    });
+
+    it('should handle circular array references', () => {
+        const arr: unknown[] = [1, null];
+        arr.push(arr);
+        const result = removeEmpty(arr);
+        expect(result).toEqual([1, arr]);
+    });
+
+    it('should handle mutual circular references', () => {
+        const obj1: { a: number; ref?: unknown } = { a: 1 };
+        const obj2: { b: number; ref?: unknown } = { b: 2 };
+        obj1.ref = obj2;
+        obj2.ref = obj1;
+        const result = removeEmpty(obj1);
+        expect(result).toEqual({ a: 1, ref: { b: 2, ref: obj1 } });
+    });
 });
 
 describe('deepClone', () => {

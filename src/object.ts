@@ -228,13 +228,20 @@ export const omitBy = <T extends object, K extends keyof T>(
  * // => { a: 1, c: { e: 'hello' } }
  */
 // oxlint-disable-next-line max-statements
-export const removeEmpty = <T>(value: T): T | null => {
+export const removeEmpty = <T>(value: T, visited?: WeakSet<object>): T | null => {
+    const seen = visited ?? new WeakSet();
+
     if (isBlank(value)) {
         return null;
     }
 
     if (Array.isArray(value)) {
-        const cleaned = value.map(item => removeEmpty(item)).filter(item => item !== null);
+        if (seen.has(value)) {
+            return value as T;
+        }
+        seen.add(value);
+
+        const cleaned = value.map(item => removeEmpty(item, seen)).filter(item => item !== null);
         if (cleaned.length === 0) {
             return null;
         }
@@ -242,9 +249,14 @@ export const removeEmpty = <T>(value: T): T | null => {
     }
 
     if (isPlainObject(value)) {
+        if (seen.has(value)) {
+            return value as T;
+        }
+        seen.add(value);
+
         const cleaned: Record<string, unknown> = {};
         for (const [key, val] of Object.entries(value)) {
-            const cleanedVal = removeEmpty(val);
+            const cleanedVal = removeEmpty(val, seen);
             if (cleanedVal !== null) {
                 cleaned[key] = cleanedVal;
             }
