@@ -252,6 +252,7 @@ describe('removeEmpty', () => {
         const result = removeEmpty(obj) as typeof obj;
         // Result should have circular ref to itself (the cleaned result)
         expect(result).toEqual({ a: 1, self: result });
+        expect(result.self).toBe(result);
     });
 
     it('should handle circular array references', () => {
@@ -260,6 +261,7 @@ describe('removeEmpty', () => {
         const result = removeEmpty(arr) as unknown[];
         // Result should have circular ref to itself (the cleaned result)
         expect(result).toEqual([1, result]);
+        expect(result[1]).toBe(result);
     });
 
     it('should handle mutual circular references', () => {
@@ -271,6 +273,7 @@ describe('removeEmpty', () => {
         const result2 = result.ref as typeof obj2;
         // Result should have proper circular refs to cleaned objects
         expect(result).toEqual({ a: 1, ref: { b: 2, ref: result } });
+        expect(result2.ref).toBe(result);
     });
 });
 
@@ -304,5 +307,26 @@ describe('deepClone', () => {
         expect(cloned).toStrictEqual(arr);
         (cloned[1] as { a: number }).a = 99;
         expect((arr[1] as { a: number }).a).toBe(2);
+    });
+
+    it('should handle circular object references', () => {
+        const obj: { a: number; self?: unknown } = { a: 1 };
+        obj.self = obj;
+        const cloned = deepClone(obj) as typeof obj;
+
+        expect(cloned).not.toBe(obj);
+        expect(cloned.a).toBe(1);
+        expect(cloned.self).toBe(cloned);
+    });
+
+    it('should handle circular array references', () => {
+        const arr: unknown[] = [1, 2];
+        arr.push(arr);
+        const cloned = deepClone(arr) as unknown[];
+
+        expect(cloned).not.toBe(arr);
+        expect(cloned[0]).toBe(1);
+        expect(cloned[1]).toBe(2);
+        expect(cloned[2]).toBe(cloned);
     });
 });

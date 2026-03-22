@@ -300,6 +300,58 @@ export const removeEmpty = <T>(value: T): T | null => {
     return removeEmptyValue(value, cache);
 };
 
+type DeepCloneCache = WeakMap<object, unknown>;
+
+// oxlint-disable-next-line max-statements
+const cloneArray = <U>(arr: unknown[], cache: DeepCloneCache, recurse: typeof cloneValue): U => {
+    if (cache.has(arr)) {
+        return cache.get(arr) as U;
+    }
+    const result: unknown[] = [];
+    cache.set(arr, result);
+
+    for (let idx = 0; idx < arr.length; idx += 1) {
+        result[idx] = recurse(arr[idx], cache);
+    }
+
+    return result as U;
+};
+
+// oxlint-disable-next-line max-statements
+const cloneObject = <U>(obj: Record<string, unknown>, cache: DeepCloneCache, recurse: typeof cloneValue): U => {
+    if (cache.has(obj)) {
+        return cache.get(obj) as U;
+    }
+    const result: Record<string, unknown> = {};
+    cache.set(obj, result);
+
+    for (const [key, val] of Object.entries(obj)) {
+        result[key] = recurse(val, cache);
+    }
+
+    return result as U;
+};
+
+const cloneValue = <U>(val: U, cache: DeepCloneCache): U => {
+    if (val === null || typeof val !== 'object') {
+        return val;
+    }
+
+    if (Array.isArray(val)) {
+        return cloneArray<U>(val, cache, cloneValue);
+    }
+
+    if (isPlainObject(val)) {
+        return cloneObject<U>(val as Record<string, unknown>, cache, cloneValue);
+    }
+
+    if (typeof structuredClone === 'function') {
+        return structuredClone(val) as U;
+    }
+
+    return val;
+};
+
 /**
  * Deep clone an object using structured cloning
  * @param obj - Object to clone
@@ -310,27 +362,7 @@ export const removeEmpty = <T>(value: T): T | null => {
  * cloned.b.c = 3
  * original.b.c // still 2
  */
-// oxlint-disable-next-line max-statements
 export const deepClone = <T>(obj: T): T => {
-    if (obj === null || typeof obj !== 'object') {
-        return obj;
-    }
-
-    if (Array.isArray(obj)) {
-        return obj.map(item => deepClone(item)) as T;
-    }
-
-    if (isPlainObject(obj)) {
-        const cloned: Record<string, unknown> = {};
-        for (const [key, val] of Object.entries(obj)) {
-            cloned[key] = deepClone(val);
-        }
-        return cloned as T;
-    }
-
-    if (typeof structuredClone === 'function') {
-        return structuredClone(obj);
-    }
-
-    return obj;
+    const cache: DeepCloneCache = new WeakMap();
+    return cloneValue(obj, cache);
 };
