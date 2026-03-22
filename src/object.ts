@@ -1,4 +1,4 @@
-import { isPlainObject, isTruthyAndNotEmpty } from './is';
+import { isBlank, isPlainObject, isTruthyAndNotEmpty } from './is';
 import type { RecordObject } from './types';
 
 /**
@@ -196,3 +196,177 @@ export const objectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][]
 export const getUniqueByKey = <T>(arr: T[], key: keyof T): T[] => [
     ...new Map(arr.map(item => [item[key], item])).values(),
 ];
+
+/**
+ * Remove properties from object where predicate returns true
+ * @param obj - Object to filter
+ * @param predicate - Function that returns true for properties to remove
+ * @returns Object with properties removed
+ * @example
+ * omitBy({ a: 1, b: null, c: undefined }, (v) => v === null || v === undefined)
+ * // => { a: 1 }
+ */
+export const omitBy = <T extends Record<string, unknown>, K extends keyof T & string>(
+    obj: T,
+    predicate: (value: T[K], key: K) => boolean,
+): Partial<T> => {
+    const result: Partial<T> = {};
+    for (const [key, value] of Object.entries(obj) as [K, T[K]][]) {
+        if (!predicate(value, key)) {
+            result[key] = value;
+        }
+    }
+    return result;
+};
+
+type RemoveEmptyCache = WeakMap<object, unknown>;
+
+// oxlint-disable-next-line max-statements
+const removeEmptyArray = <U>(
+    arr: unknown[],
+    cache: RemoveEmptyCache,
+    recurse: typeof removeEmptyValue,
+): U | null => {
+    if (cache.has(arr)) {
+        return cache.get(arr) as U | null;
+    }
+    const result: unknown[] = [];
+    cache.set(arr, result);
+
+    for (const item of arr) {
+        const cleaned = recurse(item, cache);
+        if (cleaned !== null) {
+            result.push(cleaned);
+        }
+    }
+
+    if (result.length === 0) {
+        return null;
+    }
+    return result as U | null;
+};
+
+// oxlint-disable-next-line max-statements
+const removeEmptyObject = <U>(
+    obj: Record<string, unknown>,
+    cache: RemoveEmptyCache,
+    recurse: typeof removeEmptyValue,
+): U | null => {
+    if (cache.has(obj)) {
+        return cache.get(obj) as U | null;
+    }
+    const result: Record<string, unknown> = {};
+    cache.set(obj, result);
+
+    for (const [key, itemValue] of Object.entries(obj)) {
+        const cleaned = recurse(itemValue, cache);
+        if (cleaned !== null) {
+            result[key] = cleaned;
+        }
+    }
+
+    if (Object.keys(result).length === 0) {
+        return null;
+    }
+    return result as U | null;
+};
+
+const removeEmptyValue = <U>(val: U, cache: RemoveEmptyCache): U | null => {
+    if (isBlank(val)) {
+        return null;
+    }
+
+    if (Array.isArray(val)) {
+        return removeEmptyArray<U>(val, cache, removeEmptyValue);
+    }
+
+    if (isPlainObject(val)) {
+        return removeEmptyObject<U>(val as Record<string, unknown>, cache, removeEmptyValue);
+    }
+
+    return val;
+};
+
+/**
+ * Recursively remove empty values (null, undefined, '', [], {}) from object or array
+ * @param value - Value to clean
+ * @returns Cleaned value or null if result is empty
+ * @example
+ * removeEmpty({ a: 1, b: null, c: { d: [], e: 'hello' } })
+ * // => { a: 1, c: { e: 'hello' } }
+ */
+export const removeEmpty = <T>(value: T): T | null => {
+    const cache: RemoveEmptyCache = new WeakMap();
+    return removeEmptyValue(value, cache);
+};
+
+type DeepCloneCache = WeakMap<object, unknown>;
+
+// oxlint-disable-next-line max-statements
+const cloneArray = <U>(arr: unknown[], cache: DeepCloneCache, recurse: typeof cloneValue): U => {
+    if (cache.has(arr)) {
+        return cache.get(arr) as U;
+    }
+    const result: unknown[] = [];
+    cache.set(arr, result);
+
+    for (let idx = 0; idx < arr.length; idx += 1) {
+        result[idx] = recurse(arr[idx], cache);
+    }
+
+    return result as U;
+};
+
+// oxlint-disable-next-line max-statements
+const cloneObject = <U>(
+    obj: Record<string, unknown>,
+    cache: DeepCloneCache,
+    recurse: typeof cloneValue,
+): U => {
+    if (cache.has(obj)) {
+        return cache.get(obj) as U;
+    }
+    const result: Record<string, unknown> = {};
+    cache.set(obj, result);
+
+    for (const [key, val] of Object.entries(obj)) {
+        result[key] = recurse(val, cache);
+    }
+
+    return result as U;
+};
+
+const cloneValue = <U>(val: U, cache: DeepCloneCache): U => {
+    if (val === null || typeof val !== 'object') {
+        return val;
+    }
+
+    if (Array.isArray(val)) {
+        return cloneArray<U>(val, cache, cloneValue);
+    }
+
+    if (isPlainObject(val)) {
+        return cloneObject<U>(val as Record<string, unknown>, cache, cloneValue);
+    }
+
+    if (typeof structuredClone === 'function') {
+        return structuredClone(val) as U;
+    }
+
+    return val;
+};
+
+/**
+ * Deep clone an object using structured cloning
+ * @param obj - Object to clone
+ * @returns Deep cloned object
+ * @example
+ * const original = { a: 1, b: { c: 2 } }
+ * const cloned = deepClone(original)
+ * cloned.b.c = 3
+ * original.b.c // still 2
+ */
+export const deepClone = <T>(obj: T): T => {
+    const cache: DeepCloneCache = new WeakMap();
+    return cloneValue(obj, cache);
+};
