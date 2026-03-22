@@ -249,15 +249,17 @@ describe('removeEmpty', () => {
     it('should handle circular object references', () => {
         const obj: { a: number; self?: unknown } = { a: 1 };
         obj.self = obj;
-        const result = removeEmpty(obj);
-        expect(result).toEqual({ a: 1, self: obj });
+        const result = removeEmpty(obj) as typeof obj;
+        // Result should have circular ref to itself (the cleaned result)
+        expect(result).toEqual({ a: 1, self: result });
     });
 
     it('should handle circular array references', () => {
         const arr: unknown[] = [1, null];
         arr.push(arr);
-        const result = removeEmpty(arr);
-        expect(result).toEqual([1, arr]);
+        const result = removeEmpty(arr) as unknown[];
+        // Result should have circular ref to itself (the cleaned result)
+        expect(result).toEqual([1, result]);
     });
 
     it('should handle mutual circular references', () => {
@@ -265,8 +267,10 @@ describe('removeEmpty', () => {
         const obj2: { b: number; ref?: unknown } = { b: 2 };
         obj1.ref = obj2;
         obj2.ref = obj1;
-        const result = removeEmpty(obj1);
-        expect(result).toEqual({ a: 1, ref: { b: 2, ref: obj1 } });
+        const result = removeEmpty(obj1) as typeof obj1;
+        const result2 = result.ref as typeof obj2;
+        // Result should have proper circular refs to cleaned objects
+        expect(result).toEqual({ a: 1, ref: { b: 2, ref: result } });
     });
 });
 

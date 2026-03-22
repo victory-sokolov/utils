@@ -206,7 +206,7 @@ export const getUniqueByKey = <T>(arr: T[], key: keyof T): T[] => [
  * omitBy({ a: 1, b: null, c: undefined }, (v) => v === null || v === undefined)
  * // => { a: 1 }
  */
-export const omitBy = <T extends object, K extends keyof T>(
+export const omitBy = <T extends Record<string, unknown>, K extends keyof T & string>(
     obj: T,
     predicate: (value: T[K], key: K) => boolean,
 ): Partial<T> => {
@@ -219,6 +219,70 @@ export const omitBy = <T extends object, K extends keyof T>(
     return result;
 };
 
+type RemoveEmptyCache = WeakMap<object, unknown>;
+
+// oxlint-disable-next-line max-statements
+const removeEmptyArray = <U>(arr: unknown[], cache: RemoveEmptyCache, recurse: typeof removeEmptyValue): U | null => {
+    if (cache.has(arr)) {
+        return cache.get(arr) as U | null;
+    }
+    const result: unknown[] = [];
+    cache.set(arr, result);
+
+    for (const item of arr) {
+        const cleaned = recurse(item, cache);
+        if (cleaned !== null) {
+            result.push(cleaned);
+        }
+    }
+
+    if (result.length === 0) {
+        return null;
+    }
+    return result as U | null;
+};
+
+// oxlint-disable-next-line max-statements
+const removeEmptyObject = <U>(
+    obj: Record<string, unknown>,
+    cache: RemoveEmptyCache,
+    recurse: typeof removeEmptyValue,
+): U | null => {
+    if (cache.has(obj)) {
+        return cache.get(obj) as U | null;
+    }
+    const result: Record<string, unknown> = {};
+    cache.set(obj, result);
+
+    for (const [key, itemValue] of Object.entries(obj)) {
+        const cleaned = recurse(itemValue, cache);
+        if (cleaned !== null) {
+            result[key] = cleaned;
+        }
+    }
+
+    if (Object.keys(result).length === 0) {
+        return null;
+    }
+    return result as U | null;
+};
+
+const removeEmptyValue = <U>(val: U, cache: RemoveEmptyCache): U | null => {
+    if (isBlank(val)) {
+        return null;
+    }
+
+    if (Array.isArray(val)) {
+        return removeEmptyArray<U>(val, cache, removeEmptyValue);
+    }
+
+    if (isPlainObject(val)) {
+        return removeEmptyObject<U>(val as Record<string, unknown>, cache, removeEmptyValue);
+    }
+
+    return val;
+};
+
 /**
  * Recursively remove empty values (null, undefined, '', [], {}) from object or array
  * @param value - Value to clean
@@ -227,47 +291,9 @@ export const omitBy = <T extends object, K extends keyof T>(
  * removeEmpty({ a: 1, b: null, c: { d: [], e: 'hello' } })
  * // => { a: 1, c: { e: 'hello' } }
  */
-// oxlint-disable-next-line max-statements
-export const removeEmpty = <T>(value: T, visited?: WeakSet<object>): T | null => {
-    const seen = visited ?? new WeakSet();
-
-    if (isBlank(value)) {
-        return null;
-    }
-
-    if (Array.isArray(value)) {
-        if (seen.has(value)) {
-            return value as T;
-        }
-        seen.add(value);
-
-        const cleaned = value.map(item => removeEmpty(item, seen)).filter(item => item !== null);
-        if (cleaned.length === 0) {
-            return null;
-        }
-        return cleaned as T;
-    }
-
-    if (isPlainObject(value)) {
-        if (seen.has(value)) {
-            return value as T;
-        }
-        seen.add(value);
-
-        const cleaned: Record<string, unknown> = {};
-        for (const [key, val] of Object.entries(value)) {
-            const cleanedVal = removeEmpty(val, seen);
-            if (cleanedVal !== null) {
-                cleaned[key] = cleanedVal;
-            }
-        }
-        if (Object.keys(cleaned).length === 0) {
-            return null;
-        }
-        return cleaned as T;
-    }
-
-    return value;
+export const removeEmpty = <T>(value: T): T | null => {
+    const cache: RemoveEmptyCache = new WeakMap();
+    return removeEmptyValue(value, cache);
 };
 
 /**
