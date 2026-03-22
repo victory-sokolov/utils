@@ -1,4 +1,4 @@
-import { isPlainObject, isTruthyAndNotEmpty } from './is';
+import { isBlank, isPlainObject, isTruthyAndNotEmpty } from './is';
 import type { RecordObject } from './types';
 
 /**
@@ -196,3 +196,99 @@ export const objectEntries = <T extends object>(obj: T): [keyof T, T[keyof T]][]
 export const getUniqueByKey = <T>(arr: T[], key: keyof T): T[] => [
     ...new Map(arr.map(item => [item[key], item])).values(),
 ];
+
+/**
+ * Remove properties from object where predicate returns true
+ * @param obj - Object to filter
+ * @param predicate - Function that returns true for properties to remove
+ * @returns Object with properties removed
+ * @example
+ * omitBy({ a: 1, b: null, c: undefined }, (v) => v === null || v === undefined)
+ * // => { a: 1 }
+ */
+export const omitBy = <T extends object, K extends keyof T>(
+    obj: T,
+    predicate: (value: T[K], key: K) => boolean,
+): Partial<T> => {
+    const result: Partial<T> = {};
+    for (const [key, value] of Object.entries(obj) as [K, T[K]][]) {
+        if (!predicate(value, key)) {
+            result[key] = value;
+        }
+    }
+    return result;
+};
+
+/**
+ * Recursively remove empty values (null, undefined, '', [], {}) from object or array
+ * @param value - Value to clean
+ * @returns Cleaned value or null if result is empty
+ * @example
+ * removeEmpty({ a: 1, b: null, c: { d: [], e: 'hello' } })
+ * // => { a: 1, c: { e: 'hello' } }
+ */
+// oxlint-disable-next-line max-statements
+export const removeEmpty = <T>(value: T): T | null => {
+    if (isBlank(value)) {
+        return null;
+    }
+
+    if (Array.isArray(value)) {
+        const cleaned = value.map(item => removeEmpty(item)).filter(item => item !== null);
+        if (cleaned.length === 0) {
+            return null;
+        }
+        return cleaned as T;
+    }
+
+    if (isPlainObject(value)) {
+        const cleaned: Record<string, unknown> = {};
+        for (const [key, val] of Object.entries(value)) {
+            const cleanedVal = removeEmpty(val);
+            if (cleanedVal !== null) {
+                cleaned[key] = cleanedVal;
+            }
+        }
+        if (Object.keys(cleaned).length === 0) {
+            return null;
+        }
+        return cleaned as T;
+    }
+
+    return value;
+};
+
+/**
+ * Deep clone an object using structured cloning
+ * @param obj - Object to clone
+ * @returns Deep cloned object
+ * @example
+ * const original = { a: 1, b: { c: 2 } }
+ * const cloned = deepClone(original)
+ * cloned.b.c = 3
+ * original.b.c // still 2
+ */
+// oxlint-disable-next-line max-statements
+export const deepClone = <T>(obj: T): T => {
+    if (obj === null || typeof obj !== 'object') {
+        return obj;
+    }
+
+    if (Array.isArray(obj)) {
+        return obj.map(item => deepClone(item)) as T;
+    }
+
+    if (isPlainObject(obj)) {
+        const cloned: Record<string, unknown> = {};
+        for (const [key, val] of Object.entries(obj)) {
+            cloned[key] = deepClone(val);
+        }
+        return cloned as T;
+    }
+
+    if (typeof structuredClone === 'function') {
+        return structuredClone(obj);
+    }
+
+    return obj;
+};

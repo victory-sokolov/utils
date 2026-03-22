@@ -3,10 +3,12 @@
 import { describe, expect, it } from 'vitest';
 import {
     hasProperty,
+    isBlank,
     isBoolean,
     isBrowser,
     isDate,
     isDef,
+    isEmpty,
     isFunction,
     isHtmlElement,
     isJsObject,
@@ -238,6 +240,48 @@ describe('test is utils', () => {
             expect(isTruthyAndNotEmpty(true)).toBe(true);
             expect(isTruthyAndNotEmpty(new Date())).toBe(true);
             expect(isTruthyAndNotEmpty(/a/)).toBe(true);
+        });
+    });
+
+    describe('isEmpty', () => {
+        it('should return true for null, undefined, empty string', () => {
+            expect(isEmpty(null)).toBe(true);
+            expect(isEmpty(undefined)).toBe(true);
+            expect(isEmpty('')).toBe(true);
+        });
+
+        it('should return true for empty arrays and objects', () => {
+            expect(isEmpty([])).toBe(true);
+            expect(isEmpty({})).toBe(true);
+        });
+
+        it('should return false for 0 and false', () => {
+            expect(isEmpty(0)).toBe(false);
+            expect(isEmpty(false)).toBe(false);
+        });
+
+        it('should return false for non-empty values', () => {
+            expect(isEmpty('hello')).toBe(false);
+            expect(isEmpty([1])).toBe(false);
+            expect(isEmpty({ a: 1 })).toBe(false);
+        });
+    });
+
+    describe('isBlank', () => {
+        it('should return true for null, undefined, empty string', () => {
+            expect(isBlank(null)).toBe(true);
+            expect(isBlank(undefined)).toBe(true);
+            expect(isBlank('')).toBe(true);
+        });
+
+        it('should return false for 0 and false', () => {
+            expect(isBlank(0)).toBe(false);
+            expect(isBlank(false)).toBe(false);
+        });
+
+        it('should return false for empty arrays and objects', () => {
+            expect(isBlank([])).toBe(false);
+            expect(isBlank({})).toBe(false);
         });
     });
 });

@@ -185,3 +185,51 @@ export const isPlainObject = (val: unknown): val is Record<string, unknown> => {
     const proto = Object.getPrototypeOf(val);
     return proto === null || proto === Object.prototype;
 };
+
+/**
+ * Check if a value is empty (null, undefined, empty string, empty array, or empty plain object)
+ *
+ * @param value - The value to check
+ * @returns True if the value is empty
+ *
+ * @example
+ * isEmpty(null) // true
+ * isEmpty(undefined) // true
+ * isEmpty('') // true
+ * isEmpty([]) // true
+ * isEmpty({}) // true
+ * isEmpty(0) // false
+ * isEmpty(false) // false
+ * isEmpty('hello') // false
+ * isEmpty([1]) // false
+ * isEmpty({ a: 1 }) // false
+ */
+export const isEmpty = (value: unknown): boolean => {
+    if (isNull(value) || isUndefined(value) || value === '') {
+        return true;
+    }
+    if (Array.isArray(value)) {
+        return value.length === 0;
+    }
+    if (isPlainObject(value)) {
+        return Object.keys(value).length === 0;
+    }
+    return false;
+};
+
+/**
+ * Check if a value is blank (null, undefined, or empty string)
+ * Preserves 0 and false unlike falsy checks
+ *
+ * @param value - The value to check
+ * @returns True if the value is blank
+ *
+ * @example
+ * isBlank(null) // true
+ * isBlank(undefined) // true
+ * isBlank('') // true
+ * isBlank(0) // false
+ * isBlank(false) // false
+ */
+export const isBlank = (value: unknown): boolean =>
+    isNull(value) || isUndefined(value) || value === '';
