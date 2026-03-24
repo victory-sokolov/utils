@@ -12,7 +12,7 @@ const devices = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
  */
 export const dataToFile = (content: ArrayBuffer, fileName: string, contentType: string): void => {
     const anchor = document.createElement('a');
-    const file = new Blob([ content ], { type: contentType });
+    const file = new Blob([content], { type: contentType });
     anchor.href = URL.createObjectURL(file);
     anchor.download = fileName;
     anchor.click();
