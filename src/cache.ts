@@ -1,16 +1,16 @@
-type Optional<T> = T | undefined;
+import type { Maybe } from './types';
 
 interface CacheAPI<T = unknown> {
     set: (key: string, value: T) => void;
     has: (key: string) => boolean;
-    get: (key: string) => Optional<T>;
+    get: (key: string) => Maybe<T>;
     remove: (key: string) => void;
 }
 
 export const cache = <T = unknown>(): CacheAPI<T> => {
     const store = new Map<string, T>();
 
-    const get = (key: string): Optional<T> => {
+    const get = (key: string): Maybe<T> => {
         if (store.has(key)) {
             return store.get(key);
         }

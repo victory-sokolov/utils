@@ -1,3 +1,5 @@
+import type { RecordObject } from '@/types';
+
 import { kebabCase } from '@/string.js';
 
 /**
@@ -23,7 +25,7 @@ export const $$ = (
 ): NodeListOf<HTMLElement> => context.querySelectorAll(selector);
 
 // Styles
-export const style = (el: HTMLElement, styles: Record<string, string>): void => {
+export const style = (el: HTMLElement, styles: RecordObject<string, string>): void => {
     for (const name of Object.keys(styles)) {
         const value = styles[name];
         if (value) {

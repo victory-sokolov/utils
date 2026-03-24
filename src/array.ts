@@ -1,4 +1,4 @@
-import type { Collection, IndexCallback, RecordObject } from './types';
+import type { Collection, IndexCallback, Maybe, RecordObject } from './types';
 import { hasProperty, isString } from './is';
 
 /**
@@ -185,7 +185,7 @@ const resolveIndex = <T>(index: number | IndexCallback<T>, arr: T[]): number => 
  */
 const getValidIndex = <T>(
     index: number | IndexCallback<T>,
-    arr: T[] | null | undefined,
+    arr: Maybe<T[]>,
     allowEnd = false,
 ): number => {
     if (!arr) {
@@ -208,7 +208,7 @@ const getValidIndex = <T>(
  */
 const modifyAtIndex = <T>(
     index: number | IndexCallback<T>,
-    arr: T[] | null | undefined,
+    arr: Maybe<T[]>,
     modifier: (arr: T[], indexAt: number) => T[],
 ): T[] => {
     if (!arr) {
@@ -231,7 +231,7 @@ const modifyAtIndex = <T>(
 export const insertItemAtIndex = <T>(
     index: number | IndexCallback<T>,
     value: T,
-    arr?: T[] | null,
+    arr?: Maybe<T[]>,
 ): T[] => {
     if (!arr) {
         return [];
@@ -253,7 +253,7 @@ export const insertItemAtIndex = <T>(
 export const replaceItemAtIndex = <T>(
     index: number | IndexCallback<T>,
     newValue: T,
-    arr?: T[] | null,
+    arr?: Maybe<T[]>,
 ): T[] =>
     modifyAtIndex(index, arr, (array, idx) => [
         ...array.slice(0, idx),
@@ -267,7 +267,7 @@ export const replaceItemAtIndex = <T>(
  * @param arr - The array to remove from
  * @returns New array with the item removed
  */
-export const removeItemAtIndex = <T>(index: number | IndexCallback<T>, arr?: T[] | null): T[] =>
+export const removeItemAtIndex = <T>(index: number | IndexCallback<T>, arr?: Maybe<T[]>): T[] =>
     modifyAtIndex(index, arr, (array, idx) => [...array.slice(0, idx), ...array.slice(idx + 1)]);
 
 /**

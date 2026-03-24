@@ -1,3 +1,5 @@
+import type { Maybe } from './types';
+
 /**
  * Get country name from ISO code
  * @param iso ISO code
@@ -5,7 +7,7 @@
  * @example
  * getCountryFromISO('US'); // 'United States'
  */
-export const getCountryFromISO = (iso: string): string | undefined => {
+export const getCountryFromISO = (iso: string): Maybe<string> => {
     const languageNames = new Intl.DisplayNames(['en'], { type: 'region' });
     return languageNames.of(iso.toUpperCase());
 };

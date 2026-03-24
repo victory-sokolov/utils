@@ -1,3 +1,5 @@
+import type { Maybe } from './types';
+
 type NumberRange = `${string}-${string}` | `${string},${string}` | string;
 
 /**
@@ -44,7 +46,7 @@ const MEGA = 1_000_000;
  * @param amount amount as string
  * @returns Formatted number
  */
-export const nFormatter = (amount: string | null | undefined): number => {
+export const nFormatter = (amount: Maybe<string>): number => {
     if (!amount) {
         return 0;
     }

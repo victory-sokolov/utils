@@ -1,3 +1,5 @@
+import type { RecordObject } from '@/types';
+
 type DeviceType = 'Mobile' | 'Desktop';
 
 const devices = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
@@ -10,7 +12,7 @@ const devices = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
  */
 export const dataToFile = (content: ArrayBuffer, fileName: string, contentType: string): void => {
     const anchor = document.createElement('a');
-    const file = new Blob([content], { type: contentType });
+    const file = new Blob([ content ], { type: contentType });
     anchor.href = URL.createObjectURL(file);
     anchor.download = fileName;
     anchor.click();
@@ -58,7 +60,7 @@ export const getOs = (): string => {
  * @param obj Object to export
  * @param fileName output file name
  */
-export const downloadAsJson = (obj: Record<string, unknown>, fileName: string): void => {
+export const downloadAsJson = (obj: RecordObject, fileName: string): void => {
     const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(obj))}`;
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);

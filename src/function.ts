@@ -1,3 +1,5 @@
+import type { Collection, Fn } from './types';
+
 export type AnyFunc<Args extends unknown[] = unknown[], Return = unknown> = (
     ...args: Args
 ) => Return;
@@ -23,7 +25,7 @@ type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [
  * Call every function in an array
  * @param functions List of functions to call
  */
-export const batchInvoke = (functions: (() => void)[]): void => {
+export const batchInvoke = (functions: Collection<Fn<void>>): void => {
     for (const fn of functions) {
         if (fn) {
             fn();

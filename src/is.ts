@@ -1,3 +1,5 @@
+import type { RecordObject } from './types';
+
 // Source: https://github.com/antfu/utils/blob/main/src/is.ts
 /**
  * Get the string representation of a value's type
@@ -56,7 +58,7 @@ export const isString = (val: unknown): val is string => typeof val === 'string'
  * @param val - The value to check
  * @returns True if the value is an object
  */
-export const isObject = (val: unknown): val is Record<string, unknown> =>
+export const isObject = (val: unknown): val is RecordObject =>
     typeof val === 'object' && val !== null;
 
 /**
@@ -177,7 +179,7 @@ export const isTruthyAndNotEmpty = (value: unknown): boolean => {
  * isPlainObject(null) // false
  * isPlainObject(class Foo {}) // false
  */
-export const isPlainObject = (val: unknown): val is Record<string, unknown> => {
+export const isPlainObject = (val: unknown): val is RecordObject => {
     if (typeof val !== 'object' || val === null || Array.isArray(val)) {
         return false;
     }
