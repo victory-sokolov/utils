@@ -1,3 +1,16 @@
+# [0.34.0](https://github.com/victory-sokolov/utils/compare/v0.33.0...v0.34.0) (2026-03-27)
+
+
+### Bug Fixes
+
+* use reusable types ([1956a96](https://github.com/victory-sokolov/utils/commit/1956a96a2ce69767a11e055eea8139ce7462f81b))
+* use reusable types ([ce81cbd](https://github.com/victory-sokolov/utils/commit/ce81cbd25549288727dcf7ccec3bc14f32143631))
+
+
+### Features
+
+* **cache:** add LRU cache with TTL support ([d8ddbf7](https://github.com/victory-sokolov/utils/commit/d8ddbf7e739e411ca53c31fbf78109625e47f2f0))
+
 # [0.33.0](https://github.com/victory-sokolov/utils/compare/v0.32.1...v0.33.0) (2026-03-22)
 
 
