@@ -1,3 +1,15 @@
+# [0.35.0](https://github.com/victory-sokolov/utils/compare/v0.34.0...v0.35.0) (2026-03-28)
+
+
+### Bug Fixes
+
+* update omit with proper types ([f7ee511](https://github.com/victory-sokolov/utils/commit/f7ee5119dd1c3fb666e0128ae069f9c6353e941a))
+
+
+### Features
+
+* restructure try-catch function and make it more mature ([1b69e2c](https://github.com/victory-sokolov/utils/commit/1b69e2c4efd4001251bfc381925623c74a7134b6))
+
 # [0.34.0](https://github.com/victory-sokolov/utils/compare/v0.33.0...v0.34.0) (2026-03-27)
 
 
