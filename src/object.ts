@@ -7,28 +7,37 @@ import type { RecordObject } from './types';
  * @param keys - Keys to remove from object
  * @returns Object or array of objects with keys removed
  */
-export const omit = <T extends Record<string, unknown>, K extends keyof T>(
+export function omit<T extends object, K extends keyof T>(
+    obj: T,
+    ...keys: K[]
+): Omit<T, K>;
+export function omit<T extends object, K extends keyof T>(
+    arr: T[],
+    ...keys: K[]
+): Omit<T, K>[];
+export function omit<T extends object, K extends PropertyKey>(
+    obj: T,
+    ...keys: K[]
+): Omit<T, K>;
+export function omit<T extends object, K extends PropertyKey>(
+    arr: T[],
+    ...keys: K[]
+): Omit<T, K>[];
+export function omit<T extends object, K extends PropertyKey>(
     objOrArray: T | T[],
     ...keys: K[]
-): Omit<T, K> | Omit<T, K>[] => {
-    // Function to remove keys from a single object
-    const omitKeysFromObject = (obj: T): T => {
-        const newObj: Record<string, unknown> = {};
-        for (const key in obj) {
-            if (Object.hasOwn(obj, key) && !keys.includes(key as unknown as K)) {
-                newObj[key] = obj[key];
-            }
-        }
-        return newObj as T;
+): Omit<T, K> | Omit<T, K>[] {
+    const keySet = new Set(keys.map(String));
+    const omitKeysFromObject = (obj: T): Omit<T, K> => {
+        const filtered = Object.entries(obj).filter(([key]) => !keySet.has(key));
+        return Object.fromEntries(filtered) as Omit<T, K>;
     };
 
-    // Check if input is an array of objects
     if (Array.isArray(objOrArray)) {
         return objOrArray.map(item => omitKeysFromObject(item));
     }
-    // Input is a single object
     return omitKeysFromObject(objOrArray);
-};
+}
 
 /**
  * Pick specific keys from object
