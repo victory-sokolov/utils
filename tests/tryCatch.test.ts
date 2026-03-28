@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { tryCatch } from '../src/try-catch';
+import { isFailure, isSuccess, tryCatch } from '../src/try-catch';
 
 class CustomError extends Error {
     constructor(
@@ -191,5 +191,82 @@ describe('tryCatch', () => {
             throw thrownError;
         });
         expectErrorResult(result, Error, '[object Object]', 401);
+    });
+
+    // New tests for overload behavior
+    describe('sync overload', () => {
+        it('should return Result directly (not Promise) for sync functions', () => {
+            const result = tryCatch(() => 'sync data');
+            expect(result).not.toBeInstanceOf(Promise);
+            expect(result.data).toBe('sync data');
+            expect(result.error).toBeNull();
+        });
+
+        it('should return Failure directly for sync functions that throw', () => {
+            const result = tryCatch((): string => {
+                throw new Error('sync fail');
+            });
+            expect(result).not.toBeInstanceOf(Promise);
+            expect(result.data).toBeNull();
+            expect(result.error).toBeInstanceOf(Error);
+            expect(result.error?.message).toBe('sync fail');
+        });
+    });
+
+    describe('Promise overload', () => {
+        it('should accept a Promise directly and return data on success', async () => {
+            const result = await tryCatch(Promise.resolve('promise data'));
+            expect(result.data).toBe('promise data');
+            expect(result.error).toBeNull();
+        });
+
+        it('should accept a Promise directly and handle rejection', async () => {
+            const result = await tryCatch(Promise.reject(new Error('promise fail')));
+            expect(result.data).toBeNull();
+            expect(result.error).toBeInstanceOf(Error);
+            expect(result.error?.message).toBe('promise fail');
+        });
+
+        it('should accept a Promise with custom ErrorClass', async () => {
+            const result = await tryCatch(Promise.reject(new Error('custom fail')), {
+                ErrorClass: CustomError,
+            });
+            expect(result.data).toBeNull();
+            expect(result.error).toBeInstanceOf(CustomError);
+            expect(result.error?.message).toBe('custom fail');
+        });
+    });
+
+    describe('async overload', () => {
+        it('should return a Promise for async functions', async () => {
+            const result = tryCatch(async () => 'async data');
+            expect(result).toBeInstanceOf(Promise);
+            const resolved = await result;
+            expect(resolved.data).toBe('async data');
+        });
+    });
+
+    describe('type guards', () => {
+        it('isSuccess returns true for successful results', () => {
+            const result = tryCatch(() => 'hello');
+            expect(isSuccess(result)).toBe(true);
+            expect(isFailure(result)).toBe(false);
+        });
+
+        it('isFailure returns true for failed results', () => {
+            const result = tryCatch((): string => {
+                throw new Error('fail');
+            });
+            expect(isFailure(result)).toBe(true);
+            expect(isSuccess(result)).toBe(false);
+        });
+
+        it('isSuccess returns false for async failure results', async () => {
+            const result = await tryCatch(async () => {
+                throw new Error('async fail');
+            });
+            expect(isFailure(result)).toBe(true);
+            expect(isSuccess(result)).toBe(false);
+        });
     });
 });
