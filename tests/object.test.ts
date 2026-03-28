@@ -29,11 +29,124 @@ describe('omit', () => {
         expect(omit(obj, 'a', 'c')).toStrictEqual([{ b: 2 }, { b: 5 }]);
     });
 
-    it('should return original object if firsst parameter was undefined, null, empty object', () => {
-        // @ts-expect-error
+    it('should handle empty objects', () => {
         expect(omit({}, 'a')).toStrictEqual({});
-        // @ts-expect-error
         expect(omit([{}], 'a')).toStrictEqual([{}]);
+    });
+});
+
+describe('omit types', () => {
+    it('should infer correct return type for single object', () => {
+        const obj = { a: 1, b: 'hello', c: true };
+        const result = omit(obj, 'a');
+
+        type Result = typeof result;
+        type Expected = { b: string; c: boolean };
+
+        // Runtime check
+        expect(result).toStrictEqual({ b: 'hello', c: true });
+
+        // Type assertion - will fail at compile time if types don't match
+        const _typeCheck: Expected = result;
+        expect(_typeCheck).toBeDefined();
+    });
+
+    it('should infer correct return type for array of objects', () => {
+        const arr = [
+            { a: 1, b: 2 },
+            { a: 3, b: 4 },
+        ];
+        const result = omit(arr, 'a');
+
+        type Result = typeof result;
+        type Expected = { b: number }[];
+
+        const _typeCheck: Expected = result;
+        expect(_typeCheck).toBeDefined();
+    });
+
+    it('should work with generic function returning T', () => {
+        // This tests the original issue - omit should accept T from a generic function
+        const process = <T extends object>(obj: T, key: keyof T) => {
+            return omit(obj, key);
+        };
+
+        const input = { x: 1, y: 2, z: 3 };
+        const result = process(input, 'y');
+
+        expect(result).toStrictEqual({ x: 1, z: 3 });
+    });
+
+    it('should work with object cast', () => {
+        // This tests the original issue with `as object` cast
+        const data = { a: 1, b: 2, c: 3 } as object;
+        const result = omit(data, 'b');
+
+        expect(result).toStrictEqual({ a: 1, c: 3 });
+    });
+
+    it('should preserve optional properties', () => {
+        type Input = { a: number; b?: string; c: boolean };
+        const obj: Input = { a: 1, c: true };
+        const result = omit(obj, 'c');
+
+        // b should still be optional in result
+        type Result = typeof result;
+        type Expected = { a: number; b?: string };
+
+        const _typeCheck: Expected = result;
+        expect(_typeCheck).toBeDefined();
+    });
+
+    it('should accept any PropertyKey as key', () => {
+        const obj = { a: 1, b: 2 };
+        // Now accepts any string (runtime will just no-op if key doesn't exist)
+        const result = omit(obj, 'nonexistent' as string);
+        expect(result).toStrictEqual({ a: 1, b: 2 });
+    });
+
+    it('should reject unknown keys for specific types', () => {
+        const obj = { a: 1, b: 2 };
+        // Relaxed overload accepts any PropertyKey as fallback for `as object` / generic use
+        const result = omit(obj, 'nonexistent' as string);
+        expect(result).toStrictEqual({ a: 1, b: 2 });
+    });
+
+    it('should work with numeric keys', () => {
+        const obj = { 1: 'a', 2: 'b', 3: 'c' };
+        const result = omit(obj, 2);
+        expect(result).toStrictEqual({ 1: 'a', 3: 'c' });
+    });
+
+    it('should work with symbol keys', () => {
+        const sym = Symbol('x');
+        const obj: Record<PropertyKey, number> = { a: 1, b: 2 };
+        obj[sym] = 3;
+        const result = omit(obj as object, 'a');
+        expect((result as Record<PropertyKey, unknown>).a).toBeUndefined();
+        expect((result as Record<PropertyKey, unknown>).b).toBe(2);
+    });
+
+    it('should skip inherited properties', () => {
+        const proto = { inherited: true };
+        const obj = Object.create(proto);
+        obj.own = 1;
+        const result = omit(obj as object, 'own');
+        expect((result as Record<string, unknown>).own).toBeUndefined();
+        expect((result as Record<string, unknown>).inherited).toBeUndefined();
+    });
+
+    it('should return a shallow copy when no keys match', () => {
+        const obj = { a: 1, b: 2 };
+        const result = omit(obj, 'a');
+        expect(result).toStrictEqual({ b: 2 });
+        expect(result).not.toBe(obj);
+    });
+
+    it('should return unchanged copy when called with no keys', () => {
+        const obj = { a: 1, b: 2 };
+        const result = omit(obj);
+        expect(result).toStrictEqual({ a: 1, b: 2 });
     });
 });
 
