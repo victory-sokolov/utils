@@ -8,9 +8,18 @@ import type { RecordObject } from './types';
  * @returns Object or array of objects with keys removed
  */
 export function omit<T extends object, const K extends keyof T>(obj: T, ...keys: K[]): Omit<T, K>;
-export function omit<T extends object, const K extends keyof T>(arr: T[], ...keys: K[]): Omit<T, K>[];
-export function omit<T extends object, const K extends PropertyKey>(obj: T, ...keys: K[]): Omit<T, K>;
-export function omit<T extends object, const K extends PropertyKey>(arr: T[], ...keys: K[]): Omit<T, K>[];
+export function omit<T extends object, const K extends keyof T>(
+    arr: T[],
+    ...keys: K[]
+): Omit<T, K>[];
+export function omit<T extends object, const K extends PropertyKey>(
+    obj: T,
+    ...keys: K[]
+): Omit<T, K>;
+export function omit<T extends object, const K extends PropertyKey>(
+    arr: T[],
+    ...keys: K[]
+): Omit<T, K>[];
 export function omit<T extends object, K extends PropertyKey>(
     objOrArray: T | T[],
     ...keys: K[]

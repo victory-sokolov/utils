@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { addTrailingSlash, buildQueryString, getQueryParams, getUrlDomain, isValidUrl, removeQueryParam } from '../src/url';
+import {
+    addTrailingSlash,
+    buildQueryString,
+    getQueryParams,
+    getUrlDomain,
+    isValidUrl,
+    removeQueryParam,
+} from '../src/url';
 
 describe('addTrailingSlash', () => {
     it('should add a trailing slash to the url if it does not have one', () => {
@@ -33,7 +40,10 @@ describe('isValidUrl', () => {
 
 describe('getQueryParams', () => {
     it('should parse query params from URL', () => {
-        expect(getQueryParams('https://example.com?foo=bar&baz=qux')).toEqual({ foo: 'bar', baz: 'qux' });
+        expect(getQueryParams('https://example.com?foo=bar&baz=qux')).toEqual({
+            foo: 'bar',
+            baz: 'qux',
+        });
     });
 
     it('should return empty object if no query params', () => {
@@ -61,11 +71,15 @@ describe('buildQueryString', () => {
 
 describe('removeQueryParam', () => {
     it('should remove specified query param', () => {
-        expect(removeQueryParam('https://example.com?foo=bar&baz=qux', 'foo')).toBe('https://example.com?baz=qux');
+        expect(removeQueryParam('https://example.com?foo=bar&baz=qux', 'foo')).toBe(
+            'https://example.com?baz=qux',
+        );
     });
 
     it('should return original URL if param not found', () => {
-        expect(removeQueryParam('https://example.com?foo=bar', 'baz')).toBe('https://example.com?foo=bar');
+        expect(removeQueryParam('https://example.com?foo=bar', 'baz')).toBe(
+            'https://example.com?foo=bar',
+        );
     });
 
     it('should handle URL without query string', () => {
