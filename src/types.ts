@@ -22,31 +22,52 @@ export type Fn<T = void> = () => T;
  */
 export type ElementOf<T> = T extends (infer E)[] ? E : never;
 
+/**
+ * A record object with flexible key and value types
+ */
 export type RecordObject<Keys extends string | number | symbol = string, Value = unknown> = Record<
     Keys,
     Value
 >;
+
+/**
+ * Collection type alias for arrays
+ */
 export type Collection<T> = T[];
+
+/**
+ * Callable type for functions
+ */
 export type Callable = <T>(...params: Collection<T>) => T;
+
+/**
+ * Callback function type for array operations
+ */
 export type IndexCallback<T = unknown> = (value: T, index: number, obj: T[]) => unknown;
 
+/**
+ * Type to ensure a number is non-negative
+ */
 export type NonNegativeInteger<T extends number> = number extends T
     ? never
     : `${T}` extends `-${string}` | `${string}.${string}`
       ? never
       : T;
 
+/**
+ * Type representing a value that can be null or undefined
+ */
 export type Maybe<T> = T | null | undefined;
 
 /**
- * Prettify nested objects
+ * Prettify nested objects by flattening the type intersection
  */
 export type Prettify<T> = {
     [K in keyof T]: T[K];
 } & object;
 
 /**
- * Fetch response type
+ * Type representing either a successful or failed fetch response
  */
 export type FetchResponse<T> =
     | {

@@ -1,4 +1,4 @@
-import type { Collection, IndexCallback, Maybe, RecordObject } from './types';
+import type { Collection, IndexCallback, Maybe } from './types';
 import { hasProperty, isString } from './is';
 
 /**
@@ -97,7 +97,7 @@ const fSort = (firstValue: number, secondValue: number): number => {
  * @returns Sorted array
  */
 export const sort = <T extends Record<string, unknown>>(
-    arr: T[] = [],
+    arr: T[],
     fSorting?: (first: T, second: T) => number,
 ): T[] => {
     const copyArray = [...arr];
@@ -111,6 +111,7 @@ export const sort = <T extends Record<string, unknown>>(
     copyArray.sort(fn);
     return copyArray;
 };
+
 /**
  * Sort array of objects by a specific key
  * @param arr - Array to sort
@@ -118,7 +119,11 @@ export const sort = <T extends Record<string, unknown>>(
  * @param key - Key to sort by
  * @returns Sorted array of objects
  */
-export const sortBy = (arr: RecordObject[] = [], order = 1, key = ''): RecordObject[] => {
+export const sortBy = <T extends Record<string, unknown>>(
+    arr: T[] = [],
+    order = 1,
+    key = '',
+): T[] => {
     if (!isString(key) || arr.length === 0 || !hasProperty(arr[0], key)) {
         return arr;
     }

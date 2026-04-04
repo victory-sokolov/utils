@@ -103,15 +103,16 @@ export const isAsync = <T extends (...args: unknown[]) => unknown>(fn: T): boole
 
 /**
  * Pass the value through the callback, and return the value
+ * @param value The value to pass through
+ * @param callback Callback to execute with the value
+ * @returns The original value unchanged
  *
  * @example
- *
  * function createUser(name: string): User {
  *   return tap(new User, user => {
  *     user.name = name
  *   })
  * }
- *
  */
 export const tap = <T>(value: T, callback: (value: T) => void): T => {
     callback(value);

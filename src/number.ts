@@ -50,20 +50,20 @@ export const nFormatter = (amount: Maybe<string>): number => {
     if (!amount) {
         return 0;
     }
-    // eslint-disable-next-line id-length
-    const multipliers: Record<string, number> = { k: KILO, m: MEGA };
     const lastChar = (amount.at(-1) ?? '').toLowerCase();
-    const multiplier = multipliers[lastChar];
-    if (multiplier) {
-        return Number.parseFloat(amount.slice(0, -1)) * multiplier;
+    if (lastChar === 'k') {
+        return Number.parseFloat(amount.slice(0, -1)) * KILO;
+    }
+    if (lastChar === 'm') {
+        return Number.parseFloat(amount.slice(0, -1)) * MEGA;
     }
     return Number.parseFloat(amount);
 };
 
 /**
- * Generate number seequence with specific length
- * @param length
- * @returns Generate number with provided length
+ * Generate number sequence with specific length
+ * @param length Length of the number to generate
+ * @returns Number with provided length
  */
 export const generateNumberWithLength = (length: number): number => {
     if (length <= 0) {
