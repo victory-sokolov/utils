@@ -308,7 +308,7 @@ describe('test date utils', () => {
     describe('timestampIso', () => {
         it('should return a string in ISO 8601 format', () => {
             const isoRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/;
-            expect(timestampIso).toMatch(isoRegex);
+            expect(timestampIso()).toMatch(isoRegex);
         });
     });
 

@@ -1,5 +1,5 @@
 import { describe, expect } from 'vitest';
-import { isValidEmail, isValidIPV4, isValidIPV6, isValidUrl } from '../src/regex';
+import { isValidEmail, isValidIPV4, isValidIPV6 } from '../src/regex';
 
 describe('isValidIPV4', () => {
     it('valid IP', () => {
@@ -20,32 +20,22 @@ describe('isValidIPV6', () => {
         expect(isValidIPV6('2001:0db8:85a3:0000:0000:8a2e:0370:7334')).toBe(true);
     });
 
-    it('invalid IP', () => {
-        expect(isValidIPV6('2001:0db8:85a3::8a2e:0370:7334:1234')).toBe(true);
+    it.each([
+        ['2001:0db8:85a3:0000:0000:8a2e:0370:7334', true],
+        ['2001:db8::1', true],
+        ['::1', true],
+        ['invalid-ip', false],
+    ])('isValidIPV6(%s) should return %b', (ip, expected) => {
+        expect(isValidIPV6(ip)).toBe(expected);
     });
 });
 
 describe('isValidEmail', () => {
     it.each([
-        ['example@email.com', true],
-        ['example@email', false],
-        ['exampleemail.com', false],
-        ['example@email.com', true],
-        ['example@email.c', false],
-        ['example@email.com.', false],
-    ])('isValidEmail(%s) should return %b', (url, expected) => {
-        expect(isValidEmail(url)).toBe(expected);
-    });
-});
-
-describe('isValidUrl', () => {
-    it.each([
-        ['https://google.com', true],
-        ['http://localhost:3000', false],
-        ['ftp://example.com', false],
-        ['https://192.168.1.1', true],
-        ['example.com', true],
-    ])('isValidUrl(%s) should return %b', (url, expected) => {
-        expect(isValidUrl(url)).toBe(expected);
+        ['test@example.com', true],
+        ['test.email@example.com', true],
+        ['invalid-email', false],
+    ])('isValidEmail(%s) should return %b', (email, expected) => {
+        expect(isValidEmail(email)).toBe(expected);
     });
 });

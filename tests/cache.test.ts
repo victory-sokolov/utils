@@ -181,12 +181,15 @@ describe('lruCache', () => {
     });
 
     describe('TTL expiration', () => {
+        beforeEach(() => {
+            vi.useFakeTimers();
+        });
+
         afterEach(() => {
             vi.useRealTimers();
         });
 
         it('should expire entries after TTL', async () => {
-            vi.useFakeTimers();
             const shortTtlCache = lruCache<string>(10, 100);
 
             shortTtlCache.set('key', 'value');
@@ -200,7 +203,6 @@ describe('lruCache', () => {
         });
 
         it('should return false for has() on expired entries', async () => {
-            vi.useFakeTimers();
             const shortTtlCache = lruCache<string>(10, 100);
 
             shortTtlCache.set('key', 'value');
@@ -211,7 +213,6 @@ describe('lruCache', () => {
         });
 
         it('should remove expired entry from store on access', async () => {
-            vi.useFakeTimers();
             const shortTtlCache = lruCache<string>(10, 100);
 
             shortTtlCache.set('key', 'value');
@@ -254,6 +255,10 @@ describe('lruCache', () => {
 });
 
 describe('withCache', () => {
+    beforeEach(() => {
+        vi.useFakeTimers();
+    });
+
     afterEach(() => {
         vi.useRealTimers();
     });
@@ -320,8 +325,6 @@ describe('withCache', () => {
     });
 
     it('should respect cache expiration', async () => {
-        vi.useFakeTimers();
-
         const testCache = lruCache<{ cached: boolean; result: number }>(10, 100);
         let callCount = 0;
 

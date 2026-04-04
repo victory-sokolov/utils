@@ -321,11 +321,10 @@ export const countBy = (array: (number | string)[]): Record<string, number> => {
  * @returns Object with unique elements as keys and their occurrence counts as values
  */
 export const occurrenceCount = <T>(data: T[]): Record<string, number> => {
-    const uniqueItems = [...new Set(data)];
-    return Object.fromEntries(
-        uniqueItems.map(char => {
-            const count = data.filter(item => item === char).length;
-            return [char, count];
-        }),
-    );
+    const result: Record<string, number> = {};
+    for (const item of data) {
+        const key = String(item);
+        result[key] = (result[key] ?? 0) + 1;
+    }
+    return result;
 };

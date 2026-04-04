@@ -271,7 +271,7 @@ export const timestamp = (): number => Date.now();
  * Get current ISO timestamp (2025-01-26T12:42:00.123Z")
  * @returns ISO timestamp string
  */
-export const timestampIso = new Date().toISOString();
+export const timestampIso = (): string => new Date().toISOString();
 
 /**
  * Convert date to utc format

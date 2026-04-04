@@ -7,10 +7,10 @@ import type { RecordObject } from './types';
  * @param keys - Keys to remove from object
  * @returns Object or array of objects with keys removed
  */
-export function omit<T extends object, K extends keyof T>(obj: T, ...keys: K[]): Omit<T, K>;
-export function omit<T extends object, K extends keyof T>(arr: T[], ...keys: K[]): Omit<T, K>[];
-export function omit<T extends object, K extends PropertyKey>(obj: T, ...keys: K[]): Omit<T, K>;
-export function omit<T extends object, K extends PropertyKey>(arr: T[], ...keys: K[]): Omit<T, K>[];
+export function omit<T extends object, const K extends keyof T>(obj: T, ...keys: K[]): Omit<T, K>;
+export function omit<T extends object, const K extends keyof T>(arr: T[], ...keys: K[]): Omit<T, K>[];
+export function omit<T extends object, const K extends PropertyKey>(obj: T, ...keys: K[]): Omit<T, K>;
+export function omit<T extends object, const K extends PropertyKey>(arr: T[], ...keys: K[]): Omit<T, K>[];
 export function omit<T extends object, K extends PropertyKey>(
     objOrArray: T | T[],
     ...keys: K[]
@@ -33,7 +33,7 @@ export function omit<T extends object, K extends PropertyKey>(
  * @param props - Keys to select from object
  * @returns Object with selected keys
  */
-export const pick = <T extends Record<string, unknown>, K extends keyof T>(
+export const pick = <T extends Record<string, unknown>, const K extends keyof T>(
     obj: T,
     ...props: K[]
 ): { [P in K]: T[P] } => {
