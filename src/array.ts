@@ -41,10 +41,10 @@ export const removeItem = <T>(array: Collection<T>, values: T[]): Collection<T> 
  * @returns Array with randomly selected items
  */
 export const randomItem = <T>(arr: T[], count: number): T[] => {
-    if (count === 0) {
-        return arr;
+    if (!arr || arr.length === 0) {
+        return [];
     }
-    if (count > arr.length) {
+    if (count === 0 || count > arr.length) {
         return arr;
     }
 
