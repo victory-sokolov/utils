@@ -47,6 +47,6 @@ export const isFileExists = (filePath: string): Promise<boolean> =>
  */
 export const createDirIfNotExists = (dir: string): void => {
     if (!existsSync(dir)) {
-        mkdirSync(dir);
+        mkdirSync(dir, { recursive: true });
     }
 };
