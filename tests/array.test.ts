@@ -1,6 +1,8 @@
 import {
+    chunk,
     countBy,
     flattenArray,
+    groupBy,
     insertItemAtIndex,
     intersection,
     median,
@@ -457,6 +459,67 @@ describe('occurrenceCount', () => {
             2: 2,
             false: 1,
             true: 2,
+        });
+    });
+});
+
+describe('chunk', () => {
+    it('should split array into chunks of specified size', () => {
+        expect(chunk([1, 2, 3, 4, 5], 2)).toStrictEqual([[1, 2], [3, 4], [5]]);
+    });
+
+    it('should handle chunk size equal to array length', () => {
+        expect(chunk([1, 2, 3], 3)).toStrictEqual([[1, 2, 3]]);
+    });
+
+    it('should handle chunk size larger than array length', () => {
+        expect(chunk([1, 2, 3], 10)).toStrictEqual([[1, 2, 3]]);
+    });
+
+    it('should return empty array for empty input', () => {
+        expect(chunk([], 2)).toStrictEqual([]);
+    });
+
+    it('should return empty array for zero or negative chunk size', () => {
+        expect(chunk([1, 2, 3], 0)).toStrictEqual([]);
+        expect(chunk([1, 2, 3], -1)).toStrictEqual([]);
+    });
+
+    it('should handle chunk size of 1', () => {
+        expect(chunk([1, 2, 3], 1)).toStrictEqual([[1], [2], [3]]);
+    });
+});
+
+describe('groupBy', () => {
+    it('should group array items by key', () => {
+        const items = [
+            { id: 1, type: 'a' },
+            { id: 2, type: 'b' },
+            { id: 3, type: 'a' },
+        ];
+        expect(groupBy(items, item => item.type)).toStrictEqual({
+            a: [
+                { id: 1, type: 'a' },
+                { id: 3, type: 'a' },
+            ],
+            b: [{ id: 2, type: 'b' }],
+        });
+    });
+
+    it('should group by numeric key', () => {
+        expect(groupBy([1, 2, 3, 4, 5], n => (n % 2 === 0 ? 'even' : 'odd'))).toStrictEqual({
+            odd: [1, 3, 5],
+            even: [2, 4],
+        });
+    });
+
+    it('should return empty object for empty array', () => {
+        expect(groupBy([], (item: number) => item)).toStrictEqual({});
+    });
+
+    it('should handle all items in same group', () => {
+        expect(groupBy([1, 2, 3], () => 'all')).toStrictEqual({
+            all: [1, 2, 3],
         });
     });
 });

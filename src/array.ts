@@ -333,3 +333,46 @@ export const occurrenceCount = <T>(data: T[]): Record<string, number> => {
     }
     return result;
 };
+
+/**
+ * Split array into chunks of specified size
+ * @param arr - Array to split into chunks
+ * @param size - Size of each chunk
+ * @returns Array of chunks
+ * @example
+ * chunk([1, 2, 3, 4, 5], 2) // [[1, 2], [3, 4], [5]]
+ */
+export const chunk = <T>(arr: readonly T[], size: number): T[][] => {
+    if (size <= 0) {
+        return [];
+    }
+    const result: T[][] = [];
+    for (let idx = 0; idx < arr.length; idx += size) {
+        result.push(arr.slice(idx, idx + size));
+    }
+    return result;
+};
+
+/**
+ * Group array items by a key extractor function
+ * @param arr - Array to group
+ * @param getKey - Function to extract group key from each item
+ * @returns Record of arrays grouped by key
+ * @example
+ * groupBy([{id: 1, type: 'a'}, {id: 2, type: 'b'}, {id: 3, type: 'a'}], item => item.type)
+ * // { a: [{id: 1, type: 'a'}, {id: 3, type: 'a'}], b: [{id: 2, type: 'b'}] }
+ */
+export const groupBy = <T, K extends string | number | symbol>(
+    arr: readonly T[],
+    getKey: (item: T) => K,
+): Record<K, T[]> => {
+    const result: Record<K, T[]> = {} as Record<K, T[]>;
+    for (const item of arr) {
+        const key = getKey(item);
+        if (!result[key]) {
+            result[key] = [];
+        }
+        result[key].push(item);
+    }
+    return result;
+};

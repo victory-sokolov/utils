@@ -376,3 +376,21 @@ export const deepClone = <T>(obj: T): T => {
     const cache: DeepCloneCache = new WeakMap();
     return cloneValue(obj, cache);
 };
+
+/**
+ * Safely parse JSON string with fallback
+ * @param json - JSON string to parse
+ * @param fallback - Value to return if parsing fails (default: null)
+ * @returns Parsed object or fallback value
+ * @example
+ * parseJSON('{"a": 1}') // { a: 1 }
+ * parseJSON('invalid', {}) // {}
+ * parseJSON('invalid') // null
+ */
+export const parseJSON = <T = unknown>(json: string, fallback: T | null = null): T | null => {
+    try {
+        return JSON.parse(json) as T;
+    } catch {
+        return fallback;
+    }
+};

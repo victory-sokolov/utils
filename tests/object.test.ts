@@ -9,6 +9,7 @@ import {
     objectKeys,
     omit,
     omitBy,
+    parseJSON,
     pick,
     removeEmpty,
     unionWithExclusion,
@@ -441,5 +442,51 @@ describe('deepClone', () => {
         expect(cloned[0]).toBe(1);
         expect(cloned[1]).toBe(2);
         expect(cloned[2]).toBe(cloned);
+    });
+});
+
+describe('parseJSON', () => {
+    it('should parse valid JSON', () => {
+        expect(parseJSON('{"a": 1}')).toStrictEqual({ a: 1 });
+    });
+
+    it('should parse valid JSON arrays', () => {
+        expect(parseJSON('[1, 2, 3]')).toStrictEqual([1, 2, 3]);
+    });
+
+    it('should parse valid JSON strings', () => {
+        expect(parseJSON('"hello"')).toBe('hello');
+    });
+
+    it('should return fallback for invalid JSON', () => {
+        expect(parseJSON('invalid', {})).toStrictEqual({});
+    });
+
+    it('should return null as default fallback', () => {
+        expect(parseJSON('invalid')).toBeNull();
+    });
+
+    it('should return fallback for empty string', () => {
+        expect(parseJSON('', {})).toStrictEqual({});
+    });
+
+    it('should handle null input with fallback', () => {
+        expect(parseJSON('null', 'fallback')).toBeNull();
+    });
+
+    it('should parse numbers', () => {
+        expect(parseJSON('123')).toBe(123);
+    });
+
+    it('should parse booleans', () => {
+        expect(parseJSON('true')).toBe(true);
+    });
+
+    it('should use custom typed fallback', () => {
+        interface Custom {
+            x: number;
+        }
+        const result = parseJSON<Custom>('invalid', { x: 0 });
+        expect(result).toStrictEqual({ x: 0 });
     });
 });
