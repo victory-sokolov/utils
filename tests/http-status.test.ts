@@ -109,7 +109,9 @@ describe('StatusCodes and ReasonPhrases alignment', () => {
         expect(statusCodeEntries.length).toBe(reasonPhraseEntries.length);
 
         statusCodeEntries.forEach(([key, value]) => {
-            const reasonPhrase = reasonPhraseEntries.find(([, rv]) => rv === (ReasonPhrases as any)[key]);
+            const reasonPhrase = reasonPhraseEntries.find(
+                ([, rv]) => rv === (ReasonPhrases as any)[key],
+            );
             expect(reasonPhrase).toBeDefined();
         });
     });
