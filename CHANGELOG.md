@@ -1,3 +1,31 @@
+# [1.0.0](https://github.com/victory-sokolov/utils/compare/v0.35.0...v1.0.0) (2026-04-04)
+
+
+### Bug Fixes
+
+* **timestampIso:** convert to function ([605bcaa](https://github.com/victory-sokolov/utils/commit/605bcaac808dbbe11c047ccc673003e726279e82))
+
+
+### Features
+
+* add http-status codes ([7df1849](https://github.com/victory-sokolov/utils/commit/7df184999ed10d8b57e5f3e7d769523d2bbe6943))
+* add http-status codes ([f7fe517](https://github.com/victory-sokolov/utils/commit/f7fe51792b79401b59c3d9bd24a86f6c7aa9c02b))
+
+
+### BREAKING CHANGES
+
+* **timestampIso:** timestampIso is now a function that returns current ISO string
+
+feat(url): add URL utilities
+- add getQueryParams, buildQueryString, removeQueryParam, getUrlDomain
+- move isValidUrl from regex module
+
+perf(array): optimize occurrenceCount to O(n) using single-pass loop
+
+feat(object): improve type safety with const type parameter for pick and omit
+
+fix(tests): resolve fake timer issues in cache tests
+
 # [0.35.0](https://github.com/victory-sokolov/utils/compare/v0.34.0...v0.35.0) (2026-03-28)
 
 
