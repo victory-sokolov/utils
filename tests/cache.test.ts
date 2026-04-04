@@ -255,6 +255,15 @@ describe('lruCache', () => {
 });
 
 describe('withCache', () => {
+    const createTestCache = () => lruCache<{ cached: boolean; result: number }>(10, 1000);
+
+    const createTestFn =
+        (callCountRef: { current: number }) =>
+        async (x: number): Promise<number> => {
+            callCountRef.current++;
+            return x * 2;
+        };
+
     beforeEach(() => {
         vi.useFakeTimers();
     });
@@ -264,41 +273,29 @@ describe('withCache', () => {
     });
 
     it('should cache function results', async () => {
-        const testCache = lruCache<{ cached: boolean; result: number }>(10, 1000);
-        let callCount = 0;
-
-        const fn = async (x: number): Promise<number> => {
-            callCount++;
-            return x * 2;
-        };
-
-        const cachedFn = withCache(fn, testCache, x => `key:${x}`);
+        const callCount = { current: 0 };
+        const fn = createTestFn(callCount);
+        const cachedFn = withCache(fn, createTestCache(), x => `key:${x}`);
 
         const result1 = await cachedFn(5);
         expect(result1).toStrictEqual({ cached: false, result: 10 });
-        expect(callCount).toBe(1);
+        expect(callCount.current).toBe(1);
 
         const result2 = await cachedFn(5);
         expect(result2).toStrictEqual({ cached: true, result: 10 });
-        expect(callCount).toBe(1); // Not called again
+        expect(callCount.current).toBe(1);
     });
 
     it('should use different cache keys for different arguments', async () => {
-        const testCache = lruCache<{ cached: boolean; result: number }>(10, 1000);
-        let callCount = 0;
-
-        const fn = async (x: number): Promise<number> => {
-            callCount++;
-            return x * 2;
-        };
-
-        const cachedFn = withCache(fn, testCache, x => `key:${x}`);
+        const callCount = { current: 0 };
+        const fn = createTestFn(callCount);
+        const cachedFn = withCache(fn, createTestCache(), x => `key:${x}`);
 
         await cachedFn(1);
         await cachedFn(2);
-        await cachedFn(1); // Cached
+        await cachedFn(1);
 
-        expect(callCount).toBe(2);
+        expect(callCount.current).toBe(2);
     });
 
     it('should work with multiple arguments', async () => {
