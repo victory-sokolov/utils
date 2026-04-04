@@ -7,6 +7,7 @@ export * from './currency';
 export * from './date';
 export * from './function';
 export * from './html';
+export * from './http-status';
 export * from './is';
 export * from './number';
 export * from './object';
