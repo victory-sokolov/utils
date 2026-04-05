@@ -10,6 +10,7 @@
     },
     "license": "MIT",
     "homepage": "https://github.com/victory-sokolov/utils#readme",
+    "packageManager": "bun@1.3.11",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/victory-sokolov/utils.git"
