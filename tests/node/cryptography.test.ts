@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { decryptData, encryptData, hashString, validateHash } from '../../src/node/cryptography';
+import { decryptData, encryptData, hashString, nanoid, validateHash } from '../../src/node/cryptography';
 
 describe('cryptography', () => {
     describe('hashString', () => {
@@ -169,6 +169,39 @@ describe('cryptography', () => {
                 const tamperedEncrypted = `${encrypted.slice(0, -5)}AAAAA`;
                 return expect(decryptData(tamperedEncrypted, secretKey)).rejects.toThrow();
             });
+        });
+    });
+
+    describe('nanoid', () => {
+        it('should generate a string of default length 21', () => {
+            const id = nanoid();
+            expect(id).toBeTypeOf('string');
+            expect(id.length).toBe(21);
+        });
+
+        it('should generate a string of custom length', () => {
+            const customLength = 10;
+            const id = nanoid(customLength);
+            expect(id.length).toBe(customLength);
+        });
+
+        it('should generate unique IDs', () => {
+            const id1 = nanoid();
+            const id2 = nanoid();
+            expect(id1).not.toStrictEqual(id2);
+        });
+
+        it('should only contain characters from the allowed alphabet', () => {
+            const alphabet = 'useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzict';
+            const id = nanoid(100);
+            for (const char of id) {
+                expect(alphabet.includes(char)).toBe(true);
+            }
+        });
+
+        it('should return empty string for size 0', () => {
+            const id = nanoid(0);
+            expect(id).toBe('');
         });
     });
 });
