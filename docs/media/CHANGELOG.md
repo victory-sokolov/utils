@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/victory-sokolov/utils/compare/v1.0.0...v1.1.0) (2026-04-04)
+
+
+### Bug Fixes
+
+* randomItem ([5c2dc54](https://github.com/victory-sokolov/utils/commit/5c2dc54cb7ed1d392364dfdad5337a7588fcc64b))
+* **tests:** remove duplicate code in cache tests ([60b2a61](https://github.com/victory-sokolov/utils/commit/60b2a61c6bd23e6e11688fae9726c19512da5818))
+
+
+### Features
+
+* **array:** add chunk and groupBy functions ([216589e](https://github.com/victory-sokolov/utils/commit/216589e168cd1773029dbc5a4e8fe44cf49505d5))
+
 # [1.0.0](https://github.com/victory-sokolov/utils/compare/v0.35.0...v1.0.0) (2026-04-04)
 
 
