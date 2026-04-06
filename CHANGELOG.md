@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/victory-sokolov/utils/compare/v1.1.0...v1.2.0) (2026-04-06)
+
+
+### Features
+
+* add nanoid function ([cfe5194](https://github.com/victory-sokolov/utils/commit/cfe51944240a000b1c29ab8446ee21d1c9e0671b))
+
 # [1.1.0](https://github.com/victory-sokolov/utils/compare/v1.0.0...v1.1.0) (2026-04-04)
 
 
