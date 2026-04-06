@@ -30,13 +30,19 @@
             "source": "./src/index.ts",
             "import": "./dist/index.mjs",
             "require": "./dist/index.cjs"
+        },
+        "./node": {
+            "source": "./src/node/index.ts",
+            "import": "./dist/node/index.esm",
+            "require": "./dist/node/index.cjs"
         }
     },
     "main": "dist/index.cjs",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
     "files": [
-        "dist/*"
+        "dist/*",
+        "dist/node/*"
     ],
     "scripts": {
         "build": "rollup -c",
