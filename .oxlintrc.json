@@ -40,6 +40,5 @@
         "style": "warn",
         "nursery": "warn"
     },
-    "ignorePatterns": ["docs/**", "tests/**", "**/*.cjs", "rollup.config.js", "vite.config.ts"],
-    "settings": {}
+    "ignorePatterns": ["docs/**", "tests/**", "**/*.cjs", "rollup.config.js", "vite.config.ts"]
 }
