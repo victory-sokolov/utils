@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "composite": true,
         "target": "es2017",
         "lib": [
             "esnext",
@@ -22,7 +23,7 @@
         "strictNullChecks": true,
         "allowUnreachableCode": false,
         "noUncheckedIndexedAccess": true,
-        "noUnusedLocals": false,
+        "noUnusedLocals": true,
         "declaration": true,
         "importHelpers": true,
         "noEmit": true,
@@ -34,8 +35,7 @@
         "skipLibCheck": true
     },
     "include": [
-        "src/**/*.ts",
-        "tests"
+        "src/**/*.ts"
     ],
     "exclude": [
         "node_modules",

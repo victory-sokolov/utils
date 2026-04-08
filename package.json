@@ -1,7 +1,7 @@
 {
     "name": "@vsokolov/utils",
     "type": "module",
-    "version": "1.2.1",
+    "version": "1.2.0",
     "private": false,
     "description": "Various TypeScript/JavaScripts utils functions for node and browser",
     "author": {
@@ -25,6 +25,9 @@
         "nodejs utils"
     ],
     "sideEffects": false,
+    "engines": {
+        "node": ">=20"
+    },
     "exports": {
         ".": {
             "source": "./src/index.ts",
@@ -34,15 +37,16 @@
         "./node": {
             "source": "./src/node/index.ts",
             "import": "./dist/node/index.esm",
-            "require": "./dist/node/index.cjs"
-        }
+            "require": "./dist/node/index.cjs",
+            "types": "./dist/node/index.d.ts"
+        },
+        "./package.json": "./package.json"
     },
     "main": "dist/index.cjs",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
     "files": [
-        "dist/*",
-        "dist/node/*"
+        "dist/*"
     ],
     "scripts": {
         "build": "rollup -c",

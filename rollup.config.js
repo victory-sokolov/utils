@@ -24,7 +24,7 @@ const plugins = [
     commonjs(),
     esbuild({
         minify: true,
-        target: 'node16',
+        target: 'node22',
     }),
 ];
 
