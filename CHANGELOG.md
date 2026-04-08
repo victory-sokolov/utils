@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/victory-sokolov/utils/compare/v1.2.0...v1.2.1) (2026-04-08)
+
+
+### Bug Fixes
+
+* export node modules ([d7effa4](https://github.com/victory-sokolov/utils/commit/d7effa4e7094f6ab7fb9940ce4dd588e5e048360))
 
 ### Bug Fixes
 
