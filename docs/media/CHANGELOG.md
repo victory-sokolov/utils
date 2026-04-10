@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/victory-sokolov/utils/compare/v1.4.0...v1.4.1) (2026-04-10)
+
+
+### Bug Fixes
+
+* move nanoid to crypto module in order to use in the browser ([c245e3e](https://github.com/victory-sokolov/utils/commit/c245e3e6491f7fbbdd87355175bde591af14c94a))
+
 # [1.4.0](https://github.com/victory-sokolov/utils/compare/v1.3.0...v1.4.0) (2026-04-10)
 
 
