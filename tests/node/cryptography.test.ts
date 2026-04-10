@@ -176,6 +176,14 @@ describe('cryptography', () => {
                 return expect(decryptData(tamperedEncrypted, secretKey)).rejects.toThrow();
             });
         });
+
+        it('should reject Promise for decryptData with too short encrypted data', () => {
+            // Create data shorter than SALT_LENGTH + IV_LENGTH (16 + 12 = 28 bytes)
+            const tooShortData = Buffer.from('short').toString('base64');
+            return expect(decryptData(tooShortData, secretKey)).rejects.toThrow(
+                'encryptedData is too short or malformed',
+            );
+        });
     });
 
     describe('nanoid', () => {
