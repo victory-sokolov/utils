@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/victory-sokolov/utils/compare/v1.4.1...v1.4.2) (2026-04-10)
+
+
+### Bug Fixes
+
+* randomItem should return unique elements ([9f0c002](https://github.com/victory-sokolov/utils/commit/9f0c002b3b2fd8489197624cb0ec27fa2032cc0f))
+
 ## [1.4.1](https://github.com/victory-sokolov/utils/compare/v1.4.0...v1.4.1) (2026-04-10)
 
 
