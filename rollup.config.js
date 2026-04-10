@@ -24,7 +24,8 @@ const plugins = [
     commonjs(),
     esbuild({
         minify: true,
-        target: 'node22',
+        target: 'es2020',
+        treeShaking: true,
     }),
 ];
 
