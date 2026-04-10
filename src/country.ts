@@ -1,5 +1,7 @@
 import type { Maybe } from './types';
 
+export { COUNTRY_NAMES } from './countries';
+
 /**
  * Get country name from ISO code
  * @param iso ISO code
