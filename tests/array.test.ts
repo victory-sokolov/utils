@@ -16,6 +16,7 @@ import {
     sortAsc,
     sortBy,
     unique,
+    zip,
 } from '../src/array';
 
 describe('flattenArray', () => {
@@ -521,5 +522,41 @@ describe('groupBy', () => {
         expect(groupBy([1, 2, 3], () => 'all')).toStrictEqual({
             all: [1, 2, 3],
         });
+    });
+});
+
+describe('zip', () => {
+    it('should zip two arrays of equal length', () => {
+        expect(zip([1, 2, 3], ['a', 'b', 'c'])).toStrictEqual([
+            [1, 'a'],
+            [2, 'b'],
+            [3, 'c'],
+        ]);
+    });
+
+    it('should zip three arrays of equal length', () => {
+        expect(zip([1, 2], ['a', 'b'], [true, false])).toStrictEqual([
+            [1, 'a', true],
+            [2, 'b', false],
+        ]);
+    });
+
+    it('should zip arrays of unequal length (truncate to shortest)', () => {
+        expect(zip([1, 2, 3], ['a', 'b'])).toStrictEqual([
+            [1, 'a'],
+            [2, 'b'],
+        ]);
+    });
+
+    it('should return empty array when given empty arrays', () => {
+        expect(zip([], [])).toStrictEqual([]);
+    });
+
+    it('should return empty array when no arrays provided', () => {
+        expect(zip()).toStrictEqual([]);
+    });
+
+    it('should handle single array', () => {
+        expect(zip([1, 2, 3])).toStrictEqual([[1], [2], [3]]);
     });
 });

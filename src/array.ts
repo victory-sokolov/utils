@@ -8,13 +8,18 @@ import { hasProperty, isString } from './is';
  */
 export const flattenArray = <T>(listOfArrays: readonly T[]): T[] => {
     const result: T[] = [];
-    for (const arr of listOfArrays) {
-        if (Array.isArray(arr)) {
-            result.push(...flattenArray(arr));
-        } else {
-            result.push(arr);
+
+    const flatten = (items: readonly T[]): void => {
+        for (const item of items) {
+            if (Array.isArray(item)) {
+                flatten(item);
+            } else {
+                result.push(item);
+            }
         }
-    }
+    };
+
+    flatten(listOfArrays);
     return result;
 };
 
@@ -374,5 +379,31 @@ export const groupBy = <T, K extends string | number | symbol>(
         }
         result[key].push(item);
     }
+    return result;
+};
+
+/**
+ * Zip multiple arrays together into an array of tuples
+ * @param arrays - Arrays to zip together
+ * @returns Array of tuples where each tuple contains one element from each input array
+ * @example
+ * zip([1, 2, 3], ['a', 'b', 'c']) // [[1, 'a'], [2, 'b'], [3, 'c']]
+ * zip([1, 2], ['a', 'b'], [true, false]) // [[1, 'a', true], [2, 'b', false]]
+ */
+export const zip = <T extends readonly unknown[]>(
+    ...arrays: { [K in keyof T]: readonly T[K][] }
+): T[] => {
+    if (arrays.length === 0) {
+        return [];
+    }
+
+    const minLength = Math.min(...arrays.map(arr => arr.length));
+    const result: T[] = [];
+
+    for (let index = 0; index < minLength; index += 1) {
+        const tuple = arrays.map(arr => arr[index]) as unknown as T;
+        result.push(tuple);
+    }
+
     return result;
 };
