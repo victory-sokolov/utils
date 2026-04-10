@@ -28,9 +28,8 @@ export const showPosition = (
  * Returns coordinates
  * @returns Promise with latitude and longitude properties
  */
-// eslint-disable-next-line arrow-body-style
-export const getLocation = (): Promise<{ latitude: number; longitude: number }> => {
-    return new Promise((resolve, reject) => {
+export const getLocation = (): Promise<{ latitude: number; longitude: number }> =>
+    new Promise((resolve, reject) => {
         if (!navigator.geolocation) {
             reject(new Error('Geolocation is not supported by this browser.'));
             return;
@@ -40,7 +39,6 @@ export const getLocation = (): Promise<{ latitude: number; longitude: number }> 
             error => reject(error),
         );
     });
-};
 
 /**
  * Get flag emoji from country code
