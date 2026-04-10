@@ -148,22 +148,3 @@ export const decryptData = (encryptedData: string, secretKey: string): Promise<s
             .then(decrypted => new TextDecoder().decode(decrypted)),
     );
 };
-
-/**
- * Generates a secure, URL-friendly unique identifier using cryptographic random bytes.
- * @param size - Length of the generated ID (default: 21, produces ~126 bits of entropy)
- * @returns A random string from the provided alphabet
- */
-export const nanoid = (size = 21): string => {
-    const alphabet = 'useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzict';
-    const bytes = nodeCrypto.randomBytes(size);
-    let id = '';
-
-    const bytesArray = [...bytes];
-    for (let index = 0; index < size; index += 1) {
-        const byte = bytesArray[index] ?? 0;
-        id += alphabet[byte % alphabet.length];
-    }
-
-    return id;
-};
