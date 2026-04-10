@@ -57,6 +57,18 @@ Or import individual functions for better tree-shaking:
 import { flattenArray, formatDate, isString } from '@vsokolov/utils';
 ```
 
+#### Node-only utilities
+
+Use the root package for browser and React Native compatible helpers.
+
+Import Node-only helpers from the `/node` subpath:
+
+```typescript
+import { hashString, validateHash, nanoid } from '@vsokolov/utils/node';
+```
+
+This keeps Node built-ins like `fs`, `crypto`, `buffer`, and `process` out of browser and mobile bundles.
+
 ### Examples
 
 #### Array Utilities
