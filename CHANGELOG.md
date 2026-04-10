@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/victory-sokolov/utils/compare/v1.2.1...v1.3.0) (2026-04-10)
+
+
+### Bug Fixes
+
+* linter issue ([3e75420](https://github.com/victory-sokolov/utils/commit/3e75420873cee3c80254c1da241b62c717c3a201))
+
+
+### Features
+
+* add zip function for arrays ([2f43a62](https://github.com/victory-sokolov/utils/commit/2f43a628e1a337a3e9eaec9d18c7ae5235c13304))
+
 ## [1.2.1](https://github.com/victory-sokolov/utils/compare/v1.2.0...v1.2.1) (2026-04-08)
 
 
