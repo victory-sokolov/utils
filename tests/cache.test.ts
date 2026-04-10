@@ -181,12 +181,15 @@ describe('lruCache', () => {
     });
 
     describe('TTL expiration', () => {
+        let mockNow: number;
+
         beforeEach(() => {
-            vi.useFakeTimers();
+            mockNow = 1000;
+            vi.spyOn(Date, 'now').mockImplementation(() => mockNow);
         });
 
         afterEach(() => {
-            vi.useRealTimers();
+            vi.restoreAllMocks();
         });
 
         it('should expire entries after TTL', async () => {
@@ -195,10 +198,10 @@ describe('lruCache', () => {
             shortTtlCache.set('key', 'value');
             expect(shortTtlCache.get('key')).toBe('value');
 
-            vi.advanceTimersByTime(50);
+            mockNow = 1050; // Advance 50ms
             expect(shortTtlCache.get('key')).toBe('value');
 
-            vi.advanceTimersByTime(51); // Total 101ms
+            mockNow = 1101; // Total 101ms
             expect(shortTtlCache.get('key')).toBeNull();
         });
 
@@ -208,7 +211,7 @@ describe('lruCache', () => {
             shortTtlCache.set('key', 'value');
             expect(shortTtlCache.has('key')).toBe(true);
 
-            vi.advanceTimersByTime(101);
+            mockNow = 1101;
             expect(shortTtlCache.has('key')).toBe(false);
         });
 
@@ -218,7 +221,7 @@ describe('lruCache', () => {
             shortTtlCache.set('key', 'value');
             expect(shortTtlCache.size).toBe(1);
 
-            vi.advanceTimersByTime(101);
+            mockNow = 1101;
             shortTtlCache.get('key');
             expect(shortTtlCache.size).toBe(0);
         });
@@ -264,12 +267,15 @@ describe('withCache', () => {
             return x * 2;
         };
 
+    let mockNow: number;
+
     beforeEach(() => {
-        vi.useFakeTimers();
+        mockNow = 1000;
+        vi.spyOn(Date, 'now').mockImplementation(() => mockNow);
     });
 
     afterEach(() => {
-        vi.useRealTimers();
+        vi.restoreAllMocks();
     });
 
     it('should cache function results', async () => {
@@ -335,7 +341,7 @@ describe('withCache', () => {
         await cachedFn();
         expect(callCount).toBe(1);
 
-        vi.advanceTimersByTime(101);
+        mockNow = 1101; // Advance past TTL
 
         await cachedFn();
         expect(callCount).toBe(2); // Called again after expiration

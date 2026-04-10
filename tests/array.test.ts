@@ -67,16 +67,25 @@ describe('randomItem', () => {
         expect(randomItem([1, 2, 3, 4, 5], 1)).toHaveLength(1);
     });
 
-    it('should return an empty array if count is 0', () => {
+    it('should return the original array if count is 0', () => {
         expect(randomItem([1, 2, 3, 4, 5], 0)).toStrictEqual([1, 2, 3, 4, 5]);
     });
 
-    it('should return the original array if count is greater than the length of the array', () => {
+    it('should return the original array if count is greater than or equal to the length of the array', () => {
         expect(randomItem([1, 2, 3, 4, 5], 10)).toStrictEqual([1, 2, 3, 4, 5]);
+        expect(randomItem([1, 2, 3], 3)).toStrictEqual([1, 2, 3]);
     });
 
     it('should return an empty array if the input array is empty', () => {
         expect(randomItem([], 1)).toStrictEqual([]);
+    });
+
+    it('should return unique items', () => {
+        const arr = [1, 2, 3, 4, 5];
+        const result = randomItem(arr, 3);
+        expect(result).toHaveLength(3);
+        expect(new Set(result).size).toBe(3); // All unique
+        result.forEach(item => expect(arr).toContain(item));
     });
 });
 

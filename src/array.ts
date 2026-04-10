@@ -40,23 +40,22 @@ export const removeItem = <T>(array: Collection<T>, values: T[]): Collection<T> 
     array.filter(item => !values.includes(item));
 
 /**
- * Get random items from array
+ * Get random unique items from array
  * @param arr - Array of items
  * @param count - Amount of items to select from array
- * @returns Array with randomly selected items
+ * @returns Array with randomly selected unique items
  */
 export const randomItem = <T>(arr: T[], count: number): T[] => {
     if (!arr || arr.length === 0) {
         return [];
     }
-    if (count === 0 || count > arr.length) {
-        return arr;
+    if (count === 0 || count >= arr.length) {
+        return [...arr];
     }
 
-    return Array.from(
-        { length: count },
-        () => arr[Math.round(Math.random() * (arr.length - 1))] as T,
-    );
+    // Create a shuffled copy and take the first 'count' items for uniqueness
+    const shuffled = [...arr].toSorted(() => Math.random() - 0.5);
+    return shuffled.slice(0, count);
 };
 
 /**
@@ -113,8 +112,7 @@ export const sort = <T extends Record<string, unknown>>(
             const valB = Number(Object.values(second)[0]);
             return fSort(valA, valB);
         });
-    copyArray.sort(fn);
-    return copyArray;
+    return copyArray.toSorted(fn);
 };
 
 /**

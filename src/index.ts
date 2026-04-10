@@ -16,3 +16,4 @@ export * from './string';
 export * from './try-catch';
 export * from './types';
 export * from './url';
+export * from './crypto';
