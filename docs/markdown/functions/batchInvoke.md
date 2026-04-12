@@ -8,7 +8,7 @@
 
 > **batchInvoke**(`functions`): `void`
 
-Defined in: [function.ts:28](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/function.ts#L28)
+Defined in: [function.ts:28](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/function.ts#L28)
 
 Call every function in an array
 

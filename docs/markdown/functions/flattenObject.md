@@ -8,7 +8,7 @@
 
 > **flattenObject**(`obj`): [`RecordObject`](../types/RecordObject.md)
 
-Defined in: [object.ts:58](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/object.ts#L58)
+Defined in: [object.ts:58](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/object.ts#L58)
 
 Flatten nested objects into a single object
 

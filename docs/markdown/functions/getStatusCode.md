@@ -8,7 +8,7 @@
 
 > **getStatusCode**(`reasonPhrase`): [`StatusCodes`](../enums/StatusCodes.md) \| `undefined`
 
-Defined in: [http-status.ts:419](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/http-status.ts#L419)
+Defined in: [http-status.ts:419](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L419)
 
 ## Parameters
 

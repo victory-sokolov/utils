@@ -6,7 +6,7 @@
 
 # Interface: CacheAPI\<T\>
 
-Defined in: [cache.ts:3](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/cache.ts#L3)
+Defined in: [cache.ts:3](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/cache.ts#L3)
 
 ## Extended by
 
@@ -24,7 +24,7 @@ Defined in: [cache.ts:3](https://github.com/victory-sokolov/utils/blob/aec88aef4
 
 > **clear**: () => `void`
 
-Defined in: [cache.ts:4](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/cache.ts#L4)
+Defined in: [cache.ts:4](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/cache.ts#L4)
 
 #### Returns
 
@@ -36,7 +36,7 @@ Defined in: [cache.ts:4](https://github.com/victory-sokolov/utils/blob/aec88aef4
 
 > **get**: (`key`) => [`Maybe`](../types/Maybe.md)\<`T`\>
 
-Defined in: [cache.ts:5](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/cache.ts#L5)
+Defined in: [cache.ts:5](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/cache.ts#L5)
 
 #### Parameters
 
@@ -54,7 +54,7 @@ Defined in: [cache.ts:5](https://github.com/victory-sokolov/utils/blob/aec88aef4
 
 > **has**: (`key`) => `boolean`
 
-Defined in: [cache.ts:6](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/cache.ts#L6)
+Defined in: [cache.ts:6](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/cache.ts#L6)
 
 #### Parameters
 
@@ -72,7 +72,7 @@ Defined in: [cache.ts:6](https://github.com/victory-sokolov/utils/blob/aec88aef4
 
 > **remove**: (`key`) => `void`
 
-Defined in: [cache.ts:7](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/cache.ts#L7)
+Defined in: [cache.ts:7](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/cache.ts#L7)
 
 #### Parameters
 
@@ -90,7 +90,7 @@ Defined in: [cache.ts:7](https://github.com/victory-sokolov/utils/blob/aec88aef4
 
 > **set**: (`key`, `value`) => `void`
 
-Defined in: [cache.ts:8](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/cache.ts#L8)
+Defined in: [cache.ts:8](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/cache.ts#L8)
 
 #### Parameters
 
@@ -112,4 +112,4 @@ Defined in: [cache.ts:8](https://github.com/victory-sokolov/utils/blob/aec88aef4
 
 > `readonly` **size**: `number`
 
-Defined in: [cache.ts:9](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/cache.ts#L9)
+Defined in: [cache.ts:9](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/cache.ts#L9)

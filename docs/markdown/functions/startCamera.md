@@ -8,7 +8,7 @@
 
 > **startCamera**(`isStreaming`, `video`): `Promise`\<`void`\>
 
-Defined in: [browser/video.ts:52](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/browser/video.ts#L52)
+Defined in: [browser/video.ts:52](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/browser/video.ts#L52)
 
 Start Video stream
 

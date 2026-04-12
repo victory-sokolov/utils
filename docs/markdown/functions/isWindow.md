@@ -8,7 +8,7 @@
 
 > **isWindow**(`val`): `boolean`
 
-Defined in: [is.ts:118](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/is.ts#L118)
+Defined in: [is.ts:118](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/is.ts#L118)
 
 Check if a value is the window object
 

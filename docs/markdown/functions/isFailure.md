@@ -8,7 +8,7 @@
 
 > **isFailure**\<`T`, `E`\>(`result`): `result is Failure<E>`
 
-Defined in: [try-catch.ts:118](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/try-catch.ts#L118)
+Defined in: [try-catch.ts:118](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/try-catch.ts#L118)
 
 Type guard that checks if a Result is a Failure.
 

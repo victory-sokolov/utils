@@ -8,7 +8,7 @@
 
 > **toDollars**(`cents`, `currency?`, `locale?`): `string`
 
-Defined in: [currency.ts:17](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/currency.ts#L17)
+Defined in: [currency.ts:17](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/currency.ts#L17)
 
 Convert cents to dollars
 

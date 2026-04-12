@@ -8,7 +8,7 @@
 
 > **randomItem**\<`T`\>(`arr`, `count`): `T`[]
 
-Defined in: [array.ts:48](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/array.ts#L48)
+Defined in: [array.ts:48](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/array.ts#L48)
 
 Get random unique items from array
 
