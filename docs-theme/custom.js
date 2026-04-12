@@ -77,9 +77,9 @@
 
     const copyText = (text) => navigator.clipboard.writeText(text);
 
-    const openAssistant = (statusNode, assistantName, url) => {
-        copyText(buildPrompt());
+    const openAssistant = async (statusNode, assistantName, url) => {
         globalThis.open(url, '_blank', 'noopener,noreferrer');
+        await copyText(buildPrompt());
         setStatus(statusNode, 'Prompt copied for ' + assistantName);
     };
 
