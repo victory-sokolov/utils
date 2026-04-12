@@ -5,8 +5,6 @@
     const MENU_ID = 'ai-toolbar-menu-panel';
     const STATUS_TIMEOUT_MS = 1600;
 
-    const getPageUrl = () => globalThis.location.href;
-
     const getPathAfterDocs = (pathname, prefix) => pathname.slice(pathname.lastIndexOf(prefix) + prefix.length);
 
     const getPublishedPathname = () => {
