@@ -8,7 +8,7 @@
 
 > **Maybe**\<`T`\> = `T` \| `null` \| `undefined`
 
-Defined in: [types.ts:60](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/types.ts#L60)
+Defined in: [types.ts:60](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/types.ts#L60)
 
 Type representing a value that can be null or undefined
 

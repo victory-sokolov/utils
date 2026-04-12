@@ -6,7 +6,7 @@
 
 # Enumeration: StatusCodes
 
-Defined in: [http-status.ts:1](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L1)
+Defined in: [http-status.ts:1](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L1)
 
 ## Enumeration Members
 
@@ -14,7 +14,7 @@ Defined in: [http-status.ts:1](https://github.com/victory-sokolov/utils/blob/6f6
 
 > **CONTINUE**: `100`
 
-Defined in: [http-status.ts:7](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L7)
+Defined in: [http-status.ts:7](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L7)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.2.1
 
@@ -26,7 +26,7 @@ This interim response indicates that everything so far is OK and that the client
 
 > **SWITCHING\_PROTOCOLS**: `101`
 
-Defined in: [http-status.ts:13](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L13)
+Defined in: [http-status.ts:13](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L13)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.2.2
 
@@ -38,7 +38,7 @@ This code is sent in response to an Upgrade request header by the client, and in
 
 > **PROCESSING**: `102`
 
-Defined in: [http-status.ts:19](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L19)
+Defined in: [http-status.ts:19](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L19)
 
 Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.1
 
@@ -50,7 +50,7 @@ This code indicates that the server has received and is processing the request, 
 
 > **EARLY\_HINTS**: `103`
 
-Defined in: [http-status.ts:25](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L25)
+Defined in: [http-status.ts:25](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L25)
 
 Official Documentation @ https://www.rfc-editor.org/rfc/rfc8297#page-3
 
@@ -62,7 +62,7 @@ This code indicates to the client that the server is likely to send a final resp
 
 > **OK**: `200`
 
-Defined in: [http-status.ts:35](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L35)
+Defined in: [http-status.ts:35](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L35)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.1
 
@@ -78,7 +78,7 @@ TRACE: The message body contains the request message as received by the server
 
 > **CREATED**: `201`
 
-Defined in: [http-status.ts:41](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L41)
+Defined in: [http-status.ts:41](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L41)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.2
 
@@ -90,7 +90,7 @@ The request has succeeded and a new resource has been created as a result of it.
 
 > **ACCEPTED**: `202`
 
-Defined in: [http-status.ts:47](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L47)
+Defined in: [http-status.ts:47](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L47)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.3
 
@@ -102,7 +102,7 @@ The request has been received but not yet acted upon. It is non-committal, meani
 
 > **NON\_AUTHORITATIVE\_INFORMATION**: `203`
 
-Defined in: [http-status.ts:53](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L53)
+Defined in: [http-status.ts:53](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L53)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.4
 
@@ -114,7 +114,7 @@ This response code means returned meta-information set is not exact set as avail
 
 > **NO\_CONTENT**: `204`
 
-Defined in: [http-status.ts:59](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L59)
+Defined in: [http-status.ts:59](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L59)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.5
 
@@ -126,7 +126,7 @@ There is no content to send for this request, but the headers may be useful. The
 
 > **RESET\_CONTENT**: `205`
 
-Defined in: [http-status.ts:65](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L65)
+Defined in: [http-status.ts:65](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L65)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.6
 
@@ -138,7 +138,7 @@ This response code is sent after accomplishing request to tell user agent reset 
 
 > **PARTIAL\_CONTENT**: `206`
 
-Defined in: [http-status.ts:71](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L71)
+Defined in: [http-status.ts:71](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L71)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7233#section-4.1
 
@@ -150,7 +150,7 @@ This response code is used because of range header sent by the client to separat
 
 > **MULTI\_STATUS**: `207`
 
-Defined in: [http-status.ts:77](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L77)
+Defined in: [http-status.ts:77](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L77)
 
 Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.2
 
@@ -162,7 +162,7 @@ A Multi-Status response conveys information about multiple resources in situatio
 
 > **MULTIPLE\_CHOICES**: `300`
 
-Defined in: [http-status.ts:83](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L83)
+Defined in: [http-status.ts:83](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L83)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.1
 
@@ -174,7 +174,7 @@ The request has more than one possible responses. User-agent or user should choo
 
 > **MOVED\_PERMANENTLY**: `301`
 
-Defined in: [http-status.ts:89](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L89)
+Defined in: [http-status.ts:89](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L89)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.2
 
@@ -186,7 +186,7 @@ This response code means that URI of requested resource has been changed. Probab
 
 > **MOVED\_TEMPORARILY**: `302`
 
-Defined in: [http-status.ts:95](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L95)
+Defined in: [http-status.ts:95](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L95)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.3
 
@@ -198,7 +198,7 @@ This response code means that URI of requested resource has been changed tempora
 
 > **SEE\_OTHER**: `303`
 
-Defined in: [http-status.ts:101](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L101)
+Defined in: [http-status.ts:101](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L101)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.4
 
@@ -210,7 +210,7 @@ Server sent this response to directing client to get requested resource to anoth
 
 > **NOT\_MODIFIED**: `304`
 
-Defined in: [http-status.ts:107](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L107)
+Defined in: [http-status.ts:107](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L107)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7232#section-4.1
 
@@ -222,7 +222,7 @@ This is used for caching purposes. It is telling to client that response has not
 
 > **USE\_PROXY**: `305`
 
-Defined in: [http-status.ts:114](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L114)
+Defined in: [http-status.ts:114](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L114)
 
 #### Deprecated
 
@@ -236,7 +236,7 @@ Was defined in a previous version of the HTTP specification to indicate that a r
 
 > **TEMPORARY\_REDIRECT**: `307`
 
-Defined in: [http-status.ts:120](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L120)
+Defined in: [http-status.ts:120](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L120)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.4.7
 
@@ -248,7 +248,7 @@ Server sent this response to directing client to get requested resource to anoth
 
 > **PERMANENT\_REDIRECT**: `308`
 
-Defined in: [http-status.ts:126](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L126)
+Defined in: [http-status.ts:126](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L126)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7538#section-3
 
@@ -260,7 +260,7 @@ This means that the resource is now permanently located at another URI, specifie
 
 > **BAD\_REQUEST**: `400`
 
-Defined in: [http-status.ts:132](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L132)
+Defined in: [http-status.ts:132](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L132)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.1
 
@@ -272,7 +272,7 @@ This response means that server could not understand the request due to invalid 
 
 > **UNAUTHORIZED**: `401`
 
-Defined in: [http-status.ts:138](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L138)
+Defined in: [http-status.ts:138](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L138)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7235#section-3.1
 
@@ -284,7 +284,7 @@ Although the HTTP standard specifies "unauthorized", semantically this response 
 
 > **PAYMENT\_REQUIRED**: `402`
 
-Defined in: [http-status.ts:144](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L144)
+Defined in: [http-status.ts:144](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L144)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.2
 
@@ -296,7 +296,7 @@ This response code is reserved for future use. Initial aim for creating this cod
 
 > **FORBIDDEN**: `403`
 
-Defined in: [http-status.ts:150](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L150)
+Defined in: [http-status.ts:150](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L150)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.3
 
@@ -308,7 +308,7 @@ The client does not have access rights to the content, i.e. they are unauthorize
 
 > **NOT\_FOUND**: `404`
 
-Defined in: [http-status.ts:156](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L156)
+Defined in: [http-status.ts:156](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L156)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.4
 
@@ -320,7 +320,7 @@ The server can not find requested resource. In the browser, this means the URL i
 
 > **METHOD\_NOT\_ALLOWED**: `405`
 
-Defined in: [http-status.ts:162](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L162)
+Defined in: [http-status.ts:162](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L162)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.5
 
@@ -332,7 +332,7 @@ The request method is known by the server but has been disabled and cannot be us
 
 > **NOT\_ACCEPTABLE**: `406`
 
-Defined in: [http-status.ts:168](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L168)
+Defined in: [http-status.ts:168](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L168)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.6
 
@@ -344,7 +344,7 @@ This response is sent when the web server, after performing server-driven conten
 
 > **PROXY\_AUTHENTICATION\_REQUIRED**: `407`
 
-Defined in: [http-status.ts:174](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L174)
+Defined in: [http-status.ts:174](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L174)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7235#section-3.2
 
@@ -356,7 +356,7 @@ This is similar to 401 but authentication is needed to be done by a proxy.
 
 > **REQUEST\_TIMEOUT**: `408`
 
-Defined in: [http-status.ts:180](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L180)
+Defined in: [http-status.ts:180](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L180)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.7
 
@@ -368,7 +368,7 @@ This response is sent on an idle connection by some servers, even without any pr
 
 > **CONFLICT**: `409`
 
-Defined in: [http-status.ts:186](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L186)
+Defined in: [http-status.ts:186](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L186)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.8
 
@@ -380,7 +380,7 @@ This response is sent when a request conflicts with the current state of the ser
 
 > **GONE**: `410`
 
-Defined in: [http-status.ts:192](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L192)
+Defined in: [http-status.ts:192](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L192)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.9
 
@@ -392,7 +392,7 @@ This response would be sent when the requested content has been permenantly dele
 
 > **LENGTH\_REQUIRED**: `411`
 
-Defined in: [http-status.ts:198](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L198)
+Defined in: [http-status.ts:198](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L198)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.10
 
@@ -404,7 +404,7 @@ The server rejected the request because the Content-Length header field is not d
 
 > **PRECONDITION\_FAILED**: `412`
 
-Defined in: [http-status.ts:204](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L204)
+Defined in: [http-status.ts:204](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L204)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7232#section-4.2
 
@@ -416,7 +416,7 @@ The client has indicated preconditions in its headers which the server does not 
 
 > **REQUEST\_TOO\_LONG**: `413`
 
-Defined in: [http-status.ts:210](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L210)
+Defined in: [http-status.ts:210](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L210)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.11
 
@@ -428,7 +428,7 @@ Request entity is larger than limits defined by server; the server might close t
 
 > **REQUEST\_URI\_TOO\_LONG**: `414`
 
-Defined in: [http-status.ts:216](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L216)
+Defined in: [http-status.ts:216](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L216)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.12
 
@@ -440,7 +440,7 @@ The URI requested by the client is longer than the server is willing to interpre
 
 > **UNSUPPORTED\_MEDIA\_TYPE**: `415`
 
-Defined in: [http-status.ts:222](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L222)
+Defined in: [http-status.ts:222](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L222)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.13
 
@@ -452,7 +452,7 @@ The media format of the requested data is not supported by the server, so the se
 
 > **REQUESTED\_RANGE\_NOT\_SATISFIABLE**: `416`
 
-Defined in: [http-status.ts:228](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L228)
+Defined in: [http-status.ts:228](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L228)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7233#section-4.4
 
@@ -464,7 +464,7 @@ The range specified by the Range header field in the request can't be fulfilled;
 
 > **EXPECTATION\_FAILED**: `417`
 
-Defined in: [http-status.ts:234](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L234)
+Defined in: [http-status.ts:234](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L234)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.5.14
 
@@ -476,7 +476,7 @@ This response code means the expectation indicated by the Expect request header 
 
 > **IM\_A\_TEAPOT**: `418`
 
-Defined in: [http-status.ts:240](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L240)
+Defined in: [http-status.ts:240](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L240)
 
 Official Documentation @ https://tools.ietf.org/html/rfc2324#section-2.3.2
 
@@ -488,7 +488,7 @@ Any attempt to brew coffee with a teapot should result in the error code "418 I'
 
 > **INSUFFICIENT\_SPACE\_ON\_RESOURCE**: `419`
 
-Defined in: [http-status.ts:246](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L246)
+Defined in: [http-status.ts:246](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L246)
 
 Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.6
 
@@ -500,7 +500,7 @@ The 507 (Insufficient Storage) status code means the method could not be perform
 
 > **METHOD\_FAILURE**: `420`
 
-Defined in: [http-status.ts:253](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L253)
+Defined in: [http-status.ts:253](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L253)
 
 #### Deprecated
 
@@ -514,7 +514,7 @@ A deprecated response used by the Spring Framework when a method has failed.
 
 > **MISDIRECTED\_REQUEST**: `421`
 
-Defined in: [http-status.ts:259](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L259)
+Defined in: [http-status.ts:259](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L259)
 
 Official Documentation @ https://datatracker.ietf.org/doc/html/rfc7540#section-9.1.2
 
@@ -526,7 +526,7 @@ Defined in the specification of HTTP/2 to indicate that a server is not able to 
 
 > **UNPROCESSABLE\_ENTITY**: `422`
 
-Defined in: [http-status.ts:265](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L265)
+Defined in: [http-status.ts:265](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L265)
 
 Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.3
 
@@ -538,7 +538,7 @@ The request was well-formed but was unable to be followed due to semantic errors
 
 > **LOCKED**: `423`
 
-Defined in: [http-status.ts:271](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L271)
+Defined in: [http-status.ts:271](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L271)
 
 Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.4
 
@@ -550,7 +550,7 @@ The resource that is being accessed is locked.
 
 > **FAILED\_DEPENDENCY**: `424`
 
-Defined in: [http-status.ts:277](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L277)
+Defined in: [http-status.ts:277](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L277)
 
 Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.5
 
@@ -562,7 +562,7 @@ The request failed due to failure of a previous request.
 
 > **UPGRADE\_REQUIRED**: `426`
 
-Defined in: [http-status.ts:283](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L283)
+Defined in: [http-status.ts:283](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L283)
 
 Official Documentation @ https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.15
 
@@ -574,7 +574,7 @@ The server refuses to perform the request using the current protocol but might b
 
 > **PRECONDITION\_REQUIRED**: `428`
 
-Defined in: [http-status.ts:289](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L289)
+Defined in: [http-status.ts:289](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L289)
 
 Official Documentation @ https://tools.ietf.org/html/rfc6585#section-3
 
@@ -586,7 +586,7 @@ The origin server requires the request to be conditional. Intended to prevent th
 
 > **TOO\_MANY\_REQUESTS**: `429`
 
-Defined in: [http-status.ts:295](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L295)
+Defined in: [http-status.ts:295](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L295)
 
 Official Documentation @ https://tools.ietf.org/html/rfc6585#section-4
 
@@ -598,7 +598,7 @@ The user has sent too many requests in a given amount of time ("rate limiting").
 
 > **REQUEST\_HEADER\_FIELDS\_TOO\_LARGE**: `431`
 
-Defined in: [http-status.ts:301](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L301)
+Defined in: [http-status.ts:301](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L301)
 
 Official Documentation @ https://tools.ietf.org/html/rfc6585#section-5
 
@@ -610,7 +610,7 @@ The server is unwilling to process the request because its header fields are too
 
 > **UNAVAILABLE\_FOR\_LEGAL\_REASONS**: `451`
 
-Defined in: [http-status.ts:307](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L307)
+Defined in: [http-status.ts:307](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L307)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7725
 
@@ -622,7 +622,7 @@ The user-agent requested a resource that cannot legally be provided, such as a w
 
 > **INTERNAL\_SERVER\_ERROR**: `500`
 
-Defined in: [http-status.ts:313](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L313)
+Defined in: [http-status.ts:313](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L313)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.6.1
 
@@ -634,7 +634,7 @@ The server encountered an unexpected condition that prevented it from fulfilling
 
 > **NOT\_IMPLEMENTED**: `501`
 
-Defined in: [http-status.ts:319](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L319)
+Defined in: [http-status.ts:319](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L319)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.6.2
 
@@ -646,7 +646,7 @@ The request method is not supported by the server and cannot be handled. The onl
 
 > **BAD\_GATEWAY**: `502`
 
-Defined in: [http-status.ts:325](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L325)
+Defined in: [http-status.ts:325](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L325)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.6.3
 
@@ -658,7 +658,7 @@ This error response means that the server, while working as a gateway to get a r
 
 > **SERVICE\_UNAVAILABLE**: `503`
 
-Defined in: [http-status.ts:331](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L331)
+Defined in: [http-status.ts:331](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L331)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.6.4
 
@@ -670,7 +670,7 @@ The server is not ready to handle the request. Common causes are a server that i
 
 > **GATEWAY\_TIMEOUT**: `504`
 
-Defined in: [http-status.ts:337](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L337)
+Defined in: [http-status.ts:337](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L337)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.6.5
 
@@ -682,7 +682,7 @@ This error response is given when the server is acting as a gateway and cannot g
 
 > **HTTP\_VERSION\_NOT\_SUPPORTED**: `505`
 
-Defined in: [http-status.ts:343](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L343)
+Defined in: [http-status.ts:343](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L343)
 
 Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.6.6
 
@@ -694,7 +694,7 @@ The HTTP version used in the request is not supported by the server.
 
 > **INSUFFICIENT\_STORAGE**: `507`
 
-Defined in: [http-status.ts:349](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L349)
+Defined in: [http-status.ts:349](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L349)
 
 Official Documentation @ https://tools.ietf.org/html/rfc2518#section-10.6
 
@@ -706,7 +706,7 @@ The server has an internal configuration error: the chosen variant resource is c
 
 > **NETWORK\_AUTHENTICATION\_REQUIRED**: `511`
 
-Defined in: [http-status.ts:355](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/http-status.ts#L355)
+Defined in: [http-status.ts:355](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/http-status.ts#L355)
 
 Official Documentation @ https://tools.ietf.org/html/rfc6585#section-6
 

@@ -8,7 +8,7 @@
 
 > **isAlphaNumeric**(`str`): `boolean`
 
-Defined in: [string.ts:180](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/string.ts#L180)
+Defined in: [string.ts:180](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/string.ts#L180)
 
 Checks if a string contains any non-alphanumeric characters.
 

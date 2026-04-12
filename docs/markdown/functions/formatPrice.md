@@ -8,7 +8,7 @@
 
 > **formatPrice**(`priceInCents`, `currency?`, `locale?`): `string`
 
-Defined in: [currency.ts:26](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/currency.ts#L26)
+Defined in: [currency.ts:26](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/currency.ts#L26)
 
 Format price in cents
 

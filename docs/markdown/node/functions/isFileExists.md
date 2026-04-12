@@ -8,7 +8,7 @@
 
 > **isFileExists**(`filePath`): `Promise`\<`boolean`\>
 
-Defined in: [file.ts:39](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/node/file.ts#L39)
+Defined in: [file.ts:39](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/node/file.ts#L39)
 
 Check if specified file exists
 

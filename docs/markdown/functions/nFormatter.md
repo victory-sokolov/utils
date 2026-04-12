@@ -8,7 +8,7 @@
 
 > **nFormatter**(`amount`): `number`
 
-Defined in: [number.ts:49](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/number.ts#L49)
+Defined in: [number.ts:49](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/number.ts#L49)
 
 Format string like 20k, 1m to number
 

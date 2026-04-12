@@ -8,7 +8,7 @@
 
 > **isObject**(`val`): `val is RecordObject`
 
-Defined in: [is.ts:61](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/is.ts#L61)
+Defined in: [is.ts:61](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/is.ts#L61)
 
 Check if a value is an object (not null)
 

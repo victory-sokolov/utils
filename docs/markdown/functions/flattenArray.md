@@ -8,7 +8,7 @@
 
 > **flattenArray**\<`T`\>(`listOfArrays`): `T`[]
 
-Defined in: [array.ts:9](https://github.com/victory-sokolov/utils/blob/6f616498135dd6156dc7d516c9403dfbcefc5dae/src/array.ts#L9)
+Defined in: [array.ts:9](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/array.ts#L9)
 
 Flatten nested array into 1 dimensional array
 
