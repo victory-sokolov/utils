@@ -58,12 +58,13 @@
     };
 
     const getMarkdownUrl = () => {
-        const markdownPath = toMarkdownPath('/' + getPublishedPathname());
+        const published = getPublishedPathname();
+        const markdownPath = toMarkdownPath('/' + (published || 'index.html'));
         if (!markdownPath) {
             return null;
         }
 
-        return new URL(markdownPath, getCanonicalBaseUrl()).toString();
+        return new URL(markdownPath.replace(/^\//, ''), getCanonicalBaseUrl()).toString();
     };
 
     const buildPrompt = () => 'Read from this URL: ' + getCanonicalPageUrl() + ' and explain it to me';
@@ -171,7 +172,7 @@
     };
 
     const handleCopyPage = async (statusNode, closeMenuCallback) => {
-        await copyText(getPageUrl());
+        await copyText(getCanonicalPageUrl());
         setStatus(statusNode, 'Page URL copied');
         closeMenuCallback();
     };
