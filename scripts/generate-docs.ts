@@ -2,11 +2,24 @@
 import { dirname, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
-import { Application } from 'typedoc';
 import { fileURLToPath } from 'node:url';
 
 type DocsMode = 'all' | 'html' | 'markdown' | 'node-markdown';
-type ProjectReflection = NonNullable<Awaited<ReturnType<Application['convert']>>>;
+type ProjectReflection = unknown;
+
+interface TypeDocApplication {
+    convert(): Promise<ProjectReflection | undefined>;
+    generateDocs(project: ProjectReflection, out?: string): Promise<void>;
+    generateOutputs(project: ProjectReflection): Promise<void>;
+}
+
+interface TypeDocModule {
+    Application: {
+        bootstrapWithPlugins(config: TypedocConfig): Promise<TypeDocApplication>;
+    };
+}
+
+const { Application } = (await import(new URL('../node_modules/typedoc/dist/index.js', import.meta.url).href)) as TypeDocModule;
 
 interface TypedocConfig {
     entryPoints?: string[];
@@ -61,9 +74,9 @@ const loadConfig = (relativePath: string): Promise<TypedocConfig> => {
     return readFile(absolutePath, 'utf8').then(raw => normalizeConfig(JSON.parse(raw) as TypedocConfig));
 };
 
-const buildHtml = (app: Application, project: ProjectReflection, out?: string): Promise<void> => app.generateDocs(project, out);
+const buildHtml = (app: TypeDocApplication, project: ProjectReflection, out?: string): Promise<void> => app.generateDocs(project, out);
 
-const buildMarkdown = (app: Application, project: ProjectReflection): Promise<void> => app.generateOutputs(project);
+const buildMarkdown = (app: TypeDocApplication, project: ProjectReflection): Promise<void> => app.generateOutputs(project);
 
 const build = (configPath: string, outputMode: 'html' | 'markdown'): Promise<void> =>
     loadConfig(configPath)
