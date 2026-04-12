@@ -8,7 +8,7 @@
 
 > **sort**\<`T`\>(`arr`, `fSorting?`): `T`[]
 
-Defined in: [array.ts:103](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/array.ts#L103)
+Defined in: [array.ts:103](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/array.ts#L103)
 
 Sort array by specific function or by the first numeric value in objects
 

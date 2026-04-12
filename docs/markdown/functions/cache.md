@@ -8,7 +8,7 @@
 
 > **cache**\<`T`\>(): [`CacheAPI`](../interfaces/_internal_.CacheAPI.md)\<`T`\>
 
-Defined in: [cache.ts:37](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/cache.ts#L37)
+Defined in: [cache.ts:37](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/cache.ts#L37)
 
 Creates a simple cache without eviction or expiration.
 Use `lruCache` for LRU eviction and TTL support.

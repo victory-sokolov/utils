@@ -8,7 +8,7 @@
 
 > **getImageDimensions**(`dataUrl`): `Promise`\<[`ImageDimension`](../interfaces/_internal_.ImageDimension.md)\>
 
-Defined in: [browser/image.ts:11](https://github.com/victory-sokolov/utils/blob/c3dab124e97a1ab467fbdd458a80cbc8c287df05/src/browser/image.ts#L11)
+Defined in: [browser/image.ts:11](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/browser/image.ts#L11)
 
 Get image dimension from dataUrl string
 
