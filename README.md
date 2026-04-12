@@ -10,6 +10,8 @@
 
 A comprehensive collection of TypeScript/JavaScript utility functions for both Node.js and browser environments. This library provides a wide range of helper functions for common programming tasks, including array manipulation, date handling, string operations, and more.
 
+The generated TypeDoc site is published on GitHub Pages, and a markdown docs tree is also published under `/markdown/` for raw retrieval and LLM-friendly consumption.
+
 ## Features
 
 - **Array Utilities**: Flatten, sort, filter, and manipulate arrays with ease

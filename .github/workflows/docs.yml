@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - 'src/**'
+      - 'README.md'
+      - 'package.json'
+      - 'typedoc*.json'
   workflow_dispatch:
 
 permissions:
@@ -25,7 +28,9 @@ jobs:
         uses: ./.github/actions/install-deps
 
       - name: Generate docs
-        run: bun docs
+        run: |
+          bun scripts/generate-docs.ts markdown
+          bun scripts/generate-docs.ts node-markdown
 
       - name: Commit and push docs
         run: |
