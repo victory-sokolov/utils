@@ -1,6 +1,6 @@
-import { dirname, resolve } from 'node:path';
-import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
+import { dirname, resolve } from 'node:path';
 
 type DocsMode = 'all' | 'html' | 'markdown' | 'node-markdown';
 

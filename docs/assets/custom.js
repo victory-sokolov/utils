@@ -8,7 +8,7 @@
         const { pathname } = window.location;
         const docsIndex = pathname.lastIndexOf('/docs/');
 
-        if (docsIndex >= 0) {
+        if (docsIndex !== -1) {
             return pathname.slice(docsIndex + '/docs/'.length);
         }
 
@@ -33,10 +33,7 @@
         return new URL(withTrailingSlash(base), window.location.href);
     };
 
-    const getCanonicalBaseUrl = () => {
-        const base = document.documentElement.dataset.base ?? './';
-        return new URL(withTrailingSlash(base), CANONICAL_DOCS_BASE_URL);
-    };
+    const getCanonicalBaseUrl = () => CANONICAL_DOCS_BASE_URL;
 
     const toMarkdownPath = pathname => {
         if (pathname.endsWith('/index.html')) {
@@ -51,6 +48,12 @@
         if (sectionMatch) {
             const [, section, slug] = sectionMatch;
             return pathname.replace(`/${section}/${slug}.html`, `/markdown/${section}/${slug}.md`);
+        }
+
+        const nodeMatch = pathname.match(/\/node\/(functions|types|interfaces|enums|variables|modules)\/([^/]+)\.html$/);
+        if (nodeMatch) {
+            const [, section, slug] = nodeMatch;
+            return pathname.replace(`/node/${section}/${slug}.html`, `/markdown/node/${section}/${slug}.md`);
         }
 
         return null;
@@ -113,7 +116,7 @@
     };
 
     const mount = () => {
-        const host = document.getElementById('tsd-toolbar-links');
+        const host = document.querySelector('#tsd-toolbar-links');
         if (!host || host.dataset.aiToolbarMounted === 'true') {
             return;
         }
