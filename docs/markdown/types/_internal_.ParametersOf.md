@@ -8,7 +8,7 @@
 
 > **ParametersOf**\<`F`\> = `F` *extends* (...`args`) => `unknown` ? `P` : `never`
 
-Defined in: [function.ts:15](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/function.ts#L15)
+Defined in: [function.ts:15](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/function.ts#L15)
 
 ## Type Parameters
 

@@ -6,7 +6,7 @@
 
 # Interface: TryCatchOptions\<E\>
 
-Defined in: [try-catch.ts:87](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/try-catch.ts#L87)
+Defined in: [try-catch.ts:87](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/try-catch.ts#L87)
 
 Configuration options for the tryCatch function.
 
@@ -34,7 +34,7 @@ The type of error class to use for error transformation
 
 > `optional` **defaultStatus?**: `number`
 
-Defined in: [try-catch.ts:93](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/try-catch.ts#L93)
+Defined in: [try-catch.ts:93](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/try-catch.ts#L93)
 
 Default HTTP status code to use when caught error has no status property.
 
@@ -50,7 +50,7 @@ Default HTTP status code to use when caught error has no status property.
 
 > `optional` **ErrorClass?**: [`ErrorConstructor`](../types/ErrorConstructor.md)\<`E`\>
 
-Defined in: [try-catch.ts:100](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/try-catch.ts#L100)
+Defined in: [try-catch.ts:100](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/try-catch.ts#L100)
 
 Custom error class constructor for transforming caught errors.
 If provided, all caught errors will be converted to instances of this class.

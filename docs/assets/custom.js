@@ -1,19 +1,24 @@
-(() => {
+(function () {
+    'use strict';
+
     const CANONICAL_DOCS_BASE_URL = 'https://victory-sokolov.github.io/utils/';
     const MENU_ID = 'ai-toolbar-menu-panel';
     const STATUS_TIMEOUT_MS = 1600;
 
-    const getPageUrl = () => window.location.href;
+    const getPageUrl = () => globalThis.location.href;
+
+    const getPathAfterDocs = (pathname, prefix) => pathname.slice(pathname.lastIndexOf(prefix) + prefix.length);
+
     const getPublishedPathname = () => {
-        const { pathname } = window.location;
+        const { pathname } = globalThis.location;
         const docsIndex = pathname.lastIndexOf('/docs/');
 
         if (docsIndex !== -1) {
-            return pathname.slice(docsIndex + '/docs/'.length);
+            return getPathAfterDocs(pathname, '/docs/');
         }
 
         if (pathname.startsWith('/utils/')) {
-            return pathname.slice('/utils/'.length);
+            return getPathAfterDocs(pathname, '/utils/');
         }
 
         if (pathname === '/utils') {
@@ -24,18 +29,11 @@
     };
 
     const getCanonicalPageUrl = () =>
-        new URL(getPublishedPathname() + window.location.search + window.location.hash, CANONICAL_DOCS_BASE_URL).toString();
-
-    const withTrailingSlash = value => (value.endsWith('/') ? value : `${value}/`);
-
-    const getBaseUrl = () => {
-        const base = document.documentElement.dataset.base ?? './';
-        return new URL(withTrailingSlash(base), window.location.href);
-    };
+        new URL(getPublishedPathname() + globalThis.location.search + globalThis.location.hash, CANONICAL_DOCS_BASE_URL).toString();
 
     const getCanonicalBaseUrl = () => CANONICAL_DOCS_BASE_URL;
 
-    const toMarkdownPath = pathname => {
+    const toMarkdownPath = (pathname) => {
         if (pathname.endsWith('/index.html')) {
             return pathname.replace(/\/index\.html$/, '/markdown/index.md');
         }
@@ -46,21 +44,21 @@
 
         const sectionMatch = pathname.match(/\/(functions|types|interfaces|enums|variables|modules)\/([^/]+)\.html$/);
         if (sectionMatch) {
-            const [, section, slug] = sectionMatch;
-            return pathname.replace(`/${section}/${slug}.html`, `/markdown/${section}/${slug}.md`);
+            const replaced = pathname.replace(`/${sectionMatch[1]}/${sectionMatch[2]}.html`, `/markdown/${sectionMatch[1]}/${sectionMatch[2]}.md`);
+            return replaced;
         }
 
         const nodeMatch = pathname.match(/\/node\/(functions|types|interfaces|enums|variables|modules)\/([^/]+)\.html$/);
         if (nodeMatch) {
-            const [, section, slug] = nodeMatch;
-            return pathname.replace(`/node/${section}/${slug}.html`, `/markdown/node/${section}/${slug}.md`);
+            const replaced = pathname.replace(`/node/${nodeMatch[1]}/${nodeMatch[2]}.html`, `/markdown/node/${nodeMatch[1]}/${nodeMatch[2]}.md`);
+            return replaced;
         }
 
         return null;
     };
 
     const getMarkdownUrl = () => {
-        const markdownPath = toMarkdownPath(`/${getPublishedPathname()}`);
+        const markdownPath = toMarkdownPath('/' + getPublishedPathname());
         if (!markdownPath) {
             return null;
         }
@@ -68,51 +66,158 @@
         return new URL(markdownPath, getCanonicalBaseUrl()).toString();
     };
 
-    const buildPrompt = () => `Read from this URL: ${getCanonicalPageUrl()} and explain it to me`;
+    const buildPrompt = () => 'Read from this URL: ' + getCanonicalPageUrl() + ' and explain it to me';
 
     const setStatus = (statusNode, message) => {
         statusNode.textContent = message;
-        window.clearTimeout(setStatus.timeoutId);
-        setStatus.timeoutId = window.setTimeout(() => {
+        globalThis.clearTimeout(setStatus.timeoutId);
+        setStatus.timeoutId = globalThis.setTimeout(() => {
             statusNode.textContent = '';
         }, STATUS_TIMEOUT_MS);
     };
 
-    const copyText = async text => {
-        await navigator.clipboard.writeText(text);
+    const copyText = (text) => navigator.clipboard.writeText(text);
+
+    const openAssistant = (statusNode, assistantName, url) => {
+        copyText(buildPrompt());
+        globalThis.open(url, '_blank', 'noopener,noreferrer');
+        setStatus(statusNode, 'Prompt copied for ' + assistantName);
     };
 
-    const openAssistant = async (statusNode, assistantName, url) => {
-        await copyText(buildPrompt());
-        window.open(url, '_blank', 'noopener,noreferrer');
-        setStatus(statusNode, `Prompt copied for ${assistantName}`);
+    const createIconElement = (className, ariaHidden, textContent) => {
+        const element = document.createElement('span');
+        element.className = className;
+        element.setAttribute('aria-hidden', String(ariaHidden));
+        element.textContent = textContent;
+        return element;
     };
 
-    const createActionButton = ({ action, description, icon, label }) => {
+    const createActionButton = (config) => {
         const button = document.createElement('button');
         button.className = 'ai-toolbar-menu__action';
-        button.dataset.action = action;
+        button.dataset.action = config.action;
         button.type = 'button';
 
-        const iconNode = document.createElement('span');
-        iconNode.className = 'ai-toolbar-menu__action-icon';
-        iconNode.setAttribute('aria-hidden', 'true');
-        iconNode.textContent = icon;
-
+        const iconNode = createIconElement('ai-toolbar-menu__action-icon', true, config.icon);
         const content = document.createElement('span');
         content.className = 'ai-toolbar-menu__action-content';
 
         const title = document.createElement('span');
         title.className = 'ai-toolbar-menu__title';
-        title.textContent = label;
+        title.textContent = config.label;
 
         const subtitle = document.createElement('span');
         subtitle.className = 'ai-toolbar-menu__description';
-        subtitle.textContent = description;
+        subtitle.textContent = config.description;
 
         content.append(title, subtitle);
         button.append(iconNode, content);
         return button;
+    };
+
+    const createTriggerButton = () => {
+        const trigger = document.createElement('button');
+        trigger.className = 'ai-toolbar-menu__trigger';
+        trigger.type = 'button';
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.setAttribute('aria-controls', MENU_ID);
+
+        const triggerGlyph = createIconElement('ai-toolbar-menu__trigger-glyph', true, '\u29E9');
+        const triggerLabel = createIconElement('ai-toolbar-menu__trigger-label', false, 'Copy page');
+        const triggerIcon = createIconElement('ai-toolbar-menu__trigger-icon', true, '\u25BE');
+
+        trigger.append(triggerGlyph, triggerLabel, triggerIcon);
+        return trigger;
+    };
+
+    const createStatusElement = () => {
+        const status = document.createElement('div');
+        status.className = 'ai-toolbar-menu__status';
+        status.setAttribute('aria-live', 'polite');
+        return status;
+    };
+
+    const createPanelElement = () => {
+        const panel = document.createElement('div');
+        panel.className = 'ai-toolbar-menu__panel';
+        panel.id = MENU_ID;
+        panel.hidden = true;
+
+        const actions = [
+            { action: 'copy-page', description: 'Copy this page URL.', icon: '\u29E9', label: 'Copy page URL' },
+            { action: 'view-markdown', description: 'Open the markdown version when available.', icon: 'M', label: 'View as Markdown' },
+            { action: 'open-claude', description: 'Copy the page prompt and open Claude.', icon: 'AI', label: 'Open in Claude' },
+            { action: 'open-chatgpt', description: 'Copy the page prompt and open ChatGPT.', icon: 'AI', label: 'Open in ChatGPT' },
+        ];
+
+        for (let i = 0; i < actions.length; i++) {
+            panel.append(createActionButton(actions[i]));
+        }
+
+        const status = createStatusElement();
+        panel.append(status);
+        return { panel, status };
+    };
+
+    const createWrapElement = () => {
+        const wrap = document.createElement('div');
+        wrap.className = 'ai-toolbar-menu';
+        return wrap;
+    };
+
+    const attachElements = (wrap, trigger, panel, host) => {
+        wrap.append(trigger, panel);
+        host.append(wrap);
+    };
+
+    const handleCopyPage = async (statusNode, closeMenuCallback) => {
+        await copyText(getPageUrl());
+        setStatus(statusNode, 'Page URL copied');
+        closeMenuCallback();
+    };
+
+    const handleViewMarkdown = (statusNode, closeMenuCallback) => {
+        const markdownUrl = getMarkdownUrl();
+        if (markdownUrl) {
+            globalThis.open(markdownUrl, '_blank', 'noopener,noreferrer');
+            setStatus(statusNode, 'Opened markdown page');
+        } else {
+            setStatus(statusNode, 'No markdown page for this view');
+        }
+        closeMenuCallback();
+    };
+
+    const handleOpenAssistant = async (statusNode, assistantName, url, closeMenuCallback) => {
+        await openAssistant(statusNode, assistantName, url);
+        closeMenuCallback();
+    };
+
+    const handlePanelClick = (event, statusNode, closeMenuCallback) => {
+        const button = event.target.closest('[data-action]');
+        if (!(button instanceof HTMLButtonElement)) {
+            return;
+        }
+
+        const action = button.dataset.action;
+
+        if (action === 'copy-page') {
+            handleCopyPage(statusNode, closeMenuCallback);
+            return;
+        }
+
+        if (action === 'view-markdown') {
+            handleViewMarkdown(statusNode, closeMenuCallback);
+            return;
+        }
+
+        if (action === 'open-claude') {
+            handleOpenAssistant(statusNode, 'Claude', 'https://claude.ai/', closeMenuCallback);
+            return;
+        }
+
+        if (action === 'open-chatgpt') {
+            handleOpenAssistant(statusNode, 'ChatGPT', 'https://chatgpt.com/', closeMenuCallback);
+        }
     };
 
     const mount = () => {
@@ -123,74 +228,13 @@
 
         host.dataset.aiToolbarMounted = 'true';
 
-        const wrap = document.createElement('div');
-        wrap.className = 'ai-toolbar-menu';
+        const trigger = createTriggerButton();
+        const panelAndStatus = createPanelElement();
+        const panel = panelAndStatus.panel;
+        const statusNode = panelAndStatus.status;
+        const wrap = createWrapElement();
 
-        const trigger = document.createElement('button');
-        trigger.className = 'ai-toolbar-menu__trigger';
-        trigger.type = 'button';
-        trigger.setAttribute('aria-expanded', 'false');
-        trigger.setAttribute('aria-controls', MENU_ID);
-
-        const triggerGlyph = document.createElement('span');
-        triggerGlyph.className = 'ai-toolbar-menu__trigger-glyph';
-        triggerGlyph.setAttribute('aria-hidden', 'true');
-        triggerGlyph.textContent = '⧉';
-
-        const triggerLabel = document.createElement('span');
-        triggerLabel.className = 'ai-toolbar-menu__trigger-label';
-        triggerLabel.textContent = 'Copy page';
-
-        const triggerIcon = document.createElement('span');
-        triggerIcon.className = 'ai-toolbar-menu__trigger-icon';
-        triggerIcon.setAttribute('aria-hidden', 'true');
-        triggerIcon.textContent = '▾';
-
-        trigger.append(triggerGlyph, triggerLabel, triggerIcon);
-
-        const panel = document.createElement('div');
-        panel.className = 'ai-toolbar-menu__panel';
-        panel.id = MENU_ID;
-        panel.hidden = true;
-
-        const status = document.createElement('div');
-        status.className = 'ai-toolbar-menu__status';
-        status.setAttribute('aria-live', 'polite');
-
-        const actions = [
-            {
-                action: 'copy-page',
-                description: 'Copy this page URL.',
-                icon: '⧉',
-                label: 'Copy page URL',
-            },
-            {
-                action: 'view-markdown',
-                description: 'Open the markdown version when available.',
-                icon: 'M',
-                label: 'View as Markdown',
-            },
-            {
-                action: 'open-claude',
-                description: 'Copy the page prompt and open Claude.',
-                icon: 'AI',
-                label: 'Open in Claude',
-            },
-            {
-                action: 'open-chatgpt',
-                description: 'Copy the page prompt and open ChatGPT.',
-                icon: 'AI',
-                label: 'Open in ChatGPT',
-            },
-        ];
-
-        for (const config of actions) {
-            panel.append(createActionButton(config));
-        }
-
-        panel.append(status);
-        wrap.append(trigger, panel);
-        host.append(wrap);
+        attachElements(wrap, trigger, panel, host);
 
         const closeMenu = () => {
             panel.hidden = true;
@@ -205,65 +249,30 @@
         trigger.addEventListener('click', () => {
             if (panel.hidden) {
                 openMenu();
-                return;
-            }
-
-            closeMenu();
-        });
-
-        panel.addEventListener('click', async event => {
-            const button = event.target.closest('[data-action]');
-            if (!(button instanceof HTMLButtonElement)) {
-                return;
-            }
-
-            const { action } = button.dataset;
-
-            try {
-                if (action === 'copy-page') {
-                    await copyText(getPageUrl());
-                    setStatus(status, 'Page URL copied');
-                }
-
-                if (action === 'view-markdown') {
-                    const markdownUrl = getMarkdownUrl();
-                    if (!markdownUrl) {
-                        setStatus(status, 'No markdown page for this view');
-                    } else {
-                        window.open(markdownUrl, '_blank', 'noopener,noreferrer');
-                        setStatus(status, 'Opened markdown page');
-                    }
-                }
-
-                if (action === 'open-claude') {
-                    await openAssistant(status, 'Claude', 'https://claude.ai/');
-                }
-
-                if (action === 'open-chatgpt') {
-                    await openAssistant(status, 'ChatGPT', 'https://chatgpt.com/');
-                }
-            } catch {
-                setStatus(status, 'Action failed');
-            } finally {
+            } else {
                 closeMenu();
             }
         });
 
-        document.addEventListener('click', event => {
+        panel.addEventListener('click', (event) => {
+            handlePanelClick(event, statusNode, closeMenu);
+        });
+
+        globalThis.document.addEventListener('click', (event) => {
             if (!wrap.contains(event.target)) {
                 closeMenu();
             }
         });
 
-        document.addEventListener('keydown', event => {
+        globalThis.document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
                 closeMenu();
             }
         });
     };
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', mount, { once: true });
+    if (globalThis.document.readyState === 'loading') {
+        globalThis.document.addEventListener('DOMContentLoaded', mount, { once: true });
         return;
     }
 

@@ -8,7 +8,7 @@
 
 > **hashString**(`options`): [`HashResult`](../interfaces/_internal_.HashResult.md)
 
-Defined in: [cryptography.ts:33](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L33)
+Defined in: [cryptography.ts:33](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/node/cryptography.ts#L33)
 
 Hash string
 

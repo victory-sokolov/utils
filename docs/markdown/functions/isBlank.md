@@ -8,7 +8,7 @@
 
 > **isBlank**(`value`): `boolean`
 
-Defined in: [is.ts:236](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/is.ts#L236)
+Defined in: [is.ts:236](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/is.ts#L236)
 
 Check if a value is blank (null, undefined, or empty string)
 Preserves 0 and false unlike falsy checks

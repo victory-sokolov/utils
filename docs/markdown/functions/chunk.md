@@ -8,7 +8,7 @@
 
 > **chunk**\<`T`\>(`arr`, `size`): `T`[][]
 
-Defined in: [array.ts:348](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/array.ts#L348)
+Defined in: [array.ts:348](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/array.ts#L348)
 
 Split array into chunks of specified size
 

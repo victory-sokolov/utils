@@ -8,7 +8,7 @@
 
 > **isPageReloaded**(): `boolean`
 
-Defined in: [browser/browser.ts:78](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/browser/browser.ts#L78)
+Defined in: [browser/browser.ts:78](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/browser/browser.ts#L78)
 
 Check if page is reloaded
 

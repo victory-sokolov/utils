@@ -8,7 +8,7 @@
 
 > **isRegExp**(`val`): `val is RegExp`
 
-Defined in: [is.ts:76](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/is.ts#L76)
+Defined in: [is.ts:76](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/is.ts#L76)
 
 Check if a value is a RegExp
 

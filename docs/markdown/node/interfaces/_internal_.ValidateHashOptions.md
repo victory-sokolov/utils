@@ -6,7 +6,7 @@
 
 # Interface: ValidateHashOptions
 
-Defined in: [cryptography.ts:19](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L19)
+Defined in: [cryptography.ts:19](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/node/cryptography.ts#L19)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [cryptography.ts:19](https://github.com/victory-sokolov/utils/blob/0
 
 > **digest**: `string`
 
-Defined in: [cryptography.ts:20](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L20)
+Defined in: [cryptography.ts:20](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/node/cryptography.ts#L20)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [cryptography.ts:20](https://github.com/victory-sokolov/utils/blob/0
 
 > **iterations**: `number`
 
-Defined in: [cryptography.ts:21](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L21)
+Defined in: [cryptography.ts:21](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/node/cryptography.ts#L21)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [cryptography.ts:21](https://github.com/victory-sokolov/utils/blob/0
 
 > **keyLen**: `number`
 
-Defined in: [cryptography.ts:22](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L22)
+Defined in: [cryptography.ts:22](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/node/cryptography.ts#L22)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [cryptography.ts:22](https://github.com/victory-sokolov/utils/blob/0
 
 > **password**: `string`
 
-Defined in: [cryptography.ts:23](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L23)
+Defined in: [cryptography.ts:23](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/node/cryptography.ts#L23)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [cryptography.ts:23](https://github.com/victory-sokolov/utils/blob/0
 
 > **savedHash**: `string`
 
-Defined in: [cryptography.ts:24](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L24)
+Defined in: [cryptography.ts:24](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/node/cryptography.ts#L24)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [cryptography.ts:24](https://github.com/victory-sokolov/utils/blob/0
 
 > **savedSalt**: `string`
 
-Defined in: [cryptography.ts:25](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L25)
+Defined in: [cryptography.ts:25](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/node/cryptography.ts#L25)

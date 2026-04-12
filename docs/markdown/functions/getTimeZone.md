@@ -8,7 +8,7 @@
 
 > **getTimeZone**(`lang`): `string`
 
-Defined in: [date.ts:259](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/date.ts#L259)
+Defined in: [date.ts:259](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/date.ts#L259)
 
 Get timezone from language string
 

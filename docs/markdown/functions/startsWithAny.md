@@ -8,7 +8,7 @@
 
 > **startsWithAny**(`data`, `items`): `boolean`
 
-Defined in: [string.ts:77](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/string.ts#L77)
+Defined in: [string.ts:77](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/string.ts#L77)
 
 Check whether string starts with any item in the array
 

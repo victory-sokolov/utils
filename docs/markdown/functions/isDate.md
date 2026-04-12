@@ -8,7 +8,7 @@
 
 > **isDate**(`val`): `val is Date`
 
-Defined in: [is.ts:83](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/is.ts#L83)
+Defined in: [is.ts:83](https://github.com/victory-sokolov/utils/blob/aec88aef4778a8955e120244d504b1a222c7f010/src/is.ts#L83)
 
 Check if a value is a Date
 
