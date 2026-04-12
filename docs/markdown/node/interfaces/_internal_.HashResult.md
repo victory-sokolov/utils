@@ -6,7 +6,7 @@
 
 # Interface: HashResult
 
-Defined in: [cryptography.ts:4](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/node/cryptography.ts#L4)
+Defined in: [cryptography.ts:4](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L4)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [cryptography.ts:4](https://github.com/victory-sokolov/utils/blob/65
 
 > **digest**: `string`
 
-Defined in: [cryptography.ts:5](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/node/cryptography.ts#L5)
+Defined in: [cryptography.ts:5](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L5)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [cryptography.ts:5](https://github.com/victory-sokolov/utils/blob/65
 
 > **hash**: `string`
 
-Defined in: [cryptography.ts:6](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/node/cryptography.ts#L6)
+Defined in: [cryptography.ts:6](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L6)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [cryptography.ts:6](https://github.com/victory-sokolov/utils/blob/65
 
 > **iterations**: `number`
 
-Defined in: [cryptography.ts:7](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/node/cryptography.ts#L7)
+Defined in: [cryptography.ts:7](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L7)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [cryptography.ts:7](https://github.com/victory-sokolov/utils/blob/65
 
 > **keyLen**: `number`
 
-Defined in: [cryptography.ts:8](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/node/cryptography.ts#L8)
+Defined in: [cryptography.ts:8](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L8)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [cryptography.ts:8](https://github.com/victory-sokolov/utils/blob/65
 
 > **salt**: `string`
 
-Defined in: [cryptography.ts:9](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/node/cryptography.ts#L9)
+Defined in: [cryptography.ts:9](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/node/cryptography.ts#L9)

@@ -8,7 +8,7 @@
 
 > **ElementOf**\<`T`\> = `T` *extends* infer E[] ? `E` : `never`
 
-Defined in: [types.ts:23](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/types.ts#L23)
+Defined in: [types.ts:23](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/types.ts#L23)
 
 Infers the element type of an array
 

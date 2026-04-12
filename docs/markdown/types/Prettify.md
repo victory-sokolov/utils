@@ -8,7 +8,7 @@
 
 > **Prettify**\<`T`\> = `{ [K in keyof T]: T[K] }` & `object`
 
-Defined in: [types.ts:65](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/types.ts#L65)
+Defined in: [types.ts:65](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/types.ts#L65)
 
 Prettify nested objects by flattening the type intersection
 

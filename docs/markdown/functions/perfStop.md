@@ -8,7 +8,7 @@
 
 > **perfStop**(`startTime`): `string`
 
-Defined in: [base.ts:24](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/base.ts#L24)
+Defined in: [base.ts:24](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/base.ts#L24)
 
 End time of function
 

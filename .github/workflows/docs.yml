@@ -5,8 +5,10 @@ on:
     branches: [main]
     paths:
       - 'src/**'
+      - 'docs-theme/**'
       - 'README.md'
       - 'package.json'
+      - 'scripts/generate-docs.ts'
       - 'typedoc*.json'
   workflow_dispatch:
 
@@ -29,8 +31,7 @@ jobs:
 
       - name: Generate docs
         run: |
-          bun scripts/generate-docs.ts markdown
-          bun scripts/generate-docs.ts node-markdown
+          node scripts/generate-docs.ts all
 
       - name: Commit and push docs
         run: |

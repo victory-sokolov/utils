@@ -6,7 +6,7 @@
 
 # Interface: LRUCacheAPI\<T\>
 
-Defined in: [cache.ts:13](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/cache.ts#L13)
+Defined in: [cache.ts:13](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/cache.ts#L13)
 
 LRU cache API with TTL support
 
@@ -26,7 +26,7 @@ LRU cache API with TTL support
 
 > **get**: (`key`) => [`Maybe`](../types/Maybe.md)\<`T`\>
 
-Defined in: [cache.ts:15](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/cache.ts#L15)
+Defined in: [cache.ts:15](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/cache.ts#L15)
 
 Get a value, returning null if expired or not found
 
@@ -50,7 +50,7 @@ Get a value, returning null if expired or not found
 
 > **set**: (`key`, `value`) => `void`
 
-Defined in: [cache.ts:17](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/cache.ts#L17)
+Defined in: [cache.ts:17](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/cache.ts#L17)
 
 Set a value with automatic expiration based on TTL
 
@@ -78,7 +78,7 @@ Set a value with automatic expiration based on TTL
 
 > **has**: (`key`) => `boolean`
 
-Defined in: [cache.ts:19](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/cache.ts#L19)
+Defined in: [cache.ts:19](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/cache.ts#L19)
 
 Check if key exists and hasn't expired
 
@@ -102,7 +102,7 @@ Check if key exists and hasn't expired
 
 > **remove**: (`key`) => `boolean`
 
-Defined in: [cache.ts:21](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/cache.ts#L21)
+Defined in: [cache.ts:21](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/cache.ts#L21)
 
 Delete a key from cache
 
@@ -126,7 +126,7 @@ Delete a key from cache
 
 > **clear**: () => `void`
 
-Defined in: [cache.ts:23](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/cache.ts#L23)
+Defined in: [cache.ts:23](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/cache.ts#L23)
 
 Clear all entries
 
@@ -144,7 +144,7 @@ Clear all entries
 
 > `readonly` **size**: `number`
 
-Defined in: [cache.ts:25](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/cache.ts#L25)
+Defined in: [cache.ts:25](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/cache.ts#L25)
 
 Current number of entries
 

@@ -8,7 +8,7 @@
 
 > **occurrenceCount**\<`T`\>(`data`): `Record`\<`string`, `number`\>
 
-Defined in: [array.ts:331](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/array.ts#L331)
+Defined in: [array.ts:331](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/array.ts#L331)
 
 Count occurrences of each unique element in the array
 

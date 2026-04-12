@@ -8,7 +8,7 @@
 
 > **withCache**\<`TArgs`, `TResult`\>(`fn`, `cacheInstance`, `getKey`): (...`args`) => `Promise`\<\{ `cached`: `boolean`; `result`: `TResult`; \}\>
 
-Defined in: [cache.ts:144](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/cache.ts#L144)
+Defined in: [cache.ts:144](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/cache.ts#L144)
 
 Wraps an async function with caching.
 

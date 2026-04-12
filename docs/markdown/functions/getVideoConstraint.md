@@ -8,7 +8,7 @@
 
 > **getVideoConstraint**(): [`VideoConstraint`](../interfaces/_internal_.VideoConstraint.md)
 
-Defined in: [browser/video.ts:26](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/browser/video.ts#L26)
+Defined in: [browser/video.ts:26](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/browser/video.ts#L26)
 
 Get current resolution depending on device
 

@@ -15,6 +15,8 @@
 A comprehensive collection of TypeScript/JavaScript utility functions for both Node.js and browser environments. This library provides a wide range of helper functions for common programming tasks, including array manipulation, date handling, string operations, and more.
 
 The generated TypeDoc site is published on GitHub Pages, and a markdown docs tree is also published under `/markdown/` for raw retrieval and LLM-friendly consumption.
+For the full API index, start here: [markdown/modules.md](https://victory-sokolov.github.io/utils/markdown/modules.md).
+Node-only APIs are listed here: [markdown/node/modules.md](https://victory-sokolov.github.io/utils/markdown/node/modules.md).
 
 ## Features
 

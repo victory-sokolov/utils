@@ -6,7 +6,7 @@
 
 # Interface: ErrorWithStatus
 
-Defined in: [try-catch.ts:57](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/try-catch.ts#L57)
+Defined in: [try-catch.ts:57](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/try-catch.ts#L57)
 
 Extended Error interface with optional HTTP status code support.
 
@@ -33,6 +33,6 @@ class ApiError extends Error implements ErrorWithStatus {
 
 > `optional` **status?**: `number`
 
-Defined in: [try-catch.ts:59](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/try-catch.ts#L59)
+Defined in: [try-catch.ts:59](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/try-catch.ts#L59)
 
 HTTP status code associated with the error (e.g., 400, 404, 500)

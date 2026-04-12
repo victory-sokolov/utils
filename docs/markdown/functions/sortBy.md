@@ -8,7 +8,7 @@
 
 > **sortBy**\<`T`\>(`arr?`, `order?`, `key?`): `T`[]
 
-Defined in: [array.ts:125](https://github.com/victory-sokolov/utils/blob/65f11a56369c99065554109006908574974c4ac4/src/array.ts#L125)
+Defined in: [array.ts:125](https://github.com/victory-sokolov/utils/blob/08d23dd0d2e8c303e8548e693cf0af41a35a3482/src/array.ts#L125)
 
 Sort array of objects by a specific key
 
