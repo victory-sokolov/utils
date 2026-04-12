@@ -4,7 +4,7 @@
     "out": "docs",
     "includeVersion": true,
     "exclude": ["**/node_modules/**", "**/*.test.ts"],
-    "plugin": ["typedoc-theme-hierarchy"],
+    "plugin": ["typedoc-theme-hierarchy", "typedoc-plugin-missing-exports"],
     "theme": "hierarchy",
     "readme": "README.md",
     "githubPages": true,

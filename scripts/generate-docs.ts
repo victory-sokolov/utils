@@ -90,7 +90,11 @@ const runMode = (selectedMode: Exclude<DocsMode, 'all'>): Promise<void> => {
         return build('typedoc.markdown.json', 'markdown');
     }
 
-    return build('typedoc.node.markdown.json', 'markdown');
+    if (selectedMode === 'node-markdown') {
+        return build('typedoc.node.markdown.json', 'markdown');
+    }
+
+    throw new Error(`Unknown documentation mode: ${selectedMode}`);
 };
 
 const runAllModes = (): Promise<void> => {
@@ -100,7 +104,7 @@ const runAllModes = (): Promise<void> => {
 
     for (const childMode of childModes) {
         chain = chain.then(() => {
-            const result = spawnSync('bun', [scriptPath, childMode], {
+            const result = spawnSync(process.execPath, [scriptPath, childMode], {
                 cwd: rootDir,
                 stdio: 'inherit',
             });
