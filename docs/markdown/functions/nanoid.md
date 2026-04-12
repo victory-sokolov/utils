@@ -8,7 +8,7 @@
 
 > **nanoid**(`size?`): `string`
 
-Defined in: [crypto.ts:8](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/crypto.ts#L8)
+Defined in: [crypto.ts:8](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/crypto.ts#L8)
 
 `nanoid` implementation using Web Crypto `getRandomValues`.
 Assumes a Web Crypto implementation is available (e.g. `window.crypto` or `globalThis.crypto`).

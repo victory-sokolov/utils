@@ -8,7 +8,7 @@
 
 > **toRawType**(`value`): `string`
 
-Defined in: [is.ts:130](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/is.ts#L130)
+Defined in: [is.ts:130](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/is.ts#L130)
 
 Convert type [Object object] to raw type Object
 

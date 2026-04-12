@@ -8,7 +8,7 @@
 
 > **deepClone**\<`T`\>(`obj`): `T`
 
-Defined in: [object.ts:375](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/object.ts#L375)
+Defined in: [object.ts:375](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/object.ts#L375)
 
 Deep clone an object using structured cloning
 

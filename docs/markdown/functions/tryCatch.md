@@ -10,7 +10,7 @@
 
 > **tryCatch**\<`T`, `E`\>(`fnOrPromise`, `options?`): `Promise`\<[`Result`](../types/Result.md)\<`T`, `E`\>\>
 
-Defined in: [try-catch.ts:263](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/try-catch.ts#L263)
+Defined in: [try-catch.ts:263](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/try-catch.ts#L263)
 
 Wraps an operation and returns a Result object instead of throwing exceptions.
 
@@ -106,7 +106,7 @@ if (isFailure(result)) {
 
 > **tryCatch**\<`T`, `E`\>(`fn`, `options?`): [`Result`](../types/Result.md)\<`T`, `E`\>
 
-Defined in: [try-catch.ts:267](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/try-catch.ts#L267)
+Defined in: [try-catch.ts:267](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/try-catch.ts#L267)
 
 Wraps an operation and returns a Result object instead of throwing exceptions.
 

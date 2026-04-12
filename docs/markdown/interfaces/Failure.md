@@ -6,7 +6,7 @@
 
 # Interface: Failure\<E\>
 
-Defined in: [try-catch.ts:16](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/try-catch.ts#L16)
+Defined in: [try-catch.ts:16](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/try-catch.ts#L16)
 
 Failure variant of Result containing error and no data.
 
@@ -24,7 +24,7 @@ The type of the error
 
 > **data**: `null`
 
-Defined in: [try-catch.ts:17](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/try-catch.ts#L17)
+Defined in: [try-catch.ts:17](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/try-catch.ts#L17)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [try-catch.ts:17](https://github.com/victory-sokolov/utils/blob/f15d
 
 > **error**: `E`
 
-Defined in: [try-catch.ts:18](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/try-catch.ts#L18)
+Defined in: [try-catch.ts:18](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/try-catch.ts#L18)

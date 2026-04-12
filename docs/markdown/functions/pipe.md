@@ -10,7 +10,7 @@
 
 > **pipe**\<`FirstFn`, `F`\>(`arg`, `firstFn`, ...`fns`): [`LastFnReturnType`](../types/_internal_.LastFnReturnType.md)\<`F`, `ReturnType`\<`FirstFn`\>\>
 
-Defined in: [function.ts:61](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/function.ts#L61)
+Defined in: [function.ts:61](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/function.ts#L61)
 
 Composes functions from left to right, passing the result of each function to the next.
 
@@ -74,7 +74,7 @@ pipe(getValue, double); // Returns 20
 
 > **pipe**\<`FirstFn`, `F`\>(`firstFn`, ...`fns`): [`LastFnReturnType`](../types/_internal_.LastFnReturnType.md)\<`F`, `ReturnType`\<`FirstFn`\>\>
 
-Defined in: [function.ts:68](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/function.ts#L68)
+Defined in: [function.ts:68](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/function.ts#L68)
 
 Composes functions from left to right, passing the result of each function to the next.
 

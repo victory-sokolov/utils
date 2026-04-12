@@ -8,7 +8,7 @@
 
 > **isFunction**\<`T`\>(`val`): `val is T`
 
-Defined in: [is.ts:38](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/is.ts#L38)
+Defined in: [is.ts:38](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/is.ts#L38)
 
 Check if a value is a function
 

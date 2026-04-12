@@ -8,7 +8,7 @@
 
 > **NonNullable**\<`T`\> = `T` *extends* `null` \| `undefined` ? `never` : `T`
 
-Defined in: [types.ts:97](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/types.ts#L97)
+Defined in: [types.ts:97](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/types.ts#L97)
 
 Constructs a type by excluding `null` and `undefined` from a given type `T`.
 

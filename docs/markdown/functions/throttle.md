@@ -8,7 +8,7 @@
 
 > **throttle**\<`Args`\>(`fn`, `cooldown`): (...`args`) => `void`
 
-Defined in: [base.ts:96](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/base.ts#L96)
+Defined in: [base.ts:96](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/base.ts#L96)
 
 ## Type Parameters
 

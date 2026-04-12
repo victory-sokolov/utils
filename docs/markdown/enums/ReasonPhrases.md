@@ -6,7 +6,7 @@
 
 # Enumeration: ReasonPhrases
 
-Defined in: [http-status.ts:358](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L358)
+Defined in: [http-status.ts:358](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L358)
 
 ## Enumeration Members
 
@@ -14,7 +14,7 @@ Defined in: [http-status.ts:358](https://github.com/victory-sokolov/utils/blob/f
 
 > **ACCEPTED**: `"Accepted"`
 
-Defined in: [http-status.ts:359](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L359)
+Defined in: [http-status.ts:359](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L359)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [http-status.ts:359](https://github.com/victory-sokolov/utils/blob/f
 
 > **BAD\_GATEWAY**: `"Bad Gateway"`
 
-Defined in: [http-status.ts:360](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L360)
+Defined in: [http-status.ts:360](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L360)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [http-status.ts:360](https://github.com/victory-sokolov/utils/blob/f
 
 > **BAD\_REQUEST**: `"Bad Request"`
 
-Defined in: [http-status.ts:361](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L361)
+Defined in: [http-status.ts:361](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L361)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [http-status.ts:361](https://github.com/victory-sokolov/utils/blob/f
 
 > **CONFLICT**: `"Conflict"`
 
-Defined in: [http-status.ts:362](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L362)
+Defined in: [http-status.ts:362](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L362)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [http-status.ts:362](https://github.com/victory-sokolov/utils/blob/f
 
 > **CONTINUE**: `"Continue"`
 
-Defined in: [http-status.ts:363](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L363)
+Defined in: [http-status.ts:363](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L363)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [http-status.ts:363](https://github.com/victory-sokolov/utils/blob/f
 
 > **CREATED**: `"Created"`
 
-Defined in: [http-status.ts:364](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L364)
+Defined in: [http-status.ts:364](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L364)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [http-status.ts:364](https://github.com/victory-sokolov/utils/blob/f
 
 > **EXPECTATION\_FAILED**: `"Expectation Failed"`
 
-Defined in: [http-status.ts:365](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L365)
+Defined in: [http-status.ts:365](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L365)
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: [http-status.ts:365](https://github.com/victory-sokolov/utils/blob/f
 
 > **FAILED\_DEPENDENCY**: `"Failed Dependency"`
 
-Defined in: [http-status.ts:366](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L366)
+Defined in: [http-status.ts:366](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L366)
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: [http-status.ts:366](https://github.com/victory-sokolov/utils/blob/f
 
 > **FORBIDDEN**: `"Forbidden"`
 
-Defined in: [http-status.ts:367](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L367)
+Defined in: [http-status.ts:367](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L367)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [http-status.ts:367](https://github.com/victory-sokolov/utils/blob/f
 
 > **GATEWAY\_TIMEOUT**: `"Gateway Timeout"`
 
-Defined in: [http-status.ts:368](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L368)
+Defined in: [http-status.ts:368](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L368)
 
 ***
 
@@ -94,7 +94,7 @@ Defined in: [http-status.ts:368](https://github.com/victory-sokolov/utils/blob/f
 
 > **GONE**: `"Gone"`
 
-Defined in: [http-status.ts:369](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L369)
+Defined in: [http-status.ts:369](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L369)
 
 ***
 
@@ -102,7 +102,7 @@ Defined in: [http-status.ts:369](https://github.com/victory-sokolov/utils/blob/f
 
 > **HTTP\_VERSION\_NOT\_SUPPORTED**: `"HTTP Version Not Supported"`
 
-Defined in: [http-status.ts:370](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L370)
+Defined in: [http-status.ts:370](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L370)
 
 ***
 
@@ -110,7 +110,7 @@ Defined in: [http-status.ts:370](https://github.com/victory-sokolov/utils/blob/f
 
 > **IM\_A\_TEAPOT**: `"I'm a teapot"`
 
-Defined in: [http-status.ts:371](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L371)
+Defined in: [http-status.ts:371](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L371)
 
 ***
 
@@ -118,7 +118,7 @@ Defined in: [http-status.ts:371](https://github.com/victory-sokolov/utils/blob/f
 
 > **INSUFFICIENT\_SPACE\_ON\_RESOURCE**: `"Insufficient Space on Resource"`
 
-Defined in: [http-status.ts:372](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L372)
+Defined in: [http-status.ts:372](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L372)
 
 ***
 
@@ -126,7 +126,7 @@ Defined in: [http-status.ts:372](https://github.com/victory-sokolov/utils/blob/f
 
 > **INSUFFICIENT\_STORAGE**: `"Insufficient Storage"`
 
-Defined in: [http-status.ts:373](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L373)
+Defined in: [http-status.ts:373](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L373)
 
 ***
 
@@ -134,7 +134,7 @@ Defined in: [http-status.ts:373](https://github.com/victory-sokolov/utils/blob/f
 
 > **INTERNAL\_SERVER\_ERROR**: `"Internal Server Error"`
 
-Defined in: [http-status.ts:374](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L374)
+Defined in: [http-status.ts:374](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L374)
 
 ***
 
@@ -142,7 +142,7 @@ Defined in: [http-status.ts:374](https://github.com/victory-sokolov/utils/blob/f
 
 > **LENGTH\_REQUIRED**: `"Length Required"`
 
-Defined in: [http-status.ts:375](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L375)
+Defined in: [http-status.ts:375](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L375)
 
 ***
 
@@ -150,7 +150,7 @@ Defined in: [http-status.ts:375](https://github.com/victory-sokolov/utils/blob/f
 
 > **LOCKED**: `"Locked"`
 
-Defined in: [http-status.ts:376](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L376)
+Defined in: [http-status.ts:376](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L376)
 
 ***
 
@@ -158,7 +158,7 @@ Defined in: [http-status.ts:376](https://github.com/victory-sokolov/utils/blob/f
 
 > **METHOD\_FAILURE**: `"Method Failure"`
 
-Defined in: [http-status.ts:377](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L377)
+Defined in: [http-status.ts:377](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L377)
 
 ***
 
@@ -166,7 +166,7 @@ Defined in: [http-status.ts:377](https://github.com/victory-sokolov/utils/blob/f
 
 > **METHOD\_NOT\_ALLOWED**: `"Method Not Allowed"`
 
-Defined in: [http-status.ts:378](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L378)
+Defined in: [http-status.ts:378](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L378)
 
 ***
 
@@ -174,7 +174,7 @@ Defined in: [http-status.ts:378](https://github.com/victory-sokolov/utils/blob/f
 
 > **MOVED\_PERMANENTLY**: `"Moved Permanently"`
 
-Defined in: [http-status.ts:379](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L379)
+Defined in: [http-status.ts:379](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L379)
 
 ***
 
@@ -182,7 +182,7 @@ Defined in: [http-status.ts:379](https://github.com/victory-sokolov/utils/blob/f
 
 > **MOVED\_TEMPORARILY**: `"Moved Temporarily"`
 
-Defined in: [http-status.ts:380](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L380)
+Defined in: [http-status.ts:380](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L380)
 
 ***
 
@@ -190,7 +190,7 @@ Defined in: [http-status.ts:380](https://github.com/victory-sokolov/utils/blob/f
 
 > **MULTI\_STATUS**: `"Multi-Status"`
 
-Defined in: [http-status.ts:381](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L381)
+Defined in: [http-status.ts:381](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L381)
 
 ***
 
@@ -198,7 +198,7 @@ Defined in: [http-status.ts:381](https://github.com/victory-sokolov/utils/blob/f
 
 > **MULTIPLE\_CHOICES**: `"Multiple Choices"`
 
-Defined in: [http-status.ts:382](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L382)
+Defined in: [http-status.ts:382](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L382)
 
 ***
 
@@ -206,7 +206,7 @@ Defined in: [http-status.ts:382](https://github.com/victory-sokolov/utils/blob/f
 
 > **NETWORK\_AUTHENTICATION\_REQUIRED**: `"Network Authentication Required"`
 
-Defined in: [http-status.ts:383](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L383)
+Defined in: [http-status.ts:383](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L383)
 
 ***
 
@@ -214,7 +214,7 @@ Defined in: [http-status.ts:383](https://github.com/victory-sokolov/utils/blob/f
 
 > **NO\_CONTENT**: `"No Content"`
 
-Defined in: [http-status.ts:384](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L384)
+Defined in: [http-status.ts:384](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L384)
 
 ***
 
@@ -222,7 +222,7 @@ Defined in: [http-status.ts:384](https://github.com/victory-sokolov/utils/blob/f
 
 > **NON\_AUTHORITATIVE\_INFORMATION**: `"Non Authoritative Information"`
 
-Defined in: [http-status.ts:385](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L385)
+Defined in: [http-status.ts:385](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L385)
 
 ***
 
@@ -230,7 +230,7 @@ Defined in: [http-status.ts:385](https://github.com/victory-sokolov/utils/blob/f
 
 > **NOT\_ACCEPTABLE**: `"Not Acceptable"`
 
-Defined in: [http-status.ts:386](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L386)
+Defined in: [http-status.ts:386](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L386)
 
 ***
 
@@ -238,7 +238,7 @@ Defined in: [http-status.ts:386](https://github.com/victory-sokolov/utils/blob/f
 
 > **NOT\_FOUND**: `"Not Found"`
 
-Defined in: [http-status.ts:387](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L387)
+Defined in: [http-status.ts:387](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L387)
 
 ***
 
@@ -246,7 +246,7 @@ Defined in: [http-status.ts:387](https://github.com/victory-sokolov/utils/blob/f
 
 > **NOT\_IMPLEMENTED**: `"Not Implemented"`
 
-Defined in: [http-status.ts:388](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L388)
+Defined in: [http-status.ts:388](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L388)
 
 ***
 
@@ -254,7 +254,7 @@ Defined in: [http-status.ts:388](https://github.com/victory-sokolov/utils/blob/f
 
 > **NOT\_MODIFIED**: `"Not Modified"`
 
-Defined in: [http-status.ts:389](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L389)
+Defined in: [http-status.ts:389](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L389)
 
 ***
 
@@ -262,7 +262,7 @@ Defined in: [http-status.ts:389](https://github.com/victory-sokolov/utils/blob/f
 
 > **OK**: `"OK"`
 
-Defined in: [http-status.ts:390](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L390)
+Defined in: [http-status.ts:390](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L390)
 
 ***
 
@@ -270,7 +270,7 @@ Defined in: [http-status.ts:390](https://github.com/victory-sokolov/utils/blob/f
 
 > **PARTIAL\_CONTENT**: `"Partial Content"`
 
-Defined in: [http-status.ts:391](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L391)
+Defined in: [http-status.ts:391](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L391)
 
 ***
 
@@ -278,7 +278,7 @@ Defined in: [http-status.ts:391](https://github.com/victory-sokolov/utils/blob/f
 
 > **PAYMENT\_REQUIRED**: `"Payment Required"`
 
-Defined in: [http-status.ts:392](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L392)
+Defined in: [http-status.ts:392](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L392)
 
 ***
 
@@ -286,7 +286,7 @@ Defined in: [http-status.ts:392](https://github.com/victory-sokolov/utils/blob/f
 
 > **PERMANENT\_REDIRECT**: `"Permanent Redirect"`
 
-Defined in: [http-status.ts:393](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L393)
+Defined in: [http-status.ts:393](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L393)
 
 ***
 
@@ -294,7 +294,7 @@ Defined in: [http-status.ts:393](https://github.com/victory-sokolov/utils/blob/f
 
 > **PRECONDITION\_FAILED**: `"Precondition Failed"`
 
-Defined in: [http-status.ts:394](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L394)
+Defined in: [http-status.ts:394](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L394)
 
 ***
 
@@ -302,7 +302,7 @@ Defined in: [http-status.ts:394](https://github.com/victory-sokolov/utils/blob/f
 
 > **PRECONDITION\_REQUIRED**: `"Precondition Required"`
 
-Defined in: [http-status.ts:395](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L395)
+Defined in: [http-status.ts:395](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L395)
 
 ***
 
@@ -310,7 +310,7 @@ Defined in: [http-status.ts:395](https://github.com/victory-sokolov/utils/blob/f
 
 > **PROCESSING**: `"Processing"`
 
-Defined in: [http-status.ts:396](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L396)
+Defined in: [http-status.ts:396](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L396)
 
 ***
 
@@ -318,7 +318,7 @@ Defined in: [http-status.ts:396](https://github.com/victory-sokolov/utils/blob/f
 
 > **EARLY\_HINTS**: `"Early Hints"`
 
-Defined in: [http-status.ts:397](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L397)
+Defined in: [http-status.ts:397](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L397)
 
 ***
 
@@ -326,7 +326,7 @@ Defined in: [http-status.ts:397](https://github.com/victory-sokolov/utils/blob/f
 
 > **UPGRADE\_REQUIRED**: `"Upgrade Required"`
 
-Defined in: [http-status.ts:398](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L398)
+Defined in: [http-status.ts:398](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L398)
 
 ***
 
@@ -334,7 +334,7 @@ Defined in: [http-status.ts:398](https://github.com/victory-sokolov/utils/blob/f
 
 > **PROXY\_AUTHENTICATION\_REQUIRED**: `"Proxy Authentication Required"`
 
-Defined in: [http-status.ts:399](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L399)
+Defined in: [http-status.ts:399](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L399)
 
 ***
 
@@ -342,7 +342,7 @@ Defined in: [http-status.ts:399](https://github.com/victory-sokolov/utils/blob/f
 
 > **REQUEST\_HEADER\_FIELDS\_TOO\_LARGE**: `"Request Header Fields Too Large"`
 
-Defined in: [http-status.ts:400](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L400)
+Defined in: [http-status.ts:400](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L400)
 
 ***
 
@@ -350,7 +350,7 @@ Defined in: [http-status.ts:400](https://github.com/victory-sokolov/utils/blob/f
 
 > **REQUEST\_TIMEOUT**: `"Request Timeout"`
 
-Defined in: [http-status.ts:401](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L401)
+Defined in: [http-status.ts:401](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L401)
 
 ***
 
@@ -358,7 +358,7 @@ Defined in: [http-status.ts:401](https://github.com/victory-sokolov/utils/blob/f
 
 > **REQUEST\_TOO\_LONG**: `"Request Entity Too Large"`
 
-Defined in: [http-status.ts:402](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L402)
+Defined in: [http-status.ts:402](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L402)
 
 ***
 
@@ -366,7 +366,7 @@ Defined in: [http-status.ts:402](https://github.com/victory-sokolov/utils/blob/f
 
 > **REQUEST\_URI\_TOO\_LONG**: `"Request-URI Too Long"`
 
-Defined in: [http-status.ts:403](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L403)
+Defined in: [http-status.ts:403](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L403)
 
 ***
 
@@ -374,7 +374,7 @@ Defined in: [http-status.ts:403](https://github.com/victory-sokolov/utils/blob/f
 
 > **REQUESTED\_RANGE\_NOT\_SATISFIABLE**: `"Requested Range Not Satisfiable"`
 
-Defined in: [http-status.ts:404](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L404)
+Defined in: [http-status.ts:404](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L404)
 
 ***
 
@@ -382,7 +382,7 @@ Defined in: [http-status.ts:404](https://github.com/victory-sokolov/utils/blob/f
 
 > **RESET\_CONTENT**: `"Reset Content"`
 
-Defined in: [http-status.ts:405](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L405)
+Defined in: [http-status.ts:405](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L405)
 
 ***
 
@@ -390,7 +390,7 @@ Defined in: [http-status.ts:405](https://github.com/victory-sokolov/utils/blob/f
 
 > **SEE\_OTHER**: `"See Other"`
 
-Defined in: [http-status.ts:406](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L406)
+Defined in: [http-status.ts:406](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L406)
 
 ***
 
@@ -398,7 +398,7 @@ Defined in: [http-status.ts:406](https://github.com/victory-sokolov/utils/blob/f
 
 > **SERVICE\_UNAVAILABLE**: `"Service Unavailable"`
 
-Defined in: [http-status.ts:407](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L407)
+Defined in: [http-status.ts:407](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L407)
 
 ***
 
@@ -406,7 +406,7 @@ Defined in: [http-status.ts:407](https://github.com/victory-sokolov/utils/blob/f
 
 > **SWITCHING\_PROTOCOLS**: `"Switching Protocols"`
 
-Defined in: [http-status.ts:408](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L408)
+Defined in: [http-status.ts:408](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L408)
 
 ***
 
@@ -414,7 +414,7 @@ Defined in: [http-status.ts:408](https://github.com/victory-sokolov/utils/blob/f
 
 > **TEMPORARY\_REDIRECT**: `"Temporary Redirect"`
 
-Defined in: [http-status.ts:409](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L409)
+Defined in: [http-status.ts:409](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L409)
 
 ***
 
@@ -422,7 +422,7 @@ Defined in: [http-status.ts:409](https://github.com/victory-sokolov/utils/blob/f
 
 > **TOO\_MANY\_REQUESTS**: `"Too Many Requests"`
 
-Defined in: [http-status.ts:410](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L410)
+Defined in: [http-status.ts:410](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L410)
 
 ***
 
@@ -430,7 +430,7 @@ Defined in: [http-status.ts:410](https://github.com/victory-sokolov/utils/blob/f
 
 > **UNAUTHORIZED**: `"Unauthorized"`
 
-Defined in: [http-status.ts:411](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L411)
+Defined in: [http-status.ts:411](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L411)
 
 ***
 
@@ -438,7 +438,7 @@ Defined in: [http-status.ts:411](https://github.com/victory-sokolov/utils/blob/f
 
 > **UNAVAILABLE\_FOR\_LEGAL\_REASONS**: `"Unavailable For Legal Reasons"`
 
-Defined in: [http-status.ts:412](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L412)
+Defined in: [http-status.ts:412](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L412)
 
 ***
 
@@ -446,7 +446,7 @@ Defined in: [http-status.ts:412](https://github.com/victory-sokolov/utils/blob/f
 
 > **UNPROCESSABLE\_ENTITY**: `"Unprocessable Entity"`
 
-Defined in: [http-status.ts:413](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L413)
+Defined in: [http-status.ts:413](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L413)
 
 ***
 
@@ -454,7 +454,7 @@ Defined in: [http-status.ts:413](https://github.com/victory-sokolov/utils/blob/f
 
 > **UNSUPPORTED\_MEDIA\_TYPE**: `"Unsupported Media Type"`
 
-Defined in: [http-status.ts:414](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L414)
+Defined in: [http-status.ts:414](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L414)
 
 ***
 
@@ -462,7 +462,7 @@ Defined in: [http-status.ts:414](https://github.com/victory-sokolov/utils/blob/f
 
 > **USE\_PROXY**: `"Use Proxy"`
 
-Defined in: [http-status.ts:415](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L415)
+Defined in: [http-status.ts:415](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L415)
 
 ***
 
@@ -470,4 +470,4 @@ Defined in: [http-status.ts:415](https://github.com/victory-sokolov/utils/blob/f
 
 > **MISDIRECTED\_REQUEST**: `"Misdirected Request"`
 
-Defined in: [http-status.ts:416](https://github.com/victory-sokolov/utils/blob/f15da8f6aa5988652bf061bf72db9cb74604095a/src/http-status.ts#L416)
+Defined in: [http-status.ts:416](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/http-status.ts#L416)
