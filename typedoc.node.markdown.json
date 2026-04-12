@@ -1,0 +1,20 @@
+{
+    "name": "@vsokolov/utils",
+    "entryPoints": ["src/node/index.ts"],
+    "out": "docs/markdown/node",
+    "includeVersion": true,
+    "exclude": ["**/node_modules/**", "**/*.test.ts"],
+    "plugin": ["typedoc-plugin-missing-exports", "typedoc-plugin-markdown"],
+    "readme": "README.md",
+    "hideGenerator": true,
+    "cleanOutputDir": true,
+    "sort": ["source-order", "required-first", "kind"],
+    "searchInComments": true,
+    "navigation": {
+        "includeCategories": true,
+        "includeGroups": true
+    },
+    "router": "kind",
+    "entryFileName": "index",
+    "githubPages": false
+}
