@@ -77,10 +77,14 @@
 
     const copyText = (text) => navigator.clipboard.writeText(text);
 
-    const openAssistant = async (statusNode, assistantName, url) => {
+    const openAssistant = (statusNode, assistantName, url) => {
+        const clipboardPromise = copyText(buildPrompt());
         globalThis.open(url, '_blank', 'noopener,noreferrer');
-        await copyText(buildPrompt());
-        setStatus(statusNode, 'Prompt copied for ' + assistantName);
+        clipboardPromise.then(() => {
+            setStatus(statusNode, 'Prompt copied for ' + assistantName);
+        }).catch(() => {
+            setStatus(statusNode, 'Could not copy prompt');
+        });
     };
 
     const createIconElement = (className, ariaHidden, textContent) => {
@@ -186,8 +190,8 @@
         closeMenuCallback();
     };
 
-    const handleOpenAssistant = async (statusNode, assistantName, url, closeMenuCallback) => {
-        await openAssistant(statusNode, assistantName, url);
+    const handleOpenAssistant = (statusNode, assistantName, url, closeMenuCallback) => {
+        openAssistant(statusNode, assistantName, url);
         closeMenuCallback();
     };
 
