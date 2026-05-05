@@ -14,7 +14,7 @@ type FirstParameter<F extends AnyFunc> = F extends (arg: infer P, ...args: never
 // Helper type to get the parameter types of a function
 type ParametersOf<F extends AnyFunc> = F extends (...args: infer P) => unknown ? P : never;
 
-type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [
+type LastFnReturnType<F extends AnyFunc[], Else = never> = F extends [
     ...never[],
     (...arg: never) => infer R,
 ]
