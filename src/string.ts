@@ -49,6 +49,7 @@ export const escapeHtml = (unsafe: string): string =>
         .replaceAll('<', '&lt;')
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
+        .replaceAll('"', '&apos;')
         .replaceAll("'", '&#039;');
 
 /**
