@@ -8,7 +8,7 @@
 
 > **getMonthList**(): [`MonthName`](../types/MonthName.md)[]
 
-Defined in: [date.ts:22](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/date.ts#L22)
+Defined in: [date.ts:22](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/date.ts#L22)
 
 Get month names as a list of strings
 

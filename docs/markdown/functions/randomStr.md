@@ -8,7 +8,7 @@
 
 > **randomStr**(`len?`, `prefix?`): `string`
 
-Defined in: [string.ts:105](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/string.ts#L105)
+Defined in: [string.ts:106](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/string.ts#L106)
 
 Generate random string
 

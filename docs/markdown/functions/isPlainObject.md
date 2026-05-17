@@ -8,7 +8,7 @@
 
 > **isPlainObject**(`val`): `val is RecordObject`
 
-Defined in: [is.ts:182](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/is.ts#L182)
+Defined in: [is.ts:182](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/is.ts#L182)
 
 Check if a value is a plain object (created by {} or new Object())
 Returns false for arrays, Date, RegExp, Map, Set, class instances, etc.

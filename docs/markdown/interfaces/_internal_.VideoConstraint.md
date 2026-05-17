@@ -6,7 +6,7 @@
 
 # Interface: VideoConstraint
 
-Defined in: [browser/video.ts:5](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/browser/video.ts#L5)
+Defined in: [browser/video.ts:5](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/browser/video.ts#L5)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [browser/video.ts:5](https://github.com/victory-sokolov/utils/blob/e
 
 > `optional` **facingMode?**: [`CameraEnvironment`](../types/_internal_.CameraEnvironment.md)
 
-Defined in: [browser/video.ts:6](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/browser/video.ts#L6)
+Defined in: [browser/video.ts:6](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/browser/video.ts#L6)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [browser/video.ts:6](https://github.com/victory-sokolov/utils/blob/e
 
 > **height**: `object`
 
-Defined in: [browser/video.ts:7](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/browser/video.ts#L7)
+Defined in: [browser/video.ts:7](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/browser/video.ts#L7)
 
 #### exact?
 
@@ -38,7 +38,7 @@ Defined in: [browser/video.ts:7](https://github.com/victory-sokolov/utils/blob/e
 
 > **width**: `object`
 
-Defined in: [browser/video.ts:8](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/browser/video.ts#L8)
+Defined in: [browser/video.ts:8](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/browser/video.ts#L8)
 
 #### exact?
 

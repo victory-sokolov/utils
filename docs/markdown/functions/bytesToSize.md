@@ -8,7 +8,7 @@
 
 > **bytesToSize**(`bytes`): `string`
 
-Defined in: [base.ts:35](https://github.com/victory-sokolov/utils/blob/e7d22c93962dbad237596d866270e8c5259fb0ca/src/base.ts#L35)
+Defined in: [base.ts:35](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/base.ts#L35)
 
 Convert bytes to size in Human readable format
 
