@@ -7,10 +7,8 @@
             "dom"
         ],
         "module": "esnext",
-        "moduleResolution": "node",
-        "baseUrl": ".",
         "paths": {
-            "@/*": [ "src/*" ]
+            "@/*": [ "./src/*" ]
         },
         "types": [
             "./node_modules/user-agent-data-types",
