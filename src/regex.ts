@@ -1,4 +1,4 @@
-/**
+ /**
  * Validate email address
  * @param email Email address to validate
  * @returns True if email address is valid
