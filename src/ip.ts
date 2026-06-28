@@ -1,4 +1,3 @@
-
 /**
  * Validate if IP is valid IPV4
  * @param ip IP address
@@ -53,12 +52,16 @@ export const isPrivateIpv6 = (ip: string): boolean => {
 
     if (normalized === '::1') return true;
 
-    // fc00::/7
+    // Unique local addresses (fc00::/7).
+    // The /7 prefix covers both fc00::/8 and fd00::/8,
+    // Any address starting with "fc" or "fd" is considered private.
     if (normalized.startsWith('fc') || normalized.startsWith('fd')) {
         return true;
     }
 
-    // fe80::/10
+    // Link-local addresses (fe80::/10).
+    // The /10 prefix covers addresses from fe80:: through febf::,
+    // Which correspond to prefixes starting with fe8, fe9, fea, or feb.
     if (
         normalized.startsWith('fe8') ||
         normalized.startsWith('fe9') ||
@@ -88,7 +91,7 @@ export const isPrivateAddress = (address: string): boolean => {
     if (isValidIPV4(address)) {
         return isPrivateIpv4(address);
     }
-    
+
     if (isValidIPV6(address)) {
         return isPrivateIpv6(address);
     }
