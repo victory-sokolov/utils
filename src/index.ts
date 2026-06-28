@@ -9,6 +9,7 @@ export * from './function';
 export * from './html';
 export * from './http-status';
 export * from './is';
+export * from './ip';
 export * from './number';
 export * from './object';
 export * from './regex';
