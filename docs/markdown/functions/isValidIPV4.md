@@ -8,7 +8,7 @@
 
 > **isValidIPV4**(`ip`): `boolean`
 
-Defined in: [regex.ts:19](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/regex.ts#L19)
+Defined in: [ip.ts:6](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/ip.ts#L6)
 
 Validate if IP is valid IPV4
 

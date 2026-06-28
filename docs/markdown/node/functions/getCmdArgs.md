@@ -8,7 +8,7 @@
 
 > **getCmdArgs**(): `string`[]
 
-Defined in: [utils.ts:10](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/node/utils.ts#L10)
+Defined in: [utils.ts:10](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/node/utils.ts#L10)
 
 Get CMD arguments
 Example:

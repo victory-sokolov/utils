@@ -8,7 +8,7 @@
 
 > **pick**\<`T`, `K`\>(`obj`, ...`props`): \{ \[P in string \| number \| symbol\]: T\[P\] \}
 
-Defined in: [object.ts:45](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/object.ts#L45)
+Defined in: [object.ts:45](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/object.ts#L45)
 
 Pick specific keys from object
 

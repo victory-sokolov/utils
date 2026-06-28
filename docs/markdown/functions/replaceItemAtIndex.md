@@ -8,7 +8,7 @@
 
 > **replaceItemAtIndex**\<`T`\>(`index`, `newValue`, `arr?`): `T`[]
 
-Defined in: [array.ts:261](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/array.ts#L261)
+Defined in: [array.ts:261](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/array.ts#L261)
 
 Replace an item at a given index
 

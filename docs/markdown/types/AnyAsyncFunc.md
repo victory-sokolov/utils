@@ -8,7 +8,7 @@
 
 > **AnyAsyncFunc**\<`Input`, `Output`\> = (...`args`) => `Promise`\<`Output`\>
 
-Defined in: [function.ts:6](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/function.ts#L6)
+Defined in: [function.ts:6](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/function.ts#L6)
 
 ## Type Parameters
 

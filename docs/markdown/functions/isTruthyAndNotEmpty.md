@@ -8,7 +8,7 @@
 
 > **isTruthyAndNotEmpty**(`value`): `boolean`
 
-Defined in: [is.ts:147](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/is.ts#L147)
+Defined in: [is.ts:147](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/is.ts#L147)
 
 Checks whether a value is "truthy" and not an empty object or empty array.
 

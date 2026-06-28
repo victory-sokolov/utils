@@ -8,7 +8,7 @@
 
 > **flip**(`data`): [`RecordObject`](../types/RecordObject.md)
 
-Defined in: [object.ts:163](https://github.com/victory-sokolov/utils/blob/2c4cc43a8b863a0ab511d642adc1b93c4bf812c5/src/object.ts#L163)
+Defined in: [object.ts:163](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/object.ts#L163)
 
 Flip objects keys with objects values
 
