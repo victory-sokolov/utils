@@ -26,8 +26,7 @@ export const isValidIPV6 = (ip: string): boolean => {
  * @returns True if IP address is private
  */
 export const isPrivateIpv4 = (ip: string): boolean => {
-    const parts = ip.split('.').map(Number);
-    const [a, b] = parts;
+    const [a = -1, b = -1] = ip.split('.').map(Number);
 
     return (
         a === 10 ||
