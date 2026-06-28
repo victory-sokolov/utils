@@ -8,7 +8,7 @@
 
 > **zip**\<`T`\>(...`arrays`): `T`[]
 
-Defined in: [array.ts:391](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/array.ts#L391)
+Defined in: [array.ts:391](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/array.ts#L391)
 
 Zip multiple arrays together into an array of tuples
 

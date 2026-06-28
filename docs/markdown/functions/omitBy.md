@@ -8,7 +8,7 @@
 
 > **omitBy**\<`T`, `K`\>(`obj`, `predicate`): `Partial`\<`T`\>
 
-Defined in: [object.ts:215](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/object.ts#L215)
+Defined in: [object.ts:215](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/object.ts#L215)
 
 Remove properties from object where predicate returns true
 

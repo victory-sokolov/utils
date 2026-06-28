@@ -8,7 +8,7 @@
 
 > **debounce**\<`T`\>(`fn`, `delay`): (...`args`) => `void` & `object`
 
-Defined in: [base.ts:56](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/base.ts#L56)
+Defined in: [base.ts:56](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/base.ts#L56)
 
 Debouncing used to improve the performance of frequently executed actions,
 by delaying them, grouping them, and only executing the last call.

@@ -8,7 +8,7 @@
 
 > **isWeekday**(`date`): `boolean`
 
-Defined in: [date.ts:99](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/date.ts#L99)
+Defined in: [date.ts:99](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/date.ts#L99)
 
 Check if date is weekday
 

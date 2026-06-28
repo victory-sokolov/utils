@@ -6,7 +6,7 @@
 
 # Interface: HashOptions
 
-Defined in: [cryptography.ts:12](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/node/cryptography.ts#L12)
+Defined in: [cryptography.ts:12](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/node/cryptography.ts#L12)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [cryptography.ts:12](https://github.com/victory-sokolov/utils/blob/a
 
 > `optional` **digest?**: `string`
 
-Defined in: [cryptography.ts:13](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/node/cryptography.ts#L13)
+Defined in: [cryptography.ts:13](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/node/cryptography.ts#L13)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [cryptography.ts:13](https://github.com/victory-sokolov/utils/blob/a
 
 > `optional` **iterations?**: `number`
 
-Defined in: [cryptography.ts:14](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/node/cryptography.ts#L14)
+Defined in: [cryptography.ts:14](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/node/cryptography.ts#L14)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [cryptography.ts:14](https://github.com/victory-sokolov/utils/blob/a
 
 > `optional` **keyLen?**: `number`
 
-Defined in: [cryptography.ts:15](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/node/cryptography.ts#L15)
+Defined in: [cryptography.ts:15](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/node/cryptography.ts#L15)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [cryptography.ts:15](https://github.com/victory-sokolov/utils/blob/a
 
 > **str**: `string`
 
-Defined in: [cryptography.ts:16](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/node/cryptography.ts#L16)
+Defined in: [cryptography.ts:16](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/node/cryptography.ts#L16)

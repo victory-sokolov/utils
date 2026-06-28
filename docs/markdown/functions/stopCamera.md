@@ -8,7 +8,7 @@
 
 > **stopCamera**(`stream`, `isStreaming`): `void`
 
-Defined in: [browser/video.ts:88](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/browser/video.ts#L88)
+Defined in: [browser/video.ts:88](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/browser/video.ts#L88)
 
 Stop current video stream
 
