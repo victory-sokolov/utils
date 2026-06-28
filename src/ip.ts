@@ -45,6 +45,10 @@ export const isPrivateIpv4 = (ip: string): boolean => {
  * @returns True if IP address is private
  */
 export const isPrivateIpv6 = (ip: string): boolean => {
+    if (!isValidIPV6(ip)) {
+        return false;
+    }
+
     const normalized = ip.toLowerCase();
 
     if (normalized === '::1') return true;
