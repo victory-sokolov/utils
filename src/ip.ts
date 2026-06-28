@@ -1,4 +1,3 @@
-import { isIP } from 'node:net';
 
 /**
  * Validate if IP is valid IPV4
@@ -27,19 +26,16 @@ export const isValidIPV6 = (ip: string): boolean => {
  * @param address IP address
  * @returns True if IP address is private
  */
-export const isPrivateIpv4 = (address: string): boolean => {
-    const octets = address.split('.').map(Number);
-    const [first = -1, second = -1] = octets;
+export const isPrivateIpv4 = (ip: string): boolean => {
+    const parts = ip.split('.').map(Number);
+    const [a, b] = parts;
 
     return (
-        first === 10 ||
-        first === 127 ||
-        (first === 169 && second === 254) ||
-        (first === 172 && second >= 16 && second <= 31) ||
-        (first === 192 && second === 168) ||
-        (first === 100 && second >= 64 && second <= 127) ||
-        first >= 224 ||
-        first === 0
+        a === 10 ||
+        (a === 172 && b >= 16 && b <= 31) ||
+        (a === 192 && b === 168) ||
+        a === 127 ||
+        (a === 169 && b === 254)
     );
 };
 
@@ -48,28 +44,35 @@ export const isPrivateIpv4 = (address: string): boolean => {
  * @param address IP address
  * @returns True if IP address is private
  */
-export const isPrivateIpv6 = (address: string): boolean => {
-    const normalized = address.toLowerCase();
+export const isPrivateIpv6 = (ip: string): boolean => {
+    const normalized = ip.toLowerCase();
 
-    if (normalized.startsWith('::ffff:')) {
-        const ipv4 = normalized.slice(7);
-        if (isIP(ipv4) === 4) {
-            return isPrivateIpv4(ipv4);
-        }
+    if (normalized === '::1') return true;
+
+    // fc00::/7
+    if (normalized.startsWith('fc') || normalized.startsWith('fd')) {
+        return true;
     }
 
-    const isLinkLocal = (): boolean => {
-        const prefix = normalized.slice(0, 3);
-        return prefix === 'fe8' || prefix === 'fe9' || prefix === 'fea' || prefix === 'feb';
-    };
+    // fe80::/10
+    if (
+        normalized.startsWith('fe8') ||
+        normalized.startsWith('fe9') ||
+        normalized.startsWith('fea') ||
+        normalized.startsWith('feb')
+    ) {
+        return true;
+    }
 
-    return (
-        normalized === '::1' ||
-        isLinkLocal() ||
-        normalized.startsWith('fc') ||
-        normalized.startsWith('fd') ||
-        normalized === '::'
-    );
+    // IPv4-mapped IPv6
+    const mapped = normalized.match(/^::ffff:(\d+\.\d+\.\d+\.\d+)$/);
+    const mappedIpv4 = mapped?.[1];
+
+    if (mappedIpv4 && isValidIPV4(mappedIpv4)) {
+        return isPrivateIpv4(mappedIpv4);
+    }
+
+    return false;
 };
 
 /**
@@ -78,12 +81,11 @@ export const isPrivateIpv6 = (address: string): boolean => {
  * @returns True if IP address is private
  */
 export const isPrivateAddress = (address: string): boolean => {
-    const family = isIP(address);
-    if (family === 4) {
+    if (isValidIPV4(address)) {
         return isPrivateIpv4(address);
     }
-
-    if (family === 6) {
+    
+    if (isValidIPV6(address)) {
         return isPrivateIpv6(address);
     }
 
