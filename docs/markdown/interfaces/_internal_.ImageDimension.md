@@ -6,7 +6,7 @@
 
 # Interface: ImageDimension
 
-Defined in: [browser/image.ts:1](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/browser/image.ts#L1)
+Defined in: [browser/image.ts:1](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/browser/image.ts#L1)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [browser/image.ts:1](https://github.com/victory-sokolov/utils/blob/c
 
 > **width**: `number`
 
-Defined in: [browser/image.ts:2](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/browser/image.ts#L2)
+Defined in: [browser/image.ts:2](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/browser/image.ts#L2)
 
 ***
 
@@ -22,4 +22,4 @@ Defined in: [browser/image.ts:2](https://github.com/victory-sokolov/utils/blob/c
 
 > **height**: `number`
 
-Defined in: [browser/image.ts:3](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/browser/image.ts#L3)
+Defined in: [browser/image.ts:3](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/browser/image.ts#L3)

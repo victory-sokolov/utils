@@ -10,7 +10,7 @@
 
 > **filterFalsyFromObject**\<`T`\>(`obj`): `T`
 
-Defined in: [object.ts:94](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/object.ts#L94)
+Defined in: [object.ts:94](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/object.ts#L94)
 
 Removes falsy or empty values (`null`, `undefined`, `''`, `0`, `false`, etc.)
 from a plain object or an array of objects.
@@ -54,7 +54,7 @@ filterFalsyFromObject([{ a: 1, b: '' }, { a: 0, b: 'ok' }]);
 
 > **filterFalsyFromObject**\<`T`\>(`arr`): `T`[]
 
-Defined in: [object.ts:95](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/object.ts#L95)
+Defined in: [object.ts:95](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/object.ts#L95)
 
 Removes falsy or empty values (`null`, `undefined`, `''`, `0`, `false`, etc.)
 from a plain object or an array of objects.

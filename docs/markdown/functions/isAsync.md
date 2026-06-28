@@ -8,7 +8,7 @@
 
 > **isAsync**\<`T`\>(`fn`): `boolean`
 
-Defined in: [function.ts:101](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/function.ts#L101)
+Defined in: [function.ts:101](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/function.ts#L101)
 
 Check if function is asynchronous
 

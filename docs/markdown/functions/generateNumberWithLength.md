@@ -8,7 +8,7 @@
 
 > **generateNumberWithLength**(`length`): `number`
 
-Defined in: [number.ts:68](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/number.ts#L68)
+Defined in: [number.ts:68](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/number.ts#L68)
 
 Generate number sequence with specific length
 

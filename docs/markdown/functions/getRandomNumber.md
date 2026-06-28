@@ -8,7 +8,7 @@
 
 > **getRandomNumber**(`min`, `max`): `number`
 
-Defined in: [number.ts:38](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/number.ts#L38)
+Defined in: [number.ts:38](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/number.ts#L38)
 
 Get random number between two numbers
 

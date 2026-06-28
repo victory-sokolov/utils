@@ -8,7 +8,7 @@
 
 > **getWeekFirstDay**(`date`): `Date`
 
-Defined in: [date.ts:66](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/date.ts#L66)
+Defined in: [date.ts:66](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/date.ts#L66)
 
 Get first day of the week
 

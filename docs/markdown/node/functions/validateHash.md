@@ -8,7 +8,7 @@
 
 > **validateHash**(`options`): `boolean`
 
-Defined in: [cryptography.ts:51](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/node/cryptography.ts#L51)
+Defined in: [cryptography.ts:51](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/node/cryptography.ts#L51)
 
 Validated Hash string
 

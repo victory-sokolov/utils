@@ -8,7 +8,7 @@
 
 > **getCountryFromISO**(`iso`): [`Maybe`](../types/Maybe.md)\<`string`\>
 
-Defined in: [country.ts:12](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/country.ts#L12)
+Defined in: [country.ts:12](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/country.ts#L12)
 
 Get country name from ISO code
 

@@ -8,7 +8,7 @@
 
 > **timeAgo**(`date`): `string`
 
-Defined in: [date.ts:239](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/date.ts#L239)
+Defined in: [date.ts:239](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/date.ts#L239)
 
 ## Parameters
 

@@ -8,7 +8,7 @@
 
 > **trimNewLines**(`str`): `string`
 
-Defined in: [regex.ts:14](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/regex.ts#L14)
+Defined in: [regex.ts:14](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/regex.ts#L14)
 
 ## Parameters
 

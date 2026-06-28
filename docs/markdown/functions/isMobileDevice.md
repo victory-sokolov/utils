@@ -8,7 +8,7 @@
 
 > **isMobileDevice**(): `boolean`
 
-Defined in: [browser/browser.ts:37](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/browser/browser.ts#L37)
+Defined in: [browser/browser.ts:37](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/browser/browser.ts#L37)
 
 Check if user uses mobile device or desktop
 

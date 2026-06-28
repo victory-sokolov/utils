@@ -8,7 +8,7 @@
 
 > **formatDate**(`date?`): `string` \| `undefined`
 
-Defined in: [date.ts:8](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/date.ts#L8)
+Defined in: [date.ts:8](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/date.ts#L8)
 
 Format date to YYYY-MM-DD format
 

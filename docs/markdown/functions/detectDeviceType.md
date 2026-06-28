@@ -8,7 +8,7 @@
 
 > **detectDeviceType**(): [`DeviceType`](../types/_internal_.DeviceType.md)
 
-Defined in: [browser/browser.ts:26](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/browser/browser.ts#L26)
+Defined in: [browser/browser.ts:26](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/browser/browser.ts#L26)
 
 Detect device type: Mobile or Desktop
 

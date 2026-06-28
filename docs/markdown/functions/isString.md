@@ -8,7 +8,7 @@
 
 > **isString**(`val`): `val is string`
 
-Defined in: [is.ts:54](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/is.ts#L54)
+Defined in: [is.ts:54](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/is.ts#L54)
 
 Check if a value is a string
 

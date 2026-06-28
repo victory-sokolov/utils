@@ -8,7 +8,7 @@
 
 > **Result**\<`T`, `E`\> = [`Success`](../interfaces/Success.md)\<`T`\> \| [`Failure`](../interfaces/Failure.md)\<`E`\>
 
-Defined in: [try-catch.ts:40](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/try-catch.ts#L40)
+Defined in: [try-catch.ts:40](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/try-catch.ts#L40)
 
 Result type representing either a success with data or a failure with error.
 This discriminated union enables type-safe error handling without try/catch blocks.

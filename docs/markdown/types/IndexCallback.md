@@ -8,7 +8,7 @@
 
 > **IndexCallback**\<`T`\> = (`value`, `index`, `obj`) => `unknown`
 
-Defined in: [types.ts:46](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/types.ts#L46)
+Defined in: [types.ts:46](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/types.ts#L46)
 
 Callback function type for array operations
 

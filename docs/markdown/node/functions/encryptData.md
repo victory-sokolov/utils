@@ -8,7 +8,7 @@
 
 > **encryptData**(`plainText`, `secretKey`): `Promise`\<`string`\>
 
-Defined in: [cryptography.ts:110](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/node/cryptography.ts#L110)
+Defined in: [cryptography.ts:110](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/node/cryptography.ts#L110)
 
 Encrypts a string using AES-GCM with a given secret key.
 

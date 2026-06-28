@@ -8,7 +8,7 @@
 
 > **getUniqueByKey**\<`T`\>(`arr`, `key`): `T`[]
 
-Defined in: [object.ts:202](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/object.ts#L202)
+Defined in: [object.ts:202](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/object.ts#L202)
 
 Get unique keys, values by provided key
 const objArry = [{ id: 1 }, { id: 1 }, { id: 2 }, { id: 3 }];

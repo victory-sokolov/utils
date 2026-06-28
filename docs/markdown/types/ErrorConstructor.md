@@ -8,7 +8,7 @@
 
 > **ErrorConstructor**\<`E`\> = (`message`, `status?`, `cause?`) => `E`
 
-Defined in: [try-catch.ts:67](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/try-catch.ts#L67)
+Defined in: [try-catch.ts:67](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/try-catch.ts#L67)
 
 Constructor signature for custom error classes used with tryCatch.
 

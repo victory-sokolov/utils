@@ -8,7 +8,7 @@
 
 > **shuffleArray**\<`T`\>(`arr`): [`Collection`](../types/Collection.md)\<`T`\>
 
-Defined in: [array.ts:66](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/array.ts#L66)
+Defined in: [array.ts:66](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/array.ts#L66)
 
 Shuffle array values and returns a new array
 

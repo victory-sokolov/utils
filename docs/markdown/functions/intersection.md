@@ -8,7 +8,7 @@
 
 > **intersection**\<`T`\>(`arr1`, `arr2`): `T`[]
 
-Defined in: [array.ts:308](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/array.ts#L308)
+Defined in: [array.ts:308](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/array.ts#L308)
 
 Intersect two arrays
 intersection([1, 2, 3], [2, 3, 4]) // [2, 3]

@@ -8,7 +8,7 @@
 
 > **NonNegativeInteger**\<`T`\> = `number` *extends* `T` ? `never` : `` `${T}` `` *extends* `` `-${string}` `` \| `` `${string}.${string}` `` ? `never` : `T`
 
-Defined in: [types.ts:51](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/types.ts#L51)
+Defined in: [types.ts:51](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/types.ts#L51)
 
 Type to ensure a number is non-negative
 

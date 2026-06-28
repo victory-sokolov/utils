@@ -8,7 +8,7 @@
 
 > **fileToBase64**(`file`): `Promise`\<`string` \| `ArrayBuffer` \| `null`\>
 
-Defined in: [browser/image.ts:28](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/browser/image.ts#L28)
+Defined in: [browser/image.ts:28](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/browser/image.ts#L28)
 
 Convert file to base64 encoded format
 

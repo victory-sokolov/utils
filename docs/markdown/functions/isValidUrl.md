@@ -8,7 +8,7 @@
 
 > **isValidUrl**(`url`): `boolean`
 
-Defined in: [url.ts:6](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/url.ts#L6)
+Defined in: [url.ts:6](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/url.ts#L6)
 
 Validate url
 

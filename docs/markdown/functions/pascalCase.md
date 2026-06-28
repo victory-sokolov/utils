@@ -8,7 +8,7 @@
 
 > **pascalCase**(`str`, `separator?`): `string`
 
-Defined in: [string.ts:24](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/string.ts#L24)
+Defined in: [string.ts:24](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/string.ts#L24)
 
 String to pascalcase (example: iterationCount)
 

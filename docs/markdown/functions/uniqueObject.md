@@ -8,7 +8,7 @@
 
 > **uniqueObject**(`data`, `key`): [`RecordObject`](../types/RecordObject.md)[]
 
-Defined in: [object.ts:172](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/object.ts#L172)
+Defined in: [object.ts:172](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/object.ts#L172)
 
 Filter array of objects and remove dublicates by provided key
 

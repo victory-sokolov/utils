@@ -8,7 +8,7 @@
 
 > **dateRangeGenerator**(`start`, `end`, `step?`): `Generator`\<`Date`\>
 
-Defined in: [date.ts:198](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/date.ts#L198)
+Defined in: [date.ts:198](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/date.ts#L198)
 
 Source: https://www.30secondsofcode.org/js/s/date-range-generator/
 Usage: [...dateRangeGenerator(new Date('2021-06-01'), new Date('2021-06-04'))];

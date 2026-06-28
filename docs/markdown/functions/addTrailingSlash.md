@@ -8,7 +8,7 @@
 
 > **addTrailingSlash**(`url`): `string`
 
-Defined in: [url.ts:17](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/url.ts#L17)
+Defined in: [url.ts:17](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/url.ts#L17)
 
 Add trailing slash to url
 

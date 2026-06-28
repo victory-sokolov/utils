@@ -8,7 +8,7 @@
 
 > **removeEmpty**\<`T`\>(`value`): `T` \| `null`
 
-Defined in: [object.ts:304](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/object.ts#L304)
+Defined in: [object.ts:304](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/object.ts#L304)
 
 Recursively remove empty values (null, undefined, '', [], {}) from object or array
 

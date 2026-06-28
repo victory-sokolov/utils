@@ -8,7 +8,7 @@
 
 > `const` **COUNTRY\_NAMES**: `Record`\<`string`, `string`\>
 
-Defined in: [countries.ts:11](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/countries.ts#L11)
+Defined in: [countries.ts:11](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/countries.ts#L11)
 
 COUNTRY_NAMES
 

@@ -8,7 +8,7 @@
 
 > **objectEntries**\<`T`\>(`obj`): \[keyof `T`, `T`\[keyof `T`\]\][]
 
-Defined in: [object.ts:191](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/object.ts#L191)
+Defined in: [object.ts:191](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/object.ts#L191)
 
 Strict typed `Object.entries`
 

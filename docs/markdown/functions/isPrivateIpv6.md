@@ -8,7 +8,7 @@
 
 > **isPrivateIpv6**(`ip`): `boolean`
 
-Defined in: [ip.ts:45](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/ip.ts#L45)
+Defined in: [ip.ts:45](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/ip.ts#L45)
 
 Check if address is private IPV6
 

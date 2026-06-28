@@ -8,7 +8,7 @@
 
 > **groupBy**\<`T`, `K`\>(`arr`, `getKey`): `Record`\<`K`, `T`[]\>
 
-Defined in: [array.ts:368](https://github.com/victory-sokolov/utils/blob/caee527f505518389286007305e12efcf44fe4fe/src/array.ts#L368)
+Defined in: [array.ts:368](https://github.com/victory-sokolov/utils/blob/a1a98302c48929dac399024bdd32064377edce41/src/array.ts#L368)
 
 Group array items by a key extractor function
 
