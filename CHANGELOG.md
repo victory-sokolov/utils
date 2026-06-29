@@ -24,6 +24,19 @@
 
 * add ipv4/ipv6 validation ([06b1f0a](https://github.com/victory-sokolov/utils/commit/06b1f0a7961f2178efb32cac4d523cf172d1aabd))
 
+# [1.5.0](https://github.com/victory-sokolov/utils/compare/v1.4.2...v1.5.0) (2026-06-29)
+
+
+### Bug Fixes
+
+* add &apos to the escapeHtml ([ed5aa64](https://github.com/victory-sokolov/utils/commit/ed5aa64e1ec7ebf6eb57285ed5b8e0189a717408))
+* linter issues for docs generation ([aec88ae](https://github.com/victory-sokolov/utils/commit/aec88aef4778a8955e120244d504b1a222c7f010))
+
+
+### Features
+
+* add ipv4/ipv6 validation ([06b1f0a](https://github.com/victory-sokolov/utils/commit/06b1f0a7961f2178efb32cac4d523cf172d1aabd))
+
 # [1.5.0](https://github.com/victory-sokolov/utils/compare/v1.4.2...v1.5.0) (2026-06-28)
 
 
