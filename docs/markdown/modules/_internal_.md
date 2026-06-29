@@ -1,4 +1,4 @@
-[**@vsokolov/utils v1.4.2**](../index.md)
+[**@vsokolov/utils v1.5.0**](../index.md)
 
 ***
 

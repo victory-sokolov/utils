@@ -1,4 +1,4 @@
-**@vsokolov/utils v1.4.2**
+**@vsokolov/utils v1.5.0**
 
 ***
 

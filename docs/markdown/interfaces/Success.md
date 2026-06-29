@@ -1,4 +1,4 @@
-[**@vsokolov/utils v1.4.2**](../index.md)
+[**@vsokolov/utils v1.5.0**](../index.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: Success\<T\>
 
-Defined in: [try-catch.ts:6](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/try-catch.ts#L6)
+Defined in: [try-catch.ts:6](https://github.com/victory-sokolov/utils/blob/e6d77a3ea80bbfb952e9b5be031657c285122c6d/src/try-catch.ts#L6)
 
 Success variant of Result containing data and no error.
 
@@ -24,7 +24,7 @@ The type of the successful data
 
 > **data**: `T`
 
-Defined in: [try-catch.ts:7](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/try-catch.ts#L7)
+Defined in: [try-catch.ts:7](https://github.com/victory-sokolov/utils/blob/e6d77a3ea80bbfb952e9b5be031657c285122c6d/src/try-catch.ts#L7)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [try-catch.ts:7](https://github.com/victory-sokolov/utils/blob/a5071
 
 > **error**: `null`
 
-Defined in: [try-catch.ts:8](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/try-catch.ts#L8)
+Defined in: [try-catch.ts:8](https://github.com/victory-sokolov/utils/blob/e6d77a3ea80bbfb952e9b5be031657c285122c6d/src/try-catch.ts#L8)

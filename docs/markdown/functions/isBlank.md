@@ -1,4 +1,4 @@
-[**@vsokolov/utils v1.4.2**](../index.md)
+[**@vsokolov/utils v1.5.0**](../index.md)
 
 ***
 
@@ -8,7 +8,7 @@
 
 > **isBlank**(`value`): `boolean`
 
-Defined in: [is.ts:236](https://github.com/victory-sokolov/utils/blob/a50714d8016225aed5e3c160c65495a4f3bbb725/src/is.ts#L236)
+Defined in: [is.ts:236](https://github.com/victory-sokolov/utils/blob/e6d77a3ea80bbfb952e9b5be031657c285122c6d/src/is.ts#L236)
 
 Check if a value is blank (null, undefined, or empty string)
 Preserves 0 and false unlike falsy checks
