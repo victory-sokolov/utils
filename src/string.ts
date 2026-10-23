@@ -10,11 +10,11 @@ export const camelCase = (str: string): string =>
         // Remove all non-alphanumeric characters and spaces
         .replaceAll(/[^a-z0-9]/g, ' ')
         // Capitalize the first letter of each word (after spaces)
-        .replaceAll(/\s(\w)/g, (match, letter) => letter.toUpperCase())
+        .replaceAll(/\s\w/g, match => match.charAt(1).toUpperCase())
         // Remove leading spaces
         .replaceAll(/\s+/g, '')
         // Return the first letter in lowercase and the rest as-is
-        .replace(/^(\w)/, (match, letter) => letter.toLowerCase());
+        .replace(/^\w/, match => match.toLowerCase());
 
 /**
  * String to pascalcase (example: iterationCount)
@@ -34,7 +34,7 @@ export const pascalCase = (str: string, separator = ' '): string =>
  */
 export const kebabCase = (str: string): string =>
     str
-        .replaceAll(/([a-z])([A-Z])/g, '$1-$2')
+        .replaceAll(/[a-z][A-Z]/g, match => `${match.charAt(0)}-${match.charAt(1)}`)
         .replaceAll(/[\s_]/g, '-')
         .toLowerCase();
 

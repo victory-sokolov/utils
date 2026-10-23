@@ -46,14 +46,6 @@ const renderItemChildren = (item, context) =>
         ),
     );
 
-const renderDisabledItem = (item, context) =>
-    JSX.createElement(
-        JSX.Fragment,
-        null,
-        JSX.createElement('span', { class: 'category__link category__link--disable js-category-link category__link--ts' }, item.title),
-        renderDisabledChildren(item, context),
-    );
-
 const renderDisabledChildren = (item, context) =>
     JSX.createElement(
         'ul',
@@ -74,6 +66,14 @@ const renderDisabledChildren = (item, context) =>
                 ),
             ),
         ),
+    );
+
+const renderDisabledItem = (item, context) =>
+    JSX.createElement(
+        JSX.Fragment,
+        null,
+        JSX.createElement('span', { class: 'category__link category__link--disable js-category-link category__link--ts' }, item.title),
+        renderDisabledChildren(item, context),
     );
 
 const Item = ({ item, context }) => {
@@ -255,6 +255,8 @@ class OverrideTheme extends DefaultTheme {
         super(renderer);
         this.owner.on(RendererEvent.END, event => {
             const themeEntry = require.resolve('typedoc-theme-hierarchy');
+            // Keep asset copying synchronous so TypeDoc finishes the work before the event returns.
+            // oxlint-disable-next-line node/no-sync
             copySync(path.join(themeEntry, '../assets'), path.join(event.outputDirectory, 'assets'));
         });
     }

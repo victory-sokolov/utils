@@ -28,7 +28,7 @@ export const formatPrice = (
     currency: Currency = 'USD',
     locale = 'en-US',
 ): string => {
-    const price = Number.parseFloat(priceInCents);
+    const price = Number(priceInCents);
 
     // Handle invalid numbers
     if (Number.isNaN(price)) {

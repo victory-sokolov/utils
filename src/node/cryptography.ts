@@ -33,6 +33,8 @@ interface ValidateHashOptions {
 export const hashString = (options: HashOptions): HashResult => {
     const { digest = 'sha512', iterations = 210_000, keyLen = 64, str } = options;
     const salt = nodeCrypto.randomBytes(128).toString('base64');
+    // This public helper intentionally returns its hash synchronously.
+    // oxlint-disable-next-line node/no-sync
     const hash = nodeCrypto.pbkdf2Sync(str, salt, iterations, keyLen, digest).toString('hex');
     return {
         digest,
@@ -52,6 +54,8 @@ export const validateHash = (options: ValidateHashOptions): boolean => {
     const { digest, iterations, keyLen, password, savedHash, savedSalt } = options;
     return (
         savedHash ===
+        // This public helper intentionally validates synchronously.
+        // oxlint-disable-next-line node/no-sync
         nodeCrypto.pbkdf2Sync(password, savedSalt, iterations, keyLen, digest).toString('hex')
     );
 };
