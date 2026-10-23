@@ -1,12 +1,12 @@
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import { dirname, resolve } from 'node:path';
+import path from 'node:path';
 
 type DocsMode = 'all' | 'html' | 'markdown' | 'node-markdown';
 
-const scriptDir = dirname(fileURLToPath(import.meta.url));
-const rootDir = resolve(scriptDir, '..');
-const typedocBin = resolve(rootDir, 'node_modules/typedoc/bin/typedoc');
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const rootDir = path.resolve(scriptDir, '..');
+const typedocBin = path.resolve(rootDir, 'node_modules/typedoc/bin/typedoc');
 const mode = (process.argv[2] ?? 'all') as DocsMode;
 
 const configByMode: Record<Exclude<DocsMode, 'all'>, string> = {
@@ -16,7 +16,9 @@ const configByMode: Record<Exclude<DocsMode, 'all'>, string> = {
 };
 
 const runTypedoc = (selectedMode: Exclude<DocsMode, 'all'>): void => {
-    const configPath = resolve(rootDir, configByMode[selectedMode]);
+    const configPath = path.resolve(rootDir, configByMode[selectedMode]);
+    // Keep the CLI builds sequential and preserve their exit behavior.
+    // oxlint-disable-next-line node/no-sync
     const result = spawnSync(process.execPath, [typedocBin, '--options', configPath], {
         cwd: rootDir,
         stdio: 'inherit',

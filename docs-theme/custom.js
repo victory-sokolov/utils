@@ -40,16 +40,14 @@
             return pathname.replace(/\/hierarchy\.html$/, '/markdown/index.md');
         }
 
-        const sectionMatch = pathname.match(/\/(functions|types|interfaces|enums|variables|modules)\/([^/]+)\.html$/);
+        const sectionMatch = pathname.match(/\/(?:functions|types|interfaces|enums|variables|modules)\/[^/]+\.html$/);
         if (sectionMatch) {
-            const replaced = pathname.replace(`/${sectionMatch[1]}/${sectionMatch[2]}.html`, `/markdown/${sectionMatch[1]}/${sectionMatch[2]}.md`);
-            return replaced;
+            return '/markdown' + sectionMatch[0].replace(/\.html$/, '.md');
         }
 
-        const nodeMatch = pathname.match(/\/node\/(functions|types|interfaces|enums|variables|modules)\/([^/]+)\.html$/);
+        const nodeMatch = pathname.match(/\/node\/(?:functions|types|interfaces|enums|variables|modules)\/[^/]+\.html$/);
         if (nodeMatch) {
-            const replaced = pathname.replace(`/node/${nodeMatch[1]}/${nodeMatch[2]}.html`, `/markdown/node/${nodeMatch[1]}/${nodeMatch[2]}.md`);
-            return replaced;
+            return '/markdown' + nodeMatch[0].replace(/\.html$/, '.md');
         }
 
         return null;

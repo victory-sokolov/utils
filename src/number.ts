@@ -52,11 +52,15 @@ export const nFormatter = (amount: Maybe<string>): number => {
     }
     const lastChar = (amount.at(-1) ?? '').toLowerCase();
     if (lastChar === 'k') {
+        // Preserve parsing of a numeric prefix such as "1x".
+        // oxlint-disable-next-line unicorn/prefer-number-coercion
         return Number.parseFloat(amount.slice(0, -1)) * KILO;
     }
     if (lastChar === 'm') {
+        // oxlint-disable-next-line unicorn/prefer-number-coercion
         return Number.parseFloat(amount.slice(0, -1)) * MEGA;
     }
+    // oxlint-disable-next-line unicorn/prefer-number-coercion
     return Number.parseFloat(amount);
 };
 

@@ -46,7 +46,10 @@ export const isFileExists = (filePath: string): Promise<boolean> =>
  * @param dir
  */
 export const createDirIfNotExists = (dir: string): void => {
+    // This helper intentionally preserves its synchronous API for existing callers.
+    // oxlint-disable-next-line node/no-sync
     if (!existsSync(dir)) {
+        // oxlint-disable-next-line node/no-sync
         mkdirSync(dir, { recursive: true });
     }
 };
